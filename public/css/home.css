@@ -7,10 +7,10 @@
 }
 
 #home_box a {
+    width: calc(80% / 3);
     display: block;
     padding: 8px;
     align-items: center;
-    width: 90px;
     border-radius: 5px;
     border-color: var(--border);
     border-width: 1px;
@@ -41,4 +41,16 @@
     margin-top: 50px;
     color: var(--colorFontMain);
     font-size: 23px;
+}
+
+@media (max-width: 550px) {
+    #home_box a {
+        width: calc(80% / 2);
+    }
+}
+
+@media (max-width: 290px) {
+    #home_box a {
+        width: calc(80% / 1);
+    }
 }
