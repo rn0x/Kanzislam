@@ -1,6 +1,6 @@
 #header {
     height: 60px;
-    background-color: #ffffff;
+    background-color: var(--color_header);
 }
 
 #header_box {
@@ -59,6 +59,7 @@
     border-width: 1px;
     border-style: double;
     border-radius: 5px;
+    color: var(--colorFontMain);
 }
 
 #header_menu_left a:hover {
