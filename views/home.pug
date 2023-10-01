@@ -1,10 +1,15 @@
 extends ./layout.pug
 
+block stylesheet
+  link(rel="stylesheet" href="./css/home.css")
+
 block content
+  h2 Home page content
   h2#k4 
     | محتوى الصفحة الرئيسية
 
 block script
-
-  script(type="text/javascript").
-    console.log("محتوى الصفحة الرئيسية")
+  script(type="module")
+    include ../public/js/home.js
+  script.
+    window.options = !{jsStringify(options)};

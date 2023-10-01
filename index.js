@@ -3,6 +3,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import pug from 'pug';
 import home from './routes/home.js';
+import jsStringify from 'js-stringify';
 
 // Get the current working directory
 const __dirname = path.resolve();
@@ -16,7 +17,8 @@ const param = {
     path: path,
     fs: fs,
     config: config,
-    __dirname: __dirname
+    __dirname: __dirname,
+    jsStringify: jsStringify
 }
 
 app.disable('x-powered-by');

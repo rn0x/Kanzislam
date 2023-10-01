@@ -1,7 +1,23 @@
-h1 {
-    color: brown;
+@import url('header.css');
+@import url('footer.css');
+@import url('fonts.css');
+@import url('variables.css');
+
+
+html,
+body {
+    margin: 0 0 0 0;
+    background-color: var(--background);
+    color: var(--colorFontMain);
+    direction: var(--directionMain);
+    text-align: center;
+    font-family: var(--fontMain), sans-serif;
+}
+
+#content {
+    text-align: center;
 }
 
 h2 {
-    color: blue;
+    color: coral;
 }

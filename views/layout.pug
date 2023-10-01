@@ -19,12 +19,14 @@ html
         // وصف الصفحة
         meta(name="description" content="وصف_الصفحة")
         // اسم الموقع
-        title= title
+        title= options.title
         link(rel="stylesheet" href="./css/main.css")
         link(rel="shortcut icon" href="./image/logo.png")
+        block stylesheet
     body
 
         include header.pug
-        block content
+        #content 
+            block content
         include footer.pug
         block script
