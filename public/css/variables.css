@@ -1,6 +1,8 @@
 :root {
-    --background: #f3f4f6;
+    --background: #eceff4;
+    --background_hover: #f7f7f7;
     --fontMain: "Cairo";
     --colorFontMain: #1b1b1f;
     --directionMain: rtl;
+    --border: #dbe1e6;
 }
