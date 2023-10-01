@@ -12,10 +12,16 @@ body {
     direction: var(--directionMain);
     text-align: center;
     font-family: var(--fontMain), sans-serif;
+    color: var(--colorFontMain);
 }
 
 #content {
     text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: var(--colorFontMain);
 }
 
 h2 {
