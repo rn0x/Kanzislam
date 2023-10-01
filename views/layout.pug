@@ -1,0 +1,30 @@
+doctype html
+html
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible" content="IE=edge")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        // content="article" قم بتغييرها للمقالات
+        meta(property="og:type" content="website")
+        // عنوان الصفحه
+        meta(property="og:title" content="عنوان_الصفحة")
+        // إسم الموقع
+        meta(property="og:site_name" content="اسم_الموقع")
+        // كلمات دلالية للصفحة
+        meta(name="keywords" content="wor1,word2,word3")
+        // صورة المعاينة للصفحة
+        meta(property="og:image" content="./image/preview.png")
+        // وصف الصفحة
+        meta(property="og:description" content="وصف_الصفحة")
+        // وصف الصفحة
+        meta(name="description" content="وصف_الصفحة")
+        // اسم الموقع
+        title= title
+        link(rel="stylesheet" href="./css/main.css")
+        link(rel="shortcut icon" href="./image/logo.png")
+    body
+
+        include header.pug
+        block content
+        include footer.pug
+        block script
