@@ -1,3 +1,44 @@
-#k4 {
-    color: blueviolet;
+#home_box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#home_box a {
+    display: block;
+    padding: 8px;
+    align-items: center;
+    width: 90px;
+    border-radius: 5px;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: double;
+    border-radius: 8px;
+    margin: 5px 5px 5px 5px;
+    background-color: var(--background_white);
+}
+
+#home_box a:hover {
+    background-color: var(--background_hover);
+}
+
+
+#home_box a p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 13px;
+
+}
+
+#home_box a img {
+    width: 48px;
+    height: 48px;
+}
+
+#home_category h2 {
+    margin-top: 50px;
+    color: var(--colorFontMain);
+    font-size: 23px;
 }

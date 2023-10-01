@@ -1,3 +1,10 @@
-#footer h1 {
-    color: #14c33d;
+#footer {
+    display: block;
+    background-color: var(--color_header);
+}
+
+#logo_footer {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 30pX;
 }

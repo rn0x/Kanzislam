@@ -13,11 +13,16 @@ body {
     text-align: center;
     font-family: var(--fontMain), sans-serif;
     color: var(--colorFontMain);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 #content {
+    flex: 1;
     text-align: center;
 }
+
 
 a {
     text-decoration: none;
