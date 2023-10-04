@@ -35,17 +35,9 @@ let User = sequelize?.define('users', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    country: {
+    type: {
         type: DataTypes.STRING,
-        allowNull: false
-    },
-    gender: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    age: {
-        type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
     },
     date: {
         type: DataTypes.DATE,

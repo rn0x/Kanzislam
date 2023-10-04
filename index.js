@@ -4,7 +4,6 @@ import bodyParser from "body-parser";
 import fs from 'fs-extra';
 import path from 'path';
 import pug from 'pug';
-import home from './routes/home.js';
 import jsStringify from 'js-stringify';
 import {
     sequelize,
@@ -13,7 +12,9 @@ import {
     removeColumn,
     addColumn
 } from './modules/database.js';
+import home from './routes/home.js';
 import login from './routes/login.js';
+import register from './routes/register.js';
 
 // Get the current working directory
 const __dirname = path.resolve();
@@ -51,6 +52,7 @@ app.use(session({
 // routes
 await home(param); // الصفحة الرئيسية
 await login(param); // صفحة تسجيل الدخول
+await register(param); // صفحة تسجيل عضوية
 
 
 app.use(function (req, res, next) {

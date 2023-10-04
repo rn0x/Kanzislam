@@ -6,8 +6,8 @@ export default async (param) => {
     param.app.post('/login', async (request, response) => {
 
         const { username, password } = request.body;
-        const GetUser = await User.findOne({
-            where: { name: username}
+        let GetUser = await User.findOne({
+            where: { username: username}
         });
         console.log(GetUser?.dataValues);
 

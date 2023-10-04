@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", async function () {
 
-    const options = window.options
+    const options = window.options;
     let alertEl = document.getElementById("alert");
     let loginbox = document.getElementById("loginbox");
     let loggedIn_bt = document.getElementById("loggedIn_bt");
@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         loginbox.style.display = "block";
         loggedIn_bt.addEventListener("click", async () => {
             let loginURL = window.location.href;
-
             let loginFetch = await fetch(loginURL, {
                 method: "POST",
                 headers: {
@@ -34,7 +33,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     username: loginusername.value,
                     password: loginpassword.value
                 }),
-            })
+            });
             let response = await loginFetch?.json();
 
             if (response?.logged_in) {

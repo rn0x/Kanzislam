@@ -1,0 +1,52 @@
+extends ./layout.pug
+
+block stylesheet
+  link(rel="stylesheet" href="./css/register.css")
+
+block content
+  #registerPage 
+    h2 إنشاء حساب جديد
+    ul#registerBox
+      li#name 
+        p الإسم الثلاثي
+          span *
+        input(type="text" placeholder="أكتب اسمك باللغة العربية")
+        small 
+      li#username
+        p إسم المستخدم
+          span *
+        input(type="text" placeholder="أكتب إسم المستخدم باللغة الإنجليزية")
+        small 
+      li#email
+        p البريد الإلكتروني
+          span *
+        input(type="email" placeholder="أدخل البريد الإلكتروني الخاص بك")
+        small
+      li#password
+        p كلمة المرور
+          span *
+        input(type="password" placeholder="أدخل كلمة المرور الخاصة بك")
+        small
+      li#verification_question 
+        p 
+          span *
+        input(type="text" placeholder="قم بالإجابة على سؤال التحقق")#verification_question_input
+        small
+    #registerTerms
+      div   
+        input(type="checkbox")#checkTerms
+        p قرأت وأوافق على
+          span 
+            a(href="#") شروط استخدام 
+          span و
+          span 
+           a(href="") بيان الخصوصية 
+      small#checkTermsMassage= `لم تقم بالموافقة على شروط استخدام ${options.website_name}`
+    button#registerButton تسجيل
+
+
+block script
+  script(type="module")
+    include ../public/js/register.js
+  script.
+    window.options = !{jsStringify(options)};
