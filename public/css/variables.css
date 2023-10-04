@@ -4,8 +4,11 @@
     --background_hover: #f7f7f7;
     --fontMain: "Cairo";
     --colorFontMain: #1d2b64;
+    --colorFontMain_hover: #294cd9;
     --colorFont2: #7b8189;
+    --colorWhite: #ffffff;
+    --button: #1d2b64;
     --directionMain: rtl;
-    --border: #dbe1e6;
+    --border: #cdd1d4;
     --color_header: #ffffff;
 }

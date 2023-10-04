@@ -1,0 +1,31 @@
+extends ./layout.pug
+
+block stylesheet
+  link(rel="stylesheet" href="./css/login.css")
+
+block content
+  #loginPage 
+    #alert
+    #loginbox
+      h2 تسجيل الدخول
+      #loginusername
+        p إسم المستخدم
+        input(type="text" placeholder="أدخل إسم المستخدم الخاصة بك")
+        small البريد الإلكتروني أو كلمة السر غير صالحة.
+      #loginpassword
+        p كلمة المرور 
+        input(type="password" placeholder="أدخل كلمة المرور الخاصة بك")
+      button#loggedIn_bt دخول
+      h4 مساعدة
+      ul 
+        li 
+          a(href="#") لا أملك حساب بعد
+        li 
+          a(href="#") فقدت كلمة المرور
+        li 
+          a(href="#") لم يصلني رمز التفعيل
+block script
+  script(type="module")
+    include ../public/js/login.js
+  script.
+    window.options = !{jsStringify(options)};

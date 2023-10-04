@@ -1,9 +1,14 @@
+#rights {
+    margin-top: 50px;
+}
+
 #footer {
     display: block;
     background-color: var(--color_header);
     border-top-color: var(--border);
     border-top-width: 1px;
     border-top-style: double;
+    margin-top: 30px;
 }
 
 #logo_footer {

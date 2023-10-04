@@ -28,3 +28,14 @@ a {
     text-decoration: none;
     color: var(--colorFontMain);
 }
+
+button {
+    font-family: var(--fontMain);
+    color: var(--colorFontMain);
+    cursor: pointer;
+}
+
+input {
+    font-family: var(--fontMain);
+    color: var(--colorFont2);
+}
