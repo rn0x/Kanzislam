@@ -9,6 +9,7 @@ export default async (param) => {
             keywords: ["word1", "word2", "word3"],
             description: "وصف_الصفحة",
             preview: "صورة_المعاينة_للصفحة",
+            session: request.session
         };
         let pugPath = param.path.join(param.__dirname, './views/home.pug');
         let render = param.pug.renderFile(pugPath, { options: options, jsStringify: param.jsStringify });

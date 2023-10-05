@@ -30,3 +30,7 @@ html
             block content
         include footer.pug
         block script
+        script(type="module")
+            include ../public/js/main.js
+        script.
+            window.options = !{jsStringify(options)};

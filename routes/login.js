@@ -9,8 +9,6 @@ export default async (param) => {
         let GetUser = await User.findOne({
             where: { username: username}
         });
-        console.log(GetUser?.dataValues);
-
         // تعيين متغير لتتبع عدد مرات إدخال بيانات غير صحيحة
         let loginAttempts = request.session.loginAttempts || 0;
 

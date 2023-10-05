@@ -8,8 +8,6 @@
     justify-content: space-between;
     align-items: center;
     height: 100%;
-    padding-left: 10px;
-    padding-right: 10px;
     border-bottom-color: var(--border);
     border-bottom-width: 1px;
     border-bottom-style: double;
@@ -19,6 +17,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-right: 10px;
 }
 
 #icon_menu {
@@ -48,6 +47,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-left: 10px;
 }
 
 #header_menu_left a {
@@ -96,8 +96,120 @@
     margin-left: 8px;
 }
 
+#header_menu_left_isLoggedIn {
+    display: none;
+    height: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+}
+
+#header_menu_left_isLoggedIn:hover {
+    background-color: var(--background_hover);
+}
+
+#header_menu_left_isLoggedIn img {
+    display: block;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin: auto;
+}
+
+#menu_logged {
+    display: none;
+    position: absolute;
+    background-color: var(--background_white);
+    left: 0;
+    width: 150px;
+    margin-top: 217px;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: double;
+    padding: 5px;
+}
+
+#menu_logged ul {
+    padding: 0px;
+    list-style: none;
+}
+
+#menu_logged ul li {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#menu_logged ul li a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 5px;
+    font-size: 12px;
+    background-color: var(--background_white);
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: double;
+    box-sizing: border-box;
+}
+
+#menu_logged ul li a:hover {
+    background-color: var(--background_hover);
+}
+
+#menu_logged ul li a img {
+    width: 10px;
+    margin-right: 5px;
+}
+
+#logoutButton {
+    display: block;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 8px;
+    padding: 5px;
+    background-color: var(--button);
+    color: var(--colorWhite);
+    border: none;
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+#logoutButton:hover {
+    background-color: var(--background_hover);
+    color: var(--colorFontMain);
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: double;
+}
+
 @media (max-width: 750px) {
     #header_menu_top {
         display: none;
+    }
+}
+
+@media (max-width: 430px) {
+    #header_menu_left a {
+        padding: 3px;
+        width: 60px;
+        margin-right: 5px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 360px) {
+    #header_menu_left {
+        display: block;
+        justify-content: space-between;
+        align-items: center;
+        margin-left: 10px;
+    }
+
+    #header_menu_left a {
+        display: block;
+        padding: 1px;
+        margin-bottom: 2px;
+        width: 70px;
     }
 }

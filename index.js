@@ -15,6 +15,7 @@ import {
 import home from './routes/home.js';
 import login from './routes/login.js';
 import register from './routes/register.js';
+import logout from './routes/logout.js';
 
 // Get the current working directory
 const __dirname = path.resolve();
@@ -53,6 +54,7 @@ app.use(session({
 await home(param); // الصفحة الرئيسية
 await login(param); // صفحة تسجيل الدخول
 await register(param); // صفحة تسجيل عضوية
+await logout(param); // تسجيل الخروج
 
 
 app.use(function (req, res, next) {
