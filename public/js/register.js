@@ -36,12 +36,12 @@ document.addEventListener("DOMContentLoaded", async function (e) {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    name: name?.value,
-                    username: username?.value,
+                    name: name?.value?.trim()?.toLocaleLowerCase(),
+                    username: username?.value?.trim()?.toLocaleLowerCase(),
                     password: password?.value,
-                    email: email?.value,
+                    email: email?.value?.trim()?.toLocaleLowerCase(),
                     question: options?.question,
-                    verification_question: verification_question_value?.value,
+                    verification_question: verification_question_value?.value?.trim()?.toLocaleLowerCase(),
                     checkTerms: checkTerms?.checked,
                 }),
             });

@@ -1,9 +1,9 @@
-export default async (param) => {
+export default (param) => {
 
-    const config = param.config;
-    param.app.get('/test', async (request, response) => {
+    const { app, pug, path, fs, config, __dirname, jsStringify } = param;
+    app.get('/test', async (request, response) => {
 
-        console.log(param.config);
+        console.log(config);
         let options = {
             website_name: config.website_name,
             title: `عنوان الصفحة - ${config.website_name}`,
@@ -12,8 +12,8 @@ export default async (param) => {
             preview: "صورة_المعاينة_للصفحة",
             session: request.session
         };
-        let pugPath = param.path.join(param.__dirname, './views/test.pug');
-        let render = param.pug.renderFile(pugPath, { options: options, jsStringify: param.jsStringify });
+        let pugPath = path.join(__dirname, './views/test.pug');
+        let render = pug.renderFile(pugPath, { options: options, jsStringify: jsStringify });
         response.send(render);
     });
 }

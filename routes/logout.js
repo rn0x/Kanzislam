@@ -1,7 +1,7 @@
-export default async (param) => {
+export default (param) => {
 
-    const config = param.config;
-    param.app.post('/logout', async (request, response) => {
+    const { app, pug, path, fs, config, __dirname, jsStringify } = param;
+    app.post('/logout', async (request, response) => {
 
         request.session.destroy();
         response.json({ logout: true, massage: 'تم تسجيل الخروج بنجاح' });

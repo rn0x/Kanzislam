@@ -30,8 +30,8 @@ document.addEventListener("DOMContentLoaded", async function () {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    username: loginusername.value,
-                    password: loginpassword.value
+                    username: loginusername?.value?.trim()?.toLocaleLowerCase(),
+                    password: loginpassword?.value
                 }),
             });
             let response = await loginFetch?.json();

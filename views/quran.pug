@@ -1,0 +1,21 @@
+extends ./layout.pug
+
+block stylesheet
+  link(rel="stylesheet" href="/css/quran.css")
+
+block content
+  #quranPage 
+    h2 فهرس سور القران الكريم
+    ul#quranIndex 
+      //- li 
+      //-   a(href="#") 
+      //-     h2 الفاتحة
+      //-     p 1
+      //-     div 
+      //-       small.descent مكية
+      //-       small.english_name The Opening
+block script
+  script(type="module")
+    include ../public/js/quran.js
+  script.
+    window.options = !{jsStringify(options)};

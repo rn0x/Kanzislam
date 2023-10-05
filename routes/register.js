@@ -1,9 +1,9 @@
-export default async (param) => {
+export default (param) => {
 
-    const config = param.config;
-    let User = param.database.User
+    const { app, pug, path, fs, config, __dirname, jsStringify, database } = param;
+    let User = database.User
 
-    param.app.post('/register', async (request, response) => {
+    app.post('/register', async (request, response) => {
 
         const { name, username, password, email, question, verification_question, checkTerms } = request.body;
         let verification_q = verification_question === 'الله' ? true : false
@@ -56,7 +56,7 @@ export default async (param) => {
 
     });
 
-    param.app.get('/register', async (request, response) => {
+    app.get('/register', async (request, response) => {
 
         let options = {
             website_name: config.WEBSITE_NAME,
@@ -67,8 +67,8 @@ export default async (param) => {
             session: request.session,
             question: "من هو ربك ؟"
         };
-        let pugPath = param.path.join(param.__dirname, './views/register.pug');
-        let render = param.pug.renderFile(pugPath, { options: options, jsStringify: param.jsStringify });
+        let pugPath = path.join(__dirname, './views/register.pug');
+        let render = pug.renderFile(pugPath, { options: options, jsStringify: jsStringify });
         response.send(render);
     });
 }

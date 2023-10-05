@@ -1,13 +1,13 @@
-export default async (param) => {
+export default (param) => {
 
-    const config = param.config;
-    let User = param.database.User
+    const { app, pug, path, fs, config, __dirname, jsStringify, database } = param;
+    let User = database.User
 
-    param.app.post('/login', async (request, response) => {
+    app.post('/login', async (request, response) => {
 
         const { username, password } = request.body;
         let GetUser = await User.findOne({
-            where: { username: username}
+            where: { username: username }
         });
         // تعيين متغير لتتبع عدد مرات إدخال بيانات غير صحيحة
         let loginAttempts = request.session.loginAttempts || 0;
@@ -53,7 +53,7 @@ export default async (param) => {
     });
 
 
-    param.app.get('/login', async (request, response) => {
+    app.get('/login', async (request, response) => {
 
         let options = {
             website_name: config.WEBSITE_NAME,
@@ -63,8 +63,8 @@ export default async (param) => {
             preview: "صورة_المعاينة_للصفحة",
             session: request.session
         };
-        let pugPath = param.path.join(param.__dirname, './views/login.pug');
-        let render = param.pug.renderFile(pugPath, { options: options, jsStringify: param.jsStringify });
+        let pugPath = path.join(__dirname, './views/login.pug');
+        let render = pug.renderFile(pugPath, { options: options, jsStringify: jsStringify });
         response.send(render);
     });
 }
