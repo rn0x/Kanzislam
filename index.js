@@ -12,6 +12,7 @@ import {
     removeColumn,
     addColumn,
 } from './modules/database.js';
+import filterSpan from './modules/filterSpan.js';
 import home from './routes/home.js';
 import login from './routes/login.js';
 import register from './routes/register.js';
@@ -39,6 +40,7 @@ const param = {
         removeColumn,
         addColumn,
     },
+    filterSpan
 };
 
 app.disable('x-powered-by');

@@ -27,7 +27,7 @@
     background-color: var(--background_hover);
 }
 
-#quranIndex li h2{
+#quranIndex li h2 {
     margin-top: 0px;
     margin-bottom: 0px;
 }
@@ -56,7 +56,7 @@
     margin-top: 25px;
     margin-right: -40px !important;
     margin-right: auto;
-    background-color:var(--button);
+    background-color: var(--button);
     color: var(--colorWhite);
     border-radius: 8px;
 }
@@ -77,4 +77,234 @@
     #quranIndex li {
         width: 100%
     }
+}
+
+#breadcrumb {
+    display: flex;
+    align-items: center;
+    width: 80%;
+    list-style: none;
+    padding: 15px;
+}
+
+#breadcrumb li {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#breadcrumb li small {
+    margin-left: 10px;
+    user-select: none;
+    color: var(--colorFont2);
+}
+
+#breadcrumb li a img {
+    width: 35px;
+    user-select: none;
+}
+
+#breadcrumb li a:hover {
+    color: var(--colorFontMain_hover);
+}
+
+#quranPathBox {
+    width: 90%;
+    max-width: 1000px;
+    background-color: var(--background_white);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+}
+
+#bisamla {
+    margin-top: 10px;
+    font-family: var(--fontQuran), sans-serif;
+    font-size: 30px;
+}
+
+#surah {
+    padding: 23px;
+    font-family: var(--fontQuran), sans-serif;
+    font-size: 22px;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: double;
+    border-radius: 5px;
+    text-align: justify;
+    line-height: 2.5;
+}
+
+#previousSurah {
+    display: block;
+    float: right;
+    margin-right: -20px;
+    background-color: var(--button);
+    color: var(--colorWhite);
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+}
+
+#previousSurah:hover {
+    background-color: var(--background_hover);
+    color: var(--colorFontMain);
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: double;
+}
+
+#nextSurah {
+    display: block;
+    float: left;
+    margin-left: -20px;
+    background-color: var(--button);
+    color: var(--colorWhite);
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+}
+
+#nextSurah:hover {
+    background-color: var(--background_hover);
+    color: var(--colorFontMain);
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: double;
+}
+
+#FontSize button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff00;
+    font-weight: bold;
+    font-size: 20px;
+    border: none;
+    padding: 10px;
+    margin-top: -20px;
+}
+
+#FontSize button img {
+    width: 18px;
+    transition: 0.5s ease-in-out;
+}
+
+#FontSize button img:hover {
+    width: 20px;
+    transition: 0.5s ease-in-out;
+}
+
+
+#Plus {
+    margin-left: -20px;
+}
+
+#Minus {
+    margin-left: 20px;
+}
+
+#titleInfo {
+    margin-top: 50px;
+    margin-bottom: 0px;
+}
+
+#QuranInfoBox {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    background-color: #f1fbf0;
+    border-radius: 5px;
+    border-color: #b7ebb5;
+    border-width: 1px;
+    border-style: double;
+}
+
+#QuranInfoBox ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    list-style: none;
+    word-wrap: break-word;
+}
+
+#QuranInfoBox ul li {
+    background-color: #e2f7e1;
+    width: calc(95% / 3);
+    margin: 5px 5px 5px 5px;
+    font-size: 12px;
+    font-weight: 800;
+    color: #5c765b;
+}
+
+#QuranInfoBox ul li span {
+    margin-right: 5px;
+    font-size: 12px;
+    color: var(--colorFont2);
+    font-weight: 400;
+}
+
+
+#readerBox ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    list-style: none;
+    word-wrap: break-word;
+}
+
+#readerBox ul li {
+    background-color: var(--background_Wild_Sand);
+    width: calc(95% / 3);
+    margin: 15px 5px 5px 5px;
+    cursor: pointer;
+    position: relative;
+}
+
+#readerBox ul li:hover {
+    background-color: var(--background_hover);
+}
+
+#readerBox h2 {
+    margin-top: 30px;
+    margin-bottom: 0px;
+}
+
+#readerBox ul li small {
+    width: 80%;
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--button);
+    color: var(--colorWhite);
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 5px;
+}
+
+@media (max-width: 700px) {
+    #QuranInfoBox ul li {
+        width: calc(95% / 2);
+    }
+
+    #readerBox ul li {
+        width: calc(95% / 2);
+    }
+}
+
+@media (max-width: 460px) {
+    #QuranInfoBox ul li {
+        width: calc(95% / 1);
+    }
+
+    #readerBox ul li {
+        width: calc(95% / 1);
+    }
+
 }

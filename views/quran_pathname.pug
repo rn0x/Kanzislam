@@ -5,9 +5,144 @@ block stylesheet
 
 block content
   #quranPathPage 
-    p=options.pathname
+    ul#breadcrumb
+      li 
+        a(href="/")
+          img(src="/icon/home.svg" alt="الرئيسية") 
+      li 
+        small /
+        a(href="/quran") القرآن الكريم
+      li 
+        small /
+        a(href=`/quran/${options.pathname}`)= `سورة ${options.currentSurah.name}`
+    #quranPathBox
+      a(href=`/quran/سورة_${options.previousSurah.name.split(" ").join("_")}`)#previousSurah= options.previousSurah.name 
+      a(href=`/quran/سورة_${options.nextSurah.name .split(" ").join("_")}`)#nextSurah= options.nextSurah.name 
+      h2#titleInfo معلومات حول سورة #{options.currentSurah.name}
+      #QuranInfoBox
+        ul 
+          li 
+            p عدد الآيات:
+              span #{options.currentSurah.number_verses}
+          li 
+            p عدد الكلمات:
+              span #{options.currentSurah.number_words}
+          li 
+            p ترتيب السورة:
+              span #{options.currentSurah.number}
+          li 
+            p عدد الحروف:
+              span #{options.currentSurah.number_letters}
+          li 
+            p النزول:
+              span #{options.currentSurah.descent}
+          li 
+            p الإسم بالإنجليزي: 
+              span #{options.currentSurah.english_name}
+      h2#bisamla=options.bisamla
+      #FontSize 
+        button#Plus
+          img(src="/icon/plus.svg" alt="")
+        button#Minus
+          img(src="/icon/minus.svg" alt="")
+      p#surah!=options.surah
+      #readerBox 
+        h2 الإستماع الى سورة #{options.currentSurah.name}
+        ul#readerBoxUl
 block script
-  script(type="module")
-    include ../public/js/quran.js
-  script.
-    window.options = !{jsStringify(options)};
+  script(type="module").
+    let options = !{jsStringify(options)};
+    let fontPlus = document.getElementById("Plus");
+    let fontMinus = document.getElementById("Minus");
+    let readerBoxUl = document.getElementById("readerBoxUl");
+
+    fontPlus.addEventListener("click", async () => {
+      changeFontSize("bisamla", 2);
+      changeFontSize("surah", 2);
+    });
+
+    fontMinus.addEventListener("click", async () => {
+      changeFontSize("bisamla", -2);
+      changeFontSize("surah", -2);
+    });
+
+    let currentAudio = null; // تعريف المقطع الصوتي الحالي
+    let currentLi = null; 
+    let currentTimeupdate = null; 
+
+    for (const item of options.mp3quranFind) {
+
+      let li = document.createElement("li");
+      let p = document.createElement("p");
+      let small = document.createElement("small");
+      let audio = document.createElement("audio");
+      let span = document.createElement("span");
+      let isPlay = false;
+      readerBoxUl.appendChild(li);
+      li.appendChild(small);
+      small.innerText = item.rewaya;
+      li.appendChild(p);
+      p.innerText = item.reader;
+      li.appendChild(span);
+      span.className = 'timeupdate';
+      audio.preload = 'none';
+      li.addEventListener("click",async () => {
+
+
+        if (currentAudio) { // التحقق من وجود مقطع صوتي حالي وإيقاف تشغيله
+          currentAudio.pause();
+          currentLi.style.backgroundColor = ''; 
+          currentTimeupdate.style.display = 'none';
+          currentTimeupdate.innerText = '';
+        }
+
+        if (currentAudio !== audio || !isPlay) { // التحقق من عدم تشغيل المقطع الصوتي الحالي
+          audio.src = item.link;
+          audio.play();
+          li.style.backgroundColor = '#f1fbf0';
+          isPlay = true;
+          currentAudio = audio; // تعيين المقطع الصوتي الحالي
+          currentLi = li; 
+          currentTimeupdate = span; 
+          span.style.display = 'block';
+        } 
+        else {
+          audio.pause();
+          li.style.backgroundColor = '';
+          isPlay = false;
+          currentAudio = null; // إزالة المقطع الصوتي الحالي
+          currentLi = null; // إزالة العنصر الحالي
+          currentTimeupdate.style.display = 'none';
+          currentTimeupdate.innerText = '';
+        }
+      });
+
+      audio.addEventListener("timeupdate", () => {
+        let remainingTime = audio.duration - audio.currentTime;
+        let hours = Math.floor(remainingTime / 3600); // حساب عدد الساعات
+        let minutes = Math.floor((remainingTime % 3600) / 60); // حساب عدد الدقائق
+        let seconds = Math.floor(remainingTime % 60); // حساب عدد الثواني
+
+        if (hours > 0) {
+          span.innerText = `${hours}:${minutes}:${seconds}`; // عرض الوقت المتبقي بالساعات
+        } else {
+          span.innerText = `${minutes}:${seconds}`; // عرض الوقت المتبقي بالدقائق والثواني
+        }
+      });
+
+
+      audio.addEventListener("ended", () => {
+        li.style.backgroundColor = ''; // استعادة اللون الأصلي للعنصر
+        currentAudio = null; // إزالة المقطع الصوتي الحالي
+        currentLi = null; // إزالة العنصر الحالي
+        currentTimeupdate.style.display = 'none'; // إزالة عرض مدة الصوت المتبقية عند الانتهاء
+        currentTimeupdate.innerText = '';
+      });
+    }
+
+    function changeFontSize(elementId, increment) {
+      let element = document.getElementById(elementId);
+      let fontSize = parseInt(window.getComputedStyle(element).fontSize);
+      fontSize += increment;
+      element.style.fontSize = fontSize + 'px';
+    }

@@ -62,6 +62,7 @@
 
 #header_menu_left a:hover {
     background-color: var(--background_hover);
+    color: var(--colorFontMain_hover);
 }
 
 #header_menu_top {
@@ -81,6 +82,7 @@
     justify-content: space-between;
     align-items: center;
     background-color: var(--background_hover);
+    color: var(--colorFontMain_hover);
     border-bottom-color: var(--border);
     border-bottom-width: 1px;
     border-bottom-style: double;
