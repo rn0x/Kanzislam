@@ -1,0 +1,34 @@
+extends ./layout.pug
+
+block stylesheet
+  link(rel="stylesheet" href="/css/adhkar.css")
+
+block content
+  #adhkarPage 
+    ul.breadcrumb
+      li 
+        a(href="/")
+          img(src="/icon/home.svg" alt="الرئيسية") 
+      li 
+        small /
+        a(href="/adhkar") أذكار
+      li 
+        small /
+        a(href=`/adhkar/${options.AdhkarObject.category.split(" ").join("_")}`) #{options.AdhkarObject.category}
+      li 
+        small /
+        a(href=`/adhkars/${options.AdhkarObject.title.split(" ").join("_")}` style#="white-space: normal;") #{options.AdhkarObject.title}
+    h1#titleAdhkar #{options.AdhkarObject.title}
+    #adhkarsBox 
+      .repetition#repetition
+        p#repetition_p #{options.AdhkarObject.repetition}
+        img(src="/icon/return.svg" alt="إعداة التكرار")#repetition_img
+      .adhkar_text#adhkar_text
+        h3 #{options.AdhkarObject.adhkar}
+        p #{options.AdhkarObject.description}
+        small #{options.AdhkarObject.source}
+block script
+  script(type="module")
+    include ../public/js/adhkar.js
+  script.
+    window.options = !{jsStringify(options)};

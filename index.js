@@ -12,12 +12,13 @@ import {
     removeColumn,
     addColumn,
 } from './modules/database.js';
-import filterSpan from './modules/filterSpan.js';
+import filterSpan from './public/js/filterSpan.js';
 import home from './routes/home.js';
 import login from './routes/login.js';
 import register from './routes/register.js';
 import logout from './routes/logout.js';
 import quran from './routes/quran.js';
+import adhkar from './routes/adhkar.js';
 
 // Get the current working directory
 const __dirname = path.resolve();
@@ -56,22 +57,42 @@ app.use(
 );
 
 // routes
-home(param);
-login(param);
-register(param);
-logout(param);
-quran(param);
+await home(param);
+await login(param);
+await register(param);
+await logout(param);
+await quran(param);
+await adhkar(param);
 
-app.use(function (req, res, next) {
-    res.status(404).send('الصفحة غير موجودة.');
+app.use(function (request, response, next) {
+    let options = {
+        website_name: config.WEBSITE_NAME,
+        title: `الصفحة غير موجودة 404 - ${config.WEBSITE_NAME}`,
+        keywords: ["صفحة الخطأ 404", "عنوان URL غير صحيح", "عنوان URL غير موجود", "error", "404", "لم يتم العثور على الصفحة", "صفحة غير موجودة", "صفحة غير متاحة", "رسالة الخطأ 404"],
+        description: "صفحة الخطأ 404 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.",
+        preview: "صورة_المعاينة_للصفحة",
+        status: 404
+    };
+    let pugPath = path.join(__dirname, './views/Error.pug');
+    let render = pug.renderFile(pugPath, { options: options, jsStringify: jsStringify });
+    response.status(404).send(render);
 });
 
-app.use(function (err, req, res, next) {
+app.use(function (err, request, response, next) {
     // Handle the error
     console.error(err);
-
-    // Set the response status code
-    res.status(500).send('Internal Server Error');
+    let options = {
+        website_name: config.WEBSITE_NAME,
+        title: `خطأ في الخادم الداخلي 505 - ${config.WEBSITE_NAME}`,
+        keywords: ["صفحة الخطأ 505", "عنوان URL غير صحيح", "عنوان URL غير موجود", "error", "505", "لم يتم العثور على الصفحة", "صفحة غير موجودة", "صفحة غير متاحة", "رسالة الخطأ 404"],
+        description: "صفحة الخطأ 505 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.",
+        preview: "صورة_المعاينة_للصفحة",
+        errorMassage: err,
+        status: 500
+    };
+    let pugPath = path.join(__dirname, './views/Error.pug');
+    let render = pug.renderFile(pugPath, { options: options, jsStringify: jsStringify });
+    response.status(500).send(render);
 });
 
 app.listen(port, () => {

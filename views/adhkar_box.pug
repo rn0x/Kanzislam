@@ -1,0 +1,23 @@
+extends ./layout.pug
+
+block stylesheet
+  link(rel="stylesheet" href="/css/adhkar.css")
+
+block content
+  ul.breadcrumb
+      li 
+        a(href="/")
+          img(src="/icon/home.svg" alt="الرئيسية") 
+      li 
+        small /
+        a(href="/adhkar") أذكار
+  #adhkar_boxPage 
+    ul#adhkarCategory
+    #adhkarRepeat
+      small عدد التكرارات :
+      p 0
+block script
+  script(type="module")
+    include ../public/js/adhkar.js
+  script.
+    window.options = !{jsStringify(options)};

@@ -1,4 +1,4 @@
-export default (param) => {
+export default async (param) => {
 
     const { app, pug, path, fs, config, __dirname, jsStringify, filterSpan } = param;
 
@@ -30,7 +30,7 @@ export default (param) => {
         let previousSurah = currentSurahIndex === 0 ? quranJson[quranJson.length - 1] : quranJson[currentSurahIndex - 1]; // السورة السابقة
         let nextSurah = currentSurahIndex === quranJson.length - 1 ? quranJson[0] : quranJson[currentSurahIndex + 1]; // السورة التالية
 
-        if (currentSurah.name) {
+        if (currentSurah?.name) {
 
             let mp3quranFind = mp3quranJson.map(reader => {
                 let surah = reader.audio.find(item => item.name === nameSurah);
@@ -62,7 +62,17 @@ export default (param) => {
         }
 
         else {
-            response.status(404).send('الصفحة غير موجودة.');
+            let options = {
+                website_name: config.WEBSITE_NAME,
+                title: `الصفحة غير موجودة 404 - ${config.WEBSITE_NAME}`,
+                keywords: ["صفحة الخطأ 404", "عنوان URL غير صحيح", "عنوان URL غير موجود", "error", "404", "لم يتم العثور على الصفحة", "صفحة غير موجودة", "صفحة غير متاحة", "رسالة الخطأ 404"],
+                description: "صفحة الخطأ 404 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.",
+                preview: "صورة_المعاينة_للصفحة",
+                status: 404
+            };
+            let pugPath = path.join(__dirname, './views/Error.pug');
+            let render = pug.renderFile(pugPath, { options: options, jsStringify: jsStringify });
+            response.status(404).send(render);
         }
 
     });

@@ -1,0 +1,234 @@
+#adhkar_boxPage ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    padding: 0px;
+}
+
+#adhkar_boxPage ul li {
+    width: calc(80% / 2);
+    padding: 10px;
+    background-color: var(--background_white);
+    margin: 10px 10px 10px 10px;
+    border-radius: 5px;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: double;
+}
+
+#adhkar_boxPage ul li:hover {
+    background-color: var(--background_hover);
+}
+
+#adhkar_boxPage ul li a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#adhkar_boxPage ul li a h2 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-right: 10px;
+    font-size: 22px;
+}
+
+.adhkarBoxIcon {
+    width: 50px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#adhkarRepeat {
+    max-width: 300px;
+    background-color: #e0e5ff;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    border-color: #b6c2ff;
+    border-width: 1px;
+    border-style: double;
+}
+
+#adhkarRepeat p {
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+@media (max-width: 580px) {
+    #adhkar_boxPage ul li a h2 {
+        font-size: 18px;
+    }
+
+    .adhkarBoxIcon {
+        width: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    #adhkar_boxPage ul {
+        display: block;
+    }
+
+    #adhkar_boxPage ul li {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* ============= صفحة الأذكار ============= */
+
+#adhkarBox,
+#adhkarsBox {
+    width: 90%;
+    max-width: 1000px;
+    padding: 10px;
+    list-style: none;
+    background-color: var(--background_white);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#adhkarBox li,
+#adhkarsBox {
+    background-color: var(--background_Wild_Sand);
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: double;
+}
+
+#adhkarBox li div,
+#adhkarsBox div {
+    padding: 8px;
+    background-color: var(--background_white);
+    border-radius: 5px;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: double;
+    box-sizing: border-box;
+}
+
+.adhkar_text {
+    width: 100%;
+    margin-right: 10px;
+    font-family: var(--fontQuran), sans-serif;
+    font-size: 18px;
+    text-align: justify;
+    position: relative;
+}
+
+.adhkar_text h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.adhkar_text p {
+    color: var(--colorFontMain_hover);
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.adhkar_text small {
+    color: var(--colorFont2);
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#linkAdhkar {
+    width: 20px;
+    position: absolute;
+    left: 10px;
+    bottom: 5px;
+}
+
+.repetition {
+    width: 120px;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.repetition p {
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    flex: 1;
+}
+
+.repetition img {
+    display: block;
+    width: 40px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#titleAdhkar {
+    font-size: 20px;
+}
+
+@media (max-width: 700px) {
+
+    #adhkarBox li,
+    #adhkarsBox {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column-reverse;
+    }
+
+    .repetition {
+        width: 100%;
+    }
+
+    .adhkar_text {
+        margin-right: 0px;
+        direction: rtl;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .adhkar_text h3 {
+        font-size: 17px;
+    }
+
+    .adhkar_text p {
+        font-size: 15px;
+    }
+
+    .adhkar_text small {
+        font-size: 13px;
+    }
+
+    .repetition p {
+        font-size: 18px;
+    }
+
+    .repetition img {
+        width: 30px;
+    }
+}
+
+@media (max-width: 400px) {
+
+    #titleAdhkar {
+        font-size: 17px;
+    }
+}

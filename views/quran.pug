@@ -4,7 +4,14 @@ block stylesheet
   link(rel="stylesheet" href="/css/quran.css")
 
 block content
-  #quranPage 
+  #quranPage
+    ul.breadcrumb
+      li 
+        a(href="/")
+          img(src="/icon/home.svg" alt="الرئيسية") 
+      li 
+        small /
+        a(href="/quran") فهرس سور القران الكريم
     h2 فهرس سور القران الكريم
     ul#quranIndex 
       //- li 

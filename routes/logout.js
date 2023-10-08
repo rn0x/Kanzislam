@@ -1,4 +1,4 @@
-export default (param) => {
+export default async (param) => {
 
     const { app, pug, path, fs, config, __dirname, jsStringify } = param;
     app.post('/logout', async (request, response) => {

@@ -39,3 +39,38 @@ input {
     font-family: var(--fontMain);
     color: var(--colorFont2);
 }
+
+.breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    width: 95%;
+    list-style: none;
+    padding: 0px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 40px;
+    margin-bottom: 30px;
+    margin-right: 10px;
+}
+
+.breadcrumb li {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.breadcrumb li small {
+    margin-left: 10px;
+    user-select: none;
+    color: var(--colorFont2);
+}
+
+.breadcrumb li a img {
+    width: 30px;
+    user-select: none;
+}
+
+
+.breadcrumb li a:hover {
+    color: var(--colorFontMain_hover);
+}
