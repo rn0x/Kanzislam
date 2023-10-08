@@ -1,39 +1,36 @@
-export default async (param) => {
-
-    const { app, pug, path, fs, config, __dirname, jsStringify, filterSpan } = param;
-
+export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filterSpan }) => {
     app.get('/quran', async (request, response) => {
-
-        let options = {
+        const quranPath = path.join(__dirname, 'public/json/quran.json');
+        const quranJson = await fs.readJson(quranPath).catch(() => ({}));
+        const options = {
             website_name: config.WEBSITE_NAME,
-            title: `عنوان الصفحة - ${config.WEBSITE_NAME}`,
+            title: `فهرس سور القرآن الكريم - قراءة واستماع - ${config.WEBSITE_NAME}`,
             keywords: ["word1", "word2", "word3"],
-            description: "وصف_الصفحة",
+            description: "فهرس لسور القرآن الكريم للقراءة والاستماع بصوت أكثر من 157 قارئ",
             preview: "صورة_المعاينة_للصفحة",
-            session: request.session
+            session: request.session,
+            quranJson
         };
-        let pugPath = path.join(__dirname, './views/quran.pug');
-        let render = pug.renderFile(pugPath, { options: options, jsStringify: jsStringify });
+        const pugPath = path.join(__dirname, './views/quran.pug');
+        const render = pug.renderFile(pugPath, { options, jsStringify });
         response.send(render);
     });
 
     app.get('/quran/:pathname', async (request, response) => {
-
-        let pathname = request.params.pathname;
-        let nameSurah = pathname?.split("سورة")?.join("")?.split("_")?.join(" ")?.trim();
-        let quranPath = path.join(__dirname, 'public/json/quran.json');
-        let mp3quranPath = path.join(__dirname, 'public/json/mp3quran.json');
-        let quranJson = await fs.readJson(quranPath).catch(() => ({}));
-        let mp3quranJson = await fs.readJson(mp3quranPath).catch(() => ({}));
-        let currentSurahIndex = quranJson.findIndex(e => e.name === nameSurah);
-        let currentSurah = quranJson[currentSurahIndex]; // السورة الحالية
-        let previousSurah = currentSurahIndex === 0 ? quranJson[quranJson.length - 1] : quranJson[currentSurahIndex - 1]; // السورة السابقة
-        let nextSurah = currentSurahIndex === quranJson.length - 1 ? quranJson[0] : quranJson[currentSurahIndex + 1]; // السورة التالية
+        const { pathname } = request.params;
+        const nameSurah = pathname?.split("سورة")?.join("")?.split("_")?.join(" ")?.trim();
+        const quranPath = path.join(__dirname, 'public/json/quran.json');
+        const mp3quranPath = path.join(__dirname, 'public/json/mp3quran.json');
+        const quranJson = await fs.readJson(quranPath).catch(() => ({}));
+        const mp3quranJson = await fs.readJson(mp3quranPath).catch(() => ({}));
+        const currentSurahIndex = quranJson.findIndex(e => e.name === nameSurah);
+        const currentSurah = quranJson[currentSurahIndex];
+        const previousSurah = currentSurahIndex === 0 ? quranJson[quranJson.length - 1] : quranJson[currentSurahIndex - 1];
+        const nextSurah = currentSurahIndex === quranJson.length - 1 ? quranJson[0] : quranJson[currentSurahIndex + 1];
 
         if (currentSurah?.name) {
-
-            let mp3quranFind = mp3quranJson.map(reader => {
-                let surah = reader.audio.find(item => item.name === nameSurah);
+            const mp3quranFind = mp3quranJson.map(reader => {
+                const surah = reader.audio.find(item => item.name === nameSurah);
                 return {
                     reader: reader.name,
                     rewaya: reader.rewaya,
@@ -41,28 +38,26 @@ export default async (param) => {
                 };
             });
 
-            let options = {
+            const options = {
                 website_name: config.WEBSITE_NAME,
-                title: `سورة ${currentSurah.name} قراءة وأستماع - ${config.WEBSITE_NAME}`,
+                title: `سورة ${currentSurah.name} قراءة وأستماع وتحميل mp3 - ${config.WEBSITE_NAME}`,
                 keywords: ["word1", "word2", "word3"],
-                description: "وصف_الصفحة",
+                description: `سورة ${currentSurah.name} -  للقراءة والاستماع بصوت أكثر من 157 قارئ, ومعلومات حول السورة اين نزلت وكم عددة كلماتها وحروفها وآيتها وإسمها باللغة الإنجليزية`,
                 preview: "صورة_المعاينة_للصفحة",
                 session: request.session,
-                pathname: request.params.pathname,
+                pathname,
                 bisamla: nameSurah !== 'التوبة' ? 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ' : 'أَعُوذُ بِاللَّهِ مِنَ الشَّيطَانِ الرَّجِيمِ',
                 surah: filterSpan(currentSurah.surah.replace(/\(/g, '﴿').replace(/\)/g, '﴾')),
-                currentSurah: currentSurah,
-                previousSurah: previousSurah,
-                nextSurah: nextSurah,
-                mp3quranFind: mp3quranFind
+                currentSurah,
+                previousSurah,
+                nextSurah,
+                mp3quranFind
             };
-            let pugPath = path.join(__dirname, './views/quran_pathname.pug');
-            let render = pug.renderFile(pugPath, { options: options, jsStringify: jsStringify });
+            const pugPath = path.join(__dirname, './views/quran_pathname.pug');
+            const render = pug.renderFile(pugPath, { options, jsStringify });
             response.send(render);
-        }
-
-        else {
-            let options = {
+        } else {
+            const options = {
                 website_name: config.WEBSITE_NAME,
                 title: `الصفحة غير موجودة 404 - ${config.WEBSITE_NAME}`,
                 keywords: ["صفحة الخطأ 404", "عنوان URL غير صحيح", "عنوان URL غير موجود", "error", "404", "لم يتم العثور على الصفحة", "صفحة غير موجودة", "صفحة غير متاحة", "رسالة الخطأ 404"],
@@ -70,10 +65,9 @@ export default async (param) => {
                 preview: "صورة_المعاينة_للصفحة",
                 status: 404
             };
-            let pugPath = path.join(__dirname, './views/Error.pug');
-            let render = pug.renderFile(pugPath, { options: options, jsStringify: jsStringify });
+            const pugPath = path.join(__dirname, './views/Error.pug');
+            const render = pug.renderFile(pugPath, { options, jsStringify });
             response.status(404).send(render);
         }
-
     });
-}
+};  

@@ -74,3 +74,12 @@ input {
 .breadcrumb li a:hover {
     color: var(--colorFontMain_hover);
 }
+
+#loading {
+    display: none;
+    width: 120px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}

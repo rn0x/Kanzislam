@@ -77,6 +77,7 @@ block script
       let small = document.createElement("small");
       let audio = document.createElement("audio");
       let span = document.createElement("span");
+      let img = document.createElement("img");
       let isPlay = false;
       readerBoxUl.appendChild(li);
       li.appendChild(small);
@@ -86,8 +87,26 @@ block script
       li.appendChild(span);
       span.className = 'timeupdate';
       audio.preload = 'none';
-      li.addEventListener("click",async () => {
+      li.appendChild(img);
+      img.id = "icon_download";
+      img.alt = "تحميل";
+      img.src = "/icon/download.svg";
 
+      img.addEventListener("click", async (event) => {
+        event.stopPropagation();
+        img.src = "/icon/loading.svg";
+        const response = await fetch(item.link);
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const filename = `سورة_${options.currentSurah.name.split(" ").join("_")}_القارئ_${item.reader.split(" ").join("_")}_رواية_${item.rewaya.split(" ").join("_")}.mp3`;
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        link.click();
+        img.src = "/icon/download.svg";
+      });
+
+      li.addEventListener("click",async () => {
 
         if (currentAudio) { // التحقق من وجود مقطع صوتي حالي وإيقاف تشغيله
           currentAudio.pause();

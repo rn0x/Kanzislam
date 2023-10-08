@@ -2,11 +2,11 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     let options = window.options;
     let url = window.location.origin;
+    let loading = document.getElementById("loading");
     let quranIndex = document.getElementById("quranIndex");
-    let quranFetch = await fetch(`${url}/json/quran.json`);
-    let quranJson = await quranFetch?.json();
+    loading.style.display = "block";
 
-    for (let item of quranJson) {
+    for (let item of options?.quranJson) {
 
         let li = document.createElement("li");
         let a = document.createElement("a");
@@ -31,4 +31,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         english_name.innerText = item?.english_name;
         english_name.className = 'english_name';
     }
+
+    loading.style.display = "none";
 });

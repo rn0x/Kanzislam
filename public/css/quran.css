@@ -288,6 +288,14 @@
     border-radius: 5px;
 }
 
+#icon_download {
+    width: 30px;
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(-50%, -50%);  
+}
+
 @media (max-width: 700px) {
     #QuranInfoBox ul li {
         width: calc(95% / 2);
