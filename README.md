@@ -21,8 +21,6 @@
 ![2|400](https://github.com/Alsarmad/Islamic_platform/assets/76129163/5e1acef4-fbda-463d-be71-7f62896bd570)
 
 
-![8|400](https://github.com/Alsarmad/Islamic_platform/assets/76129163/26c2f8e4-8d3c-4616-90cf-f9eaed72820e)
-
 ![7|400](https://github.com/Alsarmad/Islamic_platform/assets/76129163/81f5ddd4-5e61-48fb-80c3-5f0121328596)
 
 ![6|400](https://github.com/Alsarmad/Islamic_platform/assets/76129163/58e233fc-4f4b-462b-acfc-ea40863aa833)
