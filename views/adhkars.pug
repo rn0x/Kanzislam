@@ -24,9 +24,9 @@ block content
         p#repetition_p #{options.AdhkarObject.repetition}
         img(src="/icon/return.svg" alt="إعداة التكرار")#repetition_img
       .adhkar_text#adhkar_text
-        h3 #{options.AdhkarObject.adhkar}
-        p #{options.AdhkarObject.description}
-        small #{options.AdhkarObject.source}
+        h3!= options.filterSpan(options.AdhkarObject.adhkar)
+        p!= options.filterSpan(options.AdhkarObject.description)
+        small!= options.filterSpan(options.AdhkarObject.source)
 block script
   script(type="module")
     include ../public/js/adhkar.js

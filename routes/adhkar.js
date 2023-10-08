@@ -1,6 +1,6 @@
 export default async (param) => {
 
-    const { app, pug, path, fs, config, __dirname, jsStringify } = param;
+    const { app, pug, path, fs, config, __dirname, jsStringify, filterSpan } = param;
 
     let adhkarPath = path.join(__dirname, 'public/json/adhkar.json');
     let adhkarJson = await fs.readJson(adhkarPath).catch(() => ({}));
@@ -68,6 +68,7 @@ export default async (param) => {
                 preview: "صورة_المعاينة_للصفحة",
                 session: request.session,
                 AdhkarObject: AdhkarObject,
+                filterSpan: filterSpan
             };
             let pugPath = path.join(__dirname, './views/adhkars.pug');
             let render = pug.renderFile(pugPath, { options: options, jsStringify: jsStringify });
