@@ -1,6 +1,4 @@
-export default async (param) => {
-
-    const { app, pug, path, fs, config, __dirname, jsStringify, filterSpan } = param;
+export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filterSpan }) => {
 
     let adhkarPath = path.join(__dirname, 'public/json/adhkar.json');
     let adhkarJson = await fs.readJson(adhkarPath).catch(() => ({}));
@@ -10,15 +8,15 @@ export default async (param) => {
 
         let options = {
             website_name: config.WEBSITE_NAME,
-            title: `عنوان الصفحة - ${config.WEBSITE_NAME}`,
-            keywords: ["word1", "word2", "word3"],
-            description: "وصف_الصفحة",
+            title: `أذكار الصباح والمساء والنوم والصلاة والطعام: دليلك اليومي للتذكير - ${config.WEBSITE_NAME}`,
+            keywords: ["أذكار الصباح", "أذكار المساء", "أذكار النوم", "أذكار الطعام", "أذكار الصلاة", "التسابيح", "الدعاء اليومي", "الإسلام", "القرآن", "الحديث", "الإيمان"],
+            description: "تعتبر صفحة الأذكار مصدرًا رائعًا للتأمل والتفكير. تحتوي هذه الصفحة على مجموعة من الأذكار والدعوات التي يمكن قراءتها في أوقات مختلفة من اليوم.",
             preview: "صورة_المعاينة_للصفحة",
             session: request.session,
-            adhkarJson: adhkarJson,
+            adhkarJson,
         };
         let pugPath = path.join(__dirname, './views/adhkar_box.pug');
-        let render = pug.renderFile(pugPath, { options: options, jsStringify: jsStringify });
+        let render = pug.renderFile(pugPath, { options, jsStringify });
         response.send(render);
     });
 
@@ -29,15 +27,15 @@ export default async (param) => {
         if (isPathAdhkar) {
             let options = {
                 website_name: config.WEBSITE_NAME,
-                title: `عنوان الصفحة - ${config.WEBSITE_NAME}`,
-                keywords: ["word1", "word2", "word3"],
-                description: "وصف_الصفحة",
+                title: `${adhkarJson[isPathAdhkar].category} - ${config.WEBSITE_NAME}`,
+                keywords: ["أذكار الصباح", "أذكار المساء", "أذكار النوم", "أذكار الطعام", "أذكار الصلاة", "التسابيح", "الدعاء اليومي", "الإسلام", "القرآن", "الحديث", "الإيمان"],
+                description: `تحتوي هذه الصفحة على مجموعة من الأذكار والدعوات التي يمكن قراءتها في ${adhkarJson[isPathAdhkar].category}.`,
                 preview: "صورة_المعاينة_للصفحة",
                 session: request.session,
                 adhkarJson: adhkarJson[isPathAdhkar],
             };
             let pugPath = path.join(__dirname, './views/adhkar.pug');
-            let render = pug.renderFile(pugPath, { options: options, jsStringify: jsStringify });
+            let render = pug.renderFile(pugPath, { options, jsStringify });
             response.send(render);
         }
         else {
@@ -50,7 +48,7 @@ export default async (param) => {
                 status: 404
             };
             let pugPath = path.join(__dirname, './views/Error.pug');
-            let render = pug.renderFile(pugPath, { options: options, jsStringify: jsStringify });
+            let render = pug.renderFile(pugPath, { options, jsStringify });
             response.status(404).send(render);
         }
     });
@@ -63,15 +61,15 @@ export default async (param) => {
             let options = {
                 website_name: config.WEBSITE_NAME,
                 title: `${AdhkarObject.title}- ${config.WEBSITE_NAME}`,
-                keywords: ["word1", "word2", "word3"],
+                keywords: ["أذكار الصباح", "أذكار المساء", "أذكار النوم", "أذكار الطعام", "أذكار الصلاة", "التسابيح", "الدعاء اليومي", "الإسلام", "القرآن", "الحديث", "الإيمان"],
                 description: `${AdhkarObject.category} - ${AdhkarObject.description}`,
                 preview: "صورة_المعاينة_للصفحة",
                 session: request.session,
-                AdhkarObject: AdhkarObject,
-                filterSpan: filterSpan
+                AdhkarObject,
+                filterSpan
             };
             let pugPath = path.join(__dirname, './views/adhkars.pug');
-            let render = pug.renderFile(pugPath, { options: options, jsStringify: jsStringify });
+            let render = pug.renderFile(pugPath, { options, jsStringify });
             response.send(render);
         }
         else {
@@ -84,7 +82,7 @@ export default async (param) => {
                 status: 404
             };
             let pugPath = path.join(__dirname, './views/Error.pug');
-            let render = pug.renderFile(pugPath, { options: options, jsStringify: jsStringify });
+            let render = pug.renderFile(pugPath, { options, jsStringify });
             response.status(404).send(render);
         }
     });

@@ -13,7 +13,7 @@ export default async (param) => {
             session: request.session
         };
         let pugPath = path.join(__dirname, './views/test.pug');
-        let render = pug.renderFile(pugPath, { options: options, jsStringify: jsStringify });
+        let render = pug.renderFile(pugPath, { options, jsStringify });
         response.send(render);
     });
 }

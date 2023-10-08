@@ -74,7 +74,7 @@ app.use(function (request, response, next) {
         status: 404
     };
     let pugPath = path.join(__dirname, './views/Error.pug');
-    let render = pug.renderFile(pugPath, { options: options, jsStringify: jsStringify });
+    let render = pug.renderFile(pugPath, { options, jsStringify });
     response.status(404).send(render);
 });
 
@@ -91,7 +91,7 @@ app.use(function (err, request, response, next) {
         status: 500
     };
     let pugPath = path.join(__dirname, './views/Error.pug');
-    let render = pug.renderFile(pugPath, { options: options, jsStringify: jsStringify });
+    let render = pug.renderFile(pugPath, { options, jsStringify });
     response.status(500).send(render);
 });
 

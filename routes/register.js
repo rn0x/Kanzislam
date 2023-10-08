@@ -68,7 +68,7 @@ export default async (param) => {
             question: "من هو ربك ؟"
         };
         let pugPath = path.join(__dirname, './views/register.pug');
-        let render = pug.renderFile(pugPath, { options: options, jsStringify: jsStringify });
+        let render = pug.renderFile(pugPath, { options, jsStringify });
         response.send(render);
     });
 }

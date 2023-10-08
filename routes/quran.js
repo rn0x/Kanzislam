@@ -1,7 +1,27 @@
 export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filterSpan }) => {
-    app.get('/quran', async (request, response) => {
-        const quranPath = path.join(__dirname, 'public/json/quran.json');
-        const quranJson = await fs.readJson(quranPath).catch(() => ({}));
+    const quranPath = path.join(__dirname, 'public/json/quran.json');
+    const mp3quranPath = path.join(__dirname, 'public/json/mp3quran.json');
+    let quranJson;
+    let mp3quranJson;
+
+    // Read Quran and mp3quran JSON files once and cache the data
+    fs.readJson(quranPath)
+        .then(json => {
+            quranJson = json;
+        })
+        .catch(() => {
+            quranJson = {};
+        });
+
+    fs.readJson(mp3quranPath)
+        .then(json => {
+            mp3quranJson = json;
+        })
+        .catch(() => {
+            mp3quranJson = {};
+        });
+
+    app.get('/quran', (request, response) => {
         const options = {
             website_name: config.WEBSITE_NAME,
             title: `فهرس سور القرآن الكريم - قراءة واستماع - ${config.WEBSITE_NAME}`,
@@ -16,13 +36,9 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
         response.send(render);
     });
 
-    app.get('/quran/:pathname', async (request, response) => {
+    app.get('/quran/:pathname', (request, response) => {
         const { pathname } = request.params;
         const nameSurah = pathname?.split("سورة")?.join("")?.split("_")?.join(" ")?.trim();
-        const quranPath = path.join(__dirname, 'public/json/quran.json');
-        const mp3quranPath = path.join(__dirname, 'public/json/mp3quran.json');
-        const quranJson = await fs.readJson(quranPath).catch(() => ({}));
-        const mp3quranJson = await fs.readJson(mp3quranPath).catch(() => ({}));
         const currentSurahIndex = quranJson.findIndex(e => e.name === nameSurah);
         const currentSurah = quranJson[currentSurahIndex];
         const previousSurah = currentSurahIndex === 0 ? quranJson[quranJson.length - 1] : quranJson[currentSurahIndex - 1];
@@ -70,4 +86,5 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
             response.status(404).send(render);
         }
     });
+
 };  
