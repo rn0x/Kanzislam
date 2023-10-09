@@ -1,6 +1,8 @@
 #header {
+    width: 100%;
     height: 60px;
     background-color: var(--color_header);
+    position: fixed;
 }
 
 #header_box {
@@ -184,6 +186,63 @@
     border-width: 1px;
     border-style: double;
 }
+
+#SideMenuBox {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    backdrop-filter: blur(0px);
+    background-color: #00000002;
+    top: 60px;
+    border-top-color: var(--border);
+    border-top-width: 1px;
+    border-top-style: double;
+    transition: right 0.3s ease;
+}
+
+#SideMenu {
+    width: 300px;
+    height: 100%;
+    background-color: var(--background_white);
+    position: absolute;
+    top: 0px;
+    padding: 0px;
+    list-style: none;
+    margin: 0px 0px 0px 0px;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: double;
+    right: -300px;
+    /* تم تغيير القيمة إلى -300px لتأخير القائمة عند الإخفاء */
+    transition: right 0.3s ease;
+    /* تمت إضافة خاصية الانتقال لتحقيق حركة سلسة */
+}
+
+#SideMenu a {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: right;
+}
+
+#SideMenu a:hover {
+    background-color: var(--background_hover);
+}
+
+
+#SideMenuBox.active {
+    backdrop-filter: blur(5px);
+}
+
+/* تمت إضافة القاعدة التالية لتغيير قيمة right عند الضغط على زر القائمة */
+#SideMenu.active {
+    right: 0;
+}
+
 
 @media (max-width: 750px) {
     #header_menu_top {

@@ -6,6 +6,22 @@ document.addEventListener("DOMContentLoaded", async function () {
     let menu_logged = document.getElementById("menu_logged");
     let isMenu = false
 
+    // احصل على زر القائمة
+    const menuButton = document.getElementById('icon_menu');
+    // احصل على القائمة الجانبية
+    const sideMenuBox = document.getElementById('SideMenuBox');
+    const sideMenu = document.getElementById('SideMenu');
+
+    // أضف استماع للنقر على زر القائمة
+    menuButton.addEventListener('click', function () {
+        console.log("kkkkkkkkkkkk");
+        // قم بتبديل القيمة النشطة للعنصر #SideMenuBox
+        sideMenuBox.style.display = "block";
+        sideMenuBox.classList.toggle('active');
+        sideMenu.classList.toggle('active');
+    });
+
+
     if (options?.session?.isLoggedIn) {
 
         header_menu_left.style.display = "none";
