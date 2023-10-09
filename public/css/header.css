@@ -39,6 +39,7 @@
     display: block;
     padding: 10px;
     border-radius: 5px;
+    user-select: none;
 }
 
 #button_menu_header:hover {

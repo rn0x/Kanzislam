@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     let isMenu = false
 
     // احصل على زر القائمة
-    const menuButton = document.getElementById('icon_menu');
+    const menuButton = document.getElementById('button_menu_header');
     // احصل على القائمة الجانبية
     const sideMenuBox = document.getElementById('SideMenuBox');
     const sideMenu = document.getElementById('SideMenu');
