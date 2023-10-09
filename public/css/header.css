@@ -74,24 +74,18 @@
 #header_menu_top {
     display: flex;
     justify-content: space-between;
-    align-items: center;
 }
 
 #header_menu_top a {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 2px;
 }
 
 #header_menu_top a:hover {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     background-color: var(--background_hover);
     color: var(--colorFontMain_hover);
-    border-bottom-color: var(--border);
-    border-bottom-width: 1px;
-    border-bottom-style: double;
 }
 
 #header_menu_top a img {
@@ -207,7 +201,8 @@
 }
 
 #SideMenu {
-    width: 300px;
+    width: 80%;
+    max-width: 300px;
     height: 100%;
     background-color: var(--background_white);
     position: absolute;
@@ -255,29 +250,67 @@
     #header_menu_top {
         display: none;
     }
+
+    #header_menu_top {
+        display: flex;
+        align-self: stretch;
+        
+    }
+
+    #header_menu_top a p {
+        display: none;
+    }
+
+    #header_menu_top a {
+        justify-content: center;
+    }
+
+    #header_menu_top a img {
+        display: block;
+        width: 20px;
+        margin-right: 15px;
+        margin-left: 15px;
+    }
+}
+
+@media (max-width: 580px) {
+
+    #header_menu_top a img {
+        display: block;
+        width: 15px;
+        margin-right: 15px;
+        margin-left: 15px;
+    }
+
+    #header_menu_left {
+        flex-wrap: wrap;
+    }
+    #header_menu_left a {
+        display: block;
+        margin-right: 10px;
+        padding: 1px;
+        width: 100%;
+        font-size: 12px;
+        margin-top: 2px;
+        margin-bottom: 2px;
+    }
+
 }
 
 @media (max-width: 430px) {
-    #header_menu_left a {
-        padding: 3px;
-        width: 60px;
-        margin-right: 5px;
-        font-size: 12px;
+    #header_menu_left {
+        display: none;
+    }
+    #header_menu_left_isLoggedIn {
+        display: none !important;
+    }
+    #header_menu_left_isLoggedIn img {
+        display: none;
     }
 }
 
-@media (max-width: 360px) {
-    #header_menu_left {
-        display: block;
-        justify-content: space-between;
-        align-items: center;
-        margin-left: 10px;
-    }
-
-    #header_menu_left a {
-        display: block;
-        padding: 1px;
-        margin-bottom: 2px;
-        width: 70px;
+@media (max-width: 345px) {
+    #header_menu_top {
+        display: none;
     }
 }

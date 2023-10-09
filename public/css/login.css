@@ -46,7 +46,7 @@
     border-style: double;
     /* border-radius: 5px; */
     background-color: var(--background);
-    box-sizing: border-box
+    
 }
 
 #loginbox small {
