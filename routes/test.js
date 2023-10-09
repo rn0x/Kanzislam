@@ -1,6 +1,5 @@
-export default async (param) => {
+export default async ({ app, pug, path, fs, config, __dirname, jsStringify }) => {
 
-    const { app, pug, path, fs, config, __dirname, jsStringify } = param;
     app.get('/test', async (request, response) => {
 
         console.log(config);

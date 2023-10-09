@@ -1,6 +1,5 @@
-export default async (param) => {
+export default async ({ app, pug, path, fs, config, __dirname, jsStringify, database }) => {
 
-    const { app, pug, path, fs, config, __dirname, jsStringify, database } = param;
     let User = database.User
 
     app.post('/register', async (request, response) => {

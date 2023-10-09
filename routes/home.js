@@ -1,14 +1,12 @@
-export default async (param) => {
-
-    const { app, pug, path, fs, config, __dirname, jsStringify } = param;
+export default async ({ app, pug, path, fs, config, __dirname, jsStringify }) => {
 
     app.get('/', async (request, response) => {
 
         let options = {
             website_name: config.WEBSITE_NAME,
-            title: `عنوان الصفحة - ${config.WEBSITE_NAME}`,
-            keywords: ["word1", "word2", "word3"],
-            description: "وصف_الصفحة",
+            title: `${config.WEBSITE_NAME} - منصة شاملة للقرآن والأذكار والأحاديث والتفاسير والمحتويات الإسلامية`,
+            keywords: ["إسلام", "قرآن", "أذكار", "أحاديث", "منصة إسلامية", "فتاوى", "أوقات الصلاة", "تفسير", "مسبحة"],
+            description: `${config.WEBSITE_NAME} هي منصة إسلامية شاملة تهدف إلى توفير القرآن الكريم والأذكار والأحاديث وغيرها من المحتويات الإسلامية بطريقة سهلة ومنظمة. توفر المنصة مجموعة واسعة من الموارد الدينية والتعليمية للمسلمين، استكشف ${config.WEBSITE_NAME} اليوم واستفد من محتواه القيم والموثوق.`,
             preview: "صورة_المعاينة_للصفحة",
             session: request.session
         };
