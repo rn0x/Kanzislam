@@ -3,6 +3,7 @@
     height: 60px;
     background-color: var(--color_header);
     position: fixed;
+    z-index: 111;
 }
 
 #header_box {
@@ -39,7 +40,9 @@
     display: block;
     padding: 10px;
     border-radius: 5px;
+    border: none;
     user-select: none;
+    background-color: var(--background_white);
 }
 
 #button_menu_header:hover {
@@ -123,6 +126,7 @@
 #menu_logged {
     display: none;
     position: absolute;
+    z-index: 1;
     background-color: var(--background_white);
     left: 0;
     width: 150px;
@@ -237,11 +241,13 @@
 
 #SideMenuBox.active {
     backdrop-filter: blur(5px);
+    transition: right 0.3s ease;
 }
 
 /* تمت إضافة القاعدة التالية لتغيير قيمة right عند الضغط على زر القائمة */
 #SideMenu.active {
     right: 0;
+    transition: right 0.3s ease;
 }
 
 
