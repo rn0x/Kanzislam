@@ -14,8 +14,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // أضف استماع للنقر على زر القائمة
     menuButton.addEventListener('click', function () {
-        console.log("kkkkkkkkkkkk");
-        // قم بتبديل القيمة النشطة للعنصر #SideMenuBox
         sideMenuBox.style.display = "block";
         sideMenuBox.classList.toggle('active');
         sideMenu.classList.toggle('active');
