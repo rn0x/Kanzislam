@@ -9,7 +9,6 @@
 #header_box {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     height: 100%;
     border-bottom-color: var(--border);
     border-bottom-width: 1px;
@@ -72,15 +71,16 @@
 }
 
 #header_menu_top {
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 #header_menu_top a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
 }
 
 #header_menu_top a:hover {
@@ -277,29 +277,38 @@
 
     #header_menu_top a img {
         display: block;
-        width: 15px;
-        margin-right: 15px;
-        margin-left: 15px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-right: 10px;
+        padding-left: 10px;
     }
 
     #header_menu_left {
-        flex-wrap: wrap;
+        display: block;
+        width: 100%;
     }
     #header_menu_left a {
         display: block;
-        margin-right: 10px;
+        margin-right: 5px;
         padding: 1px;
         width: 100%;
         font-size: 12px;
         margin-top: 2px;
         margin-bottom: 2px;
+        white-space: nowrap;
     }
 
 }
 
-@media (max-width: 430px) {
+@media (max-width: 500px) {
+    #header_menu_top {
+        width: 100%;
+        display: flex;
+        justify-content: left;
+    }
     #header_menu_left {
         display: none;
+        /* visibility: hidden; */
     }
     #header_menu_left_isLoggedIn {
         display: none !important;
@@ -309,8 +318,9 @@
     }
 }
 
-@media (max-width: 345px) {
+@media (max-width: 330px) {
     #header_menu_top {
         display: none;
     }
+
 }
