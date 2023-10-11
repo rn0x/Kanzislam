@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             }
 
             if (response?.isError) {
-                window.location.href = window.location.href;
+                window.location.href = '/register';
             }
 
             if (response?.usernameFind) {

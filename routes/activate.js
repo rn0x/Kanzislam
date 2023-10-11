@@ -7,29 +7,51 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, data
         const verification_code = request.query.verification_code;
 
         if (username && verification_code) {
-            const existingUser = await User.findOne({
-                where: { username },
-            });
 
-            if (existingUser?.dataValues?.verification_code === verification_code) {
+            try {
 
-                if (!existingUser?.dataValues?.isActivated) {
-                    await User.update({ isActivated: true }, {
-                        where: { username }
-                    });
-                    let options = {
-                        website_name: config.WEBSITE_NAME,
-                        title: `تفعيل الحساب - ${config.WEBSITE_NAME}`,
-                        keywords: ["تفعيل الحساب", "تنشيط الحساب"],
-                        description: "صفحة تفعيل الحساب الخاص بك على المنصة",
-                        preview: "صورة_المعاينة_للصفحة",
-                        session: request.session,
-                        isActivated: true,
-                        text: 'تم تفعيل الحساب ✔️'
-                    };
-                    let pugPath = path.join(__dirname, './views/activate.pug');
-                    let render = pug.renderFile(pugPath, { options, jsStringify });
-                    response.send(render);
+                const existingUser = await User.findOne({
+                    where: { username },
+                });
+
+                if (existingUser?.dataValues?.verification_code === verification_code) {
+
+                    if (!existingUser?.dataValues?.isActivated) {
+                        await User.update({ isActivated: true }, {
+                            where: { username }
+                        });
+                        let options = {
+                            website_name: config.WEBSITE_NAME,
+                            title: `تفعيل الحساب - ${config.WEBSITE_NAME}`,
+                            keywords: ["تفعيل الحساب", "تنشيط الحساب"],
+                            description: "صفحة تفعيل الحساب الخاص بك على المنصة",
+                            preview: "صورة_المعاينة_للصفحة",
+                            session: request.session,
+                            isActivated: true,
+                            text: 'تم تفعيل الحساب ✔️'
+                        };
+                        let pugPath = path.join(__dirname, './views/activate.pug');
+                        let render = pug.renderFile(pugPath, { options, jsStringify });
+                        response.send(render);
+                    }
+
+                    else {
+                        let options = {
+                            website_name: config.WEBSITE_NAME,
+                            title: `تفعيل الحساب - ${config.WEBSITE_NAME}`,
+                            keywords: ["تفعيل الحساب", "تنشيط الحساب"],
+                            description: "صفحة تفعيل الحساب الخاص بك على المنصة",
+                            preview: "صورة_المعاينة_للصفحة",
+                            session: request.session,
+                            isActivated: true,
+                            text: 'لقد قمت من قبل بتفعيل الحساب ✔️'
+
+                        };
+                        let pugPath = path.join(__dirname, './views/activate.pug');
+                        let render = pug.renderFile(pugPath, { options, jsStringify });
+                        response.send(render);
+                    }
+
                 }
 
                 else {
@@ -40,8 +62,8 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, data
                         description: "صفحة تفعيل الحساب الخاص بك على المنصة",
                         preview: "صورة_المعاينة_للصفحة",
                         session: request.session,
-                        isActivated: true,
-                        text: 'لقد قمت من قبل بتفعيل الحساب ✔️'
+                        isActivated: false,
+                        text: 'رابط تفعيل العضوية غير صحيح ❌'
 
                     };
                     let pugPath = path.join(__dirname, './views/activate.pug');
@@ -49,9 +71,9 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, data
                     response.send(render);
                 }
 
-            }
+            } catch (error) {
 
-            else {
+                console.error('حدث خطأ : ', error);
                 let options = {
                     website_name: config.WEBSITE_NAME,
                     title: `تفعيل الحساب - ${config.WEBSITE_NAME}`,
@@ -60,12 +82,13 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, data
                     preview: "صورة_المعاينة_للصفحة",
                     session: request.session,
                     isActivated: false,
-                    text: 'رابط تفعيل العضوية غير صحيح ❌'
+                    isError: true,
+                    text: `حدث خطأ\n\n${error} ❌`
 
                 };
                 let pugPath = path.join(__dirname, './views/activate.pug');
                 let render = pug.renderFile(pugPath, { options, jsStringify });
-                response.send(render);
+                response.status(500).send(render);
             }
         }
 

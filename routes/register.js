@@ -114,9 +114,9 @@ export default async ({
         } catch (error) {
             console.error('حدث خطأ : ', error);
             return response.status(500).json({
-                message: `حدث خطأ أثناء التحقق من إسم المستخدم والبريد الإلكتروني\n\n${ error }`,
+                message: `حدث خطأ\n\n${error}`,
                 register: false,
-                verification_answer: false,
+                verification_answer: true,
                 isError: true,
             });
         }
@@ -126,7 +126,7 @@ export default async ({
         const randomQuestion = await getRandomQuestionData();
         const options = {
             website_name: config.WEBSITE_NAME,
-            title: `تسجيل حساب جديد - انضم إلينا الآن - ${ config.WEBSITE_NAME }`,
+            title: `تسجيل حساب جديد - انضم إلينا الآن - ${config.WEBSITE_NAME}`,
             keywords: ['تسجيل حساب جديد', 'صفحة التسجيل', 'انضم إلينا', 'إنشاء حساب جديد'],
             description: 'تسجيل حساب جديد - انضم إلى مجتمعنا واحصل على حساب جديد بسهولة. قم بإنشاء حساب جديد باستخدام معلوماتك الشخصية واستفد من محتوى مميز وتفاعل مع أعضاء آخرين.',
             preview: 'صورة_المعاينة_للصفحة',

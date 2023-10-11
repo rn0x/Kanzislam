@@ -10,20 +10,18 @@ block content
       h2 تسجيل الدخول
       #loginusername
         p إسم المستخدم
-        input(type="text" placeholder="أدخل إسم المستخدم الخاصة بك")
+        input(type="text" name="username" placeholder="أدخل إسم المستخدم الخاصة بك")
         small البريد الإلكتروني أو كلمة السر غير صالحة.
       #loginpassword
         p كلمة المرور 
-        input(type="password" placeholder="أدخل كلمة المرور الخاصة بك")
+        input(type="password" name="password" placeholder="أدخل كلمة المرور الخاصة بك")
       button#loggedIn_bt دخول
       h4 مساعدة
       ul 
         li 
-          a(href="#") لا أملك حساب بعد
+          a(href="/register") لا أملك حساب بعد
         li 
-          a(href="#") فقدت كلمة المرور
-        li 
-          a(href="#") لم يصلني رمز التفعيل
+          a(href="/reset-password") فقدت كلمة المرور
 block script
   script(type="module")
     include ../public/js/login.js

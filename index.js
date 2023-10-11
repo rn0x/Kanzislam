@@ -18,6 +18,8 @@ import {
 import filterSpan from './public/js/filterSpan.js';
 import home from './routes/home.js';
 import login from './routes/login.js';
+import reset_password from './routes/reset_password.js';
+import update_password from './routes/update_password.js';
 import activate from './routes/activate.js';
 import register from './routes/register.js';
 import logout from './routes/logout.js';
@@ -76,6 +78,8 @@ await home(param);
 await login(param);
 await register(param);
 await logout(param);
+await reset_password(param);
+await update_password(param);
 await activate(param);
 await quran(param);
 await adhkar(param);

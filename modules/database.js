@@ -51,6 +51,10 @@ let User = sequelize?.define('users', {
         type: DataTypes.BOOLEAN,
         allowNull: false,
     },
+    update_password: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
     date: {
         type: DataTypes.DATE,
         allowNull: false,

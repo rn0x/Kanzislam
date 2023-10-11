@@ -84,3 +84,7 @@ input {
     top: 50%;
     transform: translate(-50%, -50%);
 }
+
+* {
+    -webkit-tap-highlight-color: #00000000;
+}
