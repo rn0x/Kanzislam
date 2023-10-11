@@ -5,6 +5,9 @@ import fs from 'fs-extra';
 import path from 'path';
 import pug from 'pug';
 import jsStringify from 'js-stringify';
+import EmailSender from './modules/emailSender.js';
+import generatePassword from './public/js/generatePassword.js';
+import checkTextLength from './public/js/checkTextLength.js';
 import {
     sequelize,
     User,
@@ -15,6 +18,7 @@ import {
 import filterSpan from './public/js/filterSpan.js';
 import home from './routes/home.js';
 import login from './routes/login.js';
+import activate from './routes/activate.js';
 import register from './routes/register.js';
 import logout from './routes/logout.js';
 import quran from './routes/quran.js';
@@ -26,6 +30,14 @@ const configPath = path.join(__dirname, 'config.json');
 const config = await fs.readJson(configPath).catch(() => ({}));
 const app = express();
 const port = config.PORT || 3000;
+const emailSender = new EmailSender({
+    host: config?.SMTP_HOST,
+    port: config?.SMTP_PORT,
+    user: config?.SMTP_USER,
+    pass: config?.SMTP_PASS,
+    displayname: config?.SMTP_DISPLAY_NAME,
+});
+
 const param = {
     app,
     pug,
@@ -41,7 +53,10 @@ const param = {
         removeColumn,
         addColumn,
     },
-    filterSpan
+    filterSpan,
+    emailSender,
+    generatePassword,
+    checkTextLength
 };
 
 app.disable('x-powered-by');
@@ -61,6 +76,7 @@ await home(param);
 await login(param);
 await register(param);
 await logout(param);
+await activate(param);
 await quran(param);
 await adhkar(param);
 

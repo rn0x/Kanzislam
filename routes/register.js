@@ -1,73 +1,161 @@
-export default async ({ app, pug, path, fs, config, __dirname, jsStringify, database }) => {
+export default async ({
+    app,
+    pug,
+    path,
+    fs,
+    config,
+    __dirname,
+    jsStringify,
+    database,
+    emailSender,
+    generatePassword,
+    checkTextLength,
+}) => {
+    const User = database.User;
 
-    let User = database.User
+    const handleRegistration = async (request, response) => {
+        try {
+            const {
+                name,
+                username,
+                password,
+                email,
+                question,
+                answer,
+                checkTerms,
+            } = request.body;
 
-    app.post('/register', async (request, response) => {
+            const { answer: correctAnswer } = await getAnswerData(question);
+            const isAnswerCorrect = answer === correctAnswer;
 
-        const { name, username, password, email, question, verification_question, checkTerms } = request.body;
-        let verification_q = verification_question === 'الله' ? true : false
-        if (name && username && password && email && verification_q && checkTerms) {
-
-            let GetUser = await User.findOne({
-                where: { username: username }
-            }).catch((error) => {
-                console.error('حدث خطأ أثناء التحقق من إسم المستخدم: ', error);
+            const existingUser = await User.findOne({
+                where: { username },
             });
 
-            if (GetUser?.dataValues?.username === username) {
+            const existingEmail = await User.findOne({
+                where: { email },
+            });
 
-                response.json({
-                    massage: 'عذرًا، اسم المستخدم محجوز بالفعل. يرجى اختيار اسم مستخدم آخر.',
+            if (existingUser?.dataValues?.username === username) {
+                return response.status(400).json({
+                    message:
+                        'عذرًا، اسم المستخدم محجوز بالفعل. يرجى اختيار اسم مستخدم آخر.',
                     register: false,
                     usernameFind: true,
-                    verification_question: verification_q
-
+                    verification_answer: isAnswerCorrect,
                 });
-            }
-            else {
+            } else if (existingEmail?.dataValues?.email === email) {
+                return response.status(400).json({
+                    message:
+                        'عذرًا، البريد الإلكتروني الذي قمت بإدخاله مستخدم بالفعل. يرجى استخدام بريد إلكتروني آخر لإكمال عملية التسجيل.',
+                    register: false,
+                    emailFind: true,
+                    verification_answer: isAnswerCorrect,
+                });
+            } else if (!isAnswerCorrect) {
+                return response.status(400).json({
+                    message: 'عذراً, الإجابة خاطئة',
+                    register: false,
+                    verification_answer: isAnswerCorrect,
+                });
+            } else if (
+                name &&
+                username &&
+                password &&
+                email &&
+                isAnswerCorrect &&
+                checkTerms
+            ) {
+                const verification_code = generatePassword(10);
+                const title = `رمز التحقق الخاص بتفعيل حسابك`;
+                const message = `<p style="color: #484d8e; direction: rtl; text-align: center; font-weight: bold; ">
+        مرحبا بك <span style="color: #da9945;">
+            ${name}
+        </span> في منصة <span style="color: #da9945;">
+            ${config?.WEBSITE_NAME}
+        </span> <br> <br>
+        لتفعيل حسابك اضغط على الرابط التالي: <span style="background-color: #dfdfdf; padding: 10px; border-radius: 8px;">
+            <a href="${config?.WEBSITE_DOMAIN}/activate?username=${username}&verification_code=${verification_code}" target="_blank" style="color: #ff0000; text-decoration: none;">
+                اضغط هنا
+            </a>
+        </span>
+    </p>`;
+                await emailSender.sendEmail({
+                    message,
+                    title,
+                    email,
+                });
+
                 await User.create({
-                    name: name,
-                    username: username,
-                    password: password,
-                    email: email,
-                    type: "member"
-                }).catch((error) => {
-                    console.error('حدث خطأ أثناء إنشاء حساب المستخدم: ', error);
+                    name,
+                    username,
+                    password,
+                    email,
+                    type: 'member',
+                    verification_code,
+                    isActivated: false,
+                    isBlocked: false,
                 });
 
-                response.json({
-                    massage: 'تم تسجيل حساب جديد . يمكنك الآن الاستفادة من جميع المزايا والخدمات المتاحة في الموقع. نرحب بك في مجتمعنا ونأمل أن تستمتع بتجربتك معنا.',
+                return response.json({
+                    message:
+                        'تم تسجيل حساب جديد. يمكنك الآن الاستفادة من جميع المزايا والخدمات المتاحة في الموقع. نرحب بك في مجتمعنا ونأمل أن تستمتع بتجربتك معنا.',
                     register: true,
-                    verification_question: verification_q
-
+                    verification_answer: isAnswerCorrect,
+                });
+            } else {
+                return response.status(400).json({
+                    message:
+                        'يرجى إكمال جميع الفراغات المطلوبة لتسجيل الحساب الجديد',
+                    register: false,
+                    verification_answer: isAnswerCorrect,
                 });
             }
-
-        }
-
-        else {
-            response.json({
-                massage: 'يرجى إكمال جميع الفراغات المطلوبة لتسجيل الحساب الجديد',
+        } catch (error) {
+            console.error('حدث خطأ : ', error);
+            return response.status(500).json({
+                message: `حدث خطأ أثناء التحقق من إسم المستخدم والبريد الإلكتروني\n\n${ error }`,
                 register: false,
-                verification_question: verification_q
+                verification_answer: false,
+                isError: true,
             });
         }
+    };
 
-    });
-
-    app.get('/register', async (request, response) => {
-
-        let options = {
+    const handleRegistrationPage = async (request, response) => {
+        const randomQuestion = await getRandomQuestionData();
+        const options = {
             website_name: config.WEBSITE_NAME,
-            title: `عنوان الصفحة - ${config.WEBSITE_NAME}`,
-            keywords: ["word1", "word2", "word3"],
-            description: "وصف_الصفحة",
-            preview: "صورة_المعاينة_للصفحة",
+            title: `تسجيل حساب جديد - انضم إلينا الآن - ${ config.WEBSITE_NAME }`,
+            keywords: ['تسجيل حساب جديد', 'صفحة التسجيل', 'انضم إلينا', 'إنشاء حساب جديد'],
+            description: 'تسجيل حساب جديد - انضم إلى مجتمعنا واحصل على حساب جديد بسهولة. قم بإنشاء حساب جديد باستخدام معلوماتك الشخصية واستفد من محتوى مميز وتفاعل مع أعضاء آخرين.',
+            preview: 'صورة_المعاينة_للصفحة',
             session: request.session,
-            question: "من هو ربك ؟"
+            question: randomQuestion?.question,
         };
-        let pugPath = path.join(__dirname, './views/register.pug');
-        let render = pug.renderFile(pugPath, { options, jsStringify });
+        const pugPath = path.join(__dirname, './views/register.pug');
+        const render = pug.renderFile(pugPath, { options, jsStringify });
         response.send(render);
-    });
-}
+    };
+
+    app.post('/register', handleRegistration);
+    app.get('/register', handleRegistrationPage);
+
+    const getRandomQuestionData = async () => {
+        const VerificationDataPath = path.join(__dirname, 'VerificationData.json');
+        const VerificationData = await fs.readJson(VerificationDataPath).catch(
+            () => ({})
+        );
+        const randomIndex = Math.floor(Math.random() * VerificationData.length);
+        return VerificationData[randomIndex];
+    };
+
+    const getAnswerData = async (Question) => {
+        const VerificationDataPath = path.join(__dirname, 'VerificationData.json');
+        const VerificationData = await fs.readJson(VerificationDataPath).catch(
+            () => ({})
+        );
+        const findQuestion = VerificationData.find((e) => e.question === Question);
+        return findQuestion;
+    };
+};  

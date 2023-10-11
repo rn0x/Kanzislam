@@ -1,0 +1,18 @@
+extends ./layout.pug
+
+block content
+  #activatePage
+    ul.breadcrumb
+      li 
+        a(href="/")
+          img(src="/icon/home.svg" alt="الرئيسية") 
+      li 
+        small /
+        a(href="/activate")  تفعيل الحساب
+    h2 #{options.text}
+block script
+  script.
+    window.options = !{jsStringify(options)};
+    setTimeout(() => {
+      window.location.href = '/'
+    }, 15000);

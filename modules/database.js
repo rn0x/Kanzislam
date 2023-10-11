@@ -39,6 +39,18 @@ let User = sequelize?.define('users', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    verification_code: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    isActivated: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+    },
+    isBlocked: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+    },
     date: {
         type: DataTypes.DATE,
         allowNull: false,

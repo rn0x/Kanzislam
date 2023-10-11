@@ -1,5 +1,11 @@
 {
-    "WEBSITE_NAME":"كنز الإسلام",
+    "WEBSITE_NAME": "كنز الإسلام",
+    "WEBSITE_DOMAIN": "https://www.example.net",
     "PORT": 3000,
-    "SESSION_SECRET":"secret-key"
+    "SESSION_SECRET": "SESSION_SECRET",
+    "SMTP_HOST": "smtp.example.com",
+    "SMTP_PORT": 587,
+    "SMTP_DISPLAY_NAME": "كنز الإسلام | Kanzislam",
+    "SMTP_USER": "support@example.net",
+    "SMTP_PASS": "SMTP_PASS"
 }

@@ -3,3 +3,4 @@ package-lock.json
 yarn.lock
 .cache
 database.sqlite
+config_.json
