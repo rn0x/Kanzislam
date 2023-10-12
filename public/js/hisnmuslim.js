@@ -115,6 +115,12 @@ document.addEventListener("DOMContentLoaded", async function () {
                     currentAudio = null;
                 }
             });
+
+            audio.addEventListener("ended", () => {
+                currentAudio = null;
+                currentAudioIcon.src = "/icon/play.svg";
+                isPlay = false;
+            });
         }
         loading.style.display = "none";
     }
@@ -162,6 +168,11 @@ document.addEventListener("DOMContentLoaded", async function () {
                 hisPlay.src = "/icon/play.svg";
                 isPlay = false;
             }
+        });
+
+        audio.addEventListener("ended", () => {
+            hisPlay.src = "/icon/play.svg";
+            isPlay = false;
         });
 
         loading.style.display = "none";
