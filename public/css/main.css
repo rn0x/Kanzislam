@@ -83,8 +83,16 @@ input {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    z-index: 100;
 }
 
 * {
     -webkit-tap-highlight-color: #00000000;
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+a:focus {
+    outline: none;
 }

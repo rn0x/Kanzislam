@@ -1,0 +1,138 @@
+#SearchIndex {
+    background-image: url(/icon/searchicon.png);
+    background-position: 5px 9px;
+    background-repeat: no-repeat;
+    padding: 10px;
+    width: 70%;
+    max-width: 600px;
+    border: none;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: double;
+}
+
+#hisnmuslimIndex {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    padding: 0px;
+    list-style: none;
+    display: flex;
+    align-items: stretch;
+    flex-wrap: wrap;
+}
+
+#hisnmuslimIndex li {
+    display: flex;
+    justify-content: center;
+    width: calc(90% / 3);
+    background-color: var(--background_white);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    box-sizing: border-box;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: double;
+}
+
+#hisnmuslimIndex li:hover {
+    background-color: var(--background_hover);
+}
+
+#hisnmuslimIndex li a {
+    align-self: center;
+}
+
+/* Hisnmuslim Category */
+
+#hisnmuslimCategory {
+    width: 95%;
+    padding: 10px;
+    list-style: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#hisnmuslimCategory li {
+    background-color: var(--background_white);
+    margin-top: 10px;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    position: relative;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: double;
+}
+#hisnmuslimCategory li p{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: justify;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-family: var(--fontQuran);
+    font-size: 20px;
+}
+
+#hisnmuslimCategory li:hover {
+    background-color: var(--background_hover);
+}
+
+.HusId {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    background-color: var(--button);
+    color: var(--colorWhite);
+    width: 10px;
+    height: 10px;
+    padding: 10px;
+    border-radius: 50%;
+    margin-top: -20px;
+}
+
+.Huscount {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 150px;
+    padding: 2px;
+    background-color: var(--button);
+    color: var(--colorWhite);
+    border-radius: 5px;
+}
+
+.Boxicons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    user-select: none;
+}
+
+.Boxicons img {
+    display: block;
+    width: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+
+
+@media (max-width: 700px) {
+    #hisnmuslimIndex li {
+        width: calc(90% / 2);
+    }
+}
+
+@media (max-width: 500px) {
+    #hisnmuslimIndex li {
+        width: 100%
+    }
+}

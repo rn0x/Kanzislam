@@ -36,12 +36,14 @@ function replaceWords(sentence) {
 export default function filterSpan(sentence) {
     let newSentence = sentence
         .replace(/\d+/g, convertArabicNumbers)
-        .replace(/\(/g, '<span style="color: #7f8862;">(')
+        .replace(/\(/g, '<span style="color: #596aab;">(')
         .replace(/\)/g, ')</span>')
         .replace(/﴿/g, ' <span style="color: #378e48;">﴿')
         .replace(/﴾/g, '﴾</span>')
         .replace(/«/g, '<span style="color: #6bc077;">«')
-        .replace(/»/g, '»</span>');
+        .replace(/»/g, '»</span>')
+        .replace(/\[/g, '<span style="color: #59aba2;">[')
+        .replace(/\]/g, ']</span>');
 
     return replaceWords(newSentence);
 }

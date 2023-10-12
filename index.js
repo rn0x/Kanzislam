@@ -25,6 +25,7 @@ import register from './routes/register.js';
 import logout from './routes/logout.js';
 import quran from './routes/quran.js';
 import adhkar from './routes/adhkar.js';
+import hisnmuslim from './routes/hisnmuslim.js';
 
 // Get the current working directory
 const __dirname = path.resolve();
@@ -83,6 +84,7 @@ await update_password(param);
 await activate(param);
 await quran(param);
 await adhkar(param);
+await hisnmuslim(param);
 
 app.use(function (request, response, next) {
     let options = {
