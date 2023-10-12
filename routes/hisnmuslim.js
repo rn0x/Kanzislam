@@ -2,9 +2,6 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify }) =>
 
     const options = {
         website_name: config.WEBSITE_NAME,
-        title: `فهرس حصن المسلم من أذكار الكتاب والسنة - ${config.WEBSITE_NAME}`,
-        keywords: ["حصن المسلم", "الأذكار اليومية", "الأذكار الإسلامية", "الدين الإسلامي", "أذكار الكتاب والسنة", "أذكار", "اذكاري", "اذكار  يومية", "حصن نفسك", "أذكار متنوعة", "أذكار المسلم", "أذكار صوتية"],
-        description: "“حصن المسلم”: مصدرك الشامل لأذكار الكتاب والسنة، يقدم مجموعة من الأذكار التي قالها النبي محمد ﷺ في مختلف مواضع الحياة اليومية.",
         preview: "صورة_المعاينة_للصفحة"
     };
     const pugPath = path.join(__dirname, './views/hisnmuslim.pug');
@@ -13,6 +10,9 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify }) =>
 
     app.get('/hisnmuslim', async (request, response) => {
 
+        options.title = `فهرس حصن المسلم من أذكار الكتاب والسنة - ${config.WEBSITE_NAME}`;
+        options.description = "“حصن المسلم”: مصدرك الشامل لأذكار الكتاب والسنة، يقدم مجموعة من الأذكار التي قالها النبي محمد ﷺ في مختلف مواضع الحياة اليومية.";
+        options.keywords = ["حصن المسلم", "الأذكار اليومية", "الأذكار الإسلامية", "الدين الإسلامي", "أذكار الكتاب والسنة", "أذكار", "اذكاري", "اذكار  يومية", "حصن نفسك", "أذكار متنوعة", "أذكار المسلم", "أذكار صوتية"];
         options.titleBox = "فهرس حصن المسلم";
         options.isIndex = true;
         options.isAdhkarHisnMuslim = false;
@@ -31,7 +31,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify }) =>
             options.title = `${hisnmuslimFound?.category} - ${config.WEBSITE_NAME}`
             options.description = `“حصن المسلم - ${hisnmuslimFound?.category}”: مصدرك الشامل لأذكار الكتاب والسنة، يقدم مجموعة من الأذكار التي قالها النبي محمد ﷺ في مختلف مواضع الحياة اليومية.`
             options.titleBox = hisnmuslimFound?.category;
-            options.keywords.push(hisnmuslimFound?.category);
+            options.keywords = [hisnmuslimFound?.category, "حصن المسلم", "الأذكار اليومية", "الأذكار الإسلامية", "الدين الإسلامي", "أذكار الكتاب والسنة", "أذكار", "اذكاري", "اذكار  يومية", "حصن نفسك", "أذكار متنوعة", "أذكار المسلم", "أذكار صوتية"];
             options.isIndex = false;
             options.isAdhkarHisnMuslim = true;
             options.isHisText = false;
@@ -62,6 +62,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify }) =>
         if (isTitleFind) {
             options.title = `${title} - ${config.WEBSITE_NAME}`
             options.description = `“حصن المسلم” : ${isTitleFind?.object?.text ? isTitleFind?.text : title}.`
+            options.keywords = ["حصن المسلم", "الأذكار اليومية", "الأذكار الإسلامية", "الدين الإسلامي", "أذكار الكتاب والسنة", "أذكار", "اذكاري", "اذكار  يومية", "حصن نفسك", "أذكار متنوعة", "أذكار المسلم", "أذكار صوتية"];
             options.titleBox = `${isTitleFind?.category} - ${isTitleFind?.object?.id}`;
             options.isIndex = false;
             options.isAdhkarHisnMuslim = false;
