@@ -62,7 +62,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify }) =>
         if (isTitleFind) {
             options.title = `${title} - ${config.WEBSITE_NAME}`
             options.description = `“حصن المسلم” : ${isTitleFind?.object?.text ? isTitleFind?.text : title}.`
-            options.titleBox = `${isTitleFind?.category} - رقم الذكر: ${isTitleFind?.object?.id}`;
+            options.titleBox = `${isTitleFind?.category} - ${isTitleFind?.object?.id}`;
             options.isIndex = false;
             options.isAdhkarHisnMuslim = false;
             options.isHisText = true;

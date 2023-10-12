@@ -12,7 +12,7 @@
 }
 
 #hisnmuslimIndex {
-    width: 90%;
+    width: 95%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 40px;
@@ -26,12 +26,12 @@
 #hisnmuslimIndex li {
     display: flex;
     justify-content: center;
-    width: calc(90% / 3);
+    width: calc(95% / 3);
     background-color: var(--background_white);
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
     padding: 10px;
     box-sizing: border-box;
     border-color: var(--border);
@@ -68,7 +68,8 @@
     border-width: 1px;
     border-style: double;
 }
-#hisnmuslimCategory li p{
+
+#hisnmuslimCategory li p {
     margin-top: 20px;
     margin-bottom: 10px;
     text-align: justify;
@@ -127,12 +128,17 @@
 
 @media (max-width: 700px) {
     #hisnmuslimIndex li {
-        width: calc(90% / 2);
+        width: calc(95% / 2);
     }
 }
 
 @media (max-width: 500px) {
     #hisnmuslimIndex li {
-        width: 100%
+        width: 100%;
+        margin-top: 2px;
+        margin-bottom: 2px;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding: 5px;
     }
 }
