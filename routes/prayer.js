@@ -1,0 +1,17 @@
+export default async ({ app, pug, path, fs, config, __dirname, jsStringify }) => {
+
+    app.get('/prayer', async (request, response) => {
+
+        let options = {
+            website_name: config.WEBSITE_NAME,
+            title: `أوقات الصلاة الدقيقة: تتبع صلواتك اليومية مع التنبيهات الصوتية - ${config.WEBSITE_NAME}`,
+            keywords: ["أوقات الصلاة", "الصلاة الإسلامية", "التنبيهات الصوتية للصلاة", "جدول الصلاة", "وقت صلاة الفجر", "وقت صلاة الظهر", "وقت صلاة العصر", "وقت صلاة المغرب", "وقت صلاة العشاء", "التقوى", "الإيمان"],
+            description: "تعد هذه الصفحة أداة رائعة لأولئك الذين يرغبون في ضمان أداء صلواتهم الخمس (الفجر، الظهر، العصر، المغرب، العشاء) في الوقت المحدد كل يوم, بناءً على موقع المستخدم. يتم تحديث هذه الأوقات يوميًا لضمان دقتها.",
+            preview: "صورة_المعاينة_للصفحة",
+            session: request.session
+        };
+        let pugPath = path.join(__dirname, './views/prayer.pug');
+        let render = pug.renderFile(pugPath, { options, jsStringify });
+        response.send(render);
+    });
+}

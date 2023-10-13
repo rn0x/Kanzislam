@@ -1,0 +1,201 @@
+#prayerPage {
+    display: none;
+    position: relative;
+}
+
+#BoxTime {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    direction: ltr;
+    margin-top: 20px;
+}
+
+#hour_minutes {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 70px;
+    font-weight: bold;
+}
+
+#seconds {
+    font-size: 25px;
+}
+
+#colon {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#Boxdata {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 10px;
+}
+
+#Boxdata p {
+    margin: 0;
+    color: var(--colorFont2);
+}
+
+#data_today {
+    font-size: 30px;
+    font-weight: bold;
+    color: var(--colorFontMain) !important;
+}
+
+#BoxTimeZone {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+#BoxTimeZone p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 12px;
+    margin-left: 2px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#timezone {
+    color: #ff4646;
+}
+
+#BoxPrayer {
+    width: 95%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px;
+    list-style: none;
+    margin-bottom: 10px;
+}
+
+#BoxPrayer li {
+    background-color: var(--background_white);
+    width: calc(90% / 2);
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: double;
+    padding: 5px;
+}
+
+#BoxPrayer li:hover {
+    background-color: var(--background_hover);
+}
+
+#BoxPrayer li p {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    direction: ltr;
+}
+
+.timePrayer {
+    font-size: 13px;
+    color: #ff4646;
+}
+
+#BoxRemainingTime {
+    margin-top: 15px;
+}
+
+#BoxRemainingTime p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#BoxRemainingTime span {
+    color: #ff4646;
+}
+
+#BoxRemainingTime small {
+    display: block;
+    color: #ffffff;
+    background-color: #ff4646;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-weight: 800;
+}
+
+#screenshot {
+    display: block;
+    width: 30px;
+    position: absolute;
+    left: 25px;
+    top: 160px;
+    cursor: pointer;
+}
+
+#logoScreen {
+    display: none;
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    /* opacity: 0.5; */
+}
+
+#isPermissionLocation {
+    display: none;
+    width: 80%;
+    background-color: var(--background_white);
+    padding: 10px;
+    text-align: justify;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    border-radius: 8px;
+    position: relative;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: double;
+}
+
+#isPermissionLocation h2{
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0px;
+    color: #ff4646;
+}
+
+#isPermissionLocation p{
+    width: 50px;
+    position: absolute;
+    margin-top: -25px;
+    background-color: #ff4646;
+    color: var(--colorWhite);
+    font-size: 12px;
+    text-align: center;
+    border-radius: 3px;
+}
+
+#isPermissionLocation small{
+    margin-top: 10px;
+    color: var(--colorFont2);
+    font-size: 12px;
+}
+
+@media (max-width: 450px) {
+    #BoxPrayer li {
+        width: calc(85% / 2);
+    }
+}
+
+@media (max-width: 300px) {
+    #BoxPrayer li {
+        width: 95%
+    }
+}
