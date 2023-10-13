@@ -27,13 +27,14 @@
 #home_box a p {
     margin-top: 0px;
     margin-bottom: 0px;
-    font-size: 13px;
+    font-size: 16px;
 
 }
 
 #home_box a img {
     width: 48px;
     height: 48px;
+    user-select: none;
 }
 
 #home_category h2 {
