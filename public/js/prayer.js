@@ -33,8 +33,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (getLocation) {
 
         loading.style.display = "block";
-        prayerPage.style.display = "block";
-
+        
         setInterval(() => {
             const prayerData = prayerTimes({
                 Calculation: "UmmAlQura",
@@ -174,6 +173,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     else {
+        prayerPage.style.display = "none";
         isPermissionLocation.style.display = "block";
     }
 
