@@ -14,6 +14,8 @@
 
 ![website|400](./website_Screenshot.png)
 
+![Firefox_Screenshot_2023-10-13T16-11-40 266Z](https://github.com/Alsarmad/Islamic_platform/assets/76129163/c50a096d-c758-495d-8e56-392ccdc94fe9)
+
 ![1|400](https://github.com/Alsarmad/Islamic_platform/assets/76129163/09428626-f73c-42a2-85d1-68dec247b67a)
 
 ![3|400](https://github.com/Alsarmad/Islamic_platform/assets/76129163/bee17d97-ad72-4a3a-98cc-811b0e2d8d60)
