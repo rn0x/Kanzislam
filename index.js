@@ -1,6 +1,7 @@
 import express from 'express';
 import session from 'express-session';
 import compression from 'compression';
+import helmet from "helmet";
 import bodyParser from 'body-parser';
 import fs from 'fs-extra';
 import path from 'path';
@@ -89,13 +90,50 @@ const param = {
     checkTextLength
 };
 
+
 // استخدام compress لضغط جميع الاستجابات
 app.use(compression({
     level: 6, // مستوى الضغط (1-9)
     threshold: 1000, // حجم الاستجابة المطلوبة لتنفيذ الضغط (بايت)
     memLevel: 8, // مستوى الذاكرة المستخدمة للضغط (1-9)
 }));
-app.disable('x-powered-by');
+
+// تساعد الخوذة في تأمين تطبيقات Express عن طريق تعيين رؤوس استجابة HTTP.
+app.use(
+    helmet({
+        contentSecurityPolicy: {
+            // يحدد السماح بالأنشطة المسموح بها على الصفحة ويقلل من الهجمات المحتملة.
+            directives: {
+                defaultSrc: ["'self'"],
+                scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+                styleSrc: ["'self'", "'unsafe-inline'"],
+                imgSrc: ["'self'", "data:"],
+                fontSrc: ["'self'"],
+                objectSrc: ["'none'"],
+                mediaSrc: ["'self'"],
+                frameSrc: ["'self'"],
+                childSrc: ["'self'"],
+                connectSrc: ["'self'"],
+                workerSrc: ["'self'", "blob:"],
+                manifestSrc: ["'self'"],
+            },
+        },
+        crossOriginOpenerPolicy: true, // يساعد في عزل العمليات المتعلقة بالصفحة.
+        crossOriginResourcePolicy: true, // يمنع الآخرين من تحميل الموارد الخاصة بك عبر الأصل.
+        originAgentCluster: true, // يغير عزل العمليات ليكون مستندًا على الأصل.
+        referrerPolicy: { policy: "strict-origin-when-cross-origin" }, // يتحكم في رأس المرجعية (Referer header).
+        strictTransportSecurity: { maxAge: 63072000, includeSubDomains: true }, // يخبر المتصفحات بتفضيل استخدام HTTPS.
+        xContentTypeOptions: true, // يتجنب التحقق من نوع MIME (MIME sniffing).
+        xDnsPrefetchControl: { allow: true }, // يتحكم في مسبقة تحميل DNS.
+        xDownloadOptions: true, // يجبر التنزيلات على الحفظ (فقط في Internet Explorer).
+        xFrameOptions: { action: "sameorigin" }, // رأس قديم يقلل من هجمات الـ clickjacking.
+        xPermittedCrossDomainPolicies: { permittedPolicies: "none" }, // يتحكم في سلوك العمل عبر النطاق العرضي لمنتجات Adobe مثل Acrobat.
+        xXssProtection: false, // رأس قديم يحاول التقليل من هجمات XSS، ولكن يجعل الأمور أسوأ، لذلك يتم تعطيله بواسطة Helmet.
+    })
+);
+
+
+app.disable('x-powered-by');  // معلومات حول خادم الويب. تم تعطيله لأنه يمكن استخدامه في هجمات بسيطة.
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json({ limit: '200mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
