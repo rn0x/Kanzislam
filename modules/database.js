@@ -436,6 +436,7 @@ async function addColumn(table, columnName, dataType = "string") {
 export {
     sequelize,
     User,
+    Categories,
     Topics,
     Comments,
     Tags,

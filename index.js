@@ -11,6 +11,7 @@ import checkTextLength from './public/js/checkTextLength.js';
 import {
     sequelize,
     User,
+    Categories,
     Topics,
     Comments,
     Tags,
@@ -65,6 +66,7 @@ const param = {
     database: {
         sequelize,
         User,
+        Categories,
         Topics,
         Comments,
         Tags,
