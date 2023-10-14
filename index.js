@@ -1,5 +1,6 @@
 import express from 'express';
 import session from 'express-session';
+import compression from 'compression';
 import bodyParser from 'body-parser';
 import fs from 'fs-extra';
 import path from 'path';
@@ -88,6 +89,12 @@ const param = {
     checkTextLength
 };
 
+// استخدام compress لضغط جميع الاستجابات
+app.use(compression({
+    level: 6, // مستوى الضغط (1-9)
+    threshold: 1000, // حجم الاستجابة المطلوبة لتنفيذ الضغط (بايت)
+    memLevel: 8, // مستوى الذاكرة المستخدمة للضغط (1-9)
+}));
 app.disable('x-powered-by');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json({ limit: '200mb' }));
