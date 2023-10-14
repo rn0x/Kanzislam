@@ -67,6 +67,7 @@ export default async ({
                 checkTerms
             ) {
                 const verification_code = generatePassword(10);
+                const token = generatePassword(30);
                 const title = `رمز التحقق الخاص بتفعيل حسابك`;
                 const message = `<p style="color: #484d8e; direction: rtl; text-align: center; font-weight: bold; ">
         مرحبا بك <span style="color: #da9945;">
@@ -85,8 +86,12 @@ export default async ({
                     title,
                     email,
                 });
-
+                const lastUserId = await User.max('user_id').catch((error) => {
+                    console.log('حدث خطأ:', error);
+                });
+                const newUserId = lastUserId + 1;
                 await User.create({
+                    user_id: newUserId,
                     name,
                     username,
                     password,
@@ -95,6 +100,7 @@ export default async ({
                     verification_code,
                     isActivated: false,
                     isBlocked: false,
+                    token,
                 });
 
                 return response.json({

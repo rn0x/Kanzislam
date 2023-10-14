@@ -19,6 +19,10 @@ sequelize
 
 // جدول المستخدمين
 let User = sequelize?.define('users', {
+    user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
     name: {
         type: DataTypes.STRING,
         allowNull: false
@@ -55,6 +59,10 @@ let User = sequelize?.define('users', {
         type: DataTypes.STRING,
         allowNull: true,
     },
+    token: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     date: {
         type: DataTypes.DATE,
         allowNull: false,
@@ -90,14 +98,49 @@ let User = sequelize?.define('users', {
     },
 }, { createdAt: false, updatedAt: false });
 
+// جدول فئات المجتمع
+let Categories = sequelize?.define('categories', {
+    category_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
+    },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    description: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: new Date()
+    },
+    updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: new Date()
+    }
+});
 
-// جدول المشاركات
-let Post = sequelize?.define('posts', {
-    post_id: {
+
+// جدول الموضوعات
+let Topics = sequelize?.define('topics', {
+    topic_id: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
+    user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
     title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    content: {
         type: DataTypes.STRING,
         allowNull: false,
     },
@@ -118,22 +161,6 @@ let Post = sequelize?.define('posts', {
         allowNull: false,
         defaultValue: new Date(), // تعيين الوقت الحالي كقيمة افتراضية
     },
-    conten: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    keywords: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-    },
-    link_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    link_source: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
     images: {
         type: DataTypes.TEXT,
         allowNull: true,
@@ -145,11 +172,207 @@ let Post = sequelize?.define('posts', {
     likes: {
         type: DataTypes.TEXT,
         allowNull: true,
+    }
+});
+
+// جدول التعليقات
+let Comments = sequelize?.define('comments', {
+    comment_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
     },
-    comments: {
-        type: DataTypes.TEXT, // نوع البيانات هنا هو ARRAY من نوع JSON,
-        allowNull: true,
+    user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
     },
+    topic_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    content: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    date_posted: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: new Date(),
+    },
+});
+
+// جدول التاقات
+let Tags = sequelize?.define('tags', {
+    tag_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    topic_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    tag_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+});
+
+// جدول الإعجابات
+let Likes = sequelize?.define('likes', {
+    like_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    topic_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+});
+
+// جدول المفضلة
+let Favorites = sequelize?.define('favorites', {
+    favorite_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    topic_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+});
+
+// جدول البلاغات
+let Reports = sequelize?.define('reports', {
+    report_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    topic_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+});
+
+
+// جدول المشاهدات
+let Views = sequelize?.define('views', {
+    view_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    topic_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+});
+
+
+// جدول الإشعارات
+let Notifications = sequelize?.define('notifications', {
+    notification_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    topic_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    notification_text: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+});
+
+
+// جدول الصور
+let Images = sequelize?.define('images', {
+    image_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    image_url: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+});
+
+// جدول الفيديو
+let Videos = sequelize?.define('videos', {
+    video_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    video_url: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+});
+
+// جدول الصوت
+let Audios = sequelize?.define('audios', {
+    audio_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    audio_url: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+});
+
+// جدول الإحصائيات
+let Statistics = sequelize?.define('statistics', {
+    stat_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    topic_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    views_count: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    likes_count: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    comments_count: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    }
 });
 
 
@@ -213,7 +436,18 @@ async function addColumn(table, columnName, dataType = "string") {
 export {
     sequelize,
     User,
-    Post,
+    Topics,
+    Comments,
+    Tags,
+    Likes,
+    Favorites,
+    Reports,
+    Views,
+    Notifications,
+    Images,
+    Videos,
+    Audios,
+    Statistics,
     removeColumn,
     addColumn
 };

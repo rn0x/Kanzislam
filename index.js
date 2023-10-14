@@ -11,9 +11,20 @@ import checkTextLength from './public/js/checkTextLength.js';
 import {
     sequelize,
     User,
-    Post,
+    Topics,
+    Comments,
+    Tags,
+    Likes,
+    Favorites,
+    Reports,
+    Views,
+    Notifications,
+    Images,
+    Videos,
+    Audios,
+    Statistics,
     removeColumn,
-    addColumn,
+    addColumn
 } from './modules/database.js';
 import filterSpan from './public/js/filterSpan.js';
 import home from './routes/home.js';
@@ -27,6 +38,7 @@ import quran from './routes/quran.js';
 import adhkar from './routes/adhkar.js';
 import hisnmuslim from './routes/hisnmuslim.js';
 import prayer from './routes/prayer.js';
+import forum from './routes/forum.js';
 
 // Get the current working directory
 const __dirname = path.resolve();
@@ -53,9 +65,20 @@ const param = {
     database: {
         sequelize,
         User,
-        Post,
+        Topics,
+        Comments,
+        Tags,
+        Likes,
+        Favorites,
+        Reports,
+        Views,
+        Notifications,
+        Images,
+        Videos,
+        Audios,
+        Statistics,
         removeColumn,
-        addColumn,
+        addColumn
     },
     filterSpan,
     emailSender,
@@ -87,6 +110,7 @@ await quran(param);
 await adhkar(param);
 await hisnmuslim(param);
 await prayer(param);
+await forum(param);
 
 app.use(function (request, response, next) {
     let options = {
