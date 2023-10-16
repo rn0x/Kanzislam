@@ -6,12 +6,12 @@ export default async ({
     config,
     __dirname,
     jsStringify,
-    database,
+    model,
     emailSender,
     generatePassword,
     checkTextLength,
 }) => {
-    const User = database.User;
+    const Users = model.Users;
 
     const handleRegistration = async (request, response) => {
         try {
@@ -28,11 +28,11 @@ export default async ({
             const { answer: correctAnswer } = await getAnswerData(question);
             const isAnswerCorrect = answer === correctAnswer;
 
-            const existingUser = await User.findOne({
+            const existingUser = await Users.findOne({
                 where: { username },
             });
 
-            const existingEmail = await User.findOne({
+            const existingEmail = await Users.findOne({
                 where: { email },
             });
 
@@ -86,11 +86,11 @@ export default async ({
                     title,
                     email,
                 });
-                const lastUserId = await User.max('user_id').catch((error) => {
+                const lastUserId = await Users.max('user_id').catch((error) => {
                     console.log('حدث خطأ:', error);
                 });
                 const newUserId = lastUserId + 1;
-                await User.create({
+                await Users.create({
                     user_id: newUserId,
                     name,
                     username,

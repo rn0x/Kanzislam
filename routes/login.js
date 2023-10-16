@@ -1,11 +1,11 @@
-export default async ({ app, pug, path, fs, config, __dirname, jsStringify, database }) => {
+export default async ({ app, pug, path, fs, config, __dirname, jsStringify, model }) => {
 
-    let User = database.User
+    let Users = model.Users
 
     app.post('/login', async (request, response) => {
 
         const { username, password } = request.body;
-        let GetUser = await User.findOne({
+        let GetUser = await Users.findOne({
             where: { username: username }
         });
         // تعيين متغير لتتبع عدد مرات إدخال بيانات غير صحيحة
@@ -56,9 +56,9 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, data
 
         let options = {
             website_name: config.WEBSITE_NAME,
-            title: `عنوان الصفحة - ${config.WEBSITE_NAME}`,
-            keywords: ["word1", "word2", "word3"],
-            description: "وصف_الصفحة",
+            title: `تسجيل الدخول إلى حسابك - ${config.WEBSITE_NAME}`,
+            keywords: ["تسجيل الدخول", "صفحة تسجيل الدخول", "حساب المستخدم", "اسم المستخدم", "كلمة المرور", "الوصول إلى الحساب", "الأمان", "المحتوى الحصري", "الاعتمادات"],
+            description: "صفحة تسجيل الدخول هي الصفحة التي يستخدمها المستخدمون للوصول إلى حساباتهم على الموقع. توفر الصفحة واجهة بسيطة وآمنة لإدخال معلومات الاعتماد الخاصة بهم، مثل اسم المستخدم وكلمة المرور، للوصول إلى المحتوى الحصري أو لإجراء أي نشاط يتطلب تسجيل الدخول.",
             preview: "صورة_المعاينة_للصفحة",
             session: request.session
         };

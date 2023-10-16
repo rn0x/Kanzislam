@@ -1,6 +1,6 @@
-export default async ({ app, pug, path, fs, config, __dirname, jsStringify, database, generatePassword }) => {
+export default async ({ app, pug, path, fs, config, __dirname, jsStringify, model, generatePassword }) => {
 
-    const User = database.User;
+    const Users = model.Users;
 
     app.get('/update-password', async (request, response) => {
 
@@ -20,7 +20,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, data
 
         if (email && update_password) {
 
-            const existingEmail = await User.findOne({
+            const existingEmail = await Users.findOne({
                 where: { email },
             });
 
@@ -54,7 +54,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, data
 
         if (password && password_confirmation && email) {
             const generateUpdatePass = generatePassword(20);
-            await User.update({ password: password, update_password: generateUpdatePass }, {
+            await Users.update({ password: password, update_password: generateUpdatePass }, {
                 where: { email }
             });
             response.json({

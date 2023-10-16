@@ -1,6 +1,6 @@
-export default async ({ app, pug, path, fs, config, __dirname, jsStringify, emailSender, database, generatePassword }) => {
+export default async ({ app, pug, path, fs, config, __dirname, jsStringify, emailSender, model, generatePassword }) => {
 
-    const User = database.User;
+    const Users = model.Users;
 
     app.get('/reset-password', async (request, response) => {
 
@@ -20,14 +20,14 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, emai
     app.post('/reset-password', async (request, response) => {
 
         const { email } = request.body;
-        const existingEmail = await User.findOne({
+        const existingEmail = await Usesr.findOne({
             where: { email },
         });
 
         if (existingEmail?.dataValues?.email === email) {
 
             const generateUpdatePass = generatePassword(20);
-            await User.update({ update_password: generateUpdatePass }, {
+            await Users.update({ update_password: generateUpdatePass }, {
                 where: { email }
             });
             const title = `رابط إستعادة كلمة المرور`;

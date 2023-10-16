@@ -10,25 +10,8 @@ import jsStringify from 'js-stringify';
 import EmailSender from './modules/emailSender.js';
 import generatePassword from './public/js/generatePassword.js';
 import checkTextLength from './public/js/checkTextLength.js';
-import {
-    sequelize,
-    User,
-    Categories,
-    Topics,
-    Comments,
-    Tags,
-    Likes,
-    Favorites,
-    Reports,
-    Views,
-    Notifications,
-    Images,
-    Videos,
-    Audios,
-    Statistics,
-    removeColumn,
-    addColumn
-} from './modules/database.js';
+import { sequelize, removeColumn, addColumn, modelObject, getTopicsByCategoryId } from './database/index.js';
+import CreateCategories from './modules/CreateCategories.js';
 import filterSpan from './public/js/filterSpan.js';
 import home from './routes/home.js';
 import login from './routes/login.js';
@@ -56,7 +39,6 @@ const emailSender = new EmailSender({
     pass: config?.SMTP_PASS,
     displayname: config?.SMTP_DISPLAY_NAME,
 });
-
 const param = {
     app,
     pug,
@@ -65,31 +47,17 @@ const param = {
     config,
     __dirname: path.resolve(),
     jsStringify,
-    database: {
-        sequelize,
-        User,
-        Categories,
-        Topics,
-        Comments,
-        Tags,
-        Likes,
-        Favorites,
-        Reports,
-        Views,
-        Notifications,
-        Images,
-        Videos,
-        Audios,
-        Statistics,
-        removeColumn,
-        addColumn
-    },
+    model: modelObject,
     filterSpan,
     emailSender,
     generatePassword,
-    checkTextLength
+    checkTextLength,
+    database: {
+        getTopicsByCategoryId
+    }
 };
 
+await CreateCategories(modelObject.Categories); // إنشاء فئات المجتمع
 
 // استخدام compress لضغط جميع الاستجابات
 app.use(compression({
@@ -131,7 +99,6 @@ app.use(
         xXssProtection: false, // رأس قديم يحاول التقليل من هجمات XSS، ولكن يجعل الأمور أسوأ، لذلك يتم تعطيله بواسطة Helmet.
     })
 );
-
 
 app.disable('x-powered-by');  // معلومات حول خادم الويب. تم تعطيله لأنه يمكن استخدامه في هجمات بسيطة.
 app.use(express.static(__dirname + '/public'));

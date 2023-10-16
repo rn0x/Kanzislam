@@ -1,0 +1,47 @@
+extends ../layout.pug
+
+block stylesheet
+    link(rel="stylesheet" href="/css/forum.css")
+
+block content
+    #forumPage
+        ul.breadcrumb
+            li 
+                a(href="/" title="الرئيسية")
+                    img(src="/icon/home.svg" alt="الرئيسية") 
+            li 
+                small /
+                a(href="/forum" title=`مجتمع ${options.website_name}`) مجتمع #{options.website_name}
+            li 
+                small /
+                a(href=`/forum/${options.getCategorie.title.replace(/ /g, '_')}` title=options.getCategorie.title) #{options.getCategorie.title}
+        h2 #{options.getCategorie.title}
+        .categorieTopics
+            button(title="إنشاء موضوع جديد")#buttonAddTopics موضوع جديد
+            table.topicsTable 
+                thead
+                    tr 
+                        th.topics الموضوع
+                        th.topicsCount.likes الإعجابات
+                        th.topicsCount.views المشاهدات
+                        th.topicsCount.comments التعليقات
+                tbody#topiscTbody
+                    //- tr 
+                    //-     td.topicsMain
+                    //-         a(href="" title="USER NAME")
+                    //-             img(src="/images/test.jpg" alt="USER NAME") 
+                    //-         div 
+                    //-             a(href="" title="title topic") عنوان الموضوع
+                    //-             small.topicsTime منذ 5 دقائق
+
+                    //-     td.likes 5
+                    //-     td.views 466
+                    //-     td.comments 12
+            button(title="المزيد من المواضيع")#ButtonMore المزيد
+
+
+block script
+    script(type="module")
+        include ../../public/js/forum/getCategoryTopics.js
+    script.
+        window.options = !{jsStringify(options)}; 

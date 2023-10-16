@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon --exec node index.js --ignore database"
+    "dev": "nodemon --exec node index.js --ignore jjj"
   },
   "author": "",
   "license": "ISC",

@@ -1,8 +1,8 @@
-export default async ({ app, pug, path, fs, config, __dirname, jsStringify, database }) => {
+export default async ({ app, pug, path, fs, config, __dirname, jsStringify, model }) => {
 
     app.get('/activate', async (request, response) => {
 
-        const User = database.User;
+        const Users = model.Users;
         const username = request.query.username;
         const verification_code = request.query.verification_code;
 
@@ -10,14 +10,14 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, data
 
             try {
 
-                const existingUser = await User.findOne({
+                const existingUser = await Users.findOne({
                     where: { username },
                 });
 
                 if (existingUser?.dataValues?.verification_code === verification_code) {
 
                     if (!existingUser?.dataValues?.isActivated) {
-                        await User.update({ isActivated: true }, {
+                        await Users.update({ isActivated: true }, {
                             where: { username }
                         });
                         let options = {

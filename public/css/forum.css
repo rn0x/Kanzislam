@@ -1,0 +1,275 @@
+.Categories {
+    width: 95%;
+    max-width: 1000px;
+    display: block;
+    padding: 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.CategoriesBox {
+    list-style: none;
+    padding: 0px;
+}
+
+.DivCategories {
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    padding: 5px;
+    background-color: var(--background_white);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: double;
+    border-radius: 5px;
+}
+
+.DivCategories:hover {
+
+    padding: 5px;
+    background-color: var(--background_hover);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: double;
+    border-radius: 5px;
+}
+
+.MainCategories {
+    width: 100%;
+    display: block;
+    text-align: justify;
+    border-right-color: var(--border);
+    border-right-width: 1px;
+    border-right-style: double;
+    padding: 5px;
+}
+
+.MainCategories p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 13px;
+    color: var(--colorFont2);
+}
+
+.MainCategories a {
+    margin-top: 0px;
+    margin-bottom: 5px;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.MainCategories a:hover {
+    color: var(--colorFontMain_hover);
+}
+
+.IconCategories {
+    width: 36px;
+    padding: 10px;
+    user-select: none;
+}
+
+.CountCategories {
+    display: block;
+    width: 80px;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: auto;
+    margin-bottom: auto;
+    border-right-color: var(--border);
+    border-right-width: 1px;
+    border-right-style: double;
+    padding: 5px;
+}
+
+
+.CountCategories p {
+    font-size: 13px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    white-space: nowrap;
+}
+
+.CountCategories small {
+    display: block;
+    color: var(--colorFont2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media (max-width: 750px) {
+    .CountCategories {
+        display: none;
+    }
+}
+
+
+.categorieTopics {
+    position: relative;
+    margin-bottom: 20px;
+    width: 95%;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#buttonAddTopics {
+    display: block;
+    margin-bottom: 10px;
+    width: 120px;
+    background-color: var(--button);
+    color: var(--colorWhite);
+    font-size: 15px;
+    border: none;
+    border-radius: 8px;
+}
+
+#buttonAddTopics:hover {
+    background-color: var(--background_hover);
+    color: var(--colorFontMain);
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: double;
+}
+
+.topicsTable {
+    display: block;
+    border-collapse: collapse;
+    background-color: var(--background_white);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: #00000045 0px 25px 20px -20px;
+}
+
+.topicsTable th {
+    background-color: var(--divHeader);
+    color: white;
+    height: 20px;
+    font-size: 12px;
+}
+
+.topicsTable td {
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.topicsTable tr {
+    height: inherit;
+}
+
+.topicsTable tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+
+.topics {
+    width: 100%;
+}
+
+.topicsMain {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    text-align: justify;
+    word-break: break-all;
+}
+
+.topicsMain img {
+    display: block;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    margin-left: 10px;
+}
+
+.topicsMain>div>a {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.topicsMain>div>a:hover {
+    color: var(--colorFontMain_hover);
+}
+
+.topicsMain>div>p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 13px;
+
+}
+
+.topicsCount {
+    padding: 10px;
+}
+
+.topicsTime {
+    display: block;
+    margin-top: 2px;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 12px;
+    color: var(--colorFont2);
+}
+
+#ButtonMore {
+    display: block;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px;
+    width: 120px;
+    background-color: var(--button);
+    color: var(--colorWhite);
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    margin-top: 20px;
+}
+
+#ButtonMore:hover {
+    background-color: var(--background_hover);
+    color: var(--colorFontMain);
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: double;
+}
+
+
+@media (max-width: 700px) {
+    .comments {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .likes {
+        display: none;
+    }
+
+    .topicsMain>div>a {
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .topicsMain>div>p {
+        font-size: 11px;
+
+    }
+}
+
+@media (max-width: 330px) {
+    .views {
+        display: none;
+    }
+}
