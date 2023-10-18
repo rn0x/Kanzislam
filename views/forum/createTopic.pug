@@ -25,7 +25,7 @@ block content
                 button(title="إنشاء موضوع جديد")#ButtonAdd إنشاء موضوع
         else 
             #alertMessage
-                h2 قم بتسجيل الدخول لإنشاء موضوع جديد ❌
+                h2 #{options.IsPermission}
 block script
     if options.session.isLoggedIn
         script(type="module")

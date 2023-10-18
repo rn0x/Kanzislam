@@ -24,24 +24,27 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
         const existingCategory = await Categories.findOne({
             where: { category_id },
         });
+        const options = {};
+        options.website_name = config.WEBSITE_NAME;
+        options.title = `إنشاء موضوع جديد - ${config.WEBSITE_NAME}`;
+        options.keywords = ["إنشاء موضوع جديد", "المنتدى", "المجتمع", "المشاركة في المناقشات", "طرح الأسئلة", "مشاركة الآراء", "المجتمع المنتدى", "كتابة موضوع", "كتابة مقال", "إنشاء مقالات"];
+        options.description = "صفحة إنشاء موضوع جديد في المجتمع تهدف إلى تمكين المستخدمين من إنشاء مواضيع جديدة والمشاركة في المناقشات في المجتمع, يمكن للمستخدمين كتابة مواضيعهم الخاصة وطرح أسئلة أو مشاركة أفكارهم وآرائهم مع المجتمع";
+        options.preview = "صورة_المعاينة_للصفحة";
+        options.session = request.session;
+        options.Category = existingCategory?.dataValues || {};
 
         if (existingCategory?.dataValues?.category_id === category_id) {
-            const options = {};
-            options.website_name = config.WEBSITE_NAME;
-            options.title = `إنشاء موضوع جديد - ${config.WEBSITE_NAME}`;
-            options.keywords = ["إنشاء موضوع جديد", "المنتدى", "المجتمع", "المشاركة في المناقشات", "طرح الأسئلة", "مشاركة الآراء", "المجتمع المنتدى", "كتابة موضوع", "كتابة مقال", "إنشاء مقالات"];
-            options.description = "صفحة إنشاء موضوع جديد في المجتمع تهدف إلى تمكين المستخدمين من إنشاء مواضيع جديدة والمشاركة في المناقشات في المجتمع, يمكن للمستخدمين كتابة مواضيعهم الخاصة وطرح أسئلة أو مشاركة أفكارهم وآرائهم مع المجتمع";
-            options.preview = "صورة_المعاينة_للصفحة";
-            options.session = request.session;
-            options.Category = existingCategory?.dataValues;
+            options.IsPermission = "قم بتسجيل الدخول لإنشاء موضوع جديد ❌";
             const pugPath = path.join(__dirname, './views/forum/createTopic.pug');
             const render = pug.renderFile(pugPath, { options, jsStringify });
             response.send(render);
-            console.log(request.session.isLoggedIn);
         }
 
         else {
-            response.send("ماعندك صلاحية");
+            options.IsPermission = "ليس لديك إذن للوصول إلى الصفحة ❌";
+            const pugPath = path.join(__dirname, './views/forum/createTopic.pug');
+            const render = pug.renderFile(pugPath, { options, jsStringify });
+            response.send(render);
         }
 
     });
