@@ -1,7 +1,7 @@
-import moment from '../js/modules/moment.js';
-import moment_hijri from '../js/modules/moment-hijri.js';
-import { Coordinates, CalculationMethod, PrayerTimes, Madhab, Shafaq } from '../js/modules/adhan.js';
-import momentDurationFormatSetup from '../js/modules/moment-duration-format.js';
+import moment from './moment.js';
+import moment_hijri from './moment-hijri.js';
+import { Coordinates, CalculationMethod, PrayerTimes, Madhab, Shafaq } from './adhan.js';
+import momentDurationFormatSetup from './moment-duration-format.js';
 momentDurationFormatSetup(moment);
 
 /**

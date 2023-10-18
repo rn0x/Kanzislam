@@ -1,4 +1,4 @@
-import filterSpan from '../js/filterSpan.js';
+import filterSpan from '../js/modules/filterSpan.js';
 
 document.addEventListener("DOMContentLoaded", async function () {
 

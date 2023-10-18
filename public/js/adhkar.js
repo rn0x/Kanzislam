@@ -1,5 +1,5 @@
-import manipulateLocalStorage from '../js/manipulateLocalStorage.js';
-import filterSpan from '../js/filterSpan.js';
+import manipulateLocalStorage from '../js/modules/manipulateLocalStorage.js';
+import filterSpan from '../js/modules/filterSpan.js';
 
 document.addEventListener("DOMContentLoaded", async function () {
 
