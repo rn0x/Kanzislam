@@ -8,12 +8,14 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     const registerButton = document.getElementById('registerButton');
     const verificationQuestion = document.querySelector('#verification_question p');
+    const verification_question_input = document.getElementById('verification_question_input');
     const registerPage = document.getElementById('registerPage');
     const loading = document.getElementById('loading');
     const alertMessage = document.getElementById('alertMessage');
 
     registerPage.style.display = 'block';
-    verificationQuestion.textContent = options?.question;
+    verificationQuestion.textContent = options?.randomQuestion?.question;
+    verification_question_input.placeholder = `قم بالإجابة على سؤال التحقق ...(${options?.randomQuestion?.answer})`;
 
     registerButton.addEventListener('click', async () => {
         loading.style.display = 'block';
@@ -183,7 +185,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     username,
                     password,
                     email,
-                    question: options?.question,
+                    question: options?.randomQuestion?.question,
                     answer: verificationAnswer,
                     checkTerms: checkTerms.checked,
                 }),

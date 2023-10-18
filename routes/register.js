@@ -139,7 +139,7 @@ export default async ({
             description: 'تسجيل حساب جديد - انضم إلى مجتمعنا واحصل على حساب جديد بسهولة. قم بإنشاء حساب جديد باستخدام معلوماتك الشخصية واستفد من محتوى مميز وتفاعل مع أعضاء آخرين.',
             preview: 'صورة_المعاينة_للصفحة',
             session: request.session,
-            question: randomQuestion?.question,
+            randomQuestion: randomQuestion,
         };
         const pugPath = path.join(__dirname, './views/register.pug');
         const render = pug.renderFile(pugPath, { options, jsStringify });
