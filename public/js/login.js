@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         alertEl.innerText = "لقد قمت بتسجيل الدخول بالفعل!"
         alertEl.style.background = "#d1fad1";
         alertEl.style.display = "block";
+        alertEl.style.scrollMarginTop = "150px";
         setTimeout(() => {
             window.location.href = "/";
         }, 5000);
@@ -23,6 +24,25 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         loginbox.style.display = "block";
         loggedIn_bt.addEventListener("click", async () => {
+
+            if (loginusername?.value?.length < 5) {
+                alertEl.innerText = "يجب أن يكون طول اسم المستخدم 5 أحرف أو أكثر";
+                alertEl.style.display = "block";
+                alertEl.style.scrollMarginTop = "150px";
+                alertEl.scrollIntoView();
+                loginusername_massage.style.display = "block";
+                return
+            }
+
+            if (loginpassword?.value?.length < 8) {
+                alertEl.innerText = "يجب أن يكون طول كلمة المرور 8 أحرف أو أكثر";
+                alertEl.style.display = "block";
+                alertEl.style.scrollMarginTop = "150px";
+                alertEl.scrollIntoView();
+                loginusername_massage.style.display = "block";
+                return
+            }
+
             let loginURL = window.location.href;
             let loginFetch = await fetch(loginURL, {
                 method: "POST",
@@ -43,11 +63,15 @@ document.addEventListener("DOMContentLoaded", async function () {
 
                 alertEl.innerText = response?.massage;
                 alertEl.style.display = "block";
+                alertEl.style.scrollMarginTop = "150px";
+                alertEl.scrollIntoView();
                 loginusername_massage.style.display = "block";
             }
             else {
                 alertEl.innerText = "بيانات الدخول غير صحيحة يرجى التأكد من البيانات وإعادة المحاولة"
                 alertEl.style.display = "block";
+                alertEl.style.scrollMarginTop = "150px";
+                alertEl.scrollIntoView();
                 loginusername_massage.style.display = "block";
             }
         });
