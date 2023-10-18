@@ -10,17 +10,18 @@ document.addEventListener('DOMContentLoaded', async function () {
     const verificationQuestion = document.querySelector('#verification_question p');
     const registerPage = document.getElementById('registerPage');
     const loading = document.getElementById('loading');
+    const alertMessage = document.getElementById('alertMessage');
 
     registerPage.style.display = 'block';
     verificationQuestion.textContent = options?.question;
 
     registerButton.addEventListener('click', async () => {
         loading.style.display = 'block';
-        const name = document.querySelector('#name input')?.value?.trim();
-        const username = document.querySelector('#username > input')?.value?.trim();
-        const email = document.querySelector('#email > input')?.value?.trim();
+        const name = document.querySelector('#name input')?.value?.trim()?.toLocaleLowerCase();
+        const username = document.querySelector('#username > input')?.value?.trim()?.toLocaleLowerCase();
+        const email = document.querySelector('#email > input')?.value?.trim()?.toLocaleLowerCase();
         const password = document.querySelector('#password > input')?.value;
-        const verificationAnswer = document.querySelector('#verification_question > input')?.value?.trim();
+        const verificationAnswer = document.querySelector('#verification_question > input')?.value?.trim()?.toLocaleLowerCase();
         const checkTerms = document.getElementById('checkTerms');
 
         const nameMessage = document.querySelector('#name > small');
@@ -37,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         verificationAnswerMessage.style.display = 'none';
         checkTermsMessage.style.display = 'none';
 
-        function validateInputs(name, username, password, email, answer) {
+        function validateInputs(name, username, password, email, answer, checkTerms) {
             const errors = {};
 
             if (!name || name.length < 5) {
@@ -80,6 +81,10 @@ document.addEventListener('DOMContentLoaded', async function () {
                 errors.answer = "قم بالإجابة على سؤال التحقق";
             }
 
+            if (!checkTerms?.checked) {
+                errors.checkTerms = `لم تقم بالموافقة على شروط استخدام ${options.website_name}`
+            }
+
             const isEnglish = /^[a-zA-Z0-9]*$/;
             if (username && !isEnglish.test(username)) {
                 errors.username = "يجب أن يحتوي اسم المستخدم على أحرف وأرقام إنجليزية فقط";
@@ -102,12 +107,14 @@ document.addEventListener('DOMContentLoaded', async function () {
             }
         }
 
-        const validation = validateInputs(name, username, password, email, verificationAnswer);
+        const validation = validateInputs(name, username, password, email, verificationAnswer, checkTerms);
 
         if (!validation.isCheckInput) {
             if (validation.name) {
                 nameMessage.textContent = validation.name;
                 nameMessage.style.display = 'block';
+                nameMessage.style.scrollMarginTop = "150px";
+                nameMessage.scrollIntoView();
                 setTimeout(() => {
                     nameMessage.style.display = 'none';
                 }, 30000);
@@ -116,6 +123,8 @@ document.addEventListener('DOMContentLoaded', async function () {
             if (validation.username) {
                 usernameMessage.textContent = validation.username;
                 usernameMessage.style.display = 'block';
+                usernameMessage.style.scrollMarginTop = "150px";
+                usernameMessage.scrollIntoView();
                 setTimeout(() => {
                     usernameMessage.style.display = 'none';
                 }, 30000);
@@ -124,6 +133,8 @@ document.addEventListener('DOMContentLoaded', async function () {
             if (validation.email) {
                 emailMessage.textContent = validation.email;
                 emailMessage.style.display = 'block';
+                emailMessage.style.scrollMarginTop = "150px";
+                emailMessage.scrollIntoView();
                 setTimeout(() => {
                     emailMessage.style.display = 'none';
                 }, 30000);
@@ -132,6 +143,8 @@ document.addEventListener('DOMContentLoaded', async function () {
             if (validation.password) {
                 passwordMessage.textContent = validation.password;
                 passwordMessage.style.display = 'block';
+                passwordMessage.style.scrollMarginTop = "150px";
+                passwordMessage.scrollIntoView();
                 setTimeout(() => {
                     passwordMessage.style.display = 'none';
                 }, 30000);
@@ -140,13 +153,18 @@ document.addEventListener('DOMContentLoaded', async function () {
             if (validation.answer) {
                 verificationAnswerMessage.textContent = validation.answer;
                 verificationAnswerMessage.style.display = 'block';
+                verificationAnswerMessage.style.scrollMarginTop = "150px";
+                verificationAnswerMessage.scrollIntoView();
                 setTimeout(() => {
                     verificationAnswerMessage.style.display = 'none';
                 }, 30000);
             }
 
             if (!checkTerms?.checked) {
+                checkTermsMessage.textContent = validation.checkTerms;
                 checkTermsMessage.style.display = 'block';
+                checkTermsMessage.style.scrollMarginTop = "150px";
+                checkTermsMessage.scrollIntoView();
                 setTimeout(() => {
                     checkTermsMessage.style.display = 'none';
                 }, 30000);
@@ -174,7 +192,15 @@ document.addEventListener('DOMContentLoaded', async function () {
             const response = await registerFetch.json();
 
             if (response?.register) {
-                window.location.href = '/';
+                registerButton.style.display = "none";
+                alertMessage.innerText = "أهلاً وسهلاً بك! لقد تم تسجيل حسابك بنجاح. قمنا بإرسال رسالة تأكيد إلى بريدك الإلكتروني. يرجى النقر على الرابط الموجود في الرسالة لتفعيل حسابك";
+                alertMessage.style.display = "block";
+                alertMessage.style.scrollMarginTop = "150px";
+                alertMessage.scrollIntoView();
+
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 10000);
             }
 
             if (response?.isError) {
@@ -184,22 +210,28 @@ document.addEventListener('DOMContentLoaded', async function () {
             if (response?.usernameFind) {
                 usernameMessage.textContent = 'عذرًا، اسم المستخدم محجوز بالفعل. يرجى اختيار اسم مستخدم آخر.';
                 usernameMessage.style.display = 'block';
+                usernameMessage.style.scrollMarginTop = "150px";
+                usernameMessage.scrollIntoView();
                 setTimeout(() => {
                     usernameMessage.style.display = 'none';
                 }, 30000);
             }
 
             if (response?.emailFind) {
-                usernameMessage.textContent = "عذرًا، البريد الإلكتروني الذي قمت بإدخاله مستخدم بالفعل. يرجى استخدام بريد إلكتروني آخر لإكمال عملية التسجيل.";
-                usernameMessage.style.display = 'block';
+                emailMessage.textContent = "عذرًا، البريد الإلكتروني الذي قمت بإدخاله مستخدم بالفعل. يرجى استخدام بريد إلكتروني آخر لإكمال عملية التسجيل.";
+                emailMessage.style.display = 'block';
+                emailMessage.style.scrollMarginTop = "150px";
+                emailMessage.scrollIntoView();
                 setTimeout(() => {
-                    usernameMessage.style.display = 'none';
+                    emailMessage.style.display = 'none';
                 }, 30000);
             }
 
             if (!response?.verification_answer) {
                 verificationAnswerMessage.textContent = "عذراً, الإجابة خاطئة";
                 verificationAnswerMessage.style.display = 'block';
+                verificationAnswerMessage.style.scrollMarginTop = "150px";
+                verificationAnswerMessage.scrollIntoView();
                 setTimeout(() => {
                     verificationAnswerMessage.style.display = 'none';
                 }, 30000);

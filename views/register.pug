@@ -5,6 +5,7 @@ block stylesheet
 
 block content
   #registerPage 
+    #alertMessage
     h2 إنشاء حساب جديد
     ul#registerBox
       li#name 
@@ -41,7 +42,7 @@ block content
           span و
           span 
            a(href="") بيان الخصوصية 
-      small#checkTermsMassage= `لم تقم بالموافقة على شروط استخدام ${options.website_name}`
+      small#checkTermsMassage
     button#registerButton تسجيل
 
 

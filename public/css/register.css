@@ -95,6 +95,20 @@
     border-style: double;
 }
 
+#alertMessage {
+    width: 100%;
+    display: none;
+    background-color: #d6fad1;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-color: #7fb481;
+    border-width: 1px;
+    border-style: double;
+    box-sizing: border-box;
+    color: #4b6741;
+    font-size: 13px;
+}
+
 @media (max-width: 550px) {
     #registerTerms p {
         font-size: 13px;

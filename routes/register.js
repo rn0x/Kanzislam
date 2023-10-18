@@ -85,6 +85,8 @@ export default async ({
                     message,
                     title,
                     email,
+                }).catch((error) => {
+                    console.log('حدث خطأ, يرجى التحقق من بينات SMTP', error);
                 });
                 const lastUserId = await Users.max('user_id').catch((error) => {
                     console.log('حدث خطأ:', error);
@@ -92,10 +94,10 @@ export default async ({
                 const newUserId = lastUserId + 1;
                 await Users.create({
                     user_id: newUserId,
-                    name,
-                    username,
+                    name: name?.toLocaleLowerCase(),
+                    username: username?.toLocaleLowerCase(),
                     password,
-                    email,
+                    email: email?.toLocaleLowerCase(),
                     type: 'member',
                     verification_code,
                     isActivated: false,
