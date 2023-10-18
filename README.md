@@ -14,6 +14,8 @@
 
 <div align="center">
 
+<img align="center" src = "https://komarev.com/ghpvc/?username=rn0x-Kanzislam&label=REPOSITORY+VIEWS&style=for-the-badge" alt ="KanzIslam"> <br><br>
+
 ![Kanzislam](./README/kanz-logo.jpg)
 
 ![Kanzislam](./README/kanz-website.jpg)
