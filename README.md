@@ -12,21 +12,8 @@
 <br>
 
 
-![website|400](./website_Screenshot.png)
+![Kanzislam](./README/kanz-logo.jpg)
 
-![Firefox_Screenshot_2023-10-13T16-11-40 266Z](https://github.com/Alsarmad/Islamic_platform/assets/76129163/c50a096d-c758-495d-8e56-392ccdc94fe9)
+![Kanzislam](./README/kanz-website.jpg)
 
-![1|400](https://github.com/Alsarmad/Islamic_platform/assets/76129163/09428626-f73c-42a2-85d1-68dec247b67a)
-
-![3|400](https://github.com/Alsarmad/Islamic_platform/assets/76129163/bee17d97-ad72-4a3a-98cc-811b0e2d8d60)
-
-![2|400](https://github.com/Alsarmad/Islamic_platform/assets/76129163/5e1acef4-fbda-463d-be71-7f62896bd570)
-
-
-![7|400](https://github.com/Alsarmad/Islamic_platform/assets/76129163/81f5ddd4-5e61-48fb-80c3-5f0121328596)
-
-![6|400](https://github.com/Alsarmad/Islamic_platform/assets/76129163/58e233fc-4f4b-462b-acfc-ea40863aa833)
-
-![5|400](https://github.com/Alsarmad/Islamic_platform/assets/76129163/7053d7ed-b4f8-41b9-abe5-b0f53e71bda2)
-
-![4|400](https://github.com/Alsarmad/Islamic_platform/assets/76129163/6852f72f-dc64-46e6-8784-e11d3e1e223e)
+![Kanzislam](./README/kanz-200px.png)
