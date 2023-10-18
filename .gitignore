@@ -4,3 +4,4 @@ yarn.lock
 .cache
 database.sqlite
 config_.json
+public/uploads

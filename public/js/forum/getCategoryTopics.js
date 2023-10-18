@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 views.className = "views";
                 views.innerText = item?.views ? item?.views : 0;
                 tr.appendChild(comments);
-                comments.className = "likes";
+                comments.className = "comments";
                 comments.innerText = item?.commentCount ? item?.commentCount : 0;
             }
         }
