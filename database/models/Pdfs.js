@@ -1,8 +1,8 @@
 import { DataTypes } from 'sequelize';
 
-function Notifications(sequelize) {
-  return sequelize?.define('notifications', {
-    notification_id: {
+function Pdfs(sequelize) {
+  return sequelize?.define('audios', {
+    pdf_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
@@ -11,10 +11,10 @@ function Notifications(sequelize) {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    notification_text: {
+    pdf_url: {
       type: DataTypes.STRING,
       allowNull: false,
     },
   });
 }
-export default Notifications;
+export default Pdfs;

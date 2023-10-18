@@ -54,9 +54,9 @@ document.addEventListener("DOMContentLoaded", async function () {
                 imgUser.alt = item?.user?.name;
                 topicsMain.appendChild(topicsMainDiv);
                 topicsMainDiv.appendChild(Linktopics);
-                Linktopics.href = `${window.location.origin}/forum/${item?.category_id}/${item?.title?.replace(/ /g, '_')}`;
-                Linktopics.title = item?.description;
-                Linktopics.innerText = item?.title + " _ " + item?.topic_id;
+                Linktopics.href = `${window.location.origin}/forum/${item?.category_name}/${item?.title?.replace(/ /g, '_')}`;
+                Linktopics.title = item?.title;
+                Linktopics.innerText = item?.title;
                 topicsMainDiv.appendChild(topicsTime);
                 topicsTime.className = "topicsTime";
                 topicsTime.innerHTML = getElapsedTime(item?.updatedAt);

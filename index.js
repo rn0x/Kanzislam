@@ -1,5 +1,6 @@
 import express from 'express';
 import session from 'express-session';
+import fileUpload from 'express-fileupload';
 import compression from 'compression';
 import helmet from "helmet";
 import bodyParser from 'body-parser';
@@ -8,11 +9,13 @@ import path from 'path';
 import pug from 'pug';
 import jsStringify from 'js-stringify';
 import EmailSender from './modules/emailSender.js';
+import createUploadsFolder from './modules/createUploadsFolder.js';
 import generatePassword from './public/js/generatePassword.js';
 import checkTextLength from './public/js/checkTextLength.js';
 import { sequelize, removeColumn, addColumn, modelObject, getTopicsByCategoryId } from './database/index.js';
 import CreateCategories from './modules/CreateCategories.js';
 import filterSpan from './public/js/filterSpan.js';
+import upload from './routes/upload.js';
 import home from './routes/home.js';
 import login from './routes/login.js';
 import reset_password from './routes/reset_password.js';
@@ -24,7 +27,8 @@ import quran from './routes/quran.js';
 import adhkar from './routes/adhkar.js';
 import hisnmuslim from './routes/hisnmuslim.js';
 import prayer from './routes/prayer.js';
-import forum from './routes/forum.js';
+import forum from './routes/forum/forum.js';
+import createTopic from './routes/forum/createTopic.js';
 
 // Get the current working directory
 const __dirname = path.resolve();
@@ -57,6 +61,7 @@ const param = {
     }
 };
 
+await createUploadsFolder(param); // إنشاء مجلد uploads والمجلدات الفرعية
 await CreateCategories(modelObject.Categories); // إنشاء فئات المجتمع
 
 // استخدام compress لضغط جميع الاستجابات
@@ -101,6 +106,8 @@ app.use(
 );
 
 app.disable('x-powered-by');  // معلومات حول خادم الويب. تم تعطيله لأنه يمكن استخدامه في هجمات بسيطة.
+// Enable file upload middleware
+app.use(fileUpload());
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json({ limit: '200mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -113,6 +120,7 @@ app.use(
 );
 
 // routes
+await upload(param);
 await home(param);
 await login(param);
 await register(param);
@@ -125,6 +133,7 @@ await adhkar(param);
 await hisnmuslim(param);
 await prayer(param);
 await forum(param);
+await createTopic(param);
 
 app.use(function (request, response, next) {
     let options = {

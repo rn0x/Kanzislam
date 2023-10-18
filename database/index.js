@@ -10,16 +10,6 @@ const sequelize = new Sequelize({
 // النماذج | المواضيع والمستخدمين والتعليقات الخ
 const modelObject = model(sequelize);
 
-// اختبار اتصال قاعدة البيانات - Test database connection
-try {
-    await sequelize.authenticate();
-    console.log('Database connection has been established successfully.');
-} catch (error) {
-    console.error('Unable to connect to the database:', error);
-}
-
-await sequelize?.sync().catch(error => console.error('حدث خطأ أثناء إنشاء الجداول:', error));
-
 /**
  * وظيفة إزالة عامود من الجدول
  * @param {string} table
@@ -86,21 +76,26 @@ async function getTopicsByCategoryId(categoryId) {
             include: [
                 {
                     model: modelObject.Users,
-                    as: 'user'
+                    as: 'users'
                 },
                 {
                     model: modelObject.Comments,
                     as: 'comments',
                     attributes: [[sequelize.fn('COUNT', sequelize.col('comments.comment_id')), 'commentCount']]
+                },
+                {
+                    model: modelObject.Categories,
+                    as: 'category'
                 }
             ],
-            group: ['Topics.topic_id', 'user.user_id']
+            group: ['Topics.topic_id', 'users.user_id', 'category.category_id']
         });
 
         // Map the retrieved data to the desired format
         const topicObjects = topics.map(topic => ({
             topic_id: topic.topic_id,
             category_id: topic.category_id,
+            category_name: topic.category.title,
             title: topic.title,
             description: topic.description,
             content: topic.content,
@@ -108,11 +103,10 @@ async function getTopicsByCategoryId(categoryId) {
             hide: topic.hide,
             images: topic.images ? topic.images : [],
             user: {
-                user_id: topic.user.user_id,
-                name: topic.user.name,
-                username: topic.user.username,
-                email: topic.user.email,
-                profile: topic.user.profile
+                user_id: topic.users.user_id,
+                name: topic.users.name,
+                username: topic.users.username,
+                profile: topic.users.profile
             },
             views: topic.views,
             likes: topic.likes,
@@ -130,5 +124,18 @@ async function getTopicsByCategoryId(categoryId) {
         return [];
     }
 }
+
+async function main() {
+    try {
+        await sequelize.authenticate();
+        console.log('Database connection has been established successfully.');
+        await sequelize.sync();
+        console.log('Tables created successfully.');
+    } catch (error) {
+        console.error('Unable to connect to the database:', error);
+    }
+}
+
+await main();
 
 export { sequelize, removeColumn, addColumn, modelObject, getTopicsByCategoryId };

@@ -1,0 +1,72 @@
+#AddTopic {
+    display: block;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+#ErrorMessage {
+    width: 100%;
+    display: none;
+    background-color: #fad1d1;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-color: #fda8a8;
+    border-width: 1px;
+    border-style: double;
+    box-sizing: border-box;
+    color: #ff4646;
+    font-size: 13px;
+}
+
+#titleTopic {
+    width: 100%;
+    max-width: 100%;
+    display: block;
+    padding: 8px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: double;
+}
+
+#ButtonAdd {
+    display: block;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px;
+    width: 120px;
+    background-color: var(--button);
+    color: var(--colorWhite);
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    margin-top: 20px;
+}
+
+#ButtonAdd:hover {
+    background-color: var(--background_hover);
+    color: var(--colorFontMain);
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: double;
+}
+
+.ck-powered-by {
+    display: none;
+}
+
+.ck-content {
+    direction: rtl;
+    text-align: right !important;
+}
+
+
+.ck-toolbar__items {
+    direction: rtl;
+}

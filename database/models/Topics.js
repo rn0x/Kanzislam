@@ -36,10 +36,6 @@ function Topics(sequelize) {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false
-    },
-    images: {
-      type: DataTypes.JSONB,
-      allowNull: true,
     }
   });
 }

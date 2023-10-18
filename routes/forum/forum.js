@@ -23,6 +23,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
         const getAllTopics = await Topics.findAll();
         const getAllComments = await Comments.findAll();
         const options = {};
+        options.website_name = config.WEBSITE_NAME;
         options.title = `مجتمع ${config.WEBSITE_NAME}: منصة تفاعلية للمعرفة والتواصل الإسلامي`;
         options.keywords = ["مجتمع إسلامي", "محتوى ثقافي إسلامي", "تعليم إسلامي", "منتديات إسلامية", "مقالات إسلامية", "تواصل إسلامي", "تعاون إسلامي", "موارد تعليمية إسلامية", "مدونات إسلامية"];
         options.description = `مجتمع ${config.WEBSITE_NAME} هي منصة مجتمعية عبر الإنترنت تهدف إلى توفير محتوى ثقافي وتعليمي إسلامي شامل ومتنوع. يوفر المجتمع مساحة للمشاركة والتفاعل بين المستخدمين من خلال المنتديات والمدونات والمقالات والموارد التعليمية. يهدف المجتمع إلى تعزيز الفهم الصحيح للإسلام وتعزيز التواصل والتعاون بين أفراد المجتمع الإسلامي.`;
@@ -57,29 +58,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
             where: { title: categorie },
         });
         const options = {};
-        // await Topics.create({
-        //     topic_id: 2,
-        //     category_id: 1,
-        //     user_id: 1,
-        //     title: 'Example Topic',
-        //     content: 'This is the content of the topic',
-        //     description: 'This is a description of the topic',
-        //     type: 'Discussion',
-        //     images: [
-        //         {
-        //             link: "htpps://www.example.com/file.jpeg",
-        //             size: 5678987,
-        //             filename: "example.jpeg"
-        //         },
-        //         {
-        //             link: "htpps://www.example.com/image.jpeg",
-        //             size: 565434,
-        //             filename: "image.jpeg"
-        //         }
-        //     ]
-        // }).catch((error) => {
-        //     console.error('Error creating topic:', error);
-        // });
+
         if (getCategorie?.dataValues) {
             options.website_name = config.WEBSITE_NAME;
             options.title = `${categorie} - ${config.WEBSITE_NAME}`;
@@ -135,6 +114,18 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
                 message: "لم تقم بإدخال معرف الفئة: category_id"
             });
         }
+    });
+
+    app.get('/forum/:categorie/:topic', async (request, response) => {
+
+        const categorie = request.params?.categorie?.replace(/_/g, ' ');
+        const topic = request.params?.topic?.replace(/_/g, ' ');
+
+        response.json({
+            categorie,
+            topic
+        })
+
     });
 }
 
