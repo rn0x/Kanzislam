@@ -14,6 +14,7 @@ import generatePassword from './public/js/modules/generatePassword.js';
 import checkTextLength from './public/js/modules/checkTextLength.js';
 import convertToNumber from './public/js/modules/convertToNumber.js';
 import analyzeText from './public/js/modules/analyzeText.js';
+import getElapsedTime from './public/js/modules/getElapsedTime.js';
 import {
     sequelize,
     removeColumn,
@@ -69,7 +70,8 @@ const param = {
         getTopicData
     },
     convertToNumber,
-    analyzeText
+    analyzeText,
+    getElapsedTime
 };
 
 await createUploadsFolder(param); // إنشاء مجلد uploads والمجلدات الفرعية

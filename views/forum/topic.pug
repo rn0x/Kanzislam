@@ -18,7 +18,44 @@ block content
             li 
                 small /
                 a(href=`/forum/topic/${options.TopicJosn.topic.topic_id}`) #{options.TopicJosn.topic.title}
-        h2 #{options.TopicJosn.topic.title}
+        .TopicBox 
+            .TopicHeader 
+                h2#topic_title #{options.TopicJosn.topic.title} 
+                .timeToic 
+                    img(src="/icon/time.svg" alt="comment").iconTopic
+                    small= options.getElapsedTime(options.TopicJosn.topic.updatedAt)
+                ul.TopicHeaderInfo 
+                    li 
+                        img(src="/icon/user.svg" alt="user" title=options.TopicJosn.topic.users.name).iconTopic
+                        a(href=`/username/${options.TopicJosn.topic.users.username}` title=options.TopicJosn.topic.users.name).textIcon #{options.TopicJosn.topic.users.username} 
+                    li 
+                        img(src="/icon/like.svg" alt="like" title=`يحتوي الموضوع على ${options.TopicJosn.likes.length} إعجاب`).iconTopic
+                        p.textIcon=options.TopicJosn.likes.length
+                    li 
+                        img(src="/icon/view.svg" alt="view" title=`تمت مشاهدة الموضوع من قبل ${options.TopicJosn.views} شخص`).iconTopic
+                        p.textIcon=options.TopicJosn.views 
+                    li 
+                        img(src="/icon/comment.svg" alt="comment" title=`يحتوي الموضوع على ${options.TopicJosn.comments.length} رد`).iconTopic
+                        p.textIcon=options.TopicJosn.comments.length  
+                    li 
+                        img(src="/icon/report.svg" alt="reports" title=`يحتوي الموضوع على ${options.TopicJosn.reports.length} بلاغ`).iconTopic
+                        p.textIcon=options.TopicJosn.reports.length  
+            .TopicContent!= options.TopicJosn.topic.content
+        ul.TopicButtonBox 
+            li 
+                img(src="/icon/like.svg" alt="view" title="الإعجاب بالموضوع").iconTopic
+                p.textIcon إعجاب
+            li 
+                img(src="/icon/sharing.svg" alt="view" title="مشاركة بالموضوع").iconTopic
+                p.textIcon مشاركة
+            li 
+                img(src="/icon/report.svg" alt="view" title="مشاركة بالموضوع").iconTopic
+                p.textIcon بلاغ
+        if options.TopicJosn.tags !== undefined && options.TopicJosn.tags.tag_name.length !== 0
+            ul.TopicTagsBox 
+                each val in options.TopicJosn.tags.tag_name
+                    li: a(href=`/forum/tag/${val}` title=val) #{val}
+
 
 block script
     script(type="module")

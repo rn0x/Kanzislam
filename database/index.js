@@ -191,8 +191,8 @@ async function getTopicData(topic) {
             likes: likesData.map(like => like.dataValues),
             favorites: favoritesData.map(favorite => favorite.dataValues),
             reports: reportsData.map(report => report.dataValues),
-            views: viewsData.map(view => view.dataValues),
-            tags: tagsData.map(tag => tag.dataValues),
+            views: viewsData.map(view => view.dataValues)?.length,
+            tags: tagsData.map(tag => tag.dataValues)?.[0],
         };
 
         return result;

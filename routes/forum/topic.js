@@ -1,4 +1,4 @@
-export default async ({ app, pug, path, fs, config, __dirname, jsStringify, model, convertToNumber, database, analyzeText }) => {
+export default async ({ app, pug, path, fs, config, __dirname, jsStringify, model, convertToNumber, database, analyzeText, getElapsedTime }) => {
 
     const {
         Users,
@@ -35,16 +35,24 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
             }).catch((error) => {
                 console.log(error);
             });
-
+            const analyzeTextRaw = analyzeText(GetTopic?.topic?.content_raw);
+            let keywords;
+ 
+            if (analyzeTextRaw?.x1Words?.value.length > 10) {
+                keywords = analyzeTextRaw?.x2Words?.value.length > 0 ? analyzeTextRaw?.x2Words?.value : analyzeTextRaw?.x1Words?.value.slice(0, 10);
+            } else {
+                keywords = analyzeTextRaw?.x1Words?.value;
+            }
 
             const options = {};
             options.website_name = config.WEBSITE_NAME;
-            options.title = `${GetTopic?.topic?.title}- ${config.WEBSITE_NAME}`;
-            options.keywords = ["word1", "word2", "word3"];
+            options.title = `${GetTopic?.topic?.title} - ${config.WEBSITE_NAME}`;
+            options.keywords = keywords;
             options.description = "وصف_الصفحة";
             options.preview = GetTopic?.topic?.description;
             options.session = request.session;
             options.TopicJosn = GetTopic;
+            options.getElapsedTime = getElapsedTime;
             const pugPath = path.join(__dirname, './views/forum/topic.pug');
             const render = pug.renderFile(pugPath, { options, jsStringify });
             response.send(render);
@@ -65,4 +73,4 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
         }
 
     });
-}
+} 
