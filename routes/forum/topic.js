@@ -20,7 +20,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
     app.get('/forum/topic/:topic', async (request, response) => {
 
         const topic = convertToNumber(request.params?.topic?.trim());
-        const GetTopic = await database.getTopicAndComments(topic);
+        const GetTopic = await database.getTopicData(topic);
 
         if (topic && GetTopic) {
             console.log(GetTopic);

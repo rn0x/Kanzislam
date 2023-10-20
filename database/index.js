@@ -141,7 +141,7 @@ async function getTopicsByCategoryId(categoryId) {
  * @returns {Object} An object containing the topic and its associated data.
  * @throws {Error} If an error occurs during the fetching process.
  */
-async function getTopicAndComments(topic) {
+async function getTopicData(topic) {
 
     const { Topics, Comments, Users, Likes, Favorites, Reports, Views, Tags, Categories } = modelObject;
 
@@ -218,4 +218,4 @@ async function main() {
 
 await main();
 
-export { sequelize, removeColumn, addColumn, modelObject, getTopicsByCategoryId, getTopicAndComments };
+export { sequelize, removeColumn, addColumn, modelObject, getTopicsByCategoryId, getTopicData };

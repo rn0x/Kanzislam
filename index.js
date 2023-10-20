@@ -20,7 +20,7 @@ import {
     addColumn,
     modelObject,
     getTopicsByCategoryId,
-    getTopicAndComments
+    getTopicData
 } from './database/index.js';
 import CreateCategories from './modules/CreateCategories.js';
 import filterSpan from './public/js/modules/filterSpan.js';
@@ -66,7 +66,7 @@ const param = {
     checkTextLength,
     database: {
         getTopicsByCategoryId,
-        getTopicAndComments
+        getTopicData
     },
     convertToNumber,
     analyzeText
