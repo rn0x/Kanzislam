@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node index.js",
     "DEBUG": "DEBUG=* node index.js",
-    "dev": "nodemon --exec node index.js --ignore jjj"
+    "dev": "nodemon --exec node index.js"
   },
   "author": {
     "name": "rn0x",
