@@ -88,6 +88,8 @@ export default async ({ app, path, fs, config, __dirname, model }) => {
                         image_id: lastImagesId + 1,
                         user_id: user?.dataValues?.user_id,
                         image_url: fileInfo.path
+                    }).catch((error) => {
+                        console.log(error);
                     });
                     break;
                 case 'video/mp4':
@@ -99,6 +101,8 @@ export default async ({ app, path, fs, config, __dirname, model }) => {
                         video_id: lastVideosId + 1,
                         user_id: user?.dataValues?.user_id,
                         video_url: fileInfo.path
+                    }).catch((error) => {
+                        console.log(error);
                     });
                     break;
                 case 'audio/mpeg':
@@ -110,6 +114,8 @@ export default async ({ app, path, fs, config, __dirname, model }) => {
                         audio_id: lastAudiosId + 1,
                         user_id: user?.dataValues?.user_id,
                         audio_url: fileInfo.path
+                    }).catch((error) => {
+                        console.log(error);
                     });
                     break;
                 case 'application/pdf':
@@ -121,6 +127,8 @@ export default async ({ app, path, fs, config, __dirname, model }) => {
                         pdf_id: lastPdfsId + 1,
                         user_id: user?.dataValues?.user_id,
                         pdf_url: fileInfo.path
+                    }).catch((error) => {
+                        console.log(error);
                     });
                     break;
                 default:

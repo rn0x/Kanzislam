@@ -12,15 +12,24 @@ const modelObject = model(sequelize);
 
 /**
  * وظيفة إزالة عامود من الجدول
- * @param {string} table
- * @param {string} attribute 
+ * @param {string} table اسم الجدول
+ * @param {string} attribute  اسم العامود
  */
 async function removeColumn(table, attribute) {
     try {
-
         let queryInterface = sequelize.getQueryInterface();
-        await queryInterface.removeColumn(table, attribute);
-        console.log(`Column ${attribute} for table ${table} removed successfully`);
+        const tableExists = await queryInterface.showAllTables();
+        if (tableExists.includes(table)) {
+            const tableColumns = await queryInterface.describeTable(table);
+            if (tableColumns.hasOwnProperty(attribute)) {
+                await queryInterface.removeColumn(table, attribute);
+                console.log(`Column ${attribute} for table ${table} removed successfully`);
+            } else {
+                console.error(`Column ${attribute} does not exist in table ${table}`);
+            }
+        } else {
+            console.error(`Table ${table} does not exist`);
+        }
     } catch (error) {
         console.error('Error removing column:', error);
     }
@@ -29,8 +38,8 @@ async function removeColumn(table, attribute) {
 
 /**
  * وظيفة إنشاء عامود جديد في الجدول
- * @param {string} table اسم العامود
- * @param {string} columnName اسم الجدول
+ * @param {string} table اسم الجدول
+ * @param {string} columnName اسم العامود
  * @param {"string" | "integer" | "boolean" | "date"} dataType 
  */
 
@@ -85,23 +94,23 @@ async function getTopicsByCategoryId(categoryId) {
                 },
                 {
                     model: modelObject.Categories,
-                    as: 'category'
+                    as: 'categories'
                 }
             ],
-            group: ['Topics.topic_id', 'users.user_id', 'category.category_id']
+            group: ['Topics.topic_id', 'users.user_id', 'categories.category_id']
         });
 
         // Map the retrieved data to the desired format
         const topicObjects = topics.map(topic => ({
             topic_id: topic.topic_id,
             category_id: topic.category_id,
-            category_name: topic.category.title,
+            category_name: topic.categories.title,
             title: topic.title,
             description: topic.description,
             content: topic.content,
+            content_raw: topic.content_raw,
             type: topic.type,
             hide: topic.hide,
-            images: topic.images ? topic.images : [],
             user: {
                 user_id: topic.users.user_id,
                 name: topic.users.name,
@@ -125,6 +134,77 @@ async function getTopicsByCategoryId(categoryId) {
     }
 }
 
+/**
+ * Fetches a topic and its associated data (comments, likes, favorites, reports, views, tags, categories) based on the topic title.
+ * @param {string} categorie - The category of the topic.
+ * @param {string} topic - The title of the topic.
+ * @returns {Object} An object containing the topic and its associated data.
+ * @throws {Error} If an error occurs during the fetching process.
+ */
+async function getTopicAndComments(topic) {
+
+    const { Topics, Comments, Users, Likes, Favorites, Reports, Views, Tags, Categories } = modelObject;
+
+    try {
+        // Fetch the topic and its details
+        const topicData = await Topics.findOne({
+            where: { topic_id: topic },
+            include: [
+                {
+                    model: Users,
+                    as: 'users',
+                    attributes: { exclude: ['email', 'password', 'token', "verification_code", "update_password"] }
+                },
+                { model: Categories, as: 'categories' }
+            ],
+        });
+
+        if (!topicData) {
+            return null; // If the topic is not found
+        }
+
+        // Fetch the comments in the topic
+        const commentsData = await Comments.findAll({
+            where: { topic_id: topicData.topic_id },
+            include: [{
+                model: Users,
+                as: 'users',
+                attributes: { exclude: ['email', 'password', 'token', "verification_code", "update_password"] }
+            }],
+        });
+
+        // Fetch the likes, favorites, reports, views, and tags for the topic
+        const likesData = await Likes.findAll({ where: { topic_id: topicData.topic_id } });
+        const favoritesData = await Favorites.findAll({ where: { topic_id: topicData.topic_id } });
+        const reportsData = await Reports.findAll({ where: { topic_id: topicData.topic_id } });
+        const viewsData = await Views.findAll({ where: { topic_id: topicData.topic_id } });
+        const tagsData = await Tags.findAll({ where: { topic_id: topicData.topic_id } });
+
+        // Collect the data and return it
+        const result = {
+            topic: {
+                ...topicData.dataValues,
+                users: topicData.users.dataValues,
+                categories: topicData.categories.dataValues
+            },
+            comments: commentsData.map(comment => ({ ...comment.dataValues, users: comment.users.dataValues })),
+            likes: likesData.map(like => like.dataValues),
+            favorites: favoritesData.map(favorite => favorite.dataValues),
+            reports: reportsData.map(report => report.dataValues),
+            views: viewsData.map(view => view.dataValues),
+            tags: tagsData.map(tag => tag.dataValues),
+        };
+
+        return result;
+    } catch (error) {
+        console.error('An error occurred while fetching the topic and comments:', error);
+        throw error;
+    }
+}
+
+
+
+
 async function main() {
     try {
         await sequelize.authenticate();
@@ -138,4 +218,4 @@ async function main() {
 
 await main();
 
-export { sequelize, removeColumn, addColumn, modelObject, getTopicsByCategoryId };
+export { sequelize, removeColumn, addColumn, modelObject, getTopicsByCategoryId, getTopicAndComments };

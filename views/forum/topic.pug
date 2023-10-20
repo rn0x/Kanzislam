@@ -1,0 +1,27 @@
+extends ../layout.pug
+
+block stylesheet
+    link(rel="stylesheet" href="/css/topic.css")
+
+block content
+    #forumPage
+        ul.breadcrumb
+            li 
+                a(href="/" title="الرئيسية")
+                    img(src="/icon/home.svg" alt="الرئيسية") 
+            li 
+                small /
+                a(href="/forum" title=`مجتمع ${options.website_name}`) مجتمع #{options.website_name}
+            li 
+                small /
+                a(href=`/forum/${options.TopicJosn.topic.categories.category_id}`) #{options.TopicJosn.topic.categories.title}
+            li 
+                small /
+                a(href=`/forum/topic/${options.TopicJosn.topic.topic_id}`) #{options.TopicJosn.topic.title}
+        h2 #{options.TopicJosn.topic.title}
+
+block script
+    script(type="module")
+        include ../../public/js/forum/topic.js
+    script.
+        window.options = !{jsStringify(options)}; 

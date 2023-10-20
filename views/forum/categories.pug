@@ -14,7 +14,7 @@ block content
                 a(href="/forum" title=`مجتمع ${options.website_name}`) مجتمع #{options.website_name}
             li 
                 small /
-                a(href=`/forum/${options.getCategorie.title.replace(/ /g, '_')}` title=options.getCategorie.title) #{options.getCategorie.title}
+                a(href=`/forum/${options.getCategorie.category_id}` title=options.getCategorie.title) #{options.getCategorie.title}
         h2 #{options.getCategorie.title}
         .categorieTopics
             button(title="إنشاء موضوع جديد")#buttonAddTopics موضوع جديد

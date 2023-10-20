@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 imgUser.alt = item?.user?.name;
                 topicsMain.appendChild(topicsMainDiv);
                 topicsMainDiv.appendChild(Linktopics);
-                Linktopics.href = `${window.location.origin}/forum/${item?.category_name}/${item?.title?.replace(/ /g, '_')}`;
+                Linktopics.href = `${window.location.origin}/forum/topic/${item?.topic_id}`;
                 Linktopics.title = item?.title;
                 Linktopics.innerText = item?.title;
                 topicsMainDiv.appendChild(topicsTime);

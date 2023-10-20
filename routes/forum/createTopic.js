@@ -1,4 +1,4 @@
-export default async ({ app, pug, path, fs, config, __dirname, jsStringify, model }) => {
+export default async ({ app, pug, path, fs, config, __dirname, jsStringify, model, analyzeText }) => {
 
     const {
         Users,
@@ -23,6 +23,8 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
         const category_id = convertToNumber(queryCategoryId);
         const existingCategory = await Categories.findOne({
             where: { category_id },
+        }).catch((error) => {
+            console.log(error);
         });
         const options = {};
         options.website_name = config.WEBSITE_NAME;
@@ -56,43 +58,74 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
         const queryCategoryId = request.body.category_id;
         title = request.body?.title?.substring(0, 80);
         const content = request.body?.content?.substring(0, 6000);
+        const content_raw = request.body?.content_raw?.substring(0, 6000);
+        const description = request.body?.description;
+        const analyzeTextRaw = analyzeText(content_raw);
+        const keywords = analyzeTextRaw?.x2Words?.value.length !== 0 ? analyzeTextRaw?.x2Words?.value : analyzeTextRaw?.x1Words?.value;
         const category_id = convertToNumber(queryCategoryId);
 
         if (request?.session?.isLoggedIn) {
             const existingCategory = await Categories.findOne({
                 where: { category_id },
+            }).catch((error) => {
+                console.log(error);
             });
             if (existingCategory?.dataValues?.category_id === category_id) {
 
                 const existingUsers = await Users.findOne({
                     where: { username: request?.session?.username },
+                }).catch((error) => {
+                    console.log(error);
                 });
                 const existingTopics = await Topics.findOne({
                     where: { title: title },
+                }).catch((error) => {
+                    console.log(error);
                 });
                 const lastTopicsId = await Topics.max('topic_id').catch((error) => {
                     console.log('حدث خطأ:', error);
-                });
+                })
                 const newTopicsId = lastTopicsId + 1;
+                const lastTagsId = await Topics.max('topic_id').catch((error) => {
+                    console.log('حدث خطأ:', error);
+                });
+                const newTagsId = lastTagsId + 1;
 
                 if (existingTopics?.dataValues?.title === title) {
                     title = title + "#" + newTopicsId
                 }
+
+                // إضافة الكلمات الدالة في قاعدة البيانات
+                await Tags.create({
+                    tag_id: newTagsId,
+                    topic_id: newTopicsId,
+                    tag_name: keywords
+                }).catch((error) => {
+                    console.log(error);
+                });
+
+                // إضافة الموضوع في قاعدة البيانات 
                 await Topics.create({
                     topic_id: newTopicsId,
                     category_id: category_id,
                     user_id: existingUsers?.dataValues?.user_id,
                     title: title,
                     content: content,
-                    description: content?.substring(0, 150),
+                    content_raw: content_raw,
+                    description: description ? description : title,
                     type: 'public', // private
                     hide: false
+                }).catch((error) => {
+                    console.log(error);
                 });
+
                 response.json({
                     isCreated: true,
                     title: title,
                     content: content,
-                    topicUrl: `/forum/${existingCategory?.dataValues?.title?.replace(/ /g, '_')}/${title?.replace(/ /g, '_')}`,
+                    content_raw: content_raw,
+                    keywords: keywords,
+                    topicUrl: `/forum/topic/${newTopicsId}`,
                     message: "لقد تم إنشاء الموضع بنجاح ✔️"
                 });
             }

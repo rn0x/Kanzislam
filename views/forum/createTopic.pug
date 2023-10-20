@@ -15,11 +15,11 @@ block content
             if options.Category.title
                 li 
                     small /
-                    a(href=`/forum/${options.Category.title.replace(/ /g, '_')}`) #{options.Category.title}
+                    a(href=`/forum/${options.Category.category_id}`) #{options.Category.title}
         if options.session.isLoggedIn
             h2 إنشاء موضوع جديد
             #AddTopic
-                #ErrorMessage kkkkkkkk
+                #ErrorMessage
                 input(type="text" name="title" placeholder="عنوان الموضوع" title="عنوان اللموضوع" maxlength="80")#titleTopic
                 #editorBox
                 button(title="إنشاء موضوع جديد")#ButtonAdd إنشاء موضوع

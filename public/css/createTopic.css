@@ -70,3 +70,6 @@
 .ck-toolbar__items {
     direction: rtl;
 }
+.ck-editor__editable {
+    height: 300px;
+}

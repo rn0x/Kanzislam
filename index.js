@@ -12,7 +12,16 @@ import EmailSender from './modules/emailSender.js';
 import createUploadsFolder from './modules/createUploadsFolder.js';
 import generatePassword from './public/js/modules/generatePassword.js';
 import checkTextLength from './public/js/modules/checkTextLength.js';
-import { sequelize, removeColumn, addColumn, modelObject, getTopicsByCategoryId } from './database/index.js';
+import convertToNumber from './public/js/modules/convertToNumber.js';
+import analyzeText from './public/js/modules/analyzeText.js';
+import {
+    sequelize,
+    removeColumn,
+    addColumn,
+    modelObject,
+    getTopicsByCategoryId,
+    getTopicAndComments
+} from './database/index.js';
 import CreateCategories from './modules/CreateCategories.js';
 import filterSpan from './public/js/modules/filterSpan.js';
 import upload from './routes/upload.js';
@@ -27,8 +36,7 @@ import quran from './routes/quran.js';
 import adhkar from './routes/adhkar.js';
 import hisnmuslim from './routes/hisnmuslim.js';
 import prayer from './routes/prayer.js';
-import forum from './routes/forum/forum.js';
-import createTopic from './routes/forum/createTopic.js';
+import forum from './routes/forum/index.js';
 
 // Get the current working directory
 const __dirname = path.resolve();
@@ -57,8 +65,11 @@ const param = {
     generatePassword,
     checkTextLength,
     database: {
-        getTopicsByCategoryId
-    }
+        getTopicsByCategoryId,
+        getTopicAndComments
+    },
+    convertToNumber,
+    analyzeText
 };
 
 await createUploadsFolder(param); // إنشاء مجلد uploads والمجلدات الفرعية
@@ -133,7 +144,6 @@ await adhkar(param);
 await hisnmuslim(param);
 await prayer(param);
 await forum(param);
-await createTopic(param);
 
 app.use(function (request, response, next) {
     let options = {

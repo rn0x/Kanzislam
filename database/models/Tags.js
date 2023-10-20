@@ -12,7 +12,7 @@ function Tags(sequelize) {
       allowNull: false,
     },
     tag_name: {
-      type: DataTypes.STRING,
+      type: DataTypes.JSONB,
       allowNull: false,
     },
   });

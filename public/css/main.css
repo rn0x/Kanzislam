@@ -18,6 +18,10 @@ body {
     flex-direction: column;
 }
 
+html {
+    overflow-x: hidden;
+}
+
 #content {
     margin-top: 60px;
     flex: 1;

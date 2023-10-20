@@ -22,6 +22,8 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
 
             const existingEmail = await Users.findOne({
                 where: { email },
+            }).catch((error) => {
+                console.log(error);
             });
 
             if (existingEmail?.dataValues?.email === email && existingEmail?.dataValues?.update_password === update_password) {
@@ -56,6 +58,8 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
             const generateUpdatePass = generatePassword(20);
             await Users.update({ password: password, update_password: generateUpdatePass }, {
                 where: { email }
+            }).catch((error) => {
+                console.log(error);
             });
             response.json({
                 message: "لقدم تم تعيين كلمة المرور الجديدة ✔️",

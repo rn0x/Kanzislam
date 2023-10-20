@@ -25,15 +25,21 @@ export default async ({
                 checkTerms,
             } = request.body;
 
-            const { answer: correctAnswer } = await getAnswerData(question);
+            const { answer: correctAnswer } = await getAnswerData(question).catch((error) => {
+                console.log(error);
+            });
             const isAnswerCorrect = answer === correctAnswer;
 
             const existingUser = await Users.findOne({
                 where: { username },
+            }).catch((error) => {
+                console.log(error);
             });
 
             const existingEmail = await Users.findOne({
                 where: { email },
+            }).catch((error) => {
+                console.log(error);
             });
 
             if (existingUser?.dataValues?.username === username) {
@@ -103,6 +109,8 @@ export default async ({
                     isActivated: false,
                     isBlocked: false,
                     token,
+                }).catch((error) => {
+                    console.log(error);
                 });
 
                 return response.json({
@@ -131,7 +139,9 @@ export default async ({
     };
 
     const handleRegistrationPage = async (request, response) => {
-        const randomQuestion = await getRandomQuestionData();
+        const randomQuestion = await getRandomQuestionData().catch((error) => {
+            console.log(error);
+        });
         const options = {
             website_name: config.WEBSITE_NAME,
             title: `تسجيل حساب جديد - انضم إلينا الآن - ${config.WEBSITE_NAME}`,

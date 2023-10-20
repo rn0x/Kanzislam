@@ -20,8 +20,10 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, emai
     app.post('/reset-password', async (request, response) => {
 
         const { email } = request.body;
-        const existingEmail = await Usesr.findOne({
+        const existingEmail = await Users.findOne({
             where: { email },
+        }).catch((error) => {
+            console.log(error);
         });
 
         if (existingEmail?.dataValues?.email === email) {
@@ -29,6 +31,8 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, emai
             const generateUpdatePass = generatePassword(20);
             await Users.update({ update_password: generateUpdatePass }, {
                 where: { email }
+            }).catch((error) => {
+                console.log(error);
             });
             const title = `رابط إستعادة كلمة المرور`;
             const message = `<p style="color: #484d8e; direction: rtl; text-align: center; font-weight: bold; ">
@@ -48,6 +52,8 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, emai
                 message,
                 title,
                 email,
+            }).catch((error) => {
+                console.log(error);
             });
 
             response.json({

@@ -7,6 +7,8 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
         const { username, password } = request.body;
         let GetUser = await Users.findOne({
             where: { username: username }
+        }).catch((error) => {
+            console.log(error);
         });
         // تعيين متغير لتتبع عدد مرات إدخال بيانات غير صحيحة
         let loginAttempts = request.session.loginAttempts || 0;

@@ -24,6 +24,10 @@ function Topics(sequelize) {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    content_raw: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     description: {
       type: DataTypes.STRING,
       allowNull: false,

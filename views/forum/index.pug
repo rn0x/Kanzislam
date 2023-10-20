@@ -19,7 +19,7 @@ block content
           .DivCategories 
             img(src="/icon/forum.svg" alt="forum" title="إيقونة الفئة").IconCategories
             .MainCategories
-              a(href=`/forum/${item.title.replace(/ /g, '_')}` title=item.description) #{item.title}
+              a(href=`/forum/${item.category_id}` title=item.description) #{item.title}
               p #{item.description}
             .CountCategories
               p المواضيع
