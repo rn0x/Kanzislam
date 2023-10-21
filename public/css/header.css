@@ -167,7 +167,7 @@
 }
 
 #logoutButton {
-    display: block;
+    display: none;
     width: 90%;
     margin-left: auto;
     margin-right: auto;
@@ -248,6 +248,30 @@
 }
 
 
+#SideMenuLogout{
+    display: none;
+    width: 200px;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--button);
+    color: var(--colorWhite);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 7px;
+    transition: 0.5s ease-in-out;
+}
+
+#SideMenuLogout:hover{
+    background-color: var(--background_hover);
+    color: var(--colorFontMain);
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: solid;
+    transition: 0.5s ease-in-out;
+}
+
 @media (max-width: 750px) {
     #header_menu_top {
         display: none;
@@ -323,6 +347,10 @@
 @media (max-width: 330px) {
     #header_menu_top {
         display: none;
+    }
+
+    #SideMenuLogout {
+        width: 140px;
     }
 
 }

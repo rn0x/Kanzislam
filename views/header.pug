@@ -21,19 +21,22 @@
         #header_menu_left_isLoggedIn
             img(src="/icon/user.svg" alt="username")
         #menu_logged
-            ul 
+            ul  
                 li 
-                    a(href="#") الملف الشخصي
-                        img(src="/icon/profile.svg" alt="")
+                    a(href="/username")#toggleMenuProfile الملف الشخصي
+                        img(src="/icon/profile.svg" alt="Profile")
                 li 
-                    a(href="#") الإعدادات
-                        img(src="/icon/settings.svg" alt="")
+                    a(href="/settings") الإعدادات
+                        img(src="/icon/settings.svg" alt="settings")
 
             button#logoutButton تسجيل خروج
         #SideMenuBox
             #SideMenu
-                a(href="/login") دخول 
-                a(href="/register") حساب جديد 
+                a(href="/login")#SideMenuLogin دخول 
+                a(href="/register")#SideMenuRegister حساب جديد 
+                a(href="/username")#SideMenuProfile الملف الشخصي
+                a(href="/settings")#SideMenuSettings الإعدادات
                 a(href="/adhkar") اذكار 
                 a(href="/quran") القرآن الكريم 
-                a(href="#") المجتمع 
+                a(href="/forum") المجتمع 
+                button#SideMenuLogout تسجيل الخروج
