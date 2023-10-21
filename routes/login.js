@@ -1,3 +1,5 @@
+import passwordHandler from '../modules/passwordHandler.js';
+
 export default async ({ app, pug, path, fs, config, __dirname, jsStringify, model }) => {
 
     let Users = model.Users
@@ -10,6 +12,10 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
         }).catch((error) => {
             console.log(error);
         });
+        const getPass = GetUser?.dataValues?.password;
+        // مقارنة كلمة المرور
+        const { isMatch } = await passwordHandler({ hashedPassword: getPass, plainPassword: password }, 'compare');
+
         // تعيين متغير لتتبع عدد مرات إدخال بيانات غير صحيحة
         let loginAttempts = request.session.loginAttempts || 0;
 
@@ -31,7 +37,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
         }
 
         // قم بتنفيذ عملية التحقق من بيانات تسجيل الدخول والتحقق من صحتها
-        if (GetUser?.dataValues?.username === username && GetUser?.dataValues?.password === password) {
+        if (GetUser?.dataValues?.username === username && isMatch) {
             // إعادة ضبط عدد مرات إدخال بيانات غير صحيحة في حالة النجاح
             request.session.loginAttempts = 0;
             request.session.lockedUntil = 0;

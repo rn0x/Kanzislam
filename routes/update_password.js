@@ -1,3 +1,5 @@
+import passwordHandler from '../modules/passwordHandler.js';
+
 export default async ({ app, pug, path, fs, config, __dirname, jsStringify, model, generatePassword }) => {
 
     const Users = model.Users;
@@ -56,7 +58,8 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
 
         if (password && password_confirmation && email) {
             const generateUpdatePass = generatePassword(20);
-            await Users.update({ password: password, update_password: generateUpdatePass }, {
+            const { hashedPassword } = await passwordHandler(password, 'hash');
+            await Users.update({ password: hashedPassword, update_password: generateUpdatePass }, {
                 where: { email }
             }).catch((error) => {
                 console.log(error);

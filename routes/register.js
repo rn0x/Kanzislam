@@ -1,3 +1,5 @@
+import passwordHandler from '../modules/passwordHandler.js';
+
 export default async ({
     app,
     pug,
@@ -98,11 +100,12 @@ export default async ({
                     console.log('حدث خطأ:', error);
                 });
                 const newUserId = lastUserId + 1;
+                const { hashedPassword } = await passwordHandler(password, 'hash');
                 await Users.create({
                     user_id: newUserId,
                     name: name?.toLocaleLowerCase(),
                     username: username?.toLocaleLowerCase(),
-                    password,
+                    password: hashedPassword,
                     email: email?.toLocaleLowerCase(),
                     type: 'member',
                     verification_code,
