@@ -163,7 +163,12 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     }
 
+    let isCreated = false;
     CreateReply.addEventListener("click", async () => {
+
+        if (isCreated) {
+            return;
+        }
 
         if (options?.session?.isLoggedIn) {
 
@@ -186,6 +191,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 const response = await createCommentFetch?.json();
 
                 if (response?.isCreatedComment) {
+                    isCreated = true;
                     alertMessage.style.display = "block";
                     alertMessage.innerText = `تم إنشاء التعليق ✔️`;
                     setTimeout(() => {
@@ -250,9 +256,13 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
 
     if (likeTopic) {
+        let isLiked = false;
         likeTopic.addEventListener("click", async () => {
             const isLoggedIn = options?.session?.isLoggedIn;
 
+            if (isLiked) {
+                return;
+            }
 
             if (isLoggedIn) {
                 const user_id = options?.session?.user_id;
@@ -271,6 +281,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 });
                 const response = await likeFetch?.json();
                 if (response?.isLiked) {
+                    isLiked = true;
                     alertMessage.style.display = "block";
                     alertMessage.innerText = response?.message;
                     setTimeout(() => {
@@ -292,9 +303,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     if (reportTopic) {
+        let isReported = false;
         reportTopic.addEventListener("click", async () => {
             const isLoggedIn = options?.session?.isLoggedIn;
-
+            if (isReported) {
+                return;
+            }
 
             if (isLoggedIn) {
                 const user_id = options?.session?.user_id;
@@ -313,6 +327,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 });
                 const response = await reportFetch?.json();
                 if (response?.isReported) {
+                    isReported = true;
                     alertMessage.style.display = "block";
                     alertMessage.innerText = response?.message;
                     setTimeout(() => {
@@ -333,9 +348,14 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
     }
 
+
     if (removeTopic) {
+        let isDeleted = false;
         removeTopic.addEventListener("click", async () => {
             const isLoggedIn = options?.session?.isLoggedIn;
+            if (isDeleted) {
+                return;
+            }
 
             if (isLoggedIn) {
                 const user_id = options?.session?.user_id;
@@ -354,6 +374,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 });
                 const response = await reportFetch?.json();
                 if (response?.isDeleted) {
+                    isDeleted = true;
                     alertMessage.style.display = "block";
                     alertMessage.innerText = "تم حذف الموضوع ✔️";
                     setTimeout(() => {

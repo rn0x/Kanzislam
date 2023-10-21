@@ -17,7 +17,11 @@ document.addEventListener('DOMContentLoaded', async function () {
     verificationQuestion.textContent = options?.randomQuestion?.question;
     verification_question_input.placeholder = `قم بالإجابة على سؤال التحقق ...(${options?.randomQuestion?.answer})`;
 
+    let isRegisterd
     registerButton.addEventListener('click', async () => {
+        if (isRegisterd) {
+            return;
+        }
         loading.style.display = 'block';
         const name = document.querySelector('#name input')?.value?.trim()?.toLocaleLowerCase();
         const username = document.querySelector('#username > input')?.value?.trim()?.toLocaleLowerCase();
@@ -194,6 +198,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             const response = await registerFetch.json();
 
             if (response?.register) {
+                isRegisterd = true;
                 registerButton.style.display = "none";
                 alertMessage.innerText = "أهلاً وسهلاً بك! لقد تم تسجيل حسابك بنجاح. قمنا بإرسال رسالة تأكيد إلى بريدك الإلكتروني. يرجى النقر على الرابط الموجود في الرسالة لتفعيل حسابك";
                 alertMessage.style.display = "block";

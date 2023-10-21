@@ -18,7 +18,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     else {
+        let reset_password = false;
         ButtonSend.addEventListener("click", async () => {
+            if (reset_password) {
+                return;
+            }
             const inputEmailMessage = document.getElementById("inputEmailMessage");
             const email = inputEmail.value;
             const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -39,6 +43,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 let response = await resetPassFetch?.json();
 
                 if (response?.isResetPass) {
+                    reset_password = true;
                     alertMessage.style.display = "block";
                     alertMessage.style.backgroundColor = "#d2fad1";
                     alertMessage.style.borderColor = "#96e296";

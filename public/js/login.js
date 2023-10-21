@@ -22,9 +22,13 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     else {
 
+        let loggedIn = false;
         loginbox.style.display = "block";
         loggedIn_bt.addEventListener("click", async () => {
 
+            if (loggedIn) {
+                return;
+            }
             if (loginusername?.value?.length < 5) {
                 alertEl.innerText = "يجب أن يكون طول اسم المستخدم 5 أحرف أو أكثر";
                 alertEl.style.display = "block";
@@ -57,6 +61,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             let response = await loginFetch?.json();
 
             if (response?.logged_in) {
+                loggedIn = true;
                 window.location.href = "/";
             }
             else if (response?.locked) {

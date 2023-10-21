@@ -11,7 +11,11 @@ document.addEventListener("DOMContentLoaded", async function () {
         const password_message = document.getElementById("password_message");
         const password_confirmation_message = document.getElementById("password_confirmation_message");
 
+        let update_password = false;
         upPassButton.addEventListener("click", async () => {
+            if (update_password) {
+                return;
+            }
 
             if (password.value && password_confirmation.value && options?.email) {
 
@@ -32,6 +36,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     let response = await upPassFetch?.json();
 
                     if (response?.isUpdatePass) {
+                        update_password = true;
                         alertUpPass.innerText = response?.message;
                         alertUpPass.style.display = "block";
                         alertUpPass.style.backgroundColor = "#d2fad1";

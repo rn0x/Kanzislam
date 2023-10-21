@@ -88,9 +88,15 @@ document.addEventListener("DOMContentLoaded", async function () {
         return images.map(image => image.src);
     }
 
+    let isCreated = false;
+
     ButtonAdd.addEventListener("click", async () => {
         const titleValue = titleTopic.value;
         const editorBoxValue = editorBox.getData();
+
+        if (isCreated) {
+            return;
+        }
 
         if (titleValue.split(" ").length >= 3 && titleValue.length < 80) {
             if (editorBoxValue.split(" ").length >= 5 && editorBoxValue.length < 6000) {
@@ -113,7 +119,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 const response = await createTopicFetch?.json();
 
                 if (response?.isCreated) {
-
+                    isCreated = true;
                     ErrorMessage.innerText = response?.message;
                     ErrorMessage.style.display = "block";
                     ErrorMessage.style.backgroundColor = "#d2fad1";
