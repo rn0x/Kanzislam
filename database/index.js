@@ -77,8 +77,7 @@ async function addColumn(table, columnName, dataType = "string") {
 
 async function getTopicsByCategoryId(categoryId) {
     try {
-        // Fetch topics from the database based on the provided category ID
-        const topics = await modelObject.Topics.findAll({
+        const topicsData = await modelObject.Topics.findAll({
             where: {
                 category_id: categoryId
             },
@@ -86,50 +85,45 @@ async function getTopicsByCategoryId(categoryId) {
                 {
                     model: modelObject.Users,
                     as: 'users'
-                },
-                {
-                    model: modelObject.Comments,
-                    as: 'comments',
-                    attributes: [[sequelize.fn('COUNT', sequelize.col('comments.comment_id')), 'commentCount']]
-                },
-                {
-                    model: modelObject.Categories,
-                    as: 'categories'
                 }
-            ],
-            group: ['Topics.topic_id', 'users.user_id', 'categories.category_id']
+            ]
         });
 
-        // Map the retrieved data to the desired format
-        const topicObjects = topics.map(topic => ({
-            topic_id: topic.topic_id,
-            category_id: topic.category_id,
-            category_name: topic.categories.title,
-            title: topic.title,
-            description: topic.description,
-            content: topic.content,
-            content_raw: topic.content_raw,
-            type: topic.type,
-            hide: topic.hide,
-            user: {
-                user_id: topic.users.user_id,
-                name: topic.users.name,
-                username: topic.users.username,
-                profile: topic.users.profile
-            },
-            views: topic.views,
-            likes: topic.likes,
-            reports: topic.reports,
-            favorites: topic.favorites,
-            createdAt: topic.createdAt,
-            updatedAt: topic.updatedAt,
-            commentCount: topic.comments[0]?.dataValues?.commentCount
+        const topics = await Promise.all(topicsData.map(async (topic) => {
+            const commentsData = await modelObject.Comments.findAll({ where: { topic_id: topic.topic_id } });
+            const likesData = await modelObject.Likes.findAll({ where: { topic_id: topic.topic_id } });
+            const reportsData = await modelObject.Reports.findAll({ where: { topic_id: topic.topic_id } });
+            const viewsData = await modelObject.Views.findAll({ where: { topic_id: topic.topic_id } }); // جلب بيانات المشاهدات
+
+            return {
+                topic_id: topic.topic_id,
+                title: topic.title,
+                user: {
+                    user_id: topic.users.user_id,
+                    name: topic.users.name,
+                    username: topic.users.username,
+                    profile: topic.users.profile
+                },
+                commentCount: commentsData.length,
+                likeCount: likesData.length,
+                reportCount: reportsData.length,
+                viewCount: viewsData.length,
+                createdAt: topic.createdAt,
+                updatedAt: topic.updatedAt,
+            };
         }));
 
-        // Return the array of topic objects
-        return topicObjects;
+        const categoryData = await modelObject.Categories.findOne({ where: { category_id: categoryId } });
+
+        const category = {
+            category_id: categoryData.category_id,
+            category_name: categoryData.title,
+            topics
+        };
+
+        return category;
     } catch (error) {
-        console.error('Error fetching topics:', error);
+        console.error('حدث خطأ أثناء جلب البيانات:', error);
         return [];
     }
 }
@@ -202,8 +196,60 @@ async function getTopicData(topic) {
     }
 }
 
+/**
+ * تقوم بحذف الموضوع مع جميع البيانات المرتبطة به مثل الإعجابات والمشاهدات والبلاغات والتاجات والتعليقات.
+ * @param {number} topicId - معرف الموضوع الذي يجب حذفه.
+ * @param {number} userId - معرف المستخدم الذي يقوم بحذف الموضوع.
+ * @returns {Promise<{ isDeleted: boolean, message: string }>} - كائن يحتوي على خاصيتين: isDeleted تحمل قيمة true إذا تم حذف الموضوع بنجاح و false إذا لم يتم الحذف، و message تحمل رسالة توضح نتيجة عملية الحذف.
+ * @throws {Error} - إذا حدث خطأ أثناء عملية الحذف أو إذا لم يكن المستخدم هو منشئ الموضوع.
+ */
+async function deleteTopic(topicId, userId) {
+    /**
+     * @typedef {Object} ModelObject
+     * @property {Object} Topics - جدول المواضيع.
+     * @property {Object} Comments - جدول التعليقات.
+     * @property {Object} Likes - جدول الإعجابات.
+     * @property {Object} Reports - جدول البلاغات.
+     * @property {Object} Views - جدول المشاهدات.
+     * @property {Object} Tags - جدول التاجات.
+     */
 
+    /** @type {ModelObject} */
+    const { Topics, Comments, Likes, Reports, Views, Tags } = modelObject;
 
+    try {
+        // Check if the user is the creator of the topic
+        const topic = await Topics.findOne({ where: { topic_id: topicId, user_id: userId } });
+        if (!topic) {
+            return { isDeleted: false, message: 'You are not authorized to delete this topic' };
+        }
+
+        // Delete likes
+        await Likes.destroy({ where: { topic_id: topicId } });
+
+        // Delete views
+        await Views.destroy({ where: { topic_id: topicId } });
+
+        // Delete reports
+        await Reports.destroy({ where: { topic_id: topicId } });
+
+        // Delete tags
+        await Tags.destroy({ where: { topic_id: topicId } });
+
+        // Delete comments
+        await Comments.destroy({ where: { topic_id: topicId } });
+
+        // Delete the topic itself
+        await Topics.destroy({ where: { topic_id: topicId } });
+
+        console.log('Topic and associated data deleted successfully');
+
+        return { isDeleted: true, message: 'Topic and associated data deleted successfully' };
+    } catch (error) {
+        console.error('Error deleting topic and associated data:', error);
+        return { isDeleted: false, message: 'Error deleting topic and associated data' };
+    }
+}
 
 async function main() {
     try {
@@ -218,4 +264,4 @@ async function main() {
 
 await main();
 
-export { sequelize, removeColumn, addColumn, modelObject, getTopicsByCategoryId, getTopicData };
+export { sequelize, removeColumn, addColumn, modelObject, getTopicsByCategoryId, getTopicData, deleteTopic };

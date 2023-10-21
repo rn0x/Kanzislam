@@ -100,3 +100,53 @@ select:focus,
 a:focus {
     outline: none;
 }
+
+
+/* إزالة إدراج الفيديو من المحرر  */
+div.ck:nth-child(13) {
+    display: none !important;
+}
+
+/* جدول المحرر */
+
+figure.table {
+    width: 100%;
+    display: block;
+    border-collapse: collapse;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 100%;
+    overflow: auto;
+}
+
+figure.table td {
+    padding: 10px;
+    box-sizing: border-box;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: solid;
+}
+
+figure.table tr {
+    width: 100%;
+    max-height: 100%;
+    word-break: keep-all;
+}
+
+figure.table tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+
+
+blockquote {
+    width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 3px;
+    padding-right: 3px;
+    background-color: var(--background_Wild_Sand);
+    box-sizing: border-box;
+    border-left: 5px solid var(--divHeader);
+}

@@ -24,7 +24,7 @@
     margin-right: 5px;
     border-color: var(--border);
     border-width: 1px;
-    border-style: double;
+    border-style: solid;
     border-radius: 5px;
 }
 
@@ -38,7 +38,7 @@
     margin-right: 5px;
     border-color: var(--border);
     border-width: 1px;
-    border-style: double;
+    border-style: solid;
     border-radius: 5px;
 }
 
@@ -137,7 +137,7 @@
     color: var(--colorFontMain);
     border-color: var(--border);
     border-width: 1px;
-    border-style: double;
+    border-style: solid;
 }
 
 .topicsTable {
@@ -181,14 +181,6 @@
     word-break: break-all;
 }
 
-.topicsMain img {
-    display: block;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    box-sizing: border-box;
-    margin-left: 10px;
-}
 
 .topicsMain>div>a {
     margin-top: 0px;
@@ -242,7 +234,23 @@
     color: var(--colorFontMain);
     border-color: var(--border);
     border-width: 1px;
-    border-style: double;
+    border-style: solid;
+}
+
+.topicUsername {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin-top: 2px;
+}
+
+.topicUsername>img {
+    display: block;
+    width: 16px;
+    margin-left: 5px;
+}
+.topicUsername a {
+    font-size: 12px;
 }
 
 

@@ -33,39 +33,46 @@ document.addEventListener("DOMContentLoaded", async function () {
             for (let i = (page - 1) * itemsPerPage; i < page * itemsPerPage && i < response.topics.length; i++) {
                 let item = response.topics[i];
                 const tr = document.createElement("tr");
-                const topicsMain = document.createElement("td");
+                const topicsMain = document.createElement("td"); 
                 const likes = document.createElement("td");
                 const views = document.createElement("td");
                 const comments = document.createElement("td");
-                const linkUser = document.createElement("a");
-                const imgUser = document.createElement("img");
                 const topicsMainDiv = document.createElement("div");
+                const topicUsername = document.createElement("div");
+                const topicUsernameImage = document.createElement("img");
+                const topicUsernameLink = document.createElement("a");
                 const Linktopics = document.createElement("a");
                 const topicsTime = document.createElement("small");
 
                 topiscTbody.appendChild(tr);
                 tr.appendChild(topicsMain);
                 topicsMain.className = "topicsMain";
-                topicsMain.appendChild(linkUser);
-                linkUser.href = `${window.location.origin}/username/${item?.user?.username}`;
-                linkUser.title = item?.user?.name;
-                linkUser.appendChild(imgUser);
-                imgUser.src = "/images/test.jpg";
-                imgUser.alt = item?.user?.name;
                 topicsMain.appendChild(topicsMainDiv);
                 topicsMainDiv.appendChild(Linktopics);
                 Linktopics.href = `${window.location.origin}/forum/topic/${item?.topic_id}`;
                 Linktopics.title = item?.title;
                 Linktopics.innerText = item?.title;
+                /////////////////
+                topicsMainDiv.appendChild(topicUsername);
+                topicUsername.className = "topicUsername";
+                topicUsername.appendChild(topicUsernameImage);
+                topicUsernameImage.src = "/icon/user.svg";
+                topicUsernameImage.alt = item?.user?.username;
+                topicUsernameImage.title = item?.user?.username;
+                topicUsername.appendChild(topicUsernameLink);
+                topicUsernameLink.href = `/username/${item?.user?.username}`;
+                topicUsernameLink.innerText = item?.user?.username;
+                topicUsernameLink.title = item?.user?.username;
+                ////////////////
                 topicsMainDiv.appendChild(topicsTime);
                 topicsTime.className = "topicsTime";
                 topicsTime.innerHTML = getElapsedTime(item?.updatedAt);
                 tr.appendChild(likes);
                 likes.className = "likes";
-                likes.innerText = item?.likes ? item?.likes : 0;
+                likes.innerText = item?.likeCount ? item?.likeCount : 0;
                 tr.appendChild(views);
                 views.className = "views";
-                views.innerText = item?.views ? item?.views : 0;
+                views.innerText = item?.viewCount ? item?.viewCount : 0;
                 tr.appendChild(comments);
                 comments.className = "comments";
                 comments.innerText = item?.commentCount ? item?.commentCount : 0;

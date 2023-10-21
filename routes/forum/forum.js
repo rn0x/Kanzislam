@@ -123,8 +123,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
             if (existingCategory?.dataValues?.category_id === category_id) {
                 const TopicsJson = await database.getTopicsByCategoryId(category_id);
                 response.json({
-                    ...existingCategory?.dataValues,
-                    topics: TopicsJson
+                    ...TopicsJson
                 });
             }
 

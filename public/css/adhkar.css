@@ -16,7 +16,7 @@
     border-radius: 5px;
     border-color: var(--border);
     border-width: 1px;
-    border-style: double;
+    border-style: solid;
 }
 
 #adhkar_boxPage ul li:hover {
@@ -54,7 +54,7 @@
     border-radius: 5px;
     border-color: #b6c2ff;
     border-width: 1px;
-    border-style: double;
+    border-style: solid;
 }
 
 #adhkarRepeat p {
@@ -108,7 +108,7 @@
     justify-content: center;
     border-color: var(--border);
     border-width: 1px;
-    border-style: double;
+    border-style: solid;
 }
 
 #adhkarBox li div,
@@ -118,7 +118,7 @@
     border-radius: 5px;
     border-color: var(--border);
     border-width: 1px;
-    border-style: double;
+    border-style: solid;
     box-sizing: border-box;
 }
 

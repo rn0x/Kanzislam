@@ -39,6 +39,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
             // قم بتعيين متغير الجلسة للإشارة إلى أن المستخدم مسجل دخولًا
             request.session.isLoggedIn = true;
             request.session.username = username;
+            request.session.user_id = GetUser?.dataValues?.user_id;
             response.json({ logged_in: true, massage: 'تم تسجيل الدخول بنجاح!' });
         } else {
             // زيادة عدد مرات إدخال بيانات غير صحيحة في حالة الفشل

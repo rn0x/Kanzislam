@@ -20,7 +20,7 @@
     border-radius: 5px;
     border-color: var(--border);
     border-width: 1px;
-    border-style: double;
+    border-style: solid;
 }
 
 #quranIndex li:hover {
@@ -128,7 +128,7 @@
     font-size: 22px;
     border-color: var(--border);
     border-width: 1px;
-    border-style: double;
+    border-style: solid;
     border-radius: 5px;
     text-align: justify;
     line-height: 2.5;
@@ -150,7 +150,7 @@
     color: var(--colorFontMain);
     border-color: var(--border);
     border-width: 1px;
-    border-style: double;
+    border-style: solid;
 }
 
 #nextSurah {
@@ -169,7 +169,7 @@
     color: var(--colorFontMain);
     border-color: var(--border);
     border-width: 1px;
-    border-style: double;
+    border-style: solid;
 }
 
 #FontSize button {
@@ -218,7 +218,7 @@
     border-radius: 5px;
     border-color: #b7ebb5;
     border-width: 1px;
-    border-style: double;
+    border-style: solid;
 }
 
 #QuranInfoBox ul {

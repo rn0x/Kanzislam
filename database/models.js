@@ -37,6 +37,9 @@ function model(sequelize) {
     const PdfsModel = Pdfs(sequelize);
     const StatisticsModel = Statistics(sequelize);
 
+
+    CategoriesModel.hasMany(TopicsModel, { foreignKey: 'category_id', as: 'topics' });
+
     // Topics relationships
     TopicsModel.hasMany(LikesModel, { foreignKey: 'topic_id', as: 'likes', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
     TopicsModel.hasMany(FavoritesModel, { foreignKey: 'topic_id', as: 'favorites', onDelete: 'CASCADE', onUpdate: 'CASCADE' });

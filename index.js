@@ -21,7 +21,8 @@ import {
     addColumn,
     modelObject,
     getTopicsByCategoryId,
-    getTopicData
+    getTopicData,
+    deleteTopic
 } from './database/index.js';
 import CreateCategories from './modules/CreateCategories.js';
 import filterSpan from './public/js/modules/filterSpan.js';
@@ -67,7 +68,8 @@ const param = {
     checkTextLength,
     database: {
         getTopicsByCategoryId,
-        getTopicData
+        getTopicData,
+        deleteTopic
     },
     convertToNumber,
     analyzeText,
@@ -97,7 +99,7 @@ app.use(
                 fontSrc: ["'self'"],
                 objectSrc: ["'none'"],
                 mediaSrc: ["'self'", "*"],
-                frameSrc: ["'self'"],
+                frameSrc: ["'self'", "https://www.youtube.com"],
                 childSrc: ["'self'"],
                 connectSrc: ["'self'", "*"],
                 workerSrc: ["'self'", "blob:"],

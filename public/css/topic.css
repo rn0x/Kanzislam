@@ -1,3 +1,7 @@
+#TopicPage {
+    position: relative;
+}
+
 .TopicBox {
     display: block;
     width: 95%;
@@ -10,9 +14,9 @@
     border-radius: 5px;
     border-color: var(--border);
     border-width: 1px;
-    border-style: double;
+    border-style: solid;
     padding: 5px;
-    
+
 }
 
 .TopicHeader {
@@ -21,7 +25,7 @@
     padding: 5px;
     border-color: var(--border);
     border-width: 1px;
-    border-style: double;
+    border-style: solid;
 }
 
 #topic_title {
@@ -35,7 +39,7 @@
     align-items: center;
 }
 
-.timeToic small{
+.timeToic small {
     display: block;
     font-size: 11px;
     color: var(--colorFont2);
@@ -44,17 +48,20 @@
 .iconTopic {
     display: block;
     width: 16px;
-    margin-left: 7px;
-    margin-right: 7px;
+    margin-left: 3px;
+    margin-right: 3px;
     user-select: none;
 }
 
 .textIcon {
-   font-size: 13px;
-   margin: 0px;
-   color: var(--colorFont2);
-   word-wrap: break-word;
-   word-break: break-all;
+    font-size: 13px;
+    color: var(--colorFont2);
+    word-wrap: break-word;
+    word-break: break-all;
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .TopicHeaderInfo {
@@ -66,7 +73,7 @@
     padding: 0px;
 }
 
-.TopicHeaderInfo>li{
+.TopicHeaderInfo>li {
     display: flex;
     flex-wrap: wrap;
     justify-content: right;
@@ -80,6 +87,13 @@
 
 .TopicContent {
     word-wrap: break-word;
+    width: 100%;
+    display: block;
+    text-align: justify;
+    padding: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
 }
 
 .TopicButtonBox {
@@ -98,11 +112,11 @@
     border-radius: 5px;
     border-color: var(--border);
     border-width: 1px;
-    border-style: double;
+    border-style: solid;
     padding: 5px;
 }
 
-.TopicButtonBox > li {
+.TopicButtonBox>li {
     display: flex;
     justify-content: right;
     align-items: center;
@@ -111,6 +125,14 @@
     margin-right: 5px;
     margin-left: 5px;
     cursor: pointer;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: var(--background_Wild_Sand);
+    border-radius: 5px;
+}
+
+.TopicButtonBox>li:hover {
+    background-color: var(--background_hover);
 }
 
 .TopicTagsBox {
@@ -129,11 +151,11 @@
     border-radius: 5px;
     border-color: var(--border);
     border-width: 1px;
-    border-style: double;
+    border-style: solid;
     padding: 5px;
 }
 
-.TopicTagsBox > li {
+.TopicTagsBox>li {
     background-color: var(--background_Wild_Sand);
     margin-top: 5px;
     margin-bottom: 5px;
@@ -143,6 +165,235 @@
     border-radius: 5px;
 }
 
-.TopicTagsBox > li > a {
+.TopicTagsBox>li>a {
     font-size: 13px;
+}
+
+.TopicComment {
+    display: block;
+    padding: 0px;
+    list-style: none;
+}
+
+.TopicCommentBox {
+    width: 95%;
+    max-width: 1000px;
+    display: block;
+    background-color: var(--background_white);
+    margin-top: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 5px;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: solid;
+    padding: 5px;
+}
+
+.CommentBoxHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom-color: var(--border);
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    padding-bottom: 5px;
+}
+
+#CommentInfo div {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+#CommentInfo div small {
+    display: block;
+    font-size: 11px;
+    color: var(--colorFont2);
+}
+
+#CommentId {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: var(--background_Wild_Sand);
+    padding: 5px;
+    word-break: break-all;
+    font-size: 10px;
+    font-weight: 900;
+}
+
+.CommentContent {
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.ToReply,
+.removeComeent {
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: solid;
+    font-size: 13px;
+    margin: 0px;
+    color: var(--colorFont2);
+    word-wrap: break-word;
+    word-break: break-all;
+    cursor: pointer;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.ToReply:hover,
+.removeComeent:hover {
+    background-color: var(--background_hover);
+}
+
+.buttonCommentBox {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+#CommentBox {
+    width: 95%;
+    max-width: 1000px;
+    display: block;
+    background-color: var(--background_white);
+    margin-top: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 5px;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: solid;
+    padding: 5px;
+}
+
+
+#CreateReply {
+    display: block;
+    width: 160px;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--button);
+    color: var(--colorWhite);
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 4px;
+    transition: 0.5s ease-in-out;
+}
+
+#CreateReply:hover {
+    background-color: var(--background_hover);
+    color: var(--colorFontMain);
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: solid;
+    transition: 0.5s ease-in-out;
+}
+
+.ck-powered-by {
+    display: none;
+}
+
+.ck-content {
+    direction: rtl;
+    text-align: right !important;
+}
+
+
+.ck-toolbar__items {
+    direction: rtl;
+}
+
+.ck-editor__editable {
+    height: 150px;
+}
+
+
+#sharing {
+    position: relative;
+}
+
+#sharingBox {
+    width: 80px;
+    display: none;
+    background-color: var(--background_white);
+    padding: 0px;
+    list-style: none;
+    position: absolute;
+    margin-bottom: -130px;
+    border-radius: 5px;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: solid;
+    z-index: 80;
+}
+
+
+#sharingBox li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#sharingBox li:hover {
+    background-color: var(--background_hover);
+}
+
+.CommentContent {
+    width: 100%;
+    display: block;
+    text-align: justify;
+    padding: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    margin-bottom: 5px;
+}
+
+.CommentContent img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    color: var(--colorFont2);
+}
+
+a:hover {
+    color: var(--colorFontMain_hover);
+}
+
+
+#alertMessage {
+    width: 70%;
+    max-width: 800px;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--background_Wild_Sand);
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+    border-radius: 8px;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: solid;
+    z-index: 100;
+    word-wrap: break-word;
+    padding: 5px;
+
 }

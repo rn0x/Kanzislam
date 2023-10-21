@@ -44,7 +44,7 @@
     padding: 9px;
     border-color: var(--border);
     border-width: 1px;
-    border-style: double;
+    border-style: solid;
 }
 
 #registerBox li small {
@@ -92,7 +92,7 @@
     color: var(--colorFontMain);
     border-color: var(--border);
     border-width: 1px;
-    border-style: double;
+    border-style: solid;
 }
 
 #alertMessage {
@@ -103,7 +103,7 @@
     margin-bottom: 10px;
     border-color: #7fb481;
     border-width: 1px;
-    border-style: double;
+    border-style: solid;
     box-sizing: border-box;
     color: #4b6741;
     font-size: 13px;
