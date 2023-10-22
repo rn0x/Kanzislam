@@ -59,15 +59,18 @@ document.addEventListener("DOMContentLoaded", async function () {
             Boxicons.appendChild(iconPlay);
             iconPlay.src = "/icon/play.svg";
             iconPlay.alt = "play";
+            iconPlay.className = "iconFilter";
             Boxicons.appendChild(iconDownload);
             iconDownload.src = "/icon/download.svg";
             iconDownload.alt = "download";
+            iconDownload.className = "iconFilter";
             Boxicons.appendChild(link);
             link.href = `${url}/hisnmuslims/${title}`;
             link.title = "رابط الذكر في صفحة منفصلة";
             link.appendChild(iconLink);
             iconLink.src = "/icon/link.svg";
             iconLink.alt = "link";
+            iconLink.className = "iconFilter";
             li.appendChild(Huscount);
             Huscount.className = "Huscount";
             Huscount.innerHTML = `التكرار : <span>${item?.count}</span>`;
