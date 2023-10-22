@@ -1,5 +1,3 @@
-import manipulateLocalStorage from '../js/modules/manipulateLocalStorage.js';
-
 document.addEventListener("DOMContentLoaded", function () {
     const options = window.options;
     const header_menu_left = document.getElementById("header_menu_left");
@@ -18,13 +16,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const SideMenuLogout = document.getElementById('SideMenuLogout');
     const toggleMenuProfile = document.getElementById('toggleMenuProfile');
     const buttonTheme = document.getElementById('buttonTheme');
-    const getTheme = manipulateLocalStorage("get", "theme");
+    const storage = window.localStorage;
+    const getTheme = storage.getItem("theme");
 
-    if (getTheme?.value === "dark") {
+    if (getTheme === "dark") {
         document.querySelector("html").setAttribute("data-theme", "dark");
         buttonTheme.src = "/icon/light.svg";
     }
-    if (getTheme?.value === "light") {
+    if (getTheme === "light") {
         document.querySelector("html").setAttribute("data-theme", "light");
         buttonTheme.src = "/icon/dark.svg";
     }
@@ -117,17 +116,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // نوع الثيم
     function ThemeHandler() {
-        const getTheme = manipulateLocalStorage("get", "theme");
-        if (getTheme?.value === "dark") {
-            manipulateLocalStorage("set", "theme", "light");
+        const getTheme = storage.getItem("theme");
+        if (getTheme === "dark") {
+            storage.setItem("theme", "light");
             buttonTheme.src = "/icon/dark.svg";
         }
 
         else {
-            manipulateLocalStorage("set", "theme", "dark");
+            storage.setItem("theme", "dark");
             buttonTheme.src = "/icon/light.svg";
         }
 
         window.location.href = window.location.href
     }
+
 });

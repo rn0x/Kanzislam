@@ -23,8 +23,8 @@ export default async function generateSitemap(newPages) {
 
     let pageIndex = 0;
     let currentPage = 1;
-    let sitemapContent = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
-
+    let sitemapContent = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"';
+    sitemapContent += '\n        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">';
     for (const page of pages) {
       if (currentPage > sitemapSizeLimit) {
         const sitemapFileName = `sitemap-${pageIndex}.xml`;
@@ -43,7 +43,10 @@ export default async function generateSitemap(newPages) {
       sitemapContent += `\n    <priority>${priority || 0.5}</priority>`;
       if (images) {
         for (const image of images) {
-          sitemapContent += `\n    <image:image><image:loc>${image}</image:loc></image:image>`;
+          sitemapContent += 
+`\n    <image:image>
+      <image:loc>${image}</image:loc>
+    </image:image>`;
         }
       }
       sitemapContent += '\n  </url>';
@@ -74,17 +77,14 @@ export default async function generateSitemap(newPages) {
     // Calculate the number of sitemaps, number of links in each sitemap, and total links.
     const sitemapsAvailable = numSitemaps;
     const linksPerSitemap = sitemapSizeLimit;
-    const sitemapFileSize = fs.statSync(sitemapIndexPath)?.size;
 
     return {
       sitemapsAvailable: sitemapsAvailable,
       linksPerSitemap: linksPerSitemap,
       totalLinks: totalLinks,
-      sitemapFileSize: sitemapFileSize,
-      sitemapFilePath: sitemapIndexPath, // مسار الملف الرئيسي للخريطة
+      sitemapFilePath: "/sitemap/sitemap-index.xml", // مسار الملف الرئيسي للخريطة
     };
   } catch (error) {
     console.error('حدث خطأ أثناء تنفيذ الدالة:', error);
   }
 }
- 
