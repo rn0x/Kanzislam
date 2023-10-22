@@ -5,3 +5,4 @@ yarn.lock
 database.sqlite
 config_.json
 public/uploads
+public/sitemap

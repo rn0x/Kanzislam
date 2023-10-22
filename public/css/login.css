@@ -12,6 +12,7 @@
 #alert {
     display: none;
     background-color: #fad1d1;
+    color: #ff4646;
     padding: 10px;
 }
 

@@ -9,7 +9,7 @@ block content
         ul.breadcrumb
             li 
                 a(href="/" title="الرئيسية")
-                    img(src="/icon/home.svg" alt="الرئيسية") 
+                    img(src="/icon/home.svg" alt="الرئيسية" class="iconFilter") 
             li 
                 small /
                 a(href="/forum" title=`مجتمع ${options.website_name}`) مجتمع #{options.website_name}
@@ -23,49 +23,49 @@ block content
             .TopicHeader 
                 h2#topic_title #{options.TopicJosn.topic.title} 
                 .timeToic
-                    img(src="/icon/time.svg" alt="time").iconTopic
+                    img(src="/icon/time.svg" alt="time").iconTopic.iconFilter
                     small(title=options.getElapsedTime(options.TopicJosn.topic.updatedAt))= options.getElapsedTime(options.TopicJosn.topic.updatedAt)
                 ul.TopicHeaderInfo 
                     li 
-                        img(src="/icon/user.svg" alt="user" title=options.TopicJosn.topic.users.name).iconTopic
+                        img(src="/icon/user.svg" alt="user" title=options.TopicJosn.topic.users.name).iconTopic.iconFilter
                         a(href=`/username/${options.TopicJosn.topic.users.username}` title=options.TopicJosn.topic.users.name).textIcon #{options.TopicJosn.topic.users.username} 
                     li 
-                        img(src="/icon/like.svg" alt="like" title=`يحتوي الموضوع على ${options.TopicJosn.likes.length} إعجاب`).iconTopic
+                        img(src="/icon/like.svg" alt="like" title=`يحتوي الموضوع على ${options.TopicJosn.likes.length} إعجاب`).iconTopic.iconFilter
                         p.textIcon=options.TopicJosn.likes.length
                     li 
-                        img(src="/icon/view.svg" alt="view" title=`تمت مشاهدة الموضوع من قبل ${options.TopicJosn.views} شخص`).iconTopic
+                        img(src="/icon/view.svg" alt="view" title=`تمت مشاهدة الموضوع من قبل ${options.TopicJosn.views} شخص`).iconTopic.iconFilter
                         p.textIcon=options.TopicJosn.views 
                     li 
-                        img(src="/icon/comment.svg" alt="comment" title=`يحتوي الموضوع على ${options.TopicJosn.comments.length} رد`).iconTopic
+                        img(src="/icon/comment.svg" alt="comment" title=`يحتوي الموضوع على ${options.TopicJosn.comments.length} رد`).iconTopic.iconFilter
                         p.textIcon=options.TopicJosn.comments.length  
                     li 
-                        img(src="/icon/report.svg" alt="reports" title=`يحتوي الموضوع على ${options.TopicJosn.reports.length} بلاغ`).iconTopic
+                        img(src="/icon/report.svg" alt="reports" title=`يحتوي الموضوع على ${options.TopicJosn.reports.length} بلاغ`).iconTopic.iconFilter
                         p.textIcon=options.TopicJosn.reports.length  
             .TopicContent!= options.TopicJosn.topic.content
         ul.TopicButtonBox 
             if options.canEdit
                 li#removeTopic
-                    img(src="/icon/remove.svg" alt="remove" title="حذف الموضوع").iconTopic
+                    img(src="/icon/remove.svg" alt="remove" title="حذف الموضوع").iconTopic.iconFilter
                     p.textIcon حذف
             if options.session.isLoggedIn
                 li#likeTopic
-                    img(src="/icon/like.svg" alt="view" title="الإعجاب بالموضوع").iconTopic
+                    img(src="/icon/like.svg" alt="view" title="الإعجاب بالموضوع").iconTopic.iconFilter
                     p.textIcon إعجاب
                 li#reportTopic 
-                    img(src="/icon/report.svg" alt="report" title="ابلاغ عن اعلان مخالف").iconTopic
+                    img(src="/icon/report.svg" alt="report" title="ابلاغ عن اعلان مخالف").iconTopic.iconFilter
                     p.textIcon بلاغ
             li#sharing
-                img(src="/icon/sharing.svg" alt="sharing" title="مشاركة بالموضوع").iconTopic
+                img(src="/icon/sharing.svg" alt="sharing" title="مشاركة بالموضوع").iconTopic.iconFilter
                 p.textIcon مشاركة
                 ul#sharingBox
                     li#copyLink
-                        img(src="/icon/link.svg" alt="copy" title="نسخ رابط الموضوع").iconTopic
+                        img(src="/icon/link.svg" alt="copy" title="نسخ رابط الموضوع").iconTopic.iconFilter
                         p.textIcon نسخ
                     li 
-                        img(src="/icon/whatsapp.svg" alt="واتساب" title="المشاركة عبر الواتساب").iconTopic
+                        img(src="/icon/whatsapp.svg" alt="واتساب" title="المشاركة عبر الواتساب").iconTopic.iconFilter
                         p.textIcon#whatsappLink واتساب
                     li 
-                        img(src="/icon/telegram.svg" alt="تيليجرام" title="المشاركة عبر التيليجرام").iconTopic
+                        img(src="/icon/telegram.svg" alt="تيليجرام" title="المشاركة عبر التيليجرام").iconTopic.iconFilter
                         p.textIcon#telegramLink تيليجرام
         if options.TopicJosn.tags !== undefined && options.TopicJosn.tags.tag_name.length !== 0
             ul.TopicTagsBox 
@@ -77,10 +77,10 @@ block content
                     .CommentBoxHeader 
                         #CommentInfo 
                             div 
-                                img(src="/icon/user.svg" alt="user" title=item.users.name).iconTopic
+                                img(src="/icon/user.svg" alt="user" title=item.users.name).iconTopic.iconFilter
                                 a(href=`/username/${item.users.username}` title=item.users.name).textIcon.CommentUsername #{item.users.username} 
                             div 
-                                img(src="/icon/time.svg" alt="view" title="مشاركة بالموضوع").iconTopic
+                                img(src="/icon/time.svg" alt="view" title="مشاركة بالموضوع").iconTopic.iconFilter
                                 small=options.getElapsedTime(item.updatedAt)
 
                         small#CommentId=index+1

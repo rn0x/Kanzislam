@@ -102,6 +102,20 @@ a:focus {
 }
 
 
+.ck {
+    background-color: var(--background_Wild_Sand) !important;
+    color: var(--colorFontMain) !important;
+    border-color: var(--border) !important;
+}
+
+.ck-button__label {
+    color: var(--colorFontMain) !important;
+}
+
+.ck-content {
+    background-color: var(--background_Wild_Sand) !important;
+}
+
 /* إزالة إدراج الفيديو من المحرر  */
 div.ck:nth-child(13) {
     display: none !important;
@@ -135,7 +149,7 @@ figure.table tr {
 }
 
 figure.table tr:nth-child(even) {
-    background-color: #f2f2f2
+    background-color: var(--background_Wild_Sand)
 }
 
 
@@ -149,4 +163,8 @@ blockquote {
     background-color: var(--background_Wild_Sand);
     box-sizing: border-box;
     border-left: 5px solid var(--divHeader);
+}
+
+.iconFilter {
+    filter: var(--IconFilter);
 }

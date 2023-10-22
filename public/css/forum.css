@@ -257,12 +257,14 @@
 @media (max-width: 700px) {
     .comments {
         display: none;
+        visibility: hidden;
     }
 }
 
 @media (max-width: 600px) {
     .likes {
         display: none;
+        visibility: hidden;
     }
 
     .topicsMain>div>a {
@@ -279,5 +281,9 @@
 @media (max-width: 330px) {
     .views {
         display: none;
+        visibility: hidden;
+    }
+    .topics {
+        width: 330px;
     }
 }

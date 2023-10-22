@@ -4,6 +4,25 @@
     --background_hover: #f7f7f7;
     --background_Wild_Sand: #f2f2f2;
     --divHeader: #1d2b64;
+    
+    --colorFontMain: #1d2b64;
+    --colorFontMain_hover: #6474b2;
+    --colorFont2: #7b8189;
+    --colorWhite: #ffffff;
+    --button: #1d2b64;
+    --directionMain: rtl;
+    --border: #cdd1d4;
+    --color_header: #ffffff;
+    --backgroundQuranStart: #b1f1ce;
+    --IconFilter :  none;
+}
+
+[data-theme="light"] {
+    --background: #eceff4;
+    --background_white: #ffffff;
+    --background_hover: #f7f7f7;
+    --background_Wild_Sand: #f2f2f2;
+    --divHeader: #1d2b64;
     --fontMain: "Cairo";
     --fontQuran: "Amiri";
     --colorFontMain: #1d2b64;
@@ -14,4 +33,26 @@
     --directionMain: rtl;
     --border: #cdd1d4;
     --color_header: #ffffff;
+    --backgroundQuranStart: #b1f1ce;
+    --IconFilter :  none;
+}
+
+[data-theme="dark"] {
+    --background: #22272e;
+    --background_white: #1c2128;
+    --background_Wild_Sand: #252b32;
+    --background_hover: #252b32;
+    --divHeader: #2a3038;
+    --fontMain: "Cairo";
+    --fontQuran: "Amiri";
+    --colorFontMain: #adbac7;
+    --colorFontMain_hover: #2c476d;
+    --colorFont2: #adbac7;
+    --colorWhite: #ffffff;
+    --button: #2a3038;
+    --directionMain: rtl;
+    --border: #3a414a;
+    --color_header: #2a3038;
+    --backgroundQuranStart: #404b5e;
+    --IconFilter :  sepia(100%) hue-rotate(200deg) saturate(50%) brightness(2.3);
 }

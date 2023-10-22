@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 topicUsernameImage.src = "/icon/user.svg";
                 topicUsernameImage.alt = item?.user?.username;
                 topicUsernameImage.title = item?.user?.username;
+                topicUsernameImage.className = "iconFilter";
                 topicUsername.appendChild(topicUsernameLink);
                 topicUsernameLink.href = `/username/${item?.user?.username}`;
                 topicUsernameLink.innerText = item?.user?.username;

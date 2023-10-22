@@ -8,7 +8,7 @@ block content
         ul.breadcrumb
             li 
                 a(href="/")
-                    img(src="/icon/home.svg" alt="الرئيسية") 
+                    img(src="/icon/home.svg" alt="الرئيسية" class="iconFilter") 
             li 
                 small /
                 a(href="/hisnmuslim") فهرس حصن المسلم
@@ -32,8 +32,8 @@ block content
                     small.HusId #{options.ObjectHis.id}
                     p#textHis
                     .Boxicons 
-                        img(src="/icon/play.svg" alt="play")#hisPlay
-                        img(src="/icon/download.svg" alt="play")#hisDownload
+                        img(src="/icon/play.svg" alt="play" class="iconFilter")#hisPlay
+                        img(src="/icon/download.svg" alt="play" class="iconFilter")#hisDownload
                     small.Huscount التكرار : 
                         span #{options.ObjectHis.count}
 block script

@@ -214,9 +214,9 @@
 #QuranInfoBox {
     margin-top: 20px;
     margin-bottom: 30px;
-    background-color: #f1fbf0;
+    background-color: var(--background_white);
     border-radius: 5px;
-    border-color: #b7ebb5;
+    border-color: var(--border);
     border-width: 1px;
     border-style: solid;
 }
@@ -232,12 +232,12 @@
 }
 
 #QuranInfoBox ul li {
-    background-color: #e2f7e1;
+    background-color: var(--background_Wild_Sand);
     width: calc(95% / 3);
     margin: 5px 5px 5px 5px;
     font-size: 12px;
     font-weight: 800;
-    color: #5c765b;
+    color: var(--colorFont2);
 }
 
 #QuranInfoBox ul li span {

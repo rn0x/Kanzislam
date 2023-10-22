@@ -71,6 +71,25 @@
     user-select: none;
 }
 
+#buttonTheme {
+    margin-top: 50px;
+    display: block;
+    width: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    background-color: var(--background_white);
+    border-radius: 5px;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: solid;
+    user-select: none;
+    cursor: pointer;
+}
+
+#buttonTheme:hover {
+    background-color: var(--background_hover);
+}
 
 @media (max-width: 850px) {
     #footer_box {

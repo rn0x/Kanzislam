@@ -30,6 +30,7 @@
     margin-bottom: 10px;
     box-sizing: border-box;
     border-color: var(--border);
+    background-color: var(--background_Wild_Sand);
     border-width: 1px;
     border-style: solid;
 }

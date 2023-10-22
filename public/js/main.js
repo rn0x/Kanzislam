@@ -1,3 +1,5 @@
+import manipulateLocalStorage from '../js/modules/manipulateLocalStorage.js';
+
 document.addEventListener("DOMContentLoaded", function () {
     const options = window.options;
     const header_menu_left = document.getElementById("header_menu_left");
@@ -15,12 +17,26 @@ document.addEventListener("DOMContentLoaded", function () {
     const SideMenuSettings = document.getElementById('SideMenuSettings');
     const SideMenuLogout = document.getElementById('SideMenuLogout');
     const toggleMenuProfile = document.getElementById('toggleMenuProfile');
-    const logoutButton = document.getElementById('logoutButton');
+    const buttonTheme = document.getElementById('buttonTheme');
+    const getTheme = manipulateLocalStorage("get", "theme");
+
+    if (getTheme?.value === "dark") {
+        document.querySelector("html").setAttribute("data-theme", "dark");
+        buttonTheme.src = "/icon/light.svg";
+    }
+    if (getTheme?.value === "light") {
+        document.querySelector("html").setAttribute("data-theme", "light");
+        buttonTheme.src = "/icon/dark.svg";
+    }
 
     // تبديل حالة القائمة الجانبية عند النقر على زر القائمة
     menuButton.addEventListener('click', toggleSideMenu);
     // إغلاق القائمة الجانبية عند النقر خارجها
     document.addEventListener('click', closeSideMenu);
+
+    // تغيير بين الوضع الليلي والنهاري
+    buttonTheme.addEventListener('click', ThemeHandler);
+
 
     if (options?.session?.isLoggedIn) {
         header_menu_left.style.display = "none";
@@ -97,5 +113,21 @@ document.addEventListener("DOMContentLoaded", function () {
         if (response?.logout) {
             window.location.href = "/";
         }
+    }
+
+    // نوع الثيم
+    function ThemeHandler() {
+        const getTheme = manipulateLocalStorage("get", "theme");
+        if (getTheme?.value === "dark") {
+            manipulateLocalStorage("set", "theme", "light");
+            buttonTheme.src = "/icon/dark.svg";
+        }
+
+        else {
+            manipulateLocalStorage("set", "theme", "dark");
+            buttonTheme.src = "/icon/light.svg";
+        }
+
+        window.location.href = window.location.href
     }
 });

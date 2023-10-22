@@ -42,6 +42,7 @@
     margin-left: auto;
     margin-right: auto;
     padding: 9px;
+    background-color: var(--background);
     border-color: var(--border);
     border-width: 1px;
     border-style: solid;

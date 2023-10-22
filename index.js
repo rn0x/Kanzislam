@@ -26,6 +26,7 @@ import {
 } from './database/index.js';
 import CreateCategories from './modules/CreateCategories.js';
 import filterSpan from './public/js/modules/filterSpan.js';
+import sitemap from './routes/sitemap.js';
 import upload from './routes/upload.js';
 import home from './routes/home.js';
 import login from './routes/login.js';
@@ -77,6 +78,7 @@ const param = {
 };
 
 await createUploadsFolder(param); // إنشاء مجلد uploads والمجلدات الفرعية
+await sitemap(param); // يقوم بإنشاء ملف sitemap وفهرس sitemap بناءً على الصفحات المعطاة.
 await CreateCategories(modelObject.Categories); // إنشاء فئات المجتمع
 
 // استخدام compress لضغط جميع الاستجابات

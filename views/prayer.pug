@@ -13,7 +13,7 @@ block content
             p#hour_minutes 0:00
             p#colon :
             p#seconds 00 
-        img(src="/icon/download.svg" alt="تحميل صورة مواقيت الصلاة" title="تحميل صورة مواقيت الصلاة")#screenshot 
+        img(src="/icon/download.svg" alt="تحميل صورة مواقيت الصلاة" title="تحميل صورة مواقيت الصلاة" class="iconFilter")#screenshot 
         #Boxdata
             p#data_hijri
             p#data_today 
@@ -44,7 +44,7 @@ block content
             li#BoxIsha 
                 p العشاء
                 p.timePrayer#PrayerIsha
-        img(src="/icon/logo.svg" alt="logo")#logoScreen 
+        img(src="/icon/logo.svg" alt="logo" class="iconFilter")#logoScreen 
 block script
     script(type="module")
         include ../public/js/prayer.js

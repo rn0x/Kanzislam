@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             repetition.appendChild(repetition_img);
             repetition_img.src = "/icon/return.svg";
             repetition_img.alt = "إعداة التكرار";
+            repetition_img.className = "iconFilter";
             li.appendChild(adhkar_text);
             adhkar_text.className = "adhkar_text"
             adhkar_text.appendChild(adhkar_text_h3);
@@ -66,6 +67,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             adhkar_text_a.href = `/adhkars/${item?.title?.split(" ")?.join("_")}`;
             adhkar_text_a.appendChild(linkAdhkar);
             linkAdhkar.id = "linkAdhkar";
+            linkAdhkar.className = "iconFilter";
             linkAdhkar.src = "/icon/link.svg";
             linkAdhkar.alt = "رابط الذكر";
 

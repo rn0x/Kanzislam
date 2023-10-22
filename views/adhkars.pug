@@ -8,7 +8,7 @@ block content
     ul.breadcrumb
       li 
         a(href="/")
-          img(src="/icon/home.svg" alt="الرئيسية") 
+          img(src="/icon/home.svg" alt="الرئيسية" class="iconFilter") 
       li 
         small /
         a(href="/adhkar") أذكار
@@ -22,7 +22,7 @@ block content
     #adhkarsBox 
       .repetition#repetition
         p#repetition_p #{options.AdhkarObject.repetition}
-        img(src="/icon/return.svg" alt="إعداة التكرار")#repetition_img
+        img(src="/icon/return.svg" alt="إعداة التكرار" class="iconFilter")#repetition_img
       .adhkar_text#adhkar_text
         h3!= options.filterSpan(options.AdhkarObject.adhkar)
         p!= options.filterSpan(options.AdhkarObject.description)

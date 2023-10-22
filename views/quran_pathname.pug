@@ -8,7 +8,7 @@ block content
     ul#breadcrumb
       li 
         a(href="/")
-          img(src="/icon/home.svg" alt="الرئيسية") 
+          img(src="/icon/home.svg" alt="الرئيسية" class="iconFilter") 
       li 
         small /
         a(href="/quran") القرآن الكريم
@@ -42,9 +42,9 @@ block content
       h2#bisamla=options.bisamla
       #FontSize 
         button#Plus
-          img(src="/icon/plus.svg" alt="")
+          img(src="/icon/plus.svg" alt="" class="iconFilter")
         button#Minus
-          img(src="/icon/minus.svg" alt="")
+          img(src="/icon/minus.svg" alt="" class="iconFilter")
       p#surah!=options.surah
       #readerBox 
         h2 الإستماع الى سورة #{options.currentSurah.name}
@@ -91,6 +91,7 @@ block script
       img.id = "icon_download";
       img.alt = "تحميل";
       img.src = "/icon/download.svg";
+      img.className = "iconFilter";
 
       img.addEventListener("click", async (event) => {
         event.stopPropagation();
@@ -118,7 +119,7 @@ block script
         if (currentAudio !== audio || !isPlay) { // التحقق من عدم تشغيل المقطع الصوتي الحالي
           audio.src = item.link;
           audio.play();
-          li.style.backgroundColor = '#f1fbf0';
+          li.style.backgroundColor = 'var(--backgroundQuranStart)';
           isPlay = true;
           currentAudio = audio; // تعيين المقطع الصوتي الحالي
           currentLi = li; 

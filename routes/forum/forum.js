@@ -7,14 +7,12 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
         Comments,
         Tags,
         Likes,
-        Favorites,
         Reports,
         Views,
         Notifications,
         Images,
         Videos,
-        Audios,
-        Statistics
+        Audios
     } = model;
 
     app.get('/forum', async (request, response) => {

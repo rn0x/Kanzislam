@@ -129,7 +129,7 @@ async function getTopicsByCategoryId(categoryId) {
 }
 
 /**
- * Fetches a topic and its associated data (comments, likes, favorites, reports, views, tags, categories) based on the topic title.
+ * Fetches a topic and its associated data (comments, likes, reports, views, tags, categories) based on the topic title.
  * @param {string} categorie - The category of the topic.
  * @param {string} topic - The title of the topic.
  * @returns {Object} An object containing the topic and its associated data.
@@ -137,7 +137,7 @@ async function getTopicsByCategoryId(categoryId) {
  */
 async function getTopicData(topic) {
 
-    const { Topics, Comments, Users, Likes, Favorites, Reports, Views, Tags, Categories } = modelObject;
+    const { Topics, Comments, Users, Likes, Reports, Views, Tags, Categories } = modelObject;
 
     try {
         // Fetch the topic and its details
@@ -167,9 +167,8 @@ async function getTopicData(topic) {
             }],
         });
 
-        // Fetch the likes, favorites, reports, views, and tags for the topic
+        // Fetch the likes, reports, views, and tags for the topic
         const likesData = await Likes.findAll({ where: { topic_id: topicData.topic_id } });
-        const favoritesData = await Favorites.findAll({ where: { topic_id: topicData.topic_id } });
         const reportsData = await Reports.findAll({ where: { topic_id: topicData.topic_id } });
         const viewsData = await Views.findAll({ where: { topic_id: topicData.topic_id } });
         const tagsData = await Tags.findAll({ where: { topic_id: topicData.topic_id } });
@@ -183,7 +182,6 @@ async function getTopicData(topic) {
             },
             comments: commentsData.map(comment => ({ ...comment.dataValues, users: comment.users.dataValues })),
             likes: likesData.map(like => like.dataValues),
-            favorites: favoritesData.map(favorite => favorite.dataValues),
             reports: reportsData.map(report => report.dataValues),
             views: viewsData.map(view => view.dataValues)?.length,
             tags: tagsData.map(tag => tag.dataValues)?.[0],
