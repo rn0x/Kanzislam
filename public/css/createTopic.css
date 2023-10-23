@@ -37,9 +37,6 @@
 
 #ButtonAdd {
     display: block;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
     padding: 10px;
     width: 120px;
     background-color: var(--button);
@@ -48,6 +45,9 @@
     border-radius: 5px;
     font-size: 15px;
     margin-top: 20px;
+    margin-bottom: 0px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #ButtonAdd:hover {

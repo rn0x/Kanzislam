@@ -33,18 +33,12 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
                 console.log(error);
             });
             const analyzeTextRaw = analyzeText(GetTopic?.topic?.content_raw);
-            let keywords;
-
-            if (analyzeTextRaw?.x1Words?.value.length > 10) {
-                keywords = analyzeTextRaw?.x2Words?.value.length > 0 ? analyzeTextRaw?.x2Words?.value : analyzeTextRaw?.x1Words?.value.slice(0, 10);
-            } else {
-                keywords = analyzeTextRaw?.x1Words?.value;
-            }
+            const keywords = analyzeTextRaw?.words;
 
             const options = {};
             options.website_name = config.WEBSITE_NAME;
             options.title = `${GetTopic?.topic?.title} - ${config.WEBSITE_NAME}`;
-            options.keywords = keywords;
+            options.keywords = keywords?.value;
             options.description = "وصف_الصفحة";
             options.preview = GetTopic?.topic?.description;
             options.session = request.session;

@@ -70,7 +70,7 @@ block content
         if options.TopicJosn.tags !== undefined && options.TopicJosn.tags.tag_name.length !== 0
             ul.TopicTagsBox 
                 each val in options.TopicJosn.tags.tag_name
-                    li: a(href=`/forum/tag/${val}` title=val) #{val}
+                    li: a(href=`/tags/${val}` title=val) #{val}
         ul.TopicComment
             each item, index in options.TopicJosn.comments
                 li.TopicCommentBox
@@ -85,12 +85,14 @@ block content
 
                         small#CommentId=index+1
                     div(id=`comment_id_${item.comment_id}`).CommentContent!=item.content
-                    .buttonCommentBox
-                        p(id=`ToReply_${item.comment_id}`).ToReply الرد
-                        p(id=`username_${item.users.username}_user_id_${item.users.user_id}`).removeComeent حذف
-        #CommentBox
-            #editorBox
-            button#CreateReply إرسال
+                    if options.session.isLoggedIn
+                        .buttonCommentBox
+                            p(id=`ToReply_${item.comment_id}`).ToReply الرد
+                            p(id=`username_${item.users.username}_user_id_${item.users.user_id}`).removeComeent حذف
+        if options.session.isLoggedIn
+            #CommentBox
+                #editorBox
+                button#CreateReply إرسال
 block script
     script(type="module")
         include ../../public/js/forum/topic.js

@@ -249,6 +249,135 @@ async function deleteTopic(topicId, userId) {
     }
 }
 
+/**
+ * استرجاع العلامات (Tags) والمواضيع (Topics) ذات الصلة بها.
+ *
+ * @async
+ * @function
+ * @param {string} action - الإجراء المراد القيام به. يجب أن يكون "search" أو "get".
+ * @param {string} searchKeyword - الكلمة المفتاحية المستخدمة في البحث عن العلامات.
+ * @returns {Promise<Object>} إشعار يحتوي على معلومات العلامات والمواضيع ذات الصلة.
+ * @throws {Error} إذا تم تقديم إجراء غير مدعوم.
+ *
+ * @example
+ * // لاسترجاع جميع العلامات والمواضيع ذات الصلة
+ * const result = await getAllTags("get");
+ *
+ * @example
+ * // للبحث عن العلامات التي تحتوي على كلمة مفتاحية معينة
+ * const result = await getAllTags("search", "علامة مفتاحية");
+ */
+async function getAllTags(action, searchKeyword) {
+    try {
+        const allTags = await modelObject.Tags.findAll();
+
+        const uniqueTags = new Set();
+        const tagsWithRelatedTopics = {};
+        let isFindKeyword = false;
+
+        for (const tagRecord of allTags) {
+            const tagNames = tagRecord.tag_name;
+
+            for (const tagName of tagNames) {
+                if (!uniqueTags.has(tagName)) {
+                    uniqueTags.add(tagName);
+                }
+
+                if (!tagsWithRelatedTopics[tagName]) {
+                    tagsWithRelatedTopics[tagName] = [];
+                }
+
+                // ابحث عن المواضيع المرتبطة بالتاق في جدول Topics
+                const relatedTopics = await modelObject.Topics.findAll({
+                    where: {
+                        topic_id: tagRecord.topic_id
+                    }
+                });
+
+                tagsWithRelatedTopics[tagName].push(...relatedTopics);
+
+                if (action === "search" && searchKeyword && tagName.includes(searchKeyword)) {
+                    isFindKeyword = true;
+                }
+            }
+        }
+
+        if (action === "search" && searchKeyword) {
+            const filteredTags = Array.from(uniqueTags).filter(tagName => tagName.includes(searchKeyword));
+            const filteredTopics = {};
+
+            for (const tagName of filteredTags) {
+                const topicsWithViewsAndComments = await Promise.all(tagsWithRelatedTopics[tagName].map(async (topic) => {
+                    const topicId = topic.topic_id;
+
+                    // ابحث عن عدد المشاهدات وعدد التعليقات للموضوع
+                    const topicViews = await modelObject.Views.findAll({
+                        where: { topic_id: topicId }
+                    });
+                    const topicComments = await modelObject.Comments.findAll({
+                        where: { topic_id: topicId }
+                    });
+
+                    return {
+                        ...topic.toJSON(),
+                        views: topicViews ? topicViews?.length : 0, // إرجاع القيمة الافتراضية إذا لم تجد
+                        comments: topicComments ? topicComments?.length : 0, // إرجاع القيمة الافتراضية إذا لم تجد
+                        content: undefined,
+                        content_raw: undefined,
+                        description: undefined,
+                    };
+                }))
+                filteredTopics[tagName] = topicsWithViewsAndComments;
+            }
+
+            return {
+                uniqueTags: filteredTags,
+                tagsWithRelatedTopics: filteredTopics,
+                isFindKeyword
+            };
+        } else if (action === "get") {
+            const tagsWithViewsAndComments = {};
+
+            // قم بإضافة المشاهدات والتعليقات لكل موضوع ذي علاقة بالتاق
+            for (const tagName of uniqueTags) {
+                tagsWithViewsAndComments[tagName] = await Promise.all(tagsWithRelatedTopics[tagName].map(async topic => {
+                    const topicId = topic.topic_id;
+
+                    // ابحث عن عدد المشاهدات وعدد التعليقات للموضوع
+                    const topicViews = await modelObject.Views.findAll({
+                        where: { topic_id: topicId }
+                    });
+                    const topicComments = await modelObject.Comments.findAll({
+                        where: { topic_id: topicId }
+                    });
+
+                    return {
+                        ...topic.toJSON(),
+                        views: topicViews ? topicViews?.length : 0,
+                        comments: topicComments ? topicComments?.length : 0,
+                        content: undefined,
+                        content_raw: undefined,
+                        description: undefined,
+                    };
+                }));
+            }
+
+            return {
+                uniqueTags: Array.from(uniqueTags),
+                tagsWithRelatedTopics: tagsWithViewsAndComments, // استخدام البيانات التي تم إضافة المشاهدات والتعليقات لها
+                isFindKeyword
+            };
+        } else {
+            throw new Error("الإجراء غير مدعوم");
+        }
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
+
+
 async function main() {
     try {
         await sequelize.authenticate();
@@ -262,4 +391,13 @@ async function main() {
 
 await main();
 
-export { sequelize, removeColumn, addColumn, modelObject, getTopicsByCategoryId, getTopicData, deleteTopic };
+export {
+    sequelize,
+    removeColumn,
+    addColumn,
+    modelObject,
+    getTopicsByCategoryId,
+    getTopicData,
+    deleteTopic,
+    getAllTags
+};

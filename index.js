@@ -22,7 +22,8 @@ import {
     modelObject,
     getTopicsByCategoryId,
     getTopicData,
-    deleteTopic
+    deleteTopic,
+    getAllTags
 } from './database/index.js';
 import CreateCategories from './modules/CreateCategories.js';
 import filterSpan from './public/js/modules/filterSpan.js';
@@ -40,6 +41,7 @@ import adhkar from './routes/adhkar.js';
 import hisnmuslim from './routes/hisnmuslim.js';
 import prayer from './routes/prayer.js';
 import forum from './routes/forum/index.js';
+import tags from './routes/tags.js';
 
 // Get the current working directory
 const __dirname = path.resolve();
@@ -70,15 +72,15 @@ const param = {
     database: {
         getTopicsByCategoryId,
         getTopicData,
-        deleteTopic
+        deleteTopic,
+        getAllTags
     },
     convertToNumber,
     analyzeText,
-    getElapsedTime
+    getElapsedTime,
 };
 
 await createUploadsFolder(param); // إنشاء مجلد uploads والمجلدات الفرعية
-await sitemap(param); // يقوم بإنشاء ملف sitemap وفهرس sitemap بناءً على الصفحات المعطاة.
 await CreateCategories(modelObject.Categories); // إنشاء فئات المجتمع
 
 // استخدام compress لضغط جميع الاستجابات
@@ -150,6 +152,10 @@ await adhkar(param);
 await hisnmuslim(param);
 await prayer(param);
 await forum(param);
+await tags(param);
+
+// يقوم بإنشاء ملف sitemap وفهرس sitemap بناءً على الصفحات المعطاة.
+await sitemap(param);
 
 app.use(function (request, response, next) {
     let options = {

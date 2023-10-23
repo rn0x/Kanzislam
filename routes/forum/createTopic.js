@@ -59,14 +59,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
         const content_raw = request.body?.content_raw?.substring(0, 6000);
         const description = request.body?.description;
         const analyzeTextRaw = analyzeText(content_raw);
-        let keywords;
-
-        if (analyzeTextRaw?.x1Words?.value.length > 10) {
-            keywords = analyzeTextRaw?.x2Words?.value.length > 0 ? analyzeTextRaw?.x2Words?.value : analyzeTextRaw?.x1Words?.value.slice(0, 10);
-        } else {
-            keywords = analyzeTextRaw?.x1Words?.value;
-        }
-
+        const keywords = analyzeTextRaw?.words;
         const category_id = convertToNumber(queryCategoryId);
 
         if (request?.session?.isLoggedIn) {
@@ -104,7 +97,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
                 await Tags.create({
                     tag_id: newTagsId,
                     topic_id: newTopicsId,
-                    tag_name: keywords
+                    tag_name: keywords?.value
                 }).catch((error) => {
                     console.log(error);
                 });

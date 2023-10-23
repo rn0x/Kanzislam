@@ -1,0 +1,98 @@
+extends ./layout.pug
+
+block stylesheet
+  link(rel="stylesheet" href="/css/tags.css")
+
+block content
+  #tagsPage
+    ul.breadcrumb
+      li
+        a(href="/")
+          img(src="/icon/home.svg" alt="الرئيسية" class="iconFilter")
+      li
+        small /
+        a(href=`/tags/${options.tag}`) ##{options.tag}
+    h2 ##{options.tag}
+    ul#boxTopic
+      each item, index in options.topics.slice(0, 10) 
+        li
+          img(src="/icon/topic.svg" alt="topic" title="إيقونة الموضوع").iconFilter
+          .Maintopic
+            a(href=`/forum/topic/${item.topic_id}`, title=item.title).title #{item.title}
+            small.time=options.getElapsedTime(item.updatedAt)
+          .CountViews
+            p المشاهدات
+            small #{item.views}
+          .CountComments
+            p المشاركات
+            small #{item.comments}
+    button#buttonMore المزيد
+
+block script
+  script(type="module").
+    import getElapsedTime from "../js/modules/getElapsedTime.js"
+    const options = !{jsStringify(options)};
+    const buttonMore = document.getElementById('buttonMore');
+
+    buttonMore.addEventListener('click', function () {
+      const itemsToDisplay = options.topics.slice(10); // العناصر المتبقية
+
+      if (itemsToDisplay.length > 0) {
+        itemsToDisplay.slice(0, 10).forEach(function (item) {
+          const listItem = document.createElement('li');
+          const topicImage = document.createElement('img');
+          topicImage.src = "/icon/topic.svg";
+          topicImage.alt = "topic";
+          topicImage.title = "إيقونة الموضوع";
+          topicImage.className = "iconFilter";
+
+          const maintopic = document.createElement('div');
+          maintopic.className = "Maintopic";
+          const topicLink = document.createElement('a');
+          topicLink.href = `/forum/topic/${item.topic_id}`;
+          topicLink.title = item.title;
+          topicLink.textContent = item.title;
+
+          const timeSmall = document.createElement('small');
+          timeSmall.textContent = getElapsedTime(item.updatedAt);
+
+          const countViews = document.createElement('div');
+          countViews.className = "CountViews";
+          const viewsParagraph = document.createElement('p');
+          viewsParagraph.textContent = "المشاهدات";
+          const viewsSmall = document.createElement('small');
+          viewsSmall.textContent = item.views;
+          countViews.appendChild(viewsParagraph);
+          countViews.appendChild(viewsSmall);
+
+          const countComments = document.createElement('div');
+          countComments.className = "CountComments";
+          const commentsParagraph = document.createElement('p');
+          commentsParagraph.textContent = "المشاركات";
+          const commentsSmall = document.createElement('small');
+          commentsSmall.textContent = item.comments;
+          countComments.appendChild(commentsParagraph);
+          countComments.appendChild(commentsSmall);
+
+          maintopic.appendChild(topicLink);
+          maintopic.appendChild(timeSmall);
+          listItem.appendChild(topicImage);
+          listItem.appendChild(maintopic);
+          listItem.appendChild(countViews);
+          listItem.appendChild(countComments);
+
+          document.querySelector('#boxTopic').appendChild(listItem);
+        });
+        options.topics = itemsToDisplay.slice(10); // إزالة العناصر المعروضة
+
+        // قم بإخفاء الزر "المزيد" إذا انتهت العناصر
+        if (options.topics.length === 0) {
+          buttonMore.style.display = 'none';
+        }
+      }
+    });
+
+    // قم بإخفاء الزر "المزيد" إذا كان لا يوجد عناصر متبقية بمجرد تحميل الصفحة
+    if (options.topics.length <= 10) {
+      buttonMore.style.display = 'none';
+    }

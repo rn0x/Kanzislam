@@ -18,101 +18,107 @@ document.addEventListener("DOMContentLoaded", async function () {
     const removeTopic = document.getElementById("removeTopic");
     const reportTopic = document.getElementById("reportTopic");
     const alertMessage = document.getElementById("alertMessage");
-    const editorBox = await ClassicEditor
-        .create(editorBoxElement, {
-            ckfinder: {
-                uploadUrl: '/api/upload',
-            },
-        })
-        .catch(error => {
-            console.error(error);
+    let editorBox
+
+    if (editorBoxElement) {
+
+        editorBox = await ClassicEditor
+            .create(editorBoxElement, {
+                ckfinder: {
+                    uploadUrl: '/api/upload',
+                },
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+        const add_image = document.querySelector('.ck-file-dialog-button');
+
+        let previousContent = editorBox.getData();
+
+        editorBox.model.document.on('change', () => {
+            const currentContent = editorBox.getData();
+            const eventImages = EventImages(previousContent, currentContent);
+
+            if (eventImages.removed.length > 0 && eventImages.added.length === 0) {
+                for (let item of eventImages.removed) {
+                    if (item === "") return;
+                    if (imageCount > 0) {
+                        imageCount = imageCount - 1;
+                        if (imageCount <= maxImages) {
+                            add_image.style.display = 'block';
+                        }
+
+                        console.log("remove image : ", imageCount);
+                    }
+                }
+            }
+
+            if (eventImages.added.length > 0 && eventImages.removed.length === 0) {
+                for (let item of eventImages.added) {
+                    if (item === "") return;
+                    if (imageCount < maxImages) {
+                        imageCount = imageCount + 1;
+                        if (imageCount >= maxImages) {
+                            console.log(`You can only insert ${maxImages} images.`);
+                            add_image.style.display = 'none';
+                            alertMessage.style.display = "block";
+                            alertMessage.innerText = `يمكنك إدراج ${maxImages} صور فقط. ❌`;
+                            setTimeout(() => {
+                                alertMessage.style.display = "none";
+                            }, 5000);
+                        }
+                        console.log("add image : ", imageCount);
+                    }
+                }
+            }
+
+            previousContent = currentContent;
         });
 
-    const add_image = document.querySelector('.ck-file-dialog-button');
+        function EventImages(previousContent, currentContent) {
+            const previousImages = extractImages(previousContent);
+            const currentImages = extractImages(currentContent);
 
-    let previousContent = editorBox.getData();
+            const removedImages = previousImages.filter(image => !currentImages.includes(image));
+            const addedImages = currentImages.filter(image => !previousImages.includes(image));
 
-    editorBox.model.document.on('change', () => {
-        const currentContent = editorBox.getData();
-        const eventImages = EventImages(previousContent, currentContent);
+            const changes = {
+                removed: removedImages,
+                added: addedImages
+            };
 
-        if (eventImages.removed.length > 0 && eventImages.added.length === 0) {
-            for (let item of eventImages.removed) {
-                if (item === "") return;
-                if (imageCount > 0) {
-                    imageCount = imageCount - 1;
-                    if (imageCount <= maxImages) {
-                        add_image.style.display = 'block';
-                    }
-
-                    console.log("remove image : ", imageCount);
-                }
-            }
+            return changes;
         }
 
-        if (eventImages.added.length > 0 && eventImages.removed.length === 0) {
-            for (let item of eventImages.added) {
-                if (item === "") return;
-                if (imageCount < maxImages) {
-                    imageCount = imageCount + 1;
-                    if (imageCount >= maxImages) {
-                        console.log(`You can only insert ${maxImages} images.`);
-                        add_image.style.display = 'none';
-                        alertMessage.style.display = "block";
-                        alertMessage.innerText = `يمكنك إدراج ${maxImages} صور فقط. ❌`;
-                        setTimeout(() => {
-                            alertMessage.style.display = "none";
-                        }, 5000);
-                    }
-                    console.log("add image : ", imageCount);
-                }
-            }
+        function extractImages(content) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(content, 'text/html');
+            const images = Array.from(doc.querySelectorAll('img'));
+            return images.map(image => image.src);
         }
 
-        previousContent = currentContent;
-    });
-
-    function EventImages(previousContent, currentContent) {
-        const previousImages = extractImages(previousContent);
-        const currentImages = extractImages(currentContent);
-
-        const removedImages = previousImages.filter(image => !currentImages.includes(image));
-        const addedImages = currentImages.filter(image => !previousImages.includes(image));
-
-        const changes = {
-            removed: removedImages,
-            added: addedImages
-        };
-
-        return changes;
     }
-
-    function extractImages(content) {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(content, 'text/html');
-        const images = Array.from(doc.querySelectorAll('img'));
-        return images.map(image => image.src);
-    }
-
 
     // الرد على التعليق
     const toReplyElements = document.querySelectorAll('.ToReply');
 
-    toReplyElements.forEach(function (element) {
-        if (!options.session.isLoggedIn) {
-            element.style.display = "none";
-        }
-        element.addEventListener('click', function (event) {
-            const parentElement = event.currentTarget.closest('.TopicCommentBox');
-            const commentContent = parentElement.querySelector('.CommentContent');
-            const contentToCopy = commentContent?.innerHTML;
-            const reply = `<blockquote>${contentToCopy}</blockquote><br>`;
-            editorBox.setData(reply);
-            CommentBox.style.scrollMarginTop = "150px";
-            CommentBox.scrollIntoView();
+    if (toReplyElements) {
+        toReplyElements.forEach(function (element) {
+            if (!options.session.isLoggedIn) {
+                element.style.display = "none";
+            }
+            element.addEventListener('click', function (event) {
+                const parentElement = event.currentTarget.closest('.TopicCommentBox');
+                const commentContent = parentElement.querySelector('.CommentContent');
+                const contentToCopy = commentContent?.innerHTML;
+                const reply = `<blockquote>${contentToCopy}</blockquote><br>`;
+                editorBox.setData(reply);
+                CommentBox.style.scrollMarginTop = "150px";
+                CommentBox.scrollIntoView();
+            });
         });
-    });
-
+    }
 
 
     // حذف التعليق
@@ -163,66 +169,64 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     }
 
-    let isCreated = false;
-    CreateReply.addEventListener("click", async () => {
+    if (CreateReply) {
+        let isCreated = false;
+        CreateReply.addEventListener("click", async () => {
 
-        if (isCreated) {
-            return;
-        }
+            if (isCreated) {
+                return;
+            }
 
-        if (options?.session?.isLoggedIn) {
+            if (options?.session?.isLoggedIn) {
 
-            const maxLength = 6000; // تحديد الحد الأقصى لطول النص
-            const editorBoxValue = editorBox.getData();
+                const maxLength = 6000; // تحديد الحد الأقصى لطول النص
+                const editorBoxValue = editorBox.getData();
 
-            if (editorBoxValue.length < maxLength) {
-                const createCommentURL = `${window.location.origin}/create-comment`;
-                const createCommentFetch = await fetch(createCommentURL, {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        user_id: options?.session?.user_id,
-                        topic_id: options?.TopicJosn?.topic?.topic_id,
-                        content: editorBoxValue?.substring(0, 6000),
-                    }),
-                });
-                const response = await createCommentFetch?.json();
+                if (editorBoxValue.length < maxLength) {
+                    const createCommentURL = `${window.location.origin}/create-comment`;
+                    const createCommentFetch = await fetch(createCommentURL, {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            user_id: options?.session?.user_id,
+                            topic_id: options?.TopicJosn?.topic?.topic_id,
+                            content: editorBoxValue?.substring(0, 6000),
+                        }),
+                    });
+                    const response = await createCommentFetch?.json();
 
-                if (response?.isCreatedComment) {
-                    isCreated = true;
-                    alertMessage.style.display = "block";
-                    alertMessage.innerText = `تم إنشاء التعليق ✔️`;
-                    setTimeout(() => {
-                        alertMessage.style.display = "none";
-                        window.location.href = window.location.href;
-                    }, 5000);
+                    if (response?.isCreatedComment) {
+                        isCreated = true;
+                        alertMessage.style.display = "block";
+                        alertMessage.innerText = `تم إنشاء التعليق ✔️`;
+                        setTimeout(() => {
+                            alertMessage.style.display = "none";
+                            window.location.href = window.location.href;
+                        }, 5000);
+                    }
+
+                    else {
+                        alertMessage.style.display = "block";
+                        alertMessage.innerText = "حدث خطأ, لايمكن اضافة التعليق ❌";
+                        setTimeout(() => {
+                            alertMessage.style.display = "none";
+                        }, 5000);
+                    }
                 }
 
                 else {
                     alertMessage.style.display = "block";
-                    alertMessage.innerText = "حدث خطأ, لايمكن اضافة التعليق ❌";
+                    alertMessage.innerText = `يجب ان يكون طول النص اقل من ${maxLength}`;
                     setTimeout(() => {
                         alertMessage.style.display = "none";
                     }, 5000);
+                    editorBox.setData(`${editorBoxValue}<br><br> يجب ان يكون طول النص اقل من ${maxLength}`);
                 }
+
             }
-
-            else {
-                alertMessage.style.display = "block";
-                alertMessage.innerText = `يجب ان يكون طول النص اقل من ${maxLength}`;
-                setTimeout(() => {
-                    alertMessage.style.display = "none";
-                }, 5000);
-                editorBox.setData(`${editorBoxValue}<br><br> يجب ان يكون طول النص اقل من ${maxLength}`);
-            }
-
-        }
-    });
-
-    if (!options.session.isLoggedIn) {
-        CommentBox.style.display = "none";
+        });
     }
 
     sharing.addEventListener("click", () => {

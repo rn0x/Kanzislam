@@ -31,16 +31,8 @@ export default function analyzeText(text) {
                 description: "الكلمات الفريدة",
                 value: []
             },
-            x1Words: {
-                description: "الكلمات الدالة x1",
-                value: []
-            },
-            x2Words: {
-                description: "الكلمات الدالة x2",
-                value: []
-            },
-            x3Words: {
-                description: "الكلمات الدالة x3",
+            words: {
+                description: "الكلمات الدالة",
                 value: []
             }
         };
@@ -63,14 +55,10 @@ export default function analyzeText(text) {
         return counts;
     }, {});
 
-    // تحسين الأداء: فلترة الكلمات المتكررة مرة واحدة
-    const x1Words = Object.keys(wordCounts).filter(word => wordCounts[word] === 2);
-
-    // تحسين الأداء: فلترة الكلمات المتكررة مرتين
-    const x2Words = Object.keys(wordCounts).filter(word => wordCounts[word] === 3);
-
-    // تحسين الأداء: فلترة الكلمات المتكررة ثلاث مرات
-    const x3Words = Object.keys(wordCounts).filter(word => wordCounts[word] === 4);
+    // تحسين الأداء: الحصول على أول 15 كلمة دليلية من الأكثر تكرارًا إلى الأقل
+    const topWords = Object.keys(wordCounts)
+        .sort((a, b) => wordCounts[b] - wordCounts[a])
+        .slice(0, 15);
 
     return {
         characters: {
@@ -97,17 +85,9 @@ export default function analyzeText(text) {
             description: "الكلمات الفريدة",
             value: uniqueWords
         },
-        x1Words: {
-            description: "الكلمات الدالة x1",
-            value: x1Words
-        },
-        x2Words: {
-            description: "الكلمات الدالة x2",
-            value: x2Words
-        },
-        x3Words: {
-            description: "الكلمات الدالة x3",
-            value: x3Words
+        words: {
+            description: "الكلمات الدالة",
+            value: topWords
         }
     }
 }

@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let response = await logoutFetch?.json();
 
         if (response?.logout) {
-            window.location.href = "/";
+            window.location.href = window.location.href;
         }
     }
 
