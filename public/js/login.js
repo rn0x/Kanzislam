@@ -1,12 +1,14 @@
 document.addEventListener("DOMContentLoaded", async function () {
 
     const options = window.options;
-    let alertEl = document.getElementById("alert");
-    let loginbox = document.getElementById("loginbox");
-    let loggedIn_bt = document.getElementById("loggedIn_bt");
-    let loginusername = document.querySelector("#loginusername > input");
-    let loginusername_massage = document.querySelector("#loginusername > small");
-    let loginpassword = document.querySelector("#loginpassword > input");
+    const storage = window.localStorage;
+    const alertEl = document.getElementById("alert");
+    const loginbox = document.getElementById("loginbox");
+    const loggedIn_bt = document.getElementById("loggedIn_bt");
+    const loginusername = document.querySelector("#loginusername > input");
+    const loginusername_massage = document.querySelector("#loginusername > small");
+    const loginpassword = document.querySelector("#loginpassword > input");
+    const getLoginPath = storage.getItem("login-path");
 
     if (options?.session?.isLoggedIn) {
         alertEl.innerText = "لقد قمت بتسجيل الدخول بالفعل!"
@@ -62,7 +64,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             if (response?.logged_in) {
                 loggedIn = true;
-                window.location.href = "/";
+                console.log(getLoginPath);
+                window.location.href = getLoginPath;
             }
             else if (response?.locked) {
 

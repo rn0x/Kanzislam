@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const header_menu_left = document.getElementById("header_menu_left");
     const header_menu_left_isLoggedIn = document.getElementById("header_menu_left_isLoggedIn");
     const menu_logged = document.getElementById("menu_logged");
+    const login = document.getElementById("login");
     let isMenu = false;
     let isSideMenu = false;
 
@@ -30,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // احصل على جميع عناصر img
     const images = document.querySelectorAll('img');
-        
+
     // تعيين خاصية loading="lazy" لكل عنصر img
     images.forEach(img => {
         img.setAttribute('loading', 'lazy');
@@ -43,6 +44,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // تغيير بين الوضع الليلي والنهاري
     buttonTheme.addEventListener('click', ThemeHandler);
+
+    // زر تسجيل الدخول
+    login.addEventListener('click', () => {
+        const pathname = window.location.pathname;
+        storage.setItem("login-path", pathname);
+    });
+
+    SideMenuLogin.addEventListener('click', () => {
+        const pathname = window.location.pathname;
+        storage.setItem("login-path", pathname);
+    });
 
 
     if (options?.session?.isLoggedIn) {
