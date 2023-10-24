@@ -8,5 +8,5 @@
     "SMTP_DISPLAY_NAME": "كنز الإسلام | Kanzislam",
     "SMTP_USER": "support@example.net",
     "SMTP_PASS": "SMTP_PASS",
-    "CHROMIUM_PATH": "/usr/bin/chromium"
+    "CHROMIUM_PATH": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
 }

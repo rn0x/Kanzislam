@@ -96,6 +96,10 @@
     box-sizing: border-box;
 }
 
+.TopicContent img {
+    max-width: 100%;
+}
+
 .TopicButtonBox {
     width: 95%;
     max-width: 1000px;
