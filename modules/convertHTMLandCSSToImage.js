@@ -60,11 +60,11 @@ export default async function convertHTMLandCSSToImage(options) {
                 }
 
                 await page.goto(options?.url, {
-                    waitUntil: 'load',
+                    waitUntil: 'networkidle0',
                     timeout: 600000
                 })
 
-                await page.waitForTimeout(5000);
+                //await page.waitForTimeout(5000);
                 const screenshotOptions = {
                     path: options.outputPath,
                     fullPage: true,
