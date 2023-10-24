@@ -55,6 +55,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         let descent_span = document.getElementById("descent_span");
         let english_name_span = document.getElementById("english_name_span");
         let bisamla = document.getElementById("bisamla");
+        let surah = document.getElementById("surah");
         const data = await dataQuran();
 
         if (data?.nameSurah) {
@@ -71,6 +72,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             descent_span.innerText = data?.currentSurah?.descent;
             english_name_span.innerText = data?.currentSurah?.english_name;
             bisamla.innerText = data?.bisamla;
+            surah.innerHTML = data?.surah;
 
             fontPlus.addEventListener("click", async () => {
                 changeFontSize("bisamla", 2);
