@@ -59,6 +59,8 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, anal
         const formattedDate = new Date().toISOString().slice(0, 10).replace(/-/g, '/');
 
         if (title && description) {
+            const previewPath = path.join(__dirname, 'public', 'preview');
+            fs.ensureDirSync(previewPath);
             const imagePath = path.join(__dirname, `public/preview/${title?.replace(/ /g, '_')}.png`);
 
             if (checkIfImageExists(imagePath)) {
