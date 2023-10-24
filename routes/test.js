@@ -8,7 +8,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify }) =>
             title: `عنوان الصفحة - ${config.WEBSITE_NAME}`,
             keywords: ["word1", "word2", "word3"],
             description: "وصف_الصفحة",
-            preview: "صورة_المعاينة_للصفحة",
+            preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent("test")}&description=${encodeURIComponent("test")}`,
             session: request.session
         };
         let pugPath = path.join(__dirname, './views/test.pug');

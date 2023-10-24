@@ -11,7 +11,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
             title: `أذكار الصباح والمساء والنوم والصلاة والطعام: دليلك اليومي للتذكير - ${config.WEBSITE_NAME}`,
             keywords: ["أذكار الصباح", "أذكار المساء", "أذكار النوم", "أذكار الطعام", "أذكار الصلاة", "التسابيح", "الدعاء اليومي", "الإسلام", "القرآن", "الحديث", "الإيمان"],
             description: "تعتبر صفحة الأذكار مصدرًا رائعًا للتأمل والتفكير. تحتوي هذه الصفحة على مجموعة من الأذكار والدعوات التي يمكن قراءتها في أوقات مختلفة من اليوم.",
-            preview: "صورة_المعاينة_للصفحة",
+            preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent("أذكار الصباح والمساء والنوم والصلاة والطعام: دليلك اليومي للتذكير")}&description=${encodeURIComponent("تعتبر صفحة الأذكار مصدرًا رائعًا للتأمل والتفكير. تحتوي هذه الصفحة على مجموعة من الأذكار والدعوات التي يمكن قراءتها في أوقات مختلفة من اليوم.")}`,
             session: request.session,
             adhkarJson,
         };
@@ -30,7 +30,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
                 title: `${adhkarJson[isPathAdhkar].category} - ${config.WEBSITE_NAME}`,
                 keywords: ["أذكار الصباح", "أذكار المساء", "أذكار النوم", "أذكار الطعام", "أذكار الصلاة", "التسابيح", "الدعاء اليومي", "الإسلام", "القرآن", "الحديث", "الإيمان"],
                 description: `تحتوي هذه الصفحة على مجموعة من الأذكار والدعوات التي يمكن قراءتها في ${adhkarJson[isPathAdhkar].category}.`,
-                preview: "صورة_المعاينة_للصفحة",
+                preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`${adhkarJson[isPathAdhkar].category}`)}&description=${encodeURIComponent( `تحتوي هذه الصفحة على مجموعة من الأذكار والدعوات التي يمكن قراءتها في ${adhkarJson[isPathAdhkar].category}.`)}`,
                 session: request.session,
                 adhkarJson: adhkarJson[isPathAdhkar],
             };
@@ -44,7 +44,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
                 title: `الصفحة غير موجودة 404 - ${config.WEBSITE_NAME}`,
                 keywords: ["صفحة الخطأ 404", "عنوان URL غير صحيح", "عنوان URL غير موجود", "error", "404", "لم يتم العثور على الصفحة", "صفحة غير موجودة", "صفحة غير متاحة", "رسالة الخطأ 404"],
                 description: "صفحة الخطأ 404 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.",
-                preview: "صورة_المعاينة_للصفحة",
+                preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`الصفحة غير موجودة 404 - ${config.WEBSITE_NAME}`)}&description=${encodeURIComponent("صفحة الخطأ 404 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.")}`,
                 status: 404,
                 session: request.session
             };

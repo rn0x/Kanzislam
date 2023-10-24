@@ -1,16 +1,26 @@
 export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filterSpan }) => {
-    const quranPath = path.join(__dirname, 'public/json/quran.json');
+    const quranPath = path.join(__dirname, 'public/json/quran_info.json');
+    const surahPath = path.join(__dirname, 'public/json/surah.json');
     const mp3quranPath = path.join(__dirname, 'public/json/mp3quran.json');
     let quranJson;
     let mp3quranJson;
+    let surahJson;
 
     // Read Quran and mp3quran JSON files once and cache the data
+    fs.readJson(surahPath)
+        .then(json => {
+            surahJson = json;
+        })
+        .catch(() => {
+            surahJson = [];
+        });
+
     fs.readJson(quranPath)
         .then(json => {
             quranJson = json;
         })
         .catch(() => {
-            quranJson = {};
+            quranJson = [];
         });
 
     fs.readJson(mp3quranPath)
@@ -18,7 +28,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
             mp3quranJson = json;
         })
         .catch(() => {
-            mp3quranJson = {};
+            mp3quranJson = [];
         });
 
     app.get('/quran', (request, response) => {
@@ -39,21 +49,8 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
     app.get('/quran/:pathname', (request, response) => {
         const { pathname } = request.params;
         const nameSurah = pathname?.split("سورة")?.join("")?.split("_")?.join(" ")?.trim();
-        const currentSurahIndex = quranJson.findIndex(e => e.name === nameSurah);
-        const currentSurah = quranJson[currentSurahIndex];
-        const previousSurah = currentSurahIndex === 0 ? quranJson[quranJson.length - 1] : quranJson[currentSurahIndex - 1];
-        const nextSurah = currentSurahIndex === quranJson.length - 1 ? quranJson[0] : quranJson[currentSurahIndex + 1];
-
+        const currentSurah = quranJson.find(e => e.name === nameSurah);
         if (currentSurah?.name) {
-            const mp3quranFind = mp3quranJson.map(reader => {
-                const surah = reader.audio.find(item => item.name === nameSurah);
-                return {
-                    reader: reader.name,
-                    rewaya: reader.rewaya,
-                    link: surah?.link
-                };
-            });
-
             const options = {
                 website_name: config.WEBSITE_NAME,
                 title: `سورة ${currentSurah.name} قراءة وأستماع وتحميل mp3 - ${config.WEBSITE_NAME}`,
@@ -61,13 +58,8 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
                 description: `سورة ${currentSurah.name} -  للقراءة والاستماع بصوت أكثر من 157 قارئ, ومعلومات حول السورة اين نزلت وكم عددة كلماتها وحروفها وآيتها وإسمها باللغة الإنجليزية`,
                 preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`سورة ${currentSurah.name} قراءة وأستماع وتحميل mp3`)}&description=${encodeURIComponent(`سورة ${currentSurah.name} -  للقراءة والاستماع بصوت أكثر من 157 قارئ, ومعلومات حول السورة اين نزلت وكم عددة كلماتها وحروفها وآيتها وإسمها باللغة الإنجليزية`)}`,
                 session: request.session,
-                pathname,
-                bisamla: nameSurah !== 'التوبة' ? 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ' : 'أَعُوذُ بِاللَّهِ مِنَ الشَّيطَانِ الرَّجِيمِ',
-                surah: filterSpan(currentSurah.surah.replace(/\(/g, '﴿').replace(/\)/g, '﴾')),
-                currentSurah,
-                previousSurah,
-                nextSurah,
-                mp3quranFind
+                currentSurah: currentSurah,
+                nameSurah: nameSurah
             };
             const pugPath = path.join(__dirname, './views/quran_pathname.pug');
             const render = pug.renderFile(pugPath, { options, jsStringify });
@@ -88,4 +80,35 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
         }
     });
 
+
+    app.get('/data-quran', (request, response) => {
+        const { nameSurah } = request.query;
+        const currentQuranIndex = quranJson.findIndex(e => e.name === nameSurah);
+        const currentSurahIndex = surahJson.findIndex(e => e.name === nameSurah);
+        const currentSurah = { ...quranJson[currentQuranIndex], ...surahJson[currentSurahIndex] };
+        const previousSurah = currentQuranIndex === 0 ? { ...quranJson[quranJson.length - 1], ...surahJson[surahJson.length - 1] } : { ...quranJson[currentQuranIndex - 1], ...surahJson[currentSurahIndex.length - 1] };
+        const nextSurah = currentQuranIndex === quranJson.length - 1 ? { ...quranJson[0], ...surahJson[0] } : { ...quranJson[currentQuranIndex + 1], ...surahJson[currentSurah + 1] };
+
+        if (currentSurah?.name) {
+            const mp3quranFind = mp3quranJson.map(reader => {
+                const surah = reader.audio.find(item => item.name === nameSurah);
+                return {
+                    reader: reader.name,
+                    rewaya: reader.rewaya,
+                    link: surah?.link
+                };
+            });
+
+            response.json({
+                nameSurah,
+                bisamla: nameSurah !== 'التوبة' ? 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ' : 'أَعُوذُ بِاللَّهِ مِنَ الشَّيطَانِ الرَّجِيمِ',
+                surah: filterSpan(currentSurah.surah.replace(/\(/g, '﴿').replace(/\)/g, '﴾')),
+                currentSurah,
+                previousSurah,
+                nextSurah,
+                mp3quranFind
+            })
+
+        }
+    });
 };  

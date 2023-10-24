@@ -97,8 +97,8 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
                 website_name: config.WEBSITE_NAME,
                 title: `تفعيل الحساب - ${config.WEBSITE_NAME}`,
                 keywords: ["تفعيل الحساب", "تنشيط الحساب"],
-                description: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent("تفعيل الحساب")}&description=${encodeURIComponent("صفحة تفعيل الحساب الخاص بك على المنصة")}`,
-                preview: "صورة_المعاينة_للصفحة",
+                description: "تنشيط الحساب الخاص بك",
+                preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent("تفعيل الحساب")}&description=${encodeURIComponent("صفحة تنشيط الحساب الخاص بك")}`,
                 session: request.session,
                 isActivated: false,
                 text: 'رابط تفعيل العضوية غير صحيح ❌'

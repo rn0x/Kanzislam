@@ -29,7 +29,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
         options.title = `إنشاء موضوع جديد - ${config.WEBSITE_NAME}`;
         options.keywords = ["إنشاء موضوع جديد", "المنتدى", "المجتمع", "المشاركة في المناقشات", "طرح الأسئلة", "مشاركة الآراء", "المجتمع المنتدى", "كتابة موضوع", "كتابة مقال", "إنشاء مقالات"];
         options.description = "صفحة إنشاء موضوع جديد في المجتمع تهدف إلى تمكين المستخدمين من إنشاء مواضيع جديدة والمشاركة في المناقشات في المجتمع, يمكن للمستخدمين كتابة مواضيعهم الخاصة وطرح أسئلة أو مشاركة أفكارهم وآرائهم مع المجتمع";
-        options.preview = "صورة_المعاينة_للصفحة";
+        options.preview = `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent("إنشاء موضوع جديد")}&description=${encodeURIComponent("صفحة إنشاء موضوع جديد في المجتمع تهدف إلى تمكين المستخدمين من إنشاء مواضيع جديدة والمشاركة في المناقشات في المجتمع, يمكن للمستخدمين كتابة مواضيعهم الخاصة وطرح أسئلة أو مشاركة أفكارهم وآرائهم مع المجتمع")}`;
         options.session = request.session;
         options.Category = existingCategory?.dataValues || {};
 

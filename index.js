@@ -101,7 +101,7 @@ app.use(
                 scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
                 styleSrc: ["'self'", "'unsafe-inline'"],
                 imgSrc: ["'self'", "data:", "*"],
-                fontSrc: ["'self'"],
+                fontSrc: ["'self'", "*"],
                 objectSrc: ["'none'"],
                 mediaSrc: ["'self'", "*"],
                 frameSrc: ["'self'", "https://www.youtube.com"],
@@ -112,7 +112,7 @@ app.use(
             },
         },
         crossOriginOpenerPolicy: true, // يساعد في عزل العمليات المتعلقة بالصفحة.
-        crossOriginResourcePolicy: true, // يمنع الآخرين من تحميل الموارد الخاصة بك عبر الأصل.
+        crossOriginResourcePolicy: false, // يمنع الآخرين من تحميل الموارد الخاصة بك عبر الأصل.
         originAgentCluster: true, // يغير عزل العمليات ليكون مستندًا على الأصل.
         referrerPolicy: { policy: "strict-origin-when-cross-origin" }, // يتحكم في رأس المرجعية (Referer header).
         strictTransportSecurity: { maxAge: 63072000, includeSubDomains: true }, // يخبر المتصفحات بتفضيل استخدام HTTPS.
@@ -165,8 +165,9 @@ app.use(function (request, response, next) {
         title: `الصفحة غير موجودة 404 - ${config.WEBSITE_NAME}`,
         keywords: ["صفحة الخطأ 404", "عنوان URL غير صحيح", "عنوان URL غير موجود", "error", "404", "لم يتم العثور على الصفحة", "صفحة غير موجودة", "صفحة غير متاحة", "رسالة الخطأ 404"],
         description: "صفحة الخطأ 404 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.",
-        preview: "صورة_المعاينة_للصفحة",
-        status: 404
+        preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`الصفحة غير موجودة 404 - ${config.WEBSITE_NAME}`)}&description=${encodeURIComponent("صفحة الخطأ 404 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.")}`,
+        status: 404,
+        session: request.session
     };
     let pugPath = path.join(__dirname, './views/Error.pug');
     let render = pug.renderFile(pugPath, { options, jsStringify });
@@ -181,7 +182,7 @@ app.use(function (err, request, response, next) {
         title: `خطأ في الخادم الداخلي 505 - ${config.WEBSITE_NAME}`,
         keywords: ["صفحة الخطأ 505", "عنوان URL غير صحيح", "عنوان URL غير موجود", "error", "505", "لم يتم العثور على الصفحة", "صفحة غير موجودة", "صفحة غير متاحة", "رسالة الخطأ 404"],
         description: "صفحة الخطأ 505 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.",
-        preview: "صورة_المعاينة_للصفحة",
+        preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent("خطأ في الخادم الداخلي 505 ")}&description=${encodeURIComponent( "صفحة الخطأ 505 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.")}`,
         errorMassage: err,
         status: 500,
         session: request.session
