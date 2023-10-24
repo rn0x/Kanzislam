@@ -27,10 +27,10 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
 
                 const options = {
                     website_name: config.WEBSITE_NAME,
-                    title: `المواضيع المرتبطة بـ [ ${tag} ]- ${config.WEBSITE_NAME}`,
-                    keywords: ["word1", "word2", "word3"],
+                    title: `المواضيع المرتبطة بـ [ ${tag} ] - ${config.WEBSITE_NAME}`,
+                    keywords: [`${tag}`, `مواضيع مرتبطة بـ ${tag}`, `فهرس ${tag}`],
                     description: `هذه الصفحة تحتوي على مجموعة من المواضيع المرتبطة بالتاق [${tag}]. يتم تقديم هذه المواضيع بالتفصيل مع عناوين المواضيع والكلمات الدليلية المرتبطة بها. يمكنك استكشاف هذه المواضيع للعثور على المزيد من المعلومات حول موضوعاتك المفضلة.`,
-                    preview: "صورة_المعاينة_للصفحة",
+                    preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`المواضيع المرتبطة بـ [ ${tag} ]`)}&description=${encodeURIComponent(`هذه الصفحة تحتوي على مجموعة من المواضيع المرتبطة بالتاق [${tag}]. يتم تقديم هذه المواضيع بالتفصيل مع عناوين المواضيع والكلمات الدليلية المرتبطة بها. يمكنك استكشاف هذه المواضيع للعثور على المزيد من المعلومات حول موضوعاتك المفضلة.`)}`,
                     session: request.session,
                     tag: tag,
                     topics: topics,
@@ -48,7 +48,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
                     title: `الصفحة غير موجودة 404 - ${config.WEBSITE_NAME}`,
                     keywords: ["صفحة الخطأ 404", "عنوان URL غير صحيح", "عنوان URL غير موجود", "error", "404", "لم يتم العثور على الصفحة", "صفحة غير موجودة", "صفحة غير متاحة", "رسالة الخطأ 404"],
                     description: "صفحة الخطأ 404 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.",
-                    preview: "صورة_المعاينة_للصفحة",
+                    preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`الصفحة غير موجودة 404 - ${config.WEBSITE_NAME}`)}&description=${encodeURIComponent("صفحة الخطأ 404 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.")}`,
                     status: 404,
                     session: request.session
                 };
@@ -65,7 +65,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
                 title: `الصفحة غير موجودة 404 - ${config.WEBSITE_NAME}`,
                 keywords: ["صفحة الخطأ 404", "عنوان URL غير صحيح", "عنوان URL غير موجود", "error", "404", "لم يتم العثور على الصفحة", "صفحة غير موجودة", "صفحة غير متاحة", "رسالة الخطأ 404"],
                 description: "صفحة الخطأ 404 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.",
-                preview: "صورة_المعاينة_للصفحة",
+                preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`الصفحة غير موجودة 404 - ${config.WEBSITE_NAME}`)}&description=${encodeURIComponent("صفحة الخطأ 404 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.")}`,
                 status: 404,
                 session: request.session
             };

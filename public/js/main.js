@@ -28,6 +28,14 @@ document.addEventListener("DOMContentLoaded", function () {
         buttonTheme.src = "/icon/dark.svg";
     }
 
+    // احصل على جميع عناصر img
+    const images = document.querySelectorAll('img');
+        
+    // تعيين خاصية loading="lazy" لكل عنصر img
+    images.forEach(img => {
+        img.setAttribute('loading', 'lazy');
+    });
+
     // تبديل حالة القائمة الجانبية عند النقر على زر القائمة
     menuButton.addEventListener('click', toggleSideMenu);
     // إغلاق القائمة الجانبية عند النقر خارجها

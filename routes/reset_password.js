@@ -9,7 +9,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, emai
             title: `استعادة كلمة المرور - ${config.WEBSITE_NAME}`,
             keywords: ["استعادة كلمة المرور", "pass", "reset password"],
             description: "صفحة توفر واجهة للمستخدمين لإعادة ضبط كلمة المرور الخاصة بهم في حال نسيانها أو فقدانها.",
-            preview: "صورة_المعاينة_للصفحة",
+            preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`استعادة كلمة المرور`)}&description=${encodeURIComponent( "صفحة توفر واجهة للمستخدمين لإعادة ضبط كلمة المرور الخاصة بهم في حال نسيانها أو فقدانها.")}`,
             session: request.session
         };
         let pugPath = path.join(__dirname, './views/reset_password.pug');

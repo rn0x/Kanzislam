@@ -11,10 +11,10 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
 
         const options = {
             website_name: config.WEBSITE_NAME,
-            title: `عنوان الصفحة - ${config.WEBSITE_NAME}`,
-            keywords: ["word1", "word2", "word3"],
-            description: "وصف_الصفحة",
-            preview: "صورة_المعاينة_للصفحة",
+            title: `تعيين كلمة المرور: استعادة حسابك بسهولة وأمان - ${config.WEBSITE_NAME}`,
+            keywords: ["تعيين كلمة المرور", "استعادة حساب", "رابط تعيين إعادة كلمة المرور"],
+            description: "صفحة رابط تعيين إعادة كلمة المرور توفر لك الوسيلة السهلة والآمنة لاستعادة حسابك في حال نسيت كلمة المرور الخاصة بك. اتبع الرابط الموجود في الصفحة لتعيين كلمة مرور جديدة والوصول إلى حسابك بسهولة ويسر.",
+            preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`تعيين كلمة المرور: استعادة حسابك بسهولة وأمان`)}&description=${encodeURIComponent(`صفحة رابط تعيين إعادة كلمة المرور توفر لك الوسيلة السهلة والآمنة لاستعادة حسابك في حال نسيت كلمة المرور الخاصة بك. اتبع الرابط الموجود في الصفحة لتعيين كلمة مرور جديدة والوصول إلى حسابك بسهولة ويسر.`)}`,
             session: request.session,
             isUpdatePassword: true,
         };

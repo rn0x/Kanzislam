@@ -1,0 +1,31 @@
+doctype html
+html(lang="ar" data-theme="light")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    // content="article" قم بتغييرها للمقالات
+    meta(property="og:type" content="website")
+    // عنوان الصفحه
+    meta(property="og:title" content=options.title)
+    // إسم الموقع
+    meta(property="og:site_name" content=options.website_name)
+    // كلمات دلالية للصفحة
+    meta(name="keywords" content=options.keywords.join(", "))
+    // صورة المعاينة للصفحة
+    meta(property="og:image" content="/image/preview.png")
+    // وصف الصفحة
+    meta(property="og:description" content=options.description)
+    // وصف الصفحة
+    meta(name="description" content=options.description)
+    // عنوان الصفحة
+    title= options.title
+    link(rel="stylesheet" href="/css/preview.css")
+    link(rel="shortcut icon" href="/icon/logo_2.svg")
+  body
+    #Box 
+      img(src="/icon/logo.svg" alt="")#logo
+      .title
+        p #{options.query.title}
+        p#description #{options.query.description}
+        small#time #{options.formattedDate}

@@ -28,6 +28,7 @@ import {
 import CreateCategories from './modules/CreateCategories.js';
 import filterSpan from './public/js/modules/filterSpan.js';
 import sitemap from './routes/sitemap.js';
+import preview from './routes/preview.js';
 import upload from './routes/upload.js';
 import home from './routes/home.js';
 import login from './routes/login.js';
@@ -139,6 +140,7 @@ app.use(
 );
 
 // routes
+await preview(param);
 await upload(param);
 await home(param);
 await login(param);
@@ -181,7 +183,8 @@ app.use(function (err, request, response, next) {
         description: "صفحة الخطأ 505 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.",
         preview: "صورة_المعاينة_للصفحة",
         errorMassage: err,
-        status: 500
+        status: 500,
+        session: request.session
     };
     let pugPath = path.join(__dirname, './views/Error.pug');
     let render = pug.renderFile(pugPath, { options, jsStringify });

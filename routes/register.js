@@ -150,7 +150,7 @@ export default async ({
             title: `تسجيل حساب جديد - انضم إلينا الآن - ${config.WEBSITE_NAME}`,
             keywords: ['تسجيل حساب جديد', 'صفحة التسجيل', 'انضم إلينا', 'إنشاء حساب جديد'],
             description: 'تسجيل حساب جديد - انضم إلى مجتمعنا واحصل على حساب جديد بسهولة. قم بإنشاء حساب جديد باستخدام معلوماتك الشخصية واستفد من محتوى مميز وتفاعل مع أعضاء آخرين.',
-            preview: 'صورة_المعاينة_للصفحة',
+            preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`تسجيل حساب جديد - انضم إلينا الآن`)}&description=${encodeURIComponent('تسجيل حساب جديد - انضم إلى مجتمعنا واحصل على حساب جديد بسهولة. قم بإنشاء حساب جديد باستخدام معلوماتك الشخصية واستفد من محتوى مميز وتفاعل مع أعضاء آخرين.')}`,
             session: request.session,
             randomQuestion: randomQuestion,
         };

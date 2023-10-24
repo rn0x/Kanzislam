@@ -64,7 +64,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
                 title: `${AdhkarObject.title}- ${config.WEBSITE_NAME}`,
                 keywords: ["أذكار الصباح", "أذكار المساء", "أذكار النوم", "أذكار الطعام", "أذكار الصلاة", "التسابيح", "الدعاء اليومي", "الإسلام", "القرآن", "الحديث", "الإيمان"],
                 description: `${AdhkarObject.category} - ${AdhkarObject.description}`,
-                preview: "صورة_المعاينة_للصفحة",
+                preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`${AdhkarObject.title}- ${config.WEBSITE_NAME}`)}&description=${encodeURIComponent(`${AdhkarObject.category} - ${AdhkarObject.description}`)}`,
                 session: request.session,
                 AdhkarObject,
                 filterSpan
@@ -79,7 +79,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
                 title: `الصفحة غير موجودة 404 - ${config.WEBSITE_NAME}`,
                 keywords: ["صفحة الخطأ 404", "عنوان URL غير صحيح", "عنوان URL غير موجود", "error", "404", "لم يتم العثور على الصفحة", "صفحة غير موجودة", "صفحة غير متاحة", "رسالة الخطأ 404"],
                 description: "صفحة الخطأ 404 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.",
-                preview: "صورة_المعاينة_للصفحة",
+                preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`الصفحة غير موجودة 404 - ${config.WEBSITE_NAME}`)}&description=${encodeURIComponent("صفحة الخطأ 404 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.")}`,
                 status: 404,
                 session: request.session
             };
