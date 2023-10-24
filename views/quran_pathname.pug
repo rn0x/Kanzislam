@@ -14,7 +14,7 @@ block content
         a(href="/quran") القرآن الكريم
       li 
         small /
-        a(href=`/quran/${options.pathname}`)= `سورة ${options.currentSurah.name}`
+        a(href=`/quran/سورة_${options.currentSurah.name.replace(/ /g, '_')}`)= `سورة ${options.currentSurah.name}`
     #quranPathBox
       a(href="#")#previousSurah
       a(href="#")#nextSurah
