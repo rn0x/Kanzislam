@@ -27,6 +27,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             icon.src = adhkar?.icon;
             icon.alt = adhkar?.category;
             icon.className = "adhkarBoxIcon";
+            icon.height = 50;
+            icon.width = 50;
             a.appendChild(title);
             title.innerText = adhkar?.category;
         }
