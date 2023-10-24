@@ -7,5 +7,6 @@
     "SMTP_PORT": 587,
     "SMTP_DISPLAY_NAME": "كنز الإسلام | Kanzislam",
     "SMTP_USER": "support@example.net",
-    "SMTP_PASS": "SMTP_PASS"
+    "SMTP_PASS": "SMTP_PASS",
+    "CHROMIUM_PATH": "/usr/bin/chromium"
 }

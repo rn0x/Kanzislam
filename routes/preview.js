@@ -78,7 +78,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, anal
                         '--disable-accelerated-2d-canvas',
                         '--disable-gpu',
                     ],
-                    executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+                    executablePath: config?.CHROMIUM_PATH ? config?.CHROMIUM_PATH : undefined // مسار متصفح Chromium او Chrome
                 };
 
                 const result = await convertHTMLandCSSToImage({
