@@ -31,7 +31,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
         options.title = `مجتمع ${config.WEBSITE_NAME}: منصة تفاعلية للمعرفة والتواصل الإسلامي`;
         options.keywords = ["مجتمع إسلامي", "محتوى ثقافي إسلامي", "تعليم إسلامي", "منتديات إسلامية", "مقالات إسلامية", "تواصل إسلامي", "تعاون إسلامي", "موارد تعليمية إسلامية", "مدونات إسلامية"];
         options.description = `مجتمع ${config.WEBSITE_NAME} هي منصة مجتمعية عبر الإنترنت تهدف إلى توفير محتوى ثقافي وتعليمي إسلامي شامل ومتنوع. يوفر المجتمع مساحة للمشاركة والتفاعل بين المستخدمين من خلال المنتديات والمدونات والمقالات والموارد التعليمية. يهدف المجتمع إلى تعزيز الفهم الصحيح للإسلام وتعزيز التواصل والتعاون بين أفراد المجتمع الإسلامي.`;
-        options.preview = "صورة_المعاينة_للصفحة";
+        options.preview = `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`مجتمع ${config.WEBSITE_NAME}: منصة تفاعلية للمعرفة والتواصل الإسلامي`)}&description=${encodeURIComponent( `مجتمع ${config.WEBSITE_NAME} هي منصة مجتمعية عبر الإنترنت تهدف إلى توفير محتوى ثقافي وتعليمي إسلامي شامل ومتنوع. يوفر المجتمع مساحة للمشاركة والتفاعل بين المستخدمين من خلال المنتديات والمدونات والمقالات والموارد التعليمية. يهدف المجتمع إلى تعزيز الفهم الصحيح للإسلام وتعزيز التواصل والتعاون بين أفراد المجتمع الإسلامي.`)}`;
         options.session = request.session;
         options.getAllCategories = getAllCategories.map(category => {
             const category_id = category.category_id;
@@ -71,7 +71,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
                 options.title = `${categorie} - ${config.WEBSITE_NAME}`;
                 options.keywords = ["مجتمع إسلامي", "محتوى ثقافي إسلامي", "تعليم إسلامي", "منتديات إسلامية", "مقالات إسلامية", "تواصل إسلامي", "تعاون إسلامي", "موارد تعليمية إسلامية", "مدونات إسلامية"];
                 options.description = getCategorie?.dataValues?.description;
-                options.preview = "صورة_المعاينة_للصفحة";
+                options.preview =  `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(categorie)}&description=${encodeURIComponent(getCategorie?.dataValues?.description)}`;
                 options.session = request.session;
                 options.getCategorie = getCategorie?.dataValues;
                 const pugPath = path.join(__dirname, './views/forum/categories.pug');
@@ -83,7 +83,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
                 options.title = `الصفحة غير موجودة 404 - ${config.WEBSITE_NAME}`;
                 options.keywords = ["صفحة الخطأ 404", "عنوان URL غير صحيح", "عنوان URL غير موجود", "error", "404", "لم يتم العثور على الصفحة", "صفحة غير موجودة", "صفحة غير متاحة", "رسالة الخطأ 404"];
                 options.description = "صفحة الخطأ 404 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.";
-                options.preview = "صورة_المعاينة_للصفحة";
+                options.preview = `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`الصفحة غير موجودة 404 - ${config.WEBSITE_NAME}`)}&description=${encodeURIComponent("صفحة الخطأ 404 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.")}`;
                 options.status = 404;
                 options.session = request.session
                 const pugPath = path.join(__dirname, './views/Error.pug');
@@ -96,7 +96,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
             options.title = `الصفحة غير موجودة 404 - ${config.WEBSITE_NAME}`;
             options.keywords = ["صفحة الخطأ 404", "عنوان URL غير صحيح", "عنوان URL غير موجود", "error", "404", "لم يتم العثور على الصفحة", "صفحة غير موجودة", "صفحة غير متاحة", "رسالة الخطأ 404"];
             options.description = "صفحة الخطأ 404 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.";
-            options.preview = "صورة_المعاينة_للصفحة";
+            options.preview = `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`الصفحة غير موجودة 404 - ${config.WEBSITE_NAME}`)}&description=${encodeURIComponent("صفحة الخطأ 404 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.")}`;
             options.status = 404;
             options.session = request.session;
             const pugPath = path.join(__dirname, './views/Error.pug');
