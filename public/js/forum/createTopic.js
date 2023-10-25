@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const ErrorMessage = document.getElementById("ErrorMessage");
     const alertErrorMessage = document.getElementById("ErrorMessage");
     let imageCount = 0;
-    const maxImages = 10;
+    const maxImages = options?.FORUM?.MAX_IMAGES;
     const editorBox = await ClassicEditor
         .create(document.getElementById('editorBox'), {
             ckfinder: {
@@ -98,8 +98,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             return;
         }
 
-        if (titleValue.split(" ").length >= 3 && titleValue.length < 80) {
-            if (editorBoxValue.split(" ").length >= 5 && editorBoxValue.length < 6000) {
+        if (titleValue.split(" ").length >= 3 && titleValue.length < options?.FORUM?.TITLE_LENGTH) {
+            if (editorBoxValue.split(" ").length >= 5 && editorBoxValue.length < options?.FORUM?.CONTENT_LENGTH) {
 
                 const editorBoxRawValue = removeHtmlTags(editorBoxValue);
                 const createTopicURL = `${window.location.origin}/create-topic`;
@@ -110,9 +110,9 @@ document.addEventListener("DOMContentLoaded", async function () {
                     },
                     body: JSON.stringify({
                         category_id: options.Category.category_id,
-                        title: titleValue?.substring(0, 80)?.trim(),
-                        content: editorBoxValue?.substring(0, 6000),
-                        content_raw: editorBoxRawValue?.substring(0, 6000),
+                        title: titleValue?.substring(0, options?.FORUM?.TITLE_LENGTH)?.trim(),
+                        content: editorBoxValue?.substring(0, options?.FORUM?.CONTENT_LENGTH),
+                        content_raw: editorBoxRawValue?.substring(0, options?.FORUM?.CONTENT_LENGTH),
                         description: editorBoxRawValue?.substring(0, 150),
                     }),
                 });
@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
 
             else {
-                const message = "يجب ان يحتوي الموضوع على الأقل 5 كلمات وان يكون اقل من 6000 حرف";
+                const message = `يجب ان يحتوي الموضوع على الأقل 5 كلمات وان يكون اقل من ${options?.FORUM?.CONTENT_LENGTH} حرف`;
                 ErrorMessage.innerText = message;
                 ErrorMessage.style.display = "block";
                 ErrorMessage.style.scrollMarginTop = "150px";
@@ -160,7 +160,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
 
         else {
-            const message = "يجب ان يكون عنوان الموضوع اقل من 80 حرف و ان يحتوي على الأقل 3 كلمات";
+            const message = `يجب ان يكون عنوان الموضوع اقل من ${options?.FORUM?.TITLE_LENGTH} حرف و ان يحتوي على الأقل 3 كلمات`;
             ErrorMessage.innerText = message;
             ErrorMessage.style.display = "block";
             ErrorMessage.style.scrollMarginTop = "150px";

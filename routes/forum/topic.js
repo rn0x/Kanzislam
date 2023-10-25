@@ -45,6 +45,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
             options.TopicJosn = GetTopic;
             options.getElapsedTime = getElapsedTime;
             options.canEdit = GetTopic?.topic?.users?.username === request.session?.username;
+            options.FORUM = config?.FORUM;
             const pugPath = path.join(__dirname, './views/forum/topic.pug');
             const render = pug.renderFile(pugPath, { options, jsStringify });
             response.send(render);

@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const options = window.options;
     let imageCount = 0;
-    const maxImages = 10;
+    const maxImages = options?.FORUM?.MAX_IMAGES;
     const editorBoxElement = document.getElementById("editorBox");
     const CommentBox = document.getElementById("CommentBox");
     const CreateReply = document.getElementById("CreateReply");
@@ -179,7 +179,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             if (options?.session?.isLoggedIn) {
 
-                const maxLength = 6000; // تحديد الحد الأقصى لطول النص
+                const maxLength = options?.FORUM?.CONTENT_LENGTH; // تحديد الحد الأقصى لطول النص
                 const editorBoxValue = editorBox.getData();
 
                 if (editorBoxValue.length < maxLength) {
@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                         body: JSON.stringify({
                             user_id: options?.session?.user_id,
                             topic_id: options?.TopicJosn?.topic?.topic_id,
-                            content: editorBoxValue?.substring(0, 6000),
+                            content: editorBoxValue?.substring(0, maxLength),
                         }),
                     });
                     const response = await createCommentFetch?.json();

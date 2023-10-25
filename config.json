@@ -8,5 +8,10 @@
     "SMTP_DISPLAY_NAME": "كنز الإسلام | Kanzislam",
     "SMTP_USER": "support@example.net",
     "SMTP_PASS": "SMTP_PASS",
-    "CHROMIUM_PATH": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+    "CHROMIUM_PATH": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+    "FORUM": {
+        "TITLE_LENGTH": 80,
+        "CONTENT_LENGTH": 10000,
+        "MAX_IMAGES": 10
+    }
 }
