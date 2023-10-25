@@ -63,7 +63,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
 
     app.get('/login', async (request, response) => {
 
-        let options = {
+        const options = {
             website_name: config.WEBSITE_NAME,
             title: `تسجيل الدخول إلى حسابك - ${config.WEBSITE_NAME}`,
             keywords: ["تسجيل الدخول", "صفحة تسجيل الدخول", "حساب المستخدم", "اسم المستخدم", "كلمة المرور", "الوصول إلى الحساب", "الأمان", "المحتوى الحصري", "الاعتمادات"],
@@ -71,8 +71,8 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
             preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent("تسجيل الدخول إلى حسابك")}&description=${encodeURIComponent("صفحة تسجيل الدخول هي الصفحة التي يستخدمها المستخدمون للوصول إلى حساباتهم على الموقع. توفر الصفحة واجهة بسيطة وآمنة لإدخال معلومات الاعتماد الخاصة بهم، مثل اسم المستخدم وكلمة المرور، للوصول إلى المحتوى الحصري أو لإجراء أي نشاط يتطلب تسجيل الدخول.")}`,
             session: request.session
         };
-        let pugPath = path.join(__dirname, './views/login.pug');
-        let render = pug.renderFile(pugPath, { options, jsStringify });
+        const pugPath = path.join(__dirname, './views/login.pug');
+        const render = pug.renderFile(pugPath, { options, jsStringify });
         response.send(render);
     });
 }

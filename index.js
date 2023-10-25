@@ -42,7 +42,7 @@ import adhkar from './routes/adhkar.js';
 import hisnmuslim from './routes/hisnmuslim.js';
 import prayer from './routes/prayer.js';
 import forum from './routes/forum/index.js';
-import tags from './routes/tags.js';
+import error from './routes/error.js';
 
 // Get the current working directory
 const __dirname = path.resolve();
@@ -154,41 +154,29 @@ await adhkar(param);
 await hisnmuslim(param);
 await prayer(param);
 await forum(param);
-await tags(param);
 
 // يقوم بإنشاء ملف sitemap وفهرس sitemap بناءً على الصفحات المعطاة.
 await sitemap(param);
 
-app.use(function (request, response, next) {
-    let options = {
-        website_name: config.WEBSITE_NAME,
-        title: `الصفحة غير موجودة 404 - ${config.WEBSITE_NAME}`,
-        keywords: ["صفحة الخطأ 404", "عنوان URL غير صحيح", "عنوان URL غير موجود", "error", "404", "لم يتم العثور على الصفحة", "صفحة غير موجودة", "صفحة غير متاحة", "رسالة الخطأ 404"],
-        description: "صفحة الخطأ 404 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.",
-        preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`الصفحة غير موجودة 404 - ${config.WEBSITE_NAME}`)}&description=${encodeURIComponent("صفحة الخطأ 404 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.")}`,
-        status: 404,
-        session: request.session
-    };
-    let pugPath = path.join(__dirname, './views/Error.pug');
-    let render = pug.renderFile(pugPath, { options, jsStringify });
-    response.status(404).send(render);
+app.use(async (request, response, next) =>{
+    await error({ config, request, path, response, __dirname, pug, jsStringify });
 });
 
 app.use(function (err, request, response, next) {
     // Handle the error
     console.error(err);
-    let options = {
+    const options = {
         website_name: config.WEBSITE_NAME,
         title: `خطأ في الخادم الداخلي 505 - ${config.WEBSITE_NAME}`,
         keywords: ["صفحة الخطأ 505", "عنوان URL غير صحيح", "عنوان URL غير موجود", "error", "505", "لم يتم العثور على الصفحة", "صفحة غير موجودة", "صفحة غير متاحة", "رسالة الخطأ 404"],
         description: "صفحة الخطأ 505 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.",
-        preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent("خطأ في الخادم الداخلي 505 ")}&description=${encodeURIComponent( "صفحة الخطأ 505 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.")}`,
+        preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent("خطأ في الخادم الداخلي 505 ")}&description=${encodeURIComponent("صفحة الخطأ 505 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.")}`,
         errorMassage: err,
         status: 500,
         session: request.session
     };
-    let pugPath = path.join(__dirname, './views/Error.pug');
-    let render = pug.renderFile(pugPath, { options, jsStringify });
+    const pugPath = path.join(__dirname, './views/Error.pug');
+    const render = pug.renderFile(pugPath, { options, jsStringify });
     response.status(500).send(render);
 });
 

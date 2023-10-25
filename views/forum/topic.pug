@@ -73,7 +73,7 @@ block content
                     li: a(href=`/tags/${val}` title=val) #{val}
         ul.TopicComment
             each item, index in options.TopicJosn.comments
-                li.TopicCommentBox
+                li(id=item.comment_id).TopicCommentBox
                     .CommentBoxHeader 
                         #CommentInfo 
                             div 

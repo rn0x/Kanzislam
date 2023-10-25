@@ -1,3 +1,5 @@
+import error from "./error.js";
+
 export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filterSpan }) => {
 
     let adhkarPath = path.join(__dirname, 'public/json/adhkar.json');
@@ -39,18 +41,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
             response.send(render);
         }
         else {
-            let options = {
-                website_name: config.WEBSITE_NAME,
-                title: `الصفحة غير موجودة 404 - ${config.WEBSITE_NAME}`,
-                keywords: ["صفحة الخطأ 404", "عنوان URL غير صحيح", "عنوان URL غير موجود", "error", "404", "لم يتم العثور على الصفحة", "صفحة غير موجودة", "صفحة غير متاحة", "رسالة الخطأ 404"],
-                description: "صفحة الخطأ 404 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.",
-                preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`الصفحة غير موجودة 404 - ${config.WEBSITE_NAME}`)}&description=${encodeURIComponent("صفحة الخطأ 404 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.")}`,
-                status: 404,
-                session: request.session
-            };
-            let pugPath = path.join(__dirname, './views/Error.pug');
-            let render = pug.renderFile(pugPath, { options, jsStringify });
-            response.status(404).send(render);
+            await error({ config, request, path, response, __dirname, pug, jsStringify });
         }
     });
 
@@ -74,18 +65,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
             response.send(render);
         }
         else {
-            let options = {
-                website_name: config.WEBSITE_NAME,
-                title: `الصفحة غير موجودة 404 - ${config.WEBSITE_NAME}`,
-                keywords: ["صفحة الخطأ 404", "عنوان URL غير صحيح", "عنوان URL غير موجود", "error", "404", "لم يتم العثور على الصفحة", "صفحة غير موجودة", "صفحة غير متاحة", "رسالة الخطأ 404"],
-                description: "صفحة الخطأ 404 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.",
-                preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`الصفحة غير موجودة 404 - ${config.WEBSITE_NAME}`)}&description=${encodeURIComponent("صفحة الخطأ 404 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.")}`,
-                status: 404,
-                session: request.session
-            };
-            let pugPath = path.join(__dirname, './views/Error.pug');
-            let render = pug.renderFile(pugPath, { options, jsStringify });
-            response.status(404).send(render);
+            await error({ config, request, path, response, __dirname, pug, jsStringify });
         }
     });
 }

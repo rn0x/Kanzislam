@@ -1,4 +1,5 @@
 import convertHTMLandCSSToImage from '../modules/convertHTMLandCSSToImage.js';
+import error from './error.js';
 
 export default async ({ app, pug, path, fs, config, __dirname, jsStringify, analyzeText }) => {
     // Middleware function to check if an image exists
@@ -38,17 +39,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, anal
             const render = pug.renderFile(pugPath, { options, jsStringify });
             response.send(render);
         } else {
-            const options = {};
-            options.website_name = config.WEBSITE_NAME;
-            options.title = `الصفحة غير موجودة 404 - ${config.WEBSITE_NAME}`;
-            options.keywords = ["صفحة الخطأ 404", "عنوان URL غير صحيح", "عنوان URL غير موجود", "error", "404", "لم يتم العثور على الصفحة", "صفحة غير موجودة", "صفحة غير متاحة", "رسالة الخطأ 404"];
-            options.description = "صفحة الخطأ 404 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.";
-            options.preview = `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`الصفحة غير موجودة 404 - ${config.WEBSITE_NAME}`)}&description=${encodeURIComponent("صفحة الخطأ 404 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.")}`;
-            options.status = 404;
-            options.session = request.session;
-            const pugPath = path.join(__dirname, './views/Error.pug');
-            const render = pug.renderFile(pugPath, { options, jsStringify });
-            response.status(404).send(render);
+            await error({ config, request, path, response, __dirname, pug, jsStringify });
         }
     });
 
@@ -61,8 +52,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, anal
         if (title && description) {
             const previewPath = path.join(__dirname, 'public', 'preview');
             fs.ensureDirSync(previewPath);
-            const imagePath = path.join(__dirname, `public/preview/${title?.replace(/ /g, '_')}.png`);
-
+            const imagePath = path.join(__dirname, `public/preview/${removeArabicSymbols(title)}.png`);
             if (checkIfImageExists(imagePath)) {
                 // Image exists, serve it directly
                 response.sendFile(imagePath);
@@ -100,6 +90,19 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, anal
                 } else {
                     response.status(500).send(`Error: ${result.message}`);
                 }
+            }
+
+            function removeArabicSymbols(text) {
+                // إزالة الحركات العربية
+                text = text?.replace(/[\u064B-\u065F\u0670]/g, '');
+                // إزالة الأيقونات
+                text = text?.replace(/[^\u0000-\u007F]+/g, '');
+                // إزالة علامات الترقيم والشرطات والنقاط
+                text = text?.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()|]/g, '');
+                // تحويل المسافات إلى شرطة سفلية
+                text = text?.replace(/\s/g, '_');
+
+                return text;
             }
         }
     });

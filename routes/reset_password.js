@@ -4,7 +4,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, emai
 
     app.get('/reset-password', async (request, response) => {
 
-        let options = {
+        const options = {
             website_name: config.WEBSITE_NAME,
             title: `استعادة كلمة المرور - ${config.WEBSITE_NAME}`,
             keywords: ["استعادة كلمة المرور", "pass", "reset password"],
@@ -12,8 +12,8 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, emai
             preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`استعادة كلمة المرور`)}&description=${encodeURIComponent( "صفحة توفر واجهة للمستخدمين لإعادة ضبط كلمة المرور الخاصة بهم في حال نسيانها أو فقدانها.")}`,
             session: request.session
         };
-        let pugPath = path.join(__dirname, './views/reset_password.pug');
-        let render = pug.renderFile(pugPath, { options, jsStringify });
+        const pugPath = path.join(__dirname, './views/reset_password.pug');
+        const render = pug.renderFile(pugPath, { options, jsStringify });
         response.send(render);
     });
 

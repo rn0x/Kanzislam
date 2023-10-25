@@ -1,0 +1,106 @@
+#BoxUsernam {
+    display: block;
+    width: 90%;
+    max-width: 1000px;
+    background-color: var(--background_white);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 90px;
+    padding: 10px;
+    border-radius: 8px;
+    position: relative;
+}
+
+#avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 95px;
+    height: 95px;
+    font-size: 25px;
+    background-color: var(--divHeader);
+    border-radius: 50%;
+    color: var(--colorWhite);
+    position: absolute;
+    left: 50%;
+    top: -50px;
+    transform: translatex(-50%);
+    user-select: none;
+}
+
+#name {
+    display: block;
+    margin-top: 50px;
+    margin-bottom: 0px;
+}
+
+#username {
+    margin-top: 5px;
+    margin-bottom: 0px;
+    direction: ltr;
+    font-size: 13px;
+}
+
+#time {
+    margin-top: 5px;
+    font-size: 11px;
+    color: var(--colorFont2);
+}
+
+#boxStats {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0px;
+    /* background-color: bisque; */
+}
+
+#boxStats li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#boxStats>li>p {
+    font-size: 13px;
+    color: var(--colorFont2);
+    margin-right: 5px;
+}
+
+.iconStats {
+    width: 16px;
+}
+
+.boxStatsTopisAndCommentAndLikw {
+    display: block;
+    margin-top: 30px;
+    margin-bottom: 70px;
+    padding: 5px;
+    border-radius: 10px;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: solid;
+}
+
+.boxStatsTopisAndCommentAndLikw h2 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.boxStatsTopisAndCommentAndLikw a {
+    display: block;
+    text-align: center;
+    background-color: var(--background_Wild_Sand);
+    padding: 3px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: var(--colorFont2);
+    word-break: break-all;
+}
+
+.boxStatsTopisAndCommentAndLikw a:hover {
+    background-color: var(--background_hover);
+    color: var(--colorFontMain_hover);
+}
