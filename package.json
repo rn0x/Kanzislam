@@ -39,6 +39,7 @@
     "express-session": "^1.17.3",
     "fs-extra": "^11.1.1",
     "helmet": "^7.0.0",
+    "jimp": "^0.22.10",
     "js-stringify": "^1.0.2",
     "nodemailer": "^6.9.6",
     "pug": "^3.0.2",

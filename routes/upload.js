@@ -1,3 +1,5 @@
+import Jimp from 'jimp';
+
 export default async ({ app, path, fs, config, __dirname, model }) => {
     const { Users, Images, Videos, Audios, Pdfs } = model;
 
@@ -50,22 +52,52 @@ export default async ({ app, path, fs, config, __dirname, model }) => {
                 extname: path.extname(file.name),
                 type: file.mimetype,
                 size: file.size,
-                path: `/uploads/${fileName}`
+                path: `/uploads/${fileName}`,
+                buffer: file.data
             };
 
             // Move the file to the uploads folder
-            const defPath = "public/uploads"
+            const defPath = "public/uploads";
+            const fileBuffer = file.data; // حصلنا على البيانات الخام للملف
+
             if (fileInfo.type === "image/jpeg" || fileInfo.type === "image/png") {
-                await file.mv(path.join(defPath, "images", fileName));
-                fileInfo.path = `/uploads/images/${fileName}`;
+                const watermarkPath = path.join(__dirname, 'public/images/watermark.png');
+
+                if (fs.existsSync(watermarkPath)) {
+                    // قم بقراءة الصورة الرئيسية والعلامة المائية باستخدام Jimp
+                    const mainImage = await Jimp.read(fileBuffer);
+                    const watermark = await Jimp.read(watermarkPath);
+
+                    // حدد حجم العلامة المائية بنسبة معينة من حجم الصورة الرئيسية (مثل 10٪)
+                    const watermarkWidth = mainImage.getWidth() * 0.1; // اضبط هذه النسبة على ما يناسبك
+                    const watermarkHeight = (watermarkWidth / watermark.getWidth()) * watermark.getHeight();
+                    watermark.resize(watermarkWidth, watermarkHeight);
+
+                    // اضبط موقع العلامة المائية في الزاوية اليمنى السفلى
+                    const xPos = mainImage.getWidth() - watermarkWidth - 10; // ضع القيمة المناسبة بدلاً من 10
+                    const yPos = mainImage.getHeight() - watermarkHeight - 10; // ضع القيمة المناسبة بدلاً من 10
+
+                    // قم بإضافة العلامة المائية إلى الصورة الرئيسية
+                    mainImage.composite(watermark, xPos, yPos, {
+                        mode: Jimp.BLEND_SOURCE_OVER,
+                        opacitySource: 0.5,
+                        opacityDest: 1
+                    });
+
+                    // حفظ الصورة مع العلامة المائية
+                    const imageBuffer = await mainImage.getBufferAsync(Jimp.MIME_JPEG); // استخراج الصورة مع العلامة المائية كمصفوفة بيانات
+                    fs.writeFileSync(`${defPath}/images/${fileName}`, imageBuffer); // حفظ الصورة في المجلد
+
+                    fileInfo.path = `/uploads/images/${fileName}`;
+                }
             } else if (fileInfo.type === "video/mp4") {
-                await file.mv(path.join(defPath, "videos", fileName));
+                fs.writeFileSync(`${defPath}/videos/${fileName}`, fileBuffer);
                 fileInfo.path = `/uploads/videos/${fileName}`;
             } else if (fileInfo.type === "audio/mpeg") {
-                await file.mv(path.join(defPath, "audios", fileName));
+                fs.writeFileSync(`${defPath}/audios/${fileName}`, fileBuffer);
                 fileInfo.path = `/uploads/audios/${fileName}`;
             } else if (fileInfo.type === "application/pdf") {
-                await file.mv(path.join(defPath, "pdfs", fileName));
+                fs.writeFileSync(`${defPath}/pdfs/${fileName}`, fileBuffer);
                 fileInfo.path = `/uploads/pdfs/${fileName}`;
             }
 
@@ -140,4 +172,4 @@ export default async ({ app, path, fs, config, __dirname, model }) => {
             response.status(500).json({ error: 'حدث خطأ أثناء رفع الملف.' });
         }
     });
-};  
+};
