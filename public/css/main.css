@@ -103,9 +103,12 @@ a:focus {
 
 
 .ck {
-    background-color: var(--background_Wild_Sand) !important;
     color: var(--colorFontMain) !important;
     border-color: var(--border) !important;
+}
+
+.ck-toolbar{
+    background-color: var(--background_Wild_Sand) !important;
 }
 
 .ck-button__label {
