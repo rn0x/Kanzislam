@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         for (const item of (DataUsername?.topics || []).slice(0, 10)) {
             const a = document.createElement("a");
             topics.appendChild(a);
-            a.href = `${window.location.origin}/topic/${item?.topic_id}`;
+            a.href = `${window.location.origin}/forum/topic/${item?.topic_id}`;
             a.innerText = item?.title;
             a.title = item?.title;
         }
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         for (const item of (DataUsername?.comments || []).slice(0, 10)) {
             const a = document.createElement("a");
             comeents.appendChild(a);
-            a.href = `${window.location.origin}/topic/${item?.topic_id}#${item?.comment_id}`;
+            a.href = `${window.location.origin}/forum/topic/${item?.topic_id}#${item?.comment_id}`;
             a.innerText = item?.topic?.title;
             a.title = item?.topic?.title;
         }
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         for (const item of (DataUsername?.like || []).slice(0, 10)) {
             const a = document.createElement("a");
             likes.appendChild(a);
-            a.href = `${window.location.origin}/topic/${item?.topic?.topic_id}`;
+            a.href = `${window.location.origin}/forum/topic/${item?.topic?.topic_id}`;
             a.innerText = item?.topic?.title;
             a.title = item?.topic?.title;
         }
