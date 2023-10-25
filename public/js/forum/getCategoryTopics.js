@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const buttonAddTopics = document.getElementById("buttonAddTopics");
     const topiscTbody = document.getElementById("topiscTbody");
     loading.style.display = "block";
-    const apiTopics = `${window.location.origin}/api/forum?category_id=${options?.getCategorie?.category_id}`;
+    const apiTopics = `${window.location.origin}/topic-category?category_id=${options?.getCategorie?.category_id}`;
     const apiTopicsFetch = await fetch(apiTopics, {
         method: "GET",
         headers: {

@@ -14,16 +14,21 @@ block content
         a(href="/forum") مجتمع #{options.website_name}
     h2 فئات المجتمع
     .Categories
-      .CategoriesBox
-        each item in options.getAllCategories 
-          .DivCategories 
-            img(src="/icon/forum.svg" alt="forum" title="إيقونة الفئة").IconCategories.iconFilter
-            .MainCategories
-              a(href=`/forum/${item.category_id}` title=item.description) #{item.title}
-              p #{item.description}
-            .CountCategories
-              p المواضيع
-              small #{item.counttopics}
-            .CountCategories
-              p المشاركات
-              small #{item.countcomments}
+      .CategoriesBox#CategoriesBox
+        //- each item in options.getAllCategories 
+        //-   .DivCategories 
+        //-     img(src="/icon/forum.svg" alt="forum" title="إيقونة الفئة").IconCategories.iconFilter
+        //-     .MainCategories
+        //-       a(href=`/forum/${item.category_id}` title=item.description) "jjjjjjj"
+        //-       p "kkkkkkkk"
+        //-     .CountCategories
+        //-       p المواضيع
+        //-       small 888
+        //-     .CountCategories
+        //-       p المشاركات
+        //-       small 999
+block script
+  script(type="module")
+    include ../../public/js/forum/categories.js
+  script.
+    window.options = !{jsStringify(options)}; 

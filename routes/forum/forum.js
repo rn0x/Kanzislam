@@ -16,41 +16,13 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
     } = model;
 
     app.get('/forum', async (request, response) => {
-
-        const getAllCategories = await Categories.findAll().catch((error) => {
-            console.log(error);
-        });
-        const getAllTopics = await Topics.findAll().catch((error) => {
-            console.log(error);
-        });
-        const getAllComments = await Comments.findAll().catch((error) => {
-            console.log(error);
-        });
         const options = {};
         options.website_name = config.WEBSITE_NAME;
         options.title = `مجتمع ${config.WEBSITE_NAME}: منصة تفاعلية للمعرفة والتواصل الإسلامي`;
         options.keywords = ["مجتمع إسلامي", "محتوى ثقافي إسلامي", "تعليم إسلامي", "منتديات إسلامية", "مقالات إسلامية", "تواصل إسلامي", "تعاون إسلامي", "موارد تعليمية إسلامية", "مدونات إسلامية"];
         options.description = `مجتمع ${config.WEBSITE_NAME} هي منصة مجتمعية عبر الإنترنت تهدف إلى توفير محتوى ثقافي وتعليمي إسلامي شامل ومتنوع. يوفر المجتمع مساحة للمشاركة والتفاعل بين المستخدمين من خلال المنتديات والمدونات والمقالات والموارد التعليمية. يهدف المجتمع إلى تعزيز الفهم الصحيح للإسلام وتعزيز التواصل والتعاون بين أفراد المجتمع الإسلامي.`;
-        options.preview = `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`مجتمع ${config.WEBSITE_NAME}: منصة تفاعلية للمعرفة والتواصل الإسلامي`)}&description=${encodeURIComponent( `مجتمع ${config.WEBSITE_NAME} هي منصة مجتمعية عبر الإنترنت تهدف إلى توفير محتوى ثقافي وتعليمي إسلامي شامل ومتنوع. يوفر المجتمع مساحة للمشاركة والتفاعل بين المستخدمين من خلال المنتديات والمدونات والمقالات والموارد التعليمية. يهدف المجتمع إلى تعزيز الفهم الصحيح للإسلام وتعزيز التواصل والتعاون بين أفراد المجتمع الإسلامي.`)}`;
+        options.preview = `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`مجتمع ${config.WEBSITE_NAME}: منصة تفاعلية للمعرفة والتواصل الإسلامي`)}&description=${encodeURIComponent(`مجتمع ${config.WEBSITE_NAME} هي منصة مجتمعية عبر الإنترنت تهدف إلى توفير محتوى ثقافي وتعليمي إسلامي شامل ومتنوع. يوفر المجتمع مساحة للمشاركة والتفاعل بين المستخدمين من خلال المنتديات والمدونات والمقالات والموارد التعليمية. يهدف المجتمع إلى تعزيز الفهم الصحيح للإسلام وتعزيز التواصل والتعاون بين أفراد المجتمع الإسلامي.`)}`;
         options.session = request.session;
-        options.getAllCategories = getAllCategories.map(category => {
-            const category_id = category.category_id;
-            const title = category.title;
-            const description = category.description;
-            const counttopics = getAllTopics.filter(topic => topic.category_id === category_id).length;
-            const countcomments = getAllComments.filter(comment => {
-                const topic = getAllTopics.find(topic => topic.topic_id === comment.topic_id);
-                return topic && topic.category_id === category_id;
-            }).length;
-
-            return {
-                category_id,
-                title,
-                description,
-                counttopics,
-                countcomments
-            };
-        });
         const pugPath = path.join(__dirname, './views/forum/index.pug');
         const render = pug.renderFile(pugPath, { options, jsStringify });
         response.send(render);
@@ -71,7 +43,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
                 options.title = `${categorie} - ${config.WEBSITE_NAME}`;
                 options.keywords = ["مجتمع إسلامي", "محتوى ثقافي إسلامي", "تعليم إسلامي", "منتديات إسلامية", "مقالات إسلامية", "تواصل إسلامي", "تعاون إسلامي", "موارد تعليمية إسلامية", "مدونات إسلامية"];
                 options.description = getCategorie?.dataValues?.description;
-                options.preview =  `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(categorie)}&description=${encodeURIComponent(getCategorie?.dataValues?.description)}`;
+                options.preview = `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(categorie)}&description=${encodeURIComponent(getCategorie?.dataValues?.description)}`;
                 options.session = request.session;
                 options.getCategorie = getCategorie?.dataValues;
                 const pugPath = path.join(__dirname, './views/forum/categories.pug');
@@ -106,7 +78,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
 
     });
 
-    app.get('/api/forum', async (request, response) => {
+    app.get('/topic-category', async (request, response) => {
         const queryCategoryId = request.query.category_id;
         const category_id = convertToNumber(queryCategoryId);
 
@@ -137,5 +109,42 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
                 message: "لم تقم بإدخال معرف الفئة: category_id"
             });
         }
+    });
+
+    app.get('/categories', async (request, response) => {
+
+        const getAllCategories = await Categories.findAll().catch((error) => {
+            console.log(error);
+        });
+        const getAllTopics = await Topics.findAll().catch((error) => {
+            console.log(error);
+        });
+        const getAllComments = await Comments.findAll().catch((error) => {
+            console.log(error);
+        });
+
+        const AllCategories = getAllCategories.map(category => {
+            const category_id = category.category_id;
+            const title = category.title;
+            const description = category.description;
+            const counttopics = getAllTopics.filter(topic => topic.category_id === category_id).length;
+            const countcomments = getAllComments.filter(comment => {
+                const topic = getAllTopics.find(topic => topic.topic_id === comment.topic_id);
+                return topic && topic.category_id === category_id;
+            }).length;
+
+            return {
+                category_id,
+                title,
+                description,
+                counttopics,
+                countcomments
+            };
+        });
+
+        response.json({
+            getAllCategories: AllCategories
+        })
+
     });
 }
