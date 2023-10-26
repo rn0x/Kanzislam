@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const header_menu_left_isLoggedIn = document.getElementById("header_menu_left_isLoggedIn");
     const menu_logged = document.getElementById("menu_logged");
     const login = document.getElementById("login");
+    const logoutButton = document.getElementById("logoutButton");
     let isMenu = false;
     let isSideMenu = false;
 
@@ -63,6 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
         SideMenuLogout.style.display = "block";
         SideMenuLogin.style.display = "none";
         SideMenuRegister.style.display = "none";
+        logoutButton.style.display = "block";
         SideMenuProfile.href = `${window.location.origin}/username/${options?.session?.username}`;
         toggleMenuProfile.href = `${window.location.origin}/username/${options?.session?.username}`;
 
@@ -71,6 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // زر تسجيل الخروج في القائة الجانبية
         SideMenuLogout.addEventListener("click", logout);
+        logoutButton.addEventListener("click", logout);
     }
 
     else {
