@@ -1,4 +1,5 @@
 import Jimp from 'jimp';
+import ffmpeg from 'fluent-ffmpeg';
 
 export default async ({ app, path, fs, config, __dirname, model }) => {
     const { Users, Images, Videos, Audios, Pdfs } = model;
@@ -40,7 +41,7 @@ export default async ({ app, path, fs, config, __dirname, model }) => {
             // Check the file size
             const maxSize = 50 * 1024 * 1024; // 50MB
             if (file.size > maxSize) {
-                return response.status(400).json({ error: `${maxSize} حجم الملف كبير جدًا. تجاوز الـ ` });
+                return response.status(400).json({ error: 'حجم الملف كبير جدًا. يجب ألا يتجاوز 50 ميجابايت.' });
             }
 
             // Generate a unique file name
@@ -58,7 +59,7 @@ export default async ({ app, path, fs, config, __dirname, model }) => {
 
             // Move the file to the uploads folder
             const defPath = "public/uploads";
-            const fileBuffer = file.data; // حصلنا على البيانات الخام للملف
+            const fileBuffer = file.data;
 
             if (fileInfo.type === "image/jpeg" || fileInfo.type === "image/png") {
                 const watermarkPath = path.join(__dirname, 'public/images/watermark.png');
@@ -91,8 +92,41 @@ export default async ({ app, path, fs, config, __dirname, model }) => {
                     fileInfo.path = `/uploads/images/${fileName}`;
                 }
             } else if (fileInfo.type === "video/mp4") {
-                fs.writeFileSync(`${defPath}/videos/${fileName}`, fileBuffer);
-                fileInfo.path = `/uploads/videos/${fileName}`;
+                const watermarkPath = path.join(__dirname, 'public/images/watermark-50px.png');
+                if (fs.existsSync(watermarkPath)) {
+                    const outputVideoPath = path.join(__dirname, 'public/uploads/videos', fileName);
+                    const videoPath = path.join(__dirname, 'public/uploads', fileName);
+                    fs.writeFileSync(videoPath, fileBuffer); // حفظ الملف على الجهاز
+                    const ffmpegCommand = ffmpeg();
+
+                    ffmpegCommand.input(videoPath);
+                    // موقع العلامة المائية في الزاوية اليمنى السفلية
+                    const xPos = 'main_w-overlay_w-10';
+                    const yPos = 'main_h-overlay_h-10';
+
+
+                    ffmpegCommand.input(watermarkPath);
+                    ffmpegCommand.complexFilter([`overlay=${xPos}:${yPos}`]);
+                    ffmpegCommand.videoCodec('libx264');
+                    ffmpegCommand.audioCodec('aac');
+                    ffmpegCommand.output(outputVideoPath);
+
+                    ffmpegCommand.on('end', async () => {
+                        console.log('تم وضع العلامة المائية على الفيديو بنجاح.');
+                        // بعد الانتهاء من معالجة الفيديو وحفظ النسخة مع العلامة المائية
+                        // قم بحذف النسخة الأصلية (بدون العلامة المائية)
+                        fs.unlinkSync(videoPath);
+                        // هنا يمكنك إضافة معلومات الفيديو إلى قاعدة البيانات إذا كنت بحاجة إلى ذلك
+                    });
+
+                    ffmpegCommand.on('error', (err) => {
+                        console.error('حدث خطأ أثناء وضع العلامة المائية على الفيديو:', err);
+                        response.status(500).json({ error: 'حدث خطأ أثناء معالجة الفيديو.' });
+                    });
+
+                    ffmpegCommand.run();
+                    fileInfo.path = `/uploads/videos/${fileName}`;
+                }
             } else if (fileInfo.type === "audio/mpeg") {
                 fs.writeFileSync(`${defPath}/audios/${fileName}`, fileBuffer);
                 fileInfo.path = `/uploads/audios/${fileName}`;
@@ -108,11 +142,9 @@ export default async ({ app, path, fs, config, __dirname, model }) => {
                 url: config.WEBSITE_DOMAIN + fileInfo.path
             });
 
-            // Check the file type and add it to the corresponding table
             switch (fileInfo.type) {
                 case 'image/jpeg':
                 case 'image/png':
-                    // Add the file to the Images table
                     const lastImagesId = await Images.max('image_id').catch((error) => {
                         console.log(error);
                     });
@@ -125,8 +157,12 @@ export default async ({ app, path, fs, config, __dirname, model }) => {
                     });
                     break;
                 case 'video/mp4':
-                    // Add the file to the Videos table
-                    const lastVideosId = await Images.max('video_id').catch((error) => {
+                case 'video/quicktime':
+                case 'video/webm':
+                case 'video/ogg':
+                case 'video/avi':
+                case 'video/wmv':
+                    const lastVideosId = await Videos.max('video_id').catch((error) => {
                         console.log(error);
                     });
                     await Videos.create({
@@ -138,8 +174,7 @@ export default async ({ app, path, fs, config, __dirname, model }) => {
                     });
                     break;
                 case 'audio/mpeg':
-                    // Add the file to the Audios table
-                    const lastAudiosId = await Images.max('audio_id').catch((error) => {
+                    const lastAudiosId = await Audios.max('audio_id').catch((error) => {
                         console.log(error);
                     });
                     await Audios.create({
@@ -151,8 +186,7 @@ export default async ({ app, path, fs, config, __dirname, model }) => {
                     });
                     break;
                 case 'application/pdf':
-                    // Add the file to the Pdfs table
-                    const lastPdfsId = await Images.max('pdf_id').catch((error) => {
+                    const lastPdfsId = await Pdfs.max('pdf_id').catch((error) => {
                         console.log(error);
                     });
                     await Pdfs.create({
