@@ -7,11 +7,12 @@
     margin-right: auto;
     list-style: none;
 }
-#boxTopic li{
+
+#boxTopic li {
     display: flex;
     width: 100%;
     justify-content: space-between;
-    align-items:center;
+    align-items: center;
     background-color: var(--background_white);
     border-color: var(--border);
     border-width: 1px;
@@ -25,13 +26,13 @@
     box-sizing: border-box;
 }
 
-#boxTopic>li>img{
+#boxTopic>li>img {
     width: 18px;
     margin-left: 10px;
     user-select: none;
 }
 
-#boxTopic>li>div{
+#boxTopic>li>div {
     width: 130px;
     border-right-color: var(--border);
     border-right-width: 1px;
@@ -82,4 +83,13 @@
     border-color: var(--border);
     border-width: 1px;
     border-style: solid;
+}
+
+@media (max-width: 450px) {
+
+    .CountViews,
+    .CountComments {
+        display: none;
+    }
+
 }
