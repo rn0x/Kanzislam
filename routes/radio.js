@@ -7,10 +7,10 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify }) =>
 
         const options = {
             website_name: config.WEBSITE_NAME,
-            title: `الإذاعات الإسلامية: دليلك لإذاعات القرآن والأحاديث والسنة - ${config.WEBSITE_NAME}`,
-            keywords: ["word1", "word2", "word3"],
-            description: "وصف_الصفحة",
-            preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent("test")}&description=${encodeURIComponent("test")}`,
+            title: `موسوعة البث الإسلامي: ابحث واستمع إلى إذاعات القرآن والأحاديث والسنة - ${config.WEBSITE_NAME}`,
+            keywords: ["إذاعات القرآن", "إذاعات الأحاديث", "إذاعات السنة", "بث إسلامي", "تلاوة القرآن", "محاضرات إسلامية", "تفسير القرآن", "تعلم الدين", "مصادر إسلامية", "أصوات إسلامية", "دليل إذاعات إسلامية"],
+            description: "دليل البث الإسلامي الشامل، حيث يمكنك العثور على مصادر إذاعات القرآن والأحاديث والسنة الإسلامية. استمتع بالاستماع إلى المقرئين والعلماء الرائعين وتعزيز فهمك للدين الإسلامي من خلال هذه الإذاعات المميزة.",
+            preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent("موسوعة البث الإسلامي: ابحث واستمع إلى إذاعات القرآن والأحاديث والسنة")}&description=${encodeURIComponent("دليل البث الإسلامي الشامل، حيث يمكنك العثور على مصادر إذاعات القرآن والأحاديث والسنة الإسلامية. استمتع بالاستماع إلى المقرئين والعلماء الرائعين وتعزيز فهمك للدين الإسلامي من خلال هذه الإذاعات المميزة.")}`,
             session: request.session
         };
         const pugPath = path.join(__dirname, './views/radio.pug');
@@ -25,10 +25,10 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify }) =>
 
         const options = {
             website_name: config.WEBSITE_NAME,
-            title: `الإذاعات الإسلامية: دليلك لإذاعات القرآن والأحاديث والسنة - ${config.WEBSITE_NAME}`,
-            keywords: ["word1", "word2", "word3"],
-            description: "وصف_الصفحة",
-            preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent("test")}&description=${encodeURIComponent("test")}`,
+            title: `الإذاعات الإسلامية: ${radioFind?.name} - ${config.WEBSITE_NAME}`,
+            keywords: ["إذاعات القرآن", "إذاعات الأحاديث", "إذاعات السنة", "بث إسلامي", "تلاوة القرآن", "محاضرات إسلامية", "تفسير القرآن", "تعلم الدين", "مصادر إسلامية", "أصوات إسلامية", "دليل إذاعات إسلامية"],
+            description: "دليل البث الإسلامي الشامل، حيث يمكنك العثور على مصادر إذاعات القرآن والأحاديث والسنة الإسلامية. استمتع بالاستماع إلى المقرئين والعلماء الرائعين وتعزيز فهمك للدين الإسلامي من خلال هذه الإذاعات المميزة.",
+            preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`الإذاعات الإسلامية: ${radioFind?.name}`)}&description=${encodeURIComponent("دليل البث الإسلامي الشامل، حيث يمكنك العثور على مصادر إذاعات القرآن والأحاديث والسنة الإسلامية. استمتع بالاستماع إلى المقرئين والعلماء الرائعين وتعزيز فهمك للدين الإسلامي من خلال هذه الإذاعات المميزة.")}`,
             session: request.session,
             radioJson: radioFind
         };
