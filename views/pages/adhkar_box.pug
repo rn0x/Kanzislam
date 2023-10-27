@@ -1,4 +1,4 @@
-extends ./layout.pug
+extends ../layout.pug
 
 block stylesheet
   link(rel="stylesheet" href="/css/adhkar.css")
@@ -18,6 +18,6 @@ block content
       p 0
 block script
   script(type="module")
-    include ../public/js/adhkar.js
+    include ../../public/js/pages/adhkar.js
   script.
     window.options = !{jsStringify(options)};

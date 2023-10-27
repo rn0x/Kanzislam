@@ -1,4 +1,4 @@
-import error from "./error.js";
+import error from "../error.js";
 
 export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filterSpan }) => {
 
@@ -17,7 +17,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
             session: request.session,
             adhkarJson,
         };
-        let pugPath = path.join(__dirname, './views/adhkar_box.pug');
+        let pugPath = path.join(__dirname, './views/pages/adhkar_box.pug');
         let render = pug.renderFile(pugPath, { options, jsStringify });
         response.send(render);
     });
@@ -36,7 +36,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
                 session: request.session,
                 adhkarJson: adhkarJson[isPathAdhkar],
             };
-            let pugPath = path.join(__dirname, './views/adhkar.pug');
+            let pugPath = path.join(__dirname, './views/pages/adhkar.pug');
             let render = pug.renderFile(pugPath, { options, jsStringify });
             response.send(render);
         }
@@ -60,7 +60,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
                 AdhkarObject,
                 filterSpan
             };
-            let pugPath = path.join(__dirname, './views/adhkars.pug');
+            let pugPath = path.join(__dirname, './views/pages/adhkars.pug');
             let render = pug.renderFile(pugPath, { options, jsStringify });
             response.send(render);
         }

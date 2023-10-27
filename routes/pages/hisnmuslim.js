@@ -1,11 +1,11 @@
-import error from "./error.js";
+import error from "../error.js";
 
 export default async ({ app, pug, path, fs, config, __dirname, jsStringify }) => {
 
     const options = {
         website_name: config.WEBSITE_NAME,
     };
-    const pugPath = path.join(__dirname, './views/hisnmuslim.pug');
+    const pugPath = path.join(__dirname, './views/pages/hisnmuslim.pug');
     const hisnmuslimPath = path.join(__dirname, 'public/json/hisnmuslim.json');
     const hisnmuslimJson = await fs.readJson(hisnmuslimPath).catch(() => ({}));
 

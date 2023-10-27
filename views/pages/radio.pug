@@ -1,4 +1,4 @@
-extends ./layout.pug
+extends ../layout.pug
 
 block stylesheet
     link(rel="stylesheet" href="/css/radio.css")
@@ -20,6 +20,6 @@ block content
             //-     img(src="/icon/play.svg" alt="#").iconRadio
 block script
     script(type="module")
-        include ../public/js/radio.js
+        include ../../public/js/pages/radio.js
     script.
         window.options = !{jsStringify(options)};

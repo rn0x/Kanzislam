@@ -37,13 +37,13 @@ import update_password from './routes/update_password.js';
 import activate from './routes/activate.js';
 import register from './routes/register.js';
 import logout from './routes/logout.js';
-import quran from './routes/quran.js';
-import adhkar from './routes/adhkar.js';
-import hisnmuslim from './routes/hisnmuslim.js';
-import prayer from './routes/prayer.js';
+import quran from './routes/pages/quran.js';
+import adhkar from './routes/pages/adhkar.js';
+import hisnmuslim from './routes/pages/hisnmuslim.js';
+import prayer from './routes/pages/prayer.js';
 import forum from './routes/forum/index.js';
 import error from './routes/error.js';
-import radio from './routes/radio.js';
+import radio from './routes/pages/radio.js';
 
 // Get the current working directory
 const __dirname = path.resolve();

@@ -1,4 +1,4 @@
-extends ./layout.pug
+extends ../layout.pug
 
 block stylesheet
   link(rel="stylesheet" href="/css/quran.css")
@@ -23,6 +23,6 @@ block content
       //-       small.english_name The Opening
 block script
   script(type="module")
-    include ../public/js/quran.js
+    include ../../public/js/pages/quran.js
   script.
     window.options = !{jsStringify(options)};

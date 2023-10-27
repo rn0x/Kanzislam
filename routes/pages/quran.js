@@ -1,4 +1,4 @@
-import error from "./error.js";
+import error from "../error.js";
 
 export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filterSpan }) => {
     const quranPath = path.join(__dirname, 'public/json/quran_info.json');
@@ -43,7 +43,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
             session: request.session,
             quranJson
         };
-        const pugPath = path.join(__dirname, './views/quran.pug');
+        const pugPath = path.join(__dirname, './views/pages/quran.pug');
         const render = pug.renderFile(pugPath, { options, jsStringify });
         response.send(render);
     });
@@ -63,7 +63,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
                 currentSurah: currentSurah,
                 nameSurah: nameSurah
             };
-            const pugPath = path.join(__dirname, './views/quran_pathname.pug');
+            const pugPath = path.join(__dirname, './views/pages/quran_pathname.pug');
             const render = pug.renderFile(pugPath, { options, jsStringify });
             response.send(render);
         } else {

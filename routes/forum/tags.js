@@ -1,4 +1,4 @@
-import error from "./error.js";
+import error from "../error.js";
 
 export default async ({ app, pug, path, fs, config, __dirname, jsStringify, model, database, getElapsedTime }) => {
   

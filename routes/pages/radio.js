@@ -13,7 +13,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify }) =>
             preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent("موسوعة البث الإسلامي: ابحث واستمع إلى إذاعات القرآن والأحاديث والسنة")}&description=${encodeURIComponent("دليل البث الإسلامي الشامل، حيث يمكنك العثور على مصادر إذاعات القرآن والأحاديث والسنة الإسلامية. استمتع بالاستماع إلى المقرئين والعلماء الرائعين وتعزيز فهمك للدين الإسلامي من خلال هذه الإذاعات المميزة.")}`,
             session: request.session
         };
-        const pugPath = path.join(__dirname, './views/radio.pug');
+        const pugPath = path.join(__dirname, './views/pages/radio.pug');
         const render = pug.renderFile(pugPath, { options, jsStringify });
         response.send(render);
     });
@@ -32,7 +32,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify }) =>
             session: request.session,
             radioJson: radioFind
         };
-        const pugPath = path.join(__dirname, './views/radios.pug');
+        const pugPath = path.join(__dirname, './views/pages/radios.pug');
         const render = pug.renderFile(pugPath, { options, jsStringify });
         response.send(render);
     });

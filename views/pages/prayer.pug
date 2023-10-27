@@ -1,4 +1,4 @@
-extends ./layout.pug
+extends ../layout.pug
 
 block stylesheet
     link(rel="stylesheet" href="/css/prayer.css")
@@ -47,6 +47,6 @@ block content
         img(src="/icon/logo.svg" alt="logo" class="iconFilter")#logoScreen 
 block script
     script(type="module")
-        include ../public/js/prayer.js
+        include ../../public/js/pages/prayer.js
     script.
         window.options = !{jsStringify(options)};

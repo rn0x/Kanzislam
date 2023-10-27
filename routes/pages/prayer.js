@@ -10,7 +10,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify }) =>
             preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent("أوقات الصلاة الدقيقة: تتبع صلواتك اليومية مع التنبيهات الصوتية")}&description=${encodeURIComponent("تعد هذه الصفحة أداة رائعة لأولئك الذين يرغبون في ضمان أداء صلواتهم الخمس (الفجر، الظهر، العصر، المغرب، العشاء) في الوقت المحدد كل يوم, بناءً على موقع المستخدم. يتم تحديث هذه الأوقات يوميًا لضمان دقتها.")}`,
             session: request.session
         };
-        const pugPath = path.join(__dirname, './views/prayer.pug');
+        const pugPath = path.join(__dirname, './views/pages/prayer.pug');
         const render = pug.renderFile(pugPath, { options, jsStringify });
         response.send(render);
     });

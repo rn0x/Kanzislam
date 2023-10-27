@@ -2,7 +2,7 @@ import forum from './forum.js';
 import createTopic from './createTopic.js';
 import topic from './topic.js';
 import username from './username.js';
-import tags from '../tags.js';
+import tags from './tags.js';
 
 /**
  * routes forum
