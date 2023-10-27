@@ -39,6 +39,8 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
         const quranJson = await fs.readJson(quranPath).catch(() => ({}));
         const hisnmuslimPath = path.join(__dirname, 'public/json/hisnmuslim.json');
         const hisnmuslimJson = await fs.readJson(hisnmuslimPath).catch(() => ({}));
+        const radioPath = path.join(__dirname, 'public/json/radio.json');
+        const radioJson = await fs.readJson(radioPath).catch(() => ({}));
 
 
         const Pages = [
@@ -165,10 +167,19 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
         }
 
         // القرآن الكريم
-
         for (let item of quranJson) {
             Pages.push({
                 url: `${WEBSITE_DOMAIN}/quran/${item?.name?.replace(/ /g, '_')}`,
+                lastmod: formattedNowDate,
+                changefreq: "monthly",
+                priority: 0.8,
+            })
+        }
+
+        // الإذاعات الإسلامية
+        for (let item of radioJson) {
+            Pages.push({
+                url: `${WEBSITE_DOMAIN}/radios/${item?.id}`,
                 lastmod: formattedNowDate,
                 changefreq: "monthly",
                 priority: 0.8,

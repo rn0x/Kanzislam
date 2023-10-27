@@ -43,6 +43,7 @@ import hisnmuslim from './routes/hisnmuslim.js';
 import prayer from './routes/prayer.js';
 import forum from './routes/forum/index.js';
 import error from './routes/error.js';
+import radio from './routes/radio.js';
 
 // Get the current working directory
 const __dirname = path.resolve();
@@ -154,6 +155,7 @@ await adhkar(param);
 await hisnmuslim(param);
 await prayer(param);
 await forum(param);
+await radio(param);
 
 // يقوم بإنشاء ملف sitemap وفهرس sitemap بناءً على الصفحات المعطاة.
 await sitemap(param);

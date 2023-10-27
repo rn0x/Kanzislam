@@ -1,0 +1,27 @@
+extends ./layout.pug
+
+block stylesheet
+    link(rel="stylesheet" href="/css/radio.css")
+
+block content
+    #radioPage
+        ul.breadcrumb
+            li 
+                a(href="/")
+                    img(src="/icon/home.svg" alt="الرئيسية" class="iconFilter") 
+            li 
+                small /
+                a(href="/radio") الإذاعات الإسلامية
+            li 
+                small /
+                a(href=`/radios/${options.radioJson.id}`) #{options.radioJson.name}
+        h2#title #{options.radioJson.name}
+        #radios 
+            p.RadioId #{options.radioJson.id}
+            p(title=options.radioJson.name).RadioTitle #{options.radioJson.name}
+            img(src="/icon/play.svg" alt="play").iconRadio.iconFilter#iconRadio
+block script
+    script(type="module")
+        include ../public/js/radio.js
+    script.
+        window.options = !{jsStringify(options)};
