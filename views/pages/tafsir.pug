@@ -1,0 +1,56 @@
+extends ../layout.pug
+
+block stylesheet
+    link(rel="stylesheet" href="/css/tafsir.css")
+
+block content
+    #tafsirPage
+        ul.breadcrumb
+            li 
+                a(href="/")
+                    img(src="/icon/home.svg" alt="الرئيسية" class="iconFilter") 
+            li 
+                small /
+                a(href="/tafsir-quran") تفاسير القرآن الكريم
+            if options.tafsir
+                li 
+                    small /
+                    a(href=`/tafsir-quran/${options.tafsir.name_english}`) #{options.tafsir.name} 
+        if options.tafsir_name
+            #tafsir_index 
+                h2 تفاسير القرآن الكريم
+                ul#tafsir_ul 
+                    li 
+                        a(href="/tafsir-quran/tabary") تفسير الطبري 
+                    li 
+                        a(href="/tafsir-quran/katheer") تفسير ابن كثير 
+                    li 
+                        a(href="/tafsir-quran/saadi") تفسير السعدي 
+                    li 
+                        a(href="/tafsir-quran/qortobi") تفسير القرطبي 
+                    li 
+                        a(href="/tafsir-quran/baghawy") تفسير البغوي 
+                    li 
+                        a(href="/tafsir-quran/tanweer") تفسير ابن عاشور 
+                    li 
+                        a(href="/tafsir-quran/eerab") إعراب القرآن لدعاس
+                    li 
+                        a(href="/tafsir-quran/waseet") الوسيط لطنطاوي 
+        if options.tafsir
+            #surah_index
+                h2 #{options.tafsir.name} 
+                ul#surahBox 
+                    //- li 
+                    //-     a(href="#") 
+                    //-         h2 الفاتحة
+                    //-         p 1
+                    //-         div 
+                    //-             small.descent مكية
+                    //-             small.english_name The Opening
+
+
+block script
+    script(type="module")
+        include ../../public/js/pages/tafsir.js
+    script.
+        window.options = !{jsStringify(options)};

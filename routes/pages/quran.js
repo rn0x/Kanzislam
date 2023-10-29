@@ -77,10 +77,10 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
         const currentQuranIndex = quranJson.findIndex(e => e.name === nameSurah);
         const currentSurahIndex = surahJson.findIndex(e => e.name === nameSurah);
         const currentSurah = { ...quranJson[currentQuranIndex], ...surahJson[currentSurahIndex] };
-        const previousSurah = currentQuranIndex === 0 ? { ...quranJson[quranJson.length - 1], ...surahJson[surahJson.length - 1] } : { ...quranJson[currentQuranIndex - 1], ...surahJson[currentSurahIndex.length - 1] };
-        const nextSurah = currentQuranIndex === quranJson.length - 1 ? { ...quranJson[0], ...surahJson[0] } : { ...quranJson[currentQuranIndex + 1], ...surahJson[currentSurah + 1] };
-
+        
         if (currentSurah?.name) {
+            const previousSurah = currentQuranIndex === 0 ? { ...quranJson[quranJson.length - 1], ...surahJson[surahJson.length - 1] } : { ...quranJson[currentQuranIndex - 1], ...surahJson[currentSurahIndex.length - 1] };
+            const nextSurah = currentQuranIndex === quranJson.length - 1 ? { ...quranJson[0], ...surahJson[0] } : { ...quranJson[currentQuranIndex + 1], ...surahJson[currentSurah + 1] };
             const mp3quranFind = mp3quranJson.map(reader => {
                 const surah = reader.audio.find(item => item.name === nameSurah);
                 return {
@@ -100,6 +100,10 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
                 mp3quranFind
             })
 
+        }
+
+        else {
+            response.json(quranJson)
         }
     });
 };  

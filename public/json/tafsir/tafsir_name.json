@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "الطبري",
+    "name_english": "tabary"
+  },
+  {
+    "id": 2,
+    "name": "ابن كثير",
+    "name_english": "katheer"
+  },
+  {
+    "id": 3,
+    "name": "السعدي",
+    "name_english": "saadi"
+  },
+  {
+    "id": 4,
+    "name": "القرطبي",
+    "name_english": "qortobi"
+  },
+  {
+    "id": 5,
+    "name": "البغوي",
+    "name_english": "baghawy"
+  },
+  {
+    "id": 6,
+    "name": "ابن عاشور",
+    "name_english": "tanweer"
+  },
+  {
+    "id": 7,
+    "name": "إعراب القرآن لدعاس",
+    "name_english": "eerab"
+  },
+  {
+    "id": 8,
+    "name": "الوسيط لطنطاوي",
+    "name_english": "waseet"
+  }
+]
