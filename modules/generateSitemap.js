@@ -5,10 +5,10 @@ import { modelObject } from '../database/index.js';
 export default async function generateSitemap(newPages) {
   try {
     const __dirname = path.resolve();
-    const sitemapSizeLimit = 50000;
     const configPath = path.join(__dirname, 'config.json');
     const config = await fs.readJson(configPath).catch(() => ({}));
     const sitemapDir = path.join(__dirname, 'public/sitemap');
+    const sitemapSizeLimit = config?.SITEMAP_LIMIT;
     if (!fs.existsSync(sitemapDir)) {
       fs.mkdirSync(sitemapDir, { recursive: true });
     }
