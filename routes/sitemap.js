@@ -35,12 +35,16 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
         const adhkarPath = path.join(__dirname, 'public/json/adhkar.json');
         const adhkarJson = await fs.readJson(adhkarPath).catch(() => ({}));
         const adhkarKey = Object.keys(adhkarJson);
-        const quranPath = path.join(__dirname, 'public/json/quran.json');
+        const quranPath = path.join(__dirname, 'public/json/quran_info.json');
         const quranJson = await fs.readJson(quranPath).catch(() => ({}));
         const hisnmuslimPath = path.join(__dirname, 'public/json/hisnmuslim.json');
         const hisnmuslimJson = await fs.readJson(hisnmuslimPath).catch(() => ({}));
         const radioPath = path.join(__dirname, 'public/json/radio.json');
         const radioJson = await fs.readJson(radioPath).catch(() => ({}));
+        const tafsir_name_path = path.join(__dirname, 'public/json/tafsir/tafsir_name.json');
+        const tafsir_name_json = await fs.readJson(tafsir_name_path).catch(() => ({}));
+        const ayatPath = path.join(__dirname, 'public/json/ayat.json');
+        const ayatJson = await fs.readJson(ayatPath).catch(() => ({}));
 
 
         const Pages = [
@@ -205,6 +209,32 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
                     changefreq: "monthly",
                     priority: 0.8,
                 })
+            }
+        }
+
+        // التفاسير 8
+
+        for (let item of tafsir_name_json) {
+
+            const tfsName = item?.name_english;
+
+            for (let iterator of quranJson) {
+
+                const surahId = iterator?.number;
+
+                for (let lop of ayatJson[surahId - 1]?.ayat) {
+
+                    const ayahID = lop?.id;
+
+                    Pages.push({
+                        url: `${WEBSITE_DOMAIN}/tafsir-quran/${tfsName}/${surahId}/${ayahID}`,
+                        lastmod: formattedNowDate,
+                        changefreq: "monthly",
+                        priority: 0.8,
+                    })
+
+                }
+
             }
         }
 
