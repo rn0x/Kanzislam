@@ -1,0 +1,124 @@
+#historyBox {
+    width: 90%;
+    max-width: 1000px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    list-style: none;
+    padding: 0px;
+}
+
+#historyBox li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    word-break: break-all;
+    background-color: var(--background_white);
+    border-radius: 8px;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: solid;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#historyBox li:hover {
+    background-color: var(--background_hover);
+}
+
+.id_history {
+    width: 60px;
+    background-color: var(--divHeader);
+    color: var(--colorWhite);
+    margin-left: 10px;
+    padding: 5px;
+    border-radius: 8px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.link_history {
+    width: 100%;
+    text-align: justify;
+}
+
+#searchHistory {
+    background-image: url(/icon/searchicon.png);
+    background-position: 5px 9px;
+    background-repeat: no-repeat;
+    padding: 10px;
+    width: 70%;
+    max-width: 600px;
+    border: none;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: solid;
+}
+
+#historyMore {
+    display: none;
+    margin-top: 10px;
+    padding: 10px;
+    width: 120px;
+    background-color: var(--button);
+    color: var(--colorWhite);
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#historyMore:hover {
+    background-color: var(--background_hover);
+    color: var(--colorFontMain);
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: solid;
+}
+
+#historyBoxText {
+    width: 90%;
+    max-width: 1000px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    background-color: var(--background_white);
+    margin-top: 10px;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+}
+
+#boxDate {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    list-style: none;
+    padding: 0px;   
+}
+
+#boxDate li {
+    background-color: var(--divHeader);
+    color: var(--colorWhite);
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    margin: 5px 5px 5px 5px;
+}
+
+#historyBoxText p {
+    text-align: justify;
+}
+
+#historyBoxText h2 {
+    font-size: 20px;
+}

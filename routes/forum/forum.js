@@ -42,10 +42,10 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
             if (getCategorie?.dataValues) {
                 const options = {};
                 options.website_name = config.WEBSITE_NAME;
-                options.title = `${categorie} - ${config.WEBSITE_NAME}`;
+                options.title = `${getCategorie.title} - ${config.WEBSITE_NAME}`;
                 options.keywords = ["مجتمع إسلامي", "محتوى ثقافي إسلامي", "تعليم إسلامي", "منتديات إسلامية", "مقالات إسلامية", "تواصل إسلامي", "تعاون إسلامي", "موارد تعليمية إسلامية", "مدونات إسلامية"];
                 options.description = getCategorie?.dataValues?.description;
-                options.preview = `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(categorie)}&description=${encodeURIComponent(getCategorie?.dataValues?.description)}`;
+                options.preview = `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(getCategorie.title)}&description=${encodeURIComponent(getCategorie?.dataValues?.description)}`;
                 options.session = request.session;
                 options.getCategorie = getCategorie?.dataValues;
                 const pugPath = path.join(__dirname, './views/forum/categories.pug');

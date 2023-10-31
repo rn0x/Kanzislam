@@ -1,0 +1,27 @@
+extends ../layout.pug
+
+block stylesheet
+    link(rel="stylesheet" href="/css/history.css")
+
+block content
+    #historyPage
+        ul.breadcrumb
+            li 
+                a(href="/")
+                    img(src="/icon/home.svg" alt="الرئيسية" class="iconFilter") 
+            li 
+                small /
+                a(href="/historical-events") الموسوعة التاريخية الإسلامية
+            li 
+                small /
+                a(href=`/historical-events/${options.historyJson.id}`) #{options.historyJson.title}
+        #historyBoxText
+            h2 #{options.historyJson.title}
+            ul#boxDate
+                each item in options.historyJson.date
+                    li #{item}
+            p!=options.filterSpan(options.historyJson.text)
+
+block script
+    script.
+        window.options = !{jsStringify(options)};
