@@ -32,7 +32,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, anal
                 title: `${findHistory?.title} - ${config.WEBSITE_NAME}`,
                 keywords: keywords?.value,
                 description: findHistory?.text?.substring(0, 200),
-                preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(findHistory?.title)}&description=${encodeURIComponent(findHistory?.text)}`,
+                preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(findHistory?.title)}&description=${encodeURIComponent(findHistory?.text?.substring(0, 200)+"...")}`,
                 session: request.session,
                 historyJson: findHistory,
                 filterSpan: filterSpan
