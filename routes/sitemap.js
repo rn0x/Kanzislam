@@ -45,6 +45,8 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
         const tafsir_name_json = await fs.readJson(tafsir_name_path).catch(() => ({}));
         const ayatPath = path.join(__dirname, 'public/json/ayat.json');
         const ayatJson = await fs.readJson(ayatPath).catch(() => ({}));
+        const historyPath = path.join(__dirname, 'public/json/history.json');
+        const historyJson = await fs.readJson(historyPath).catch(() => ({}));
 
 
         const Pages = [
@@ -236,6 +238,17 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
                 }
 
             }
+        }
+
+        // الأحداث التاريخية
+        for (let item of historyJson) {
+
+            Pages.push({
+                url: `${WEBSITE_DOMAIN}/historical-events/${item?.id}`,
+                lastmod: formattedNowDate,
+                changefreq: "monthly",
+                priority: 0.8,
+            });
         }
 
         // Users
