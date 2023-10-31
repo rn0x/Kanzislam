@@ -49,6 +49,7 @@
         "TITLE_LENGTH": 80,
         "CONTENT_LENGTH": 10000,
         "MAX_IMAGES": 10
-    }
+    },
+    "SITEMAP_LIMIT": 50000
 }
 ```
