@@ -93,14 +93,14 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, anal
             }
 
             function removeArabicSymbols(text) {
-                // إزالة الرموز غير القابلة للعرض
-                text = text?.replace(/[^\u0600-\u06FF\uFB50-\uFDFF\uFE70-\uFEFF\u0750-\u077F]+/g, '');
-
                 // تحويل المسافات إلى شرطة سفلية
                 text = text?.replace(/\s/g, '_');
-
+                // إزالة الرموز غير القابلة للعرض
+                text = text?.replace(/[^\u0600-\u06FF\uFB50-\uFDFF\uFE70-\uFEFF\u0750-\u077F_]+/g, '');
+            
                 return text;
-            }
+            }            
+            
         }
     });
 }
