@@ -93,12 +93,9 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, anal
             }
 
             function removeArabicSymbols(text) {
-                // إزالة الحركات العربية
-                text = text?.replace(/[\u064B-\u065F\u0670]/g, '');
-                // إزالة الأيقونات
-                text = text?.replace(/[^\u0000-\u007F]+/g, '');
-                // إزالة علامات الترقيم والشرطات والنقاط
-                text = text?.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()|]/g, '');
+                // إزالة الرموز غير القابلة للعرض
+                text = text?.replace(/[^\u0600-\u06FF\uFB50-\uFDFF\uFE70-\uFEFF\u0750-\u077F]+/g, '');
+
                 // تحويل المسافات إلى شرطة سفلية
                 text = text?.replace(/\s/g, '_');
 
