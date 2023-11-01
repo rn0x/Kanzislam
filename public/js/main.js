@@ -1,5 +1,6 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
     const options = window.options;
+    const analytics = document.getElementById("analytics");
     const header_menu_left = document.getElementById("header_menu_left");
     const header_menu_left_isLoggedIn = document.getElementById("header_menu_left_isLoggedIn");
     const menu_logged = document.getElementById("menu_logged");
@@ -57,6 +58,18 @@ document.addEventListener("DOMContentLoaded", function () {
         storage.setItem("login-path", pathname);
     });
 
+    if (analytics) {
+
+        const analyticsViews = document.getElementById("analyticsViews");
+        const analyticsTopics = document.getElementById("analyticsTopics");
+        const analyticsComments = document.getElementById("analyticsComments");
+        const analyticsUsers = document.getElementById("analyticsUsers");
+        const analyticsJson = await analyticsData();
+        analyticsViews.innerText = analyticsJson?.Pageviews;
+        analyticsTopics.innerText = analyticsJson?.Topics;
+        analyticsComments.innerText = analyticsJson?.Comments;
+        analyticsUsers.innerText = analyticsJson?.Users;
+    }
 
     if (options?.session?.isLoggedIn) {
         header_menu_left.style.display = "none";
@@ -80,6 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
         SideMenuProfile.style.display = "none";
         SideMenuSettings.style.display = "none";
     }
+
 
     // تبديل حالة القائمة الجانبية
     function toggleSideMenu(event) {
@@ -153,4 +167,28 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = window.location.href
     }
 
+
+    async function analyticsData() {
+        const analyticsURL = `${window.location.origin}/analytics`;
+        const analyticsFetch = await fetch(analyticsURL, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        if (analyticsFetch.ok) {
+            const response = await analyticsFetch?.json();
+
+            console.log("response", response);
+            if (response) {
+                return response;
+            }
+            else {
+                return false
+            }
+        }
+        else {
+            return false;
+        }
+    }
 });

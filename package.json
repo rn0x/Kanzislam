@@ -42,6 +42,7 @@
     "helmet": "^7.0.0",
     "jimp": "^0.22.10",
     "js-stringify": "^1.0.2",
+    "node-fetch": "^3.3.2",
     "nodemailer": "^6.9.6",
     "pug": "^3.0.2",
     "puppeteer": "^21.4.0",

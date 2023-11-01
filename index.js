@@ -10,6 +10,7 @@ import pug from 'pug';
 import jsStringify from 'js-stringify';
 import EmailSender from './modules/emailSender.js';
 import createUploadsFolder from './modules/createUploadsFolder.js';
+import Pageviews from './modules/Pageviews.js';
 import generatePassword from './public/js/modules/generatePassword.js';
 import checkTextLength from './public/js/modules/checkTextLength.js';
 import convertToNumber from './public/js/modules/convertToNumber.js';
@@ -30,6 +31,7 @@ import filterSpan from './public/js/modules/filterSpan.js';
 import sitemap from './routes/sitemap.js';
 import preview from './routes/preview.js';
 import upload from './routes/upload.js';
+import analytics from './routes/analytics.js';
 import home from './routes/home.js';
 import login from './routes/login.js';
 import reset_password from './routes/reset_password.js';
@@ -142,9 +144,13 @@ app.use(
     })
 );
 
+// وسيط لجمع معلومات المتصفح والجهاز والمشاهدات
+app.use(Pageviews({ model: modelObject }));
+
 // routes
 await preview(param);
 await upload(param);
+await analytics(param);
 await home(param);
 await login(param);
 await register(param);
@@ -164,7 +170,7 @@ await history(param);
 // يقوم بإنشاء ملف sitemap وفهرس sitemap بناءً على الصفحات المعطاة.
 await sitemap(param);
 
-app.use(async (request, response, next) =>{
+app.use(async (request, response, next) => {
     await error({ config, request, path, response, __dirname, pug, jsStringify });
 });
 

@@ -12,6 +12,7 @@ import Videos from './models/Videos.js';
 import Audios from './models/Audios.js';
 import Pdfs from './models/Pdfs.js';
 import Sitemap from './models/Sitemap.js';
+import Pageviews from './models/Pageviews.js';
 
 /**
  * تستورد النماذج وتنشئ العلاقات بينها.
@@ -34,6 +35,7 @@ function model(sequelize) {
     const AudiosModel = Audios(sequelize);
     const PdfsModel = Pdfs(sequelize);
     const SitemapModel = Sitemap(sequelize);
+    const PageviewsModel = Pageviews(sequelize);
 
 
     CategoriesModel.hasMany(TopicsModel, { foreignKey: 'category_id', as: 'topics' });
@@ -80,7 +82,8 @@ function model(sequelize) {
         Videos: VideosModel,
         Audios: AudiosModel,
         Pdfs: PdfsModel,
-        Sitemap: SitemapModel
+        Sitemap: SitemapModel,
+        Pageviews: PageviewsModel
     };
 }
 
