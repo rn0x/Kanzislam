@@ -53,6 +53,25 @@ block content
       a(href="/albitaqat" title="بطاقات القرآن الركيم")
         img(src="/icon/albitaqat.svg" alt="البطاقات" class="iconFilter" width="48" height="48")
         p البطاقات  
+  #analytics
+    p#analyticsTitleTop إحصائيات
+    ul#analyticsBox 
+      li
+        span.list-icon
+        p.analyticsTitle زوار الموقع:
+        p.analyticsNumber#analyticsViews
+      li
+        span.list-icon
+        p.analyticsTitle عدد المواضيع:
+        p.analyticsNumber#analyticsTopics
+      li
+        span.list-icon
+        p.analyticsTitle عدد التعليقات:
+        p.analyticsNumber#analyticsComments
+      li
+        span.list-icon
+        p.analyticsTitle عدد الأعضاء:
+        p.analyticsNumber#analyticsUsers
 block script
   script(type="module")
     include ../public/js/home.js

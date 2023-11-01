@@ -92,91 +92,6 @@
 }
 
 
-/* -------------- */
-
-#analytics {
-    width: 80%;
-    max-width: 800px;
-    display: block;
-    background-color: var(--background_white);
-    margin-top: 50px;
-    margin-bottom: 0px;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 8px;
-    border-color: var(--border);
-    border-width: 1px;
-    border-style: solid;
-    position: relative;
-}
-
-#analyticsTitleTop {
-    width: 80px;
-    position: absolute;
-    margin-top: -12px;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: var(--divHeader);
-    color: var(--colorWhite);
-    border-radius: 8px;
-    left: 50%;
-    top: 0;
-    transform: translatex(-50%);
-}
-
-#analyticsBox {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    list-style: none;
-    padding: 5px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
-}
-
-#analyticsBox p {
-    margin-top: 0px;
-    margin-bottom: 0px;
-}
-
-.analyticsTitle {
-    font-size: 14px;
-}
-
-.analyticsNumber {
-    margin-right: 3px;
-    font-size: 10px;
-    color: var(--colorFont2);
-    font-weight: 800;
-}
-
-#analyticsBox li {
-    width: calc(90% / 2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
-    word-break: break-all;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-left: auto;
-    margin-right: auto;
-    box-sizing: border-box;
-    background-color: var(--background_Wild_Sand);
-}
-
-.list-icon {
-    display: block;
-    width: 7px;
-    height: 7px;
-    background-color: var(--divHeader);
-    border-radius: 50%;
-    margin-left: 5px;
-}
-
-
 @media (max-width: 850px) {
     #footer_box {
         display: block;
@@ -189,18 +104,5 @@
 
     #footer_right {
         text-align: center;
-    }
-}
-
-@media (max-width: 550px) {
-
-    #analyticsBox {
-        display: block;
-    }
-
-    #analyticsBox li {
-        width: 100%;
-        justify-content: right;
-        background-color: var(--background_Wild_Sand);
     }
 }
