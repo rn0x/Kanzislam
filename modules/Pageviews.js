@@ -4,7 +4,24 @@ export default ({ model }) => {
     return async (request, response, next) => {
 
         const currentPath = request?.originalUrl;
-        const PathArray = ["/analytics", "/upload" ]
+        const PathArray = [
+            "/analytics",
+            "/upload",
+            "/data-history",
+            "/data-quran",
+            "/data-radio",
+            "/tafsir-data",
+            "/activate",
+            "/login",
+            "/logout",
+            "/preview",
+            "/puppeteer",
+            "/register",
+            "/reset-password",
+            "/sitemap.xml",
+            "/update-password",
+            "/api/upload",
+        ]
 
         if (!PathArray.includes(currentPath)) {
 
