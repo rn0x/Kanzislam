@@ -10,7 +10,6 @@ import pug from 'pug';
 import jsStringify from 'js-stringify';
 import EmailSender from './modules/emailSender.js';
 import createUploadsFolder from './modules/createUploadsFolder.js';
-import Pageviews from './modules/Pageviews.js';
 import generatePassword from './public/js/modules/generatePassword.js';
 import checkTextLength from './public/js/modules/checkTextLength.js';
 import convertToNumber from './public/js/modules/convertToNumber.js';
@@ -26,7 +25,7 @@ import {
     deleteTopic,
     getAllTags
 } from './database/index.js';
-import CreateCategories from './modules/CreateCategories.js';
+import Pageviews from './modules/Pageviews.js';
 import filterSpan from './public/js/modules/filterSpan.js';
 import sitemap from './routes/sitemap.js';
 import preview from './routes/preview.js';
@@ -87,7 +86,6 @@ const param = {
 };
 
 await createUploadsFolder(param); // إنشاء مجلد uploads والمجلدات الفرعية
-await CreateCategories(modelObject.Categories); // إنشاء فئات المجتمع
 
 // استخدام compress لضغط جميع الاستجابات
 app.use(compression({

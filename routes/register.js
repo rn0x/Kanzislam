@@ -96,13 +96,8 @@ export default async ({
                 }).catch((error) => {
                     console.log('حدث خطأ, يرجى التحقق من بينات SMTP', error);
                 });
-                const lastUserId = await Users.max('user_id').catch((error) => {
-                    console.log('حدث خطأ:', error);
-                });
-                const newUserId = lastUserId + 1;
                 const { hashedPassword } = await passwordHandler(password, 'hash');
                 await Users.create({
-                    user_id: newUserId,
                     name: name?.toLocaleLowerCase(),
                     username: username?.toLocaleLowerCase(),
                     password: hashedPassword,

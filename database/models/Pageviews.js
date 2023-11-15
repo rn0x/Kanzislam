@@ -5,12 +5,12 @@ function Pageviews(sequelize) {
     view_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true,
     },
     PagePath: {
       type: DataTypes.STRING,
-      allowNull: false,
-      primaryKey: true
+      allowNull: false
     },
     clientIp: {
       type: DataTypes.STRING,

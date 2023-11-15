@@ -5,11 +5,16 @@ function Videos(sequelize) {
     video_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true,
     },
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: 'users', // اسم جدول المستخدمين
+        key: 'user_id',
+      },
     },
     video_url: {
       type: DataTypes.STRING,

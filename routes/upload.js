@@ -145,12 +145,9 @@ export default async ({ app, path, fs, config, __dirname, model }) => {
             switch (fileInfo.type) {
                 case 'image/jpeg':
                 case 'image/png':
-                    const lastImagesId = await Images.max('image_id').catch((error) => {
-                        console.log(error);
-                    });
+
                     await Images.create({
-                        image_id: lastImagesId + 1,
-                        user_id: user?.dataValues?.user_id,
+                        user_id: user?.user_id,
                         image_url: fileInfo.path
                     }).catch((error) => {
                         console.log(error);
@@ -162,36 +159,24 @@ export default async ({ app, path, fs, config, __dirname, model }) => {
                 case 'video/ogg':
                 case 'video/avi':
                 case 'video/wmv':
-                    const lastVideosId = await Videos.max('video_id').catch((error) => {
-                        console.log(error);
-                    });
                     await Videos.create({
-                        video_id: lastVideosId + 1,
-                        user_id: user?.dataValues?.user_id,
+                        user_id: user?.user_id,
                         video_url: fileInfo.path
                     }).catch((error) => {
                         console.log(error);
                     });
                     break;
                 case 'audio/mpeg':
-                    const lastAudiosId = await Audios.max('audio_id').catch((error) => {
-                        console.log(error);
-                    });
                     await Audios.create({
-                        audio_id: lastAudiosId + 1,
-                        user_id: user?.dataValues?.user_id,
+                        user_id: user?.user_id,
                         audio_url: fileInfo.path
                     }).catch((error) => {
                         console.log(error);
                     });
                     break;
                 case 'application/pdf':
-                    const lastPdfsId = await Pdfs.max('pdf_id').catch((error) => {
-                        console.log(error);
-                    });
                     await Pdfs.create({
-                        pdf_id: lastPdfsId + 1,
-                        user_id: user?.dataValues?.user_id,
+                        user_id: user?.user_id,
                         pdf_url: fileInfo.path
                     }).catch((error) => {
                         console.log(error);

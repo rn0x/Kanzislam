@@ -1,5 +1,6 @@
 import { Sequelize, Model, DataTypes } from 'sequelize';
 import model from './models.js';
+import CreateCategories from '../modules/CreateCategories.js';
 
 // تهيئة اتصال قاعدة البيانات
 const sequelize = new Sequelize({
@@ -384,10 +385,14 @@ async function main() {
         console.log('Database connection has been established successfully.');
         await sequelize.sync();
         console.log('Tables created successfully.');
+
+        // إنشاء فئات المجتمع بعد تأكيد إنشاء الجداول
+        await CreateCategories(modelObject.Categories);
     } catch (error) {
         console.error('Unable to connect to the database:', error);
     }
 }
+
 
 await main();
 

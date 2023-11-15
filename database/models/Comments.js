@@ -5,7 +5,8 @@ function Comments(sequelize) {
     comment_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true,
     },
     user_id: {
       type: DataTypes.INTEGER,
@@ -18,6 +19,10 @@ function Comments(sequelize) {
     content: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    images: {
+      type: DataTypes.JSONB,
+      allowNull: true
     }
   });
 }

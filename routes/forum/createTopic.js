@@ -1,3 +1,4 @@
+import extractImagesFromHtml from "../../modules/extractImagesFromHtml.js";
 import error from "../error.js";
 
 export default async ({ app, pug, path, fs, config, __dirname, jsStringify, model, analyzeText }) => {
@@ -73,6 +74,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
         const analyzeTextRaw = analyzeText(content_raw);
         const keywords = analyzeTextRaw?.words;
         const category_id = convertToNumber(queryCategoryId);
+        const images = await extractImagesFromHtml(content).catch((error) => console.log(error));
 
         if (request?.session?.isLoggedIn) {
             const existingCategory = await Categories.findOne({
@@ -96,27 +98,13 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
                     console.log('حدث خطأ:', error);
                 })
                 const newTopicsId = lastTopicsId + 1;
-                const lastTagsId = await Topics.max('topic_id').catch((error) => {
-                    console.log('حدث خطأ:', error);
-                });
-                const newTagsId = lastTagsId + 1;
 
-                if (existingTopics?.dataValues?.title === title) {
-                    title = title + "#" + newTopicsId
+                if (existingTopics?.title === title) {
+                    title = title + "#" + newTopicsId;
                 }
 
-                // إضافة الكلمات الدالة في قاعدة البيانات
-                await Tags.create({
-                    tag_id: newTagsId,
-                    topic_id: newTopicsId,
-                    tag_name: keywords?.value
-                }).catch((error) => {
-                    console.log(error);
-                });
-
                 // إضافة الموضوع في قاعدة البيانات 
-                await Topics.create({
-                    topic_id: newTopicsId,
+                const CreateTopics = await Topics.create({
                     category_id: category_id,
                     user_id: existingUsers?.dataValues?.user_id,
                     title: title,
@@ -124,7 +112,16 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
                     content_raw: content_raw,
                     description: description ? description : title,
                     type: 'public', // private
-                    hide: false
+                    hide: false,
+                    images: images
+                }).catch((error) => {
+                    console.log(error);
+                });
+
+                // إضافة الكلمات الدالة في قاعدة البيانات
+                await Tags.create({
+                    topic_id: CreateTopics?.topic_id,
+                    tag_name: keywords?.value
                 }).catch((error) => {
                     console.log(error);
                 });
@@ -135,7 +132,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
                     content: content,
                     content_raw: content_raw,
                     keywords: keywords,
-                    topicUrl: `/forum/topic/${newTopicsId}`,
+                    topicUrl: `/forum/topic/${CreateTopics?.topic_id}`,
                     message: "لقد تم إنشاء الموضع بنجاح ✔️"
                 });
             }

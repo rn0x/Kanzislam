@@ -5,7 +5,8 @@ function Views(sequelize) {
     view_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true,
     },
     topic_id: {
       type: DataTypes.INTEGER,

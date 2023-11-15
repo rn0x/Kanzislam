@@ -68,12 +68,13 @@ export default async (Categories) => {
 
         const existingCategorie = await Categories.findOne({
             where: { title: item?.title },
+        }).catch((error) => {
+            console.log(error);
         });
 
-        if (existingCategorie?.dataValues?.title !== item?.title) {
+        if (existingCategorie?.title !== item?.title) {
 
             await Categories.create({
-                category_id: item?.id,
                 title: item?.title,
                 description: item?.description,
             }).catch((error) => {

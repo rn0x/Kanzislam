@@ -1,20 +1,21 @@
 import { DataTypes } from 'sequelize';
 
 function Categories(sequelize) {
-  return sequelize?.define('categories', {
+  return sequelize.define('categories', {
     category_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true,
     },
     title: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: false
-    }
+      allowNull: false,
+    },
   });
 }
 

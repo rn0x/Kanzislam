@@ -34,12 +34,7 @@ export default ({ model }) => {
             // الحصول على معلومات المتصفح والجهاز
             const userAgent = request?.get('User-Agent');
             const parsedUserAgent = parseUserAgent(userAgent);
-            const lastPageviewsId = await Pageviews.max('view_id').catch((error) => {
-                console.log('حدث خطأ:', error);
-            });
-            const newPageviewsId = lastPageviewsId + 1;
             await Pageviews.create({
-                view_id: newPageviewsId,
                 PagePath: decodedNameSurah,
                 clientIp: ip,
                 browserInfo: parsedUserAgent,

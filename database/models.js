@@ -55,11 +55,15 @@ function model(sequelize) {
     UsersModel.hasMany(LikesModel, { foreignKey: 'user_id', as: 'likes', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
     UsersModel.hasMany(NotificationsModel, { foreignKey: 'user_id', as: 'notifications', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
     UsersModel.hasMany(ReportsModel, { foreignKey: 'user_id', as: 'reports', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
+    UsersModel.hasMany(ImagesModel, { foreignKey: 'user_id', as: 'images', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
+    UsersModel.hasMany(VideosModel, { foreignKey: 'user_id', as: 'videos', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
+    UsersModel.hasMany(AudiosModel, { foreignKey: 'user_id', as: 'audios', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
+    UsersModel.hasMany(PdfsModel, { foreignKey: 'user_id', as: 'pdfs', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
 
     // Media relationships
+    ImagesModel.belongsTo(UsersModel, { as: 'users', foreignKey: 'user_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
     VideosModel.belongsTo(UsersModel, { as: 'users', foreignKey: 'user_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
     AudiosModel.belongsTo(UsersModel, { as: 'users', foreignKey: 'user_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
-    ImagesModel.belongsTo(UsersModel, { as: 'users', foreignKey: 'user_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
     PdfsModel.belongsTo(UsersModel, { as: 'users', foreignKey: 'user_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
 
     // Other relationships

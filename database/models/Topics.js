@@ -5,12 +5,12 @@ function Topics(sequelize) {
     topic_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true,
     },
     category_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
+      allowNull: false
     },
     user_id: {
       type: DataTypes.INTEGER,
@@ -40,6 +40,10 @@ function Topics(sequelize) {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false
+    },
+    images: {
+      type: DataTypes.JSONB,
+      allowNull: true
     }
   });
 }

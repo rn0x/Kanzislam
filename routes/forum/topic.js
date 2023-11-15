@@ -1,3 +1,4 @@
+import extractImagesFromHtml from "../../modules/extractImagesFromHtml.js";
 import error from "../error.js";
 
 export default async ({ app, pug, path, fs, config, __dirname, jsStringify, model, convertToNumber, database, analyzeText, getElapsedTime }) => {
@@ -24,12 +25,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
 
         if (topic && GetTopic) {
             // إضافة مشاهدات الموضوع في قاعدة البيانات
-            const lastViewsId = await Views.max('view_id').catch((error) => {
-                console.log('حدث خطأ:', error);
-            });
-            const newViewsId = lastViewsId + 1;
             await Views.create({
-                view_id: newViewsId,
                 topic_id: topic
             }).catch((error) => {
                 console.log(error);
@@ -63,17 +59,14 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
         const topic_id = request.body?.topic_id;
         const content = request.body?.content;
         const user_id = request.body?.user_id;
+        const images = await extractImagesFromHtml(content).catch((error) => console.log(error));
 
         if (topic_id && content && user_id) {
-            const lastCommentsId = await Comments.max('comment_id').catch((error) => {
-                console.log('حدث خطأ:', error);
-            });
-            const newCommentsId = lastCommentsId + 1;
             await Comments.create({
-                comment_id: newCommentsId,
                 user_id: user_id,
                 topic_id: topic_id,
                 content: content,
+                images: images
             }).catch((error) => {
                 console.log(error);
             });
@@ -154,12 +147,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
             });
 
             if (!getLike) {
-                const lastLikesId = await Likes.max('like_id').catch((error) => {
-                    console.log('حدث خطأ:', error);
-                });
-                const newLikesId = lastLikesId + 1;
                 await Likes.create({
-                    like_id: newLikesId,
                     user_id: user_id,
                     topic_id: topic_id,
                 }).catch((error) => {
@@ -203,12 +191,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, mode
             });
 
             if (!geReport) {
-                const lastReportsId = await Reports.max('report_id').catch((error) => {
-                    console.log('حدث خطأ:', error);
-                });
-                const newReportsId = lastReportsId + 1;
                 await Reports.create({
-                    report_id: newReportsId,
                     user_id: user_id,
                     topic_id: topic_id,
                 }).catch((error) => {
