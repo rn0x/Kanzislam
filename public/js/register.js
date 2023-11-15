@@ -178,6 +178,8 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
 
         else {
+            registerButton.style.display = 'none';
+            isRegisterd = true;
             const registerURL = window.location.href;
             const registerFetch = await fetch(registerURL, {
                 method: 'POST',
@@ -198,8 +200,6 @@ document.addEventListener('DOMContentLoaded', async function () {
             const response = await registerFetch.json();
 
             if (response?.register) {
-                isRegisterd = true;
-                registerButton.style.display = "none";
                 alertMessage.innerText = "أهلاً وسهلاً بك! لقد تم تسجيل حسابك بنجاح. قمنا بإرسال رسالة تأكيد إلى بريدك الإلكتروني. يرجى النقر على الرابط الموجود في الرسالة لتفعيل حسابك";
                 alertMessage.style.display = "block";
                 alertMessage.style.scrollMarginTop = "150px";
@@ -211,10 +211,14 @@ document.addEventListener('DOMContentLoaded', async function () {
             }
 
             if (response?.isError) {
+                registerButton.style.display = 'block';
+                isRegisterd = false;
                 window.location.href = '/register';
             }
 
             if (response?.usernameFind) {
+                registerButton.style.display = 'block';
+                isRegisterd = false;
                 usernameMessage.textContent = 'عذرًا، اسم المستخدم محجوز بالفعل. يرجى اختيار اسم مستخدم آخر.';
                 usernameMessage.style.display = 'block';
                 usernameMessage.style.scrollMarginTop = "150px";
@@ -225,6 +229,8 @@ document.addEventListener('DOMContentLoaded', async function () {
             }
 
             if (response?.emailFind) {
+                registerButton.style.display = 'block';
+                isRegisterd = false;
                 emailMessage.textContent = "عذرًا، البريد الإلكتروني الذي قمت بإدخاله مستخدم بالفعل. يرجى استخدام بريد إلكتروني آخر لإكمال عملية التسجيل.";
                 emailMessage.style.display = 'block';
                 emailMessage.style.scrollMarginTop = "150px";
@@ -235,6 +241,8 @@ document.addEventListener('DOMContentLoaded', async function () {
             }
 
             if (!response?.verification_answer) {
+                registerButton.style.display = 'block';
+                isRegisterd = false;
                 verificationAnswerMessage.textContent = "عذراً, الإجابة خاطئة";
                 verificationAnswerMessage.style.display = 'block';
                 verificationAnswerMessage.style.scrollMarginTop = "150px";

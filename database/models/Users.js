@@ -4,8 +4,7 @@ function Users(sequelize) {
   return sequelize.define('users', {
     user_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
+      allowNull: false
     },
     name: {
       type: DataTypes.STRING,
@@ -13,7 +12,8 @@ function Users(sequelize) {
     },
     username: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      primaryKey: true
     },
     email: {
       type: DataTypes.STRING,
