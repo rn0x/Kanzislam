@@ -18,6 +18,12 @@ html(lang="ar" data-theme="light")
         meta(property="og:description" content=options.description)
         // وصف الصفحة
         meta(name="description" content=options.description)
+
+        // Twitter Meta Tags
+        meta(name="twitter:title" content=options.title)
+        meta(name="twitter:description" content=options.description)
+        meta(name="twitter:image" content=options.preview)
+
         // عنوان الصفحة
         title= options.title
         link(rel="stylesheet" href="/css/main.css")
@@ -26,7 +32,7 @@ html(lang="ar" data-theme="light")
     body
         header
             include header.pug
-        img(src="/icon/loading.svg", alt="loading" class="iconFilter")#loading
+        img(src="/icon/loading.svg" alt="loading" class="iconFilter")#loading
         #content 
             block content
         include footer.pug
