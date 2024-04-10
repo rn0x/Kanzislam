@@ -23,10 +23,14 @@
     margin-right: auto;
     margin-top: 10px;
     margin-bottom: 10px;
+    transition: 0.3s ease-in-out;
 }
 
 #historyBox li:hover {
     background-color: var(--background_hover);
+    transform: scale(1.02);
+    box-shadow: 0 0 10px #0000002e;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .id_history {

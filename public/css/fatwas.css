@@ -1,0 +1,222 @@
+#fatwas_title {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+#box_fatwas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    padding: 0px;
+    list-style: none;
+}
+
+#box_fatwas li {
+    width: calc(90% / 5);
+    margin: 15px 5px 5px 5px;
+    word-wrap: break-word;
+}
+
+#box_fatwas a {
+    display: block;
+    padding: 8px;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 8px;
+    background-color: var(--background_white);
+    cursor: pointer;
+    position: relative;
+    transition: 0.3s ease-in-out;
+}
+
+#box_fatwas a:hover {
+    background-color: var(--background_hover);
+    transform: scale(1.05); 
+    box-shadow: 0 0 10px #0000002e;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fataawa_counts {
+    display: block;
+    width: 90px;
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    background-color: var(--divHeader);
+    color: var(--colorWhite);
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 7px;
+}
+
+/* __________________________________________ */
+
+#box_fatwas_item {
+    display: block;
+    padding: 0px;
+    list-style: none;
+}
+
+#box_fatwas_item li {
+    display: block;
+    width: 90%;
+    background-color: var(--background_white);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 8px;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+    text-align: justify;
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    transition: 0.3s ease-in-out;
+}
+
+#box_fatwas_item li:hover {
+    transform: scale(1.02); 
+    box-shadow: 0 0 10px #0000001f;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.fatwas_item_id {
+    display: block;
+    position: absolute;
+    top: -7px;
+    right: 10px;
+    background-color: var(--divHeader);
+    color: var(--colorWhite);
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+.fatwas_item_title {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 17px;
+}
+
+.fatwas_item_question {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 15px;
+}
+
+#more_fatwa {
+    display: block;
+    margin-top: 10px;
+    padding: 10px;
+    width: 120px;
+    background-color: var(--button);
+    color: var(--colorWhite);
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#more_fatwa:hover {
+    background-color: var(--background_hover);
+    color: var(--colorFontMain);
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: solid;
+}
+
+/* __________________________________ */
+
+
+#fatwasContent {
+    display: block;
+    width: 95%;
+    background-color: var(--background_white);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 8px;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+    text-align: justify;
+}
+
+#fatwasContentTitle {
+    font-size: 17px;
+    padding-bottom: 10px;
+    border-bottom-color: var(--border);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+
+#fatwasContentAnswer {
+    padding: 10px;
+}
+
+#fatwasContentAudio {
+    display: block;
+    max-width: 100%;
+    background-color: var(--background_white);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 8px;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#fatwasContentDownload {
+    display: block;
+    margin-top: 10px;
+    padding: 5px;
+    width: 180px;
+    background-color: var(--button);
+    color: var(--colorWhite);
+    border-color: var(--button);
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+    font-size: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#fatwasContentDownload:hover {
+    background-color: var(--background_hover);
+    color: var(--colorFontMain);
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: solid;
+}
+
+@media (max-width: 650px) {
+    #box_fatwas li {
+        width: calc(90% / 3);
+    }
+}
+
+@media (max-width: 450px) {
+    #box_fatwas li {
+        width: calc(90% / 2);
+    }
+}
+
+@media (max-width: 300px) {
+    #box_fatwas li {
+        width: 100%
+    }
+}

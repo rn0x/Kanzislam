@@ -1,5 +1,3 @@
-import error from "../error.js";
-
 export default async ({ app, pug, path, fs, config, __dirname, jsStringify }) => {
 
     const options = {
@@ -18,9 +16,8 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify }) =>
         options.isIndex = true;
         options.isAdhkarHisnMuslim = false;
         options.isHisText = false;
-        options.session = request.session;
         options.preview= `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`حصن المسلم من أذكار الكتاب والسنة`)}&description=${encodeURIComponent("“حصن المسلم”: مصدرك الشامل لأذكار الكتاب والسنة، يقدم مجموعة من الأذكار التي قالها النبي محمد ﷺ في مختلف مواضع الحياة اليومية.")}`
-        let render = pug.renderFile(pugPath, { options, jsStringify });
+        const render = pug.renderFile(pugPath, { options, jsStringify });
         response.send(render);
     });
 
@@ -38,13 +35,12 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify }) =>
             options.isAdhkarHisnMuslim = true;
             options.isHisText = false;
             options.hisnmuslimFound = hisnmuslimFound;
-            options.session = request.session;
             options.preview= `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`حصن المسلم من أذكار الكتاب والسنة - ${hisnmuslimFound?.category}`)}&description=${encodeURIComponent("“حصن المسلم”: مصدرك الشامل لأذكار الكتاب والسنة، يقدم مجموعة من الأذكار التي قالها النبي محمد ﷺ في مختلف مواضع الحياة اليومية.")}`
-            let render = pug.renderFile(pugPath, { options, jsStringify });
+            const render = pug.renderFile(pugPath, { options, jsStringify });
             response.send(render);
         }
         else {
-            await error({ config, request, path, response, __dirname, pug, jsStringify });
+            response.redirect('/not-found');
         }
     });
 
@@ -62,13 +58,12 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify }) =>
             options.isHisText = true;
             options.ObjectHis = isTitleFind?.object;
             options.category = isTitleFind?.category;
-            options.session = request.session;
-            let render = pug.renderFile(pugPath, { options, jsStringify });
+            const render = pug.renderFile(pugPath, { options, jsStringify });
             response.send(render);
         }
 
         else {
-            await error({ config, request, path, response, __dirname, pug, jsStringify });
+            response.redirect('/not-found');
         }
     });
 

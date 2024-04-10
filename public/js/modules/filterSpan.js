@@ -14,18 +14,15 @@ const convertArabicNumbers = (match) => {
  * @returns {string} الجملة بعد استبدال الكلمات.
  */
 function replaceWords(sentence) {
-    const wordsToReplace = ['الله', 'لله', 'عز وجل', 'سبحانه وتعالى', 'رضي الله عنه', 'عليه السلام', 'ﷻ', 'ﷺ'];
+    const wordsToReplace = ['الله', 'لله', 'عز وجل', 'سبحانه وتعالى', 'رضي الله عنه', 'عليه السلام', 'ﷻ', 'ﷺ', 'الجواب:'];
 
-    return sentence.split(' ').map(word => {
-        let normalizedWord = word.normalize("NFD").replace(/[\u064B-\u0652]/g, "");
-        for (let i = 0; i < wordsToReplace.length; i++) {
-            let normalizedWordToReplace = wordsToReplace[i].normalize("NFD").replace(/[\u064B-\u0652]/g, "");
-            if (normalizedWord === normalizedWordToReplace) {
-                return `<span style="color: #fe3f3f;">${word}</span>`;
-            }
-        }
-        return word;
-    }).join(' ');
+    // استخدام تعبير منتظم للبحث عن جميع حالات ظهور الكلمات المحددة
+    const regex = new RegExp(wordsToReplace.join('|'), 'gi');
+
+    // تغيير لون جميع حالات ظهور الكلمات المحددة في النص
+    sentence = sentence.replace(regex, `<span style="color: #fe3f3f;">$&</span>`);
+
+    return sentence;
 }
 
 /**

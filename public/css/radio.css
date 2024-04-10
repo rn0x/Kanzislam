@@ -40,7 +40,7 @@
 }
 
 #radios {
-    width: 90%;
+    width: 95%;
     max-width: 1000px;
     display: block;
     margin-left: auto;
@@ -55,21 +55,25 @@
     background-color: var(--background_white);
     padding-left: 10px;
     padding-right: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 25px;
+    padding-bottom: 25px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 25px;
-    margin-bottom: 25px;
+    margin-top: 30px;
+    margin-bottom: 30px;
     border-radius: 8px;
     border-color: var(--border);
     border-width: 1px;
     border-style: solid;
     position: relative;
+    transition: 0.3s ease-in-out;
 }
 
 #radio li:hover {
     background-color: var(--background_hover);
+    transform: scale(1.05); 
+    box-shadow: 0 0 10px #0000002e;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .RadioTitle {

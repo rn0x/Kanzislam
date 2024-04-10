@@ -1,0 +1,32 @@
+extends ../layout.pug
+
+block stylesheet
+  link(rel="stylesheet" href="/css/fatwas.css")
+
+block content
+  #fatwasContentPage 
+    ul.breadcrumb
+      li 
+        a(href="/")
+          img(src="/icon/home.svg" alt="الرئيسية" class="iconFilter") 
+      li 
+        small /
+        a(href="/fataawa-ibn-baaz") موسوعة الفتاوى الإسلامية
+      li 
+        small /
+        a(href=`/fataawa-ibn-baaz/${options.category.replace(/ /g, '_')}`)=`الفتاوى المتعلقة ب${options.category}`
+      li 
+        small /
+        a(href=`/fataawa-ibn-baaz/${options.category.replace(/ /g, '_')}/${options.id}`)=`${options.FatwaById.title}`
+    h2#fatwas_title=options.FatwaById.title
+    div#fatwasContent
+      h2#fatwasContentTitle=options.FatwaById.question
+      if options.FatwaById.audio
+        audio(src=options.FatwaById.audio controls autoplay)#fatwasContentAudio
+        button#fatwasContentDownload تحميل الفتوى mp3
+      p#fatwasContentAnswer
+block script
+  script(type="module")
+    include ../../public/js/pages/fatwas.js
+  script.
+    window.options = !{jsStringify(options)};

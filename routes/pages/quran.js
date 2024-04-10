@@ -1,5 +1,3 @@
-import error from "../error.js";
-
 export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filterSpan }) => {
     const quranPath = path.join(__dirname, 'public/json/quran_info.json');
     const surahPath = path.join(__dirname, 'public/json/surah.json');
@@ -40,7 +38,6 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
             keywords: ["word1", "word2", "word3"],
             description: "فهرس لسور القرآن الكريم للقراءة والاستماع بصوت أكثر من 157 قارئ",
             preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent("فهرس سور القرآن الكريم - قراءة واستماع")}&description=${encodeURIComponent("فهرس لسور القرآن الكريم للقراءة والاستماع بصوت أكثر من 157 قارئ")}`,
-            session: request.session,
             quranJson
         };
         const pugPath = path.join(__dirname, './views/pages/quran.pug');
@@ -59,7 +56,6 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
                 keywords: ["word1", "word2", "word3"],
                 description: `سورة ${currentSurah.name} -  للقراءة والاستماع بصوت أكثر من 157 قارئ, ومعلومات حول السورة اين نزلت وكم عددة كلماتها وحروفها وآيتها وإسمها باللغة الإنجليزية`,
                 preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`سورة ${currentSurah.name} قراءة وأستماع وتحميل mp3`)}&description=${encodeURIComponent(`سورة ${currentSurah.name} -  للقراءة والاستماع بصوت أكثر من 157 قارئ, ومعلومات حول السورة اين نزلت وكم عددة كلماتها وحروفها وآيتها وإسمها باللغة الإنجليزية`)}`,
-                session: request.session,
                 currentSurah: currentSurah,
                 nameSurah: nameSurah
             };
@@ -67,7 +63,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
             const render = pug.renderFile(pugPath, { options, jsStringify });
             response.send(render);
         } else {
-            await error({ config, request, path, response, __dirname, pug, jsStringify });
+            response.redirect('/not-found');
         }
     });
 

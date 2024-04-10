@@ -21,10 +21,14 @@
     border-color: var(--border);
     border-width: 1px;
     border-style: solid;
+    transition: 0.3s ease-in-out;
 }
 
 #quranIndex li:hover {
     background-color: var(--background_hover);
+    transform: scale(1.05); 
+    box-shadow: 0 0 10px #0000002e;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 #quranIndex li h2 {
@@ -264,10 +268,17 @@
     margin: 15px 5px 5px 5px;
     cursor: pointer;
     position: relative;
+    transition: 0.5s ease-in-out;
+    border-color: var(--border);
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
 }
 
 #readerBox ul li:hover {
     background-color: var(--background_hover);
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
 }
 
 #readerBox h2 {

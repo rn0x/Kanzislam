@@ -1,8 +1,7 @@
 import Jimp from 'jimp';
 import ffmpeg from 'fluent-ffmpeg';
 
-export default async ({ app, path, fs, config, __dirname, model }) => {
-    const { Users, Images, Videos, Audios, Pdfs } = model;
+export default async ({ app, path, fs, config, __dirname }) => {
 
     // Define a route for uploading files
     app.post('/api/upload', async (request, response) => {
@@ -146,12 +145,12 @@ export default async ({ app, path, fs, config, __dirname, model }) => {
                 case 'image/jpeg':
                 case 'image/png':
 
-                    await Images.create({
-                        user_id: user?.user_id,
-                        image_url: fileInfo.path
-                    }).catch((error) => {
-                        console.log(error);
-                    });
+                    // await Images.create({
+                    //     user_id: user?.user_id,
+                    //     image_url: fileInfo.path
+                    // }).catch((error) => {
+                    //     console.log(error);
+                    // });
                     break;
                 case 'video/mp4':
                 case 'video/quicktime':
@@ -159,28 +158,28 @@ export default async ({ app, path, fs, config, __dirname, model }) => {
                 case 'video/ogg':
                 case 'video/avi':
                 case 'video/wmv':
-                    await Videos.create({
-                        user_id: user?.user_id,
-                        video_url: fileInfo.path
-                    }).catch((error) => {
-                        console.log(error);
-                    });
+                    // await Videos.create({
+                    //     user_id: user?.user_id,
+                    //     video_url: fileInfo.path
+                    // }).catch((error) => {
+                    //     console.log(error);
+                    // });
                     break;
                 case 'audio/mpeg':
-                    await Audios.create({
-                        user_id: user?.user_id,
-                        audio_url: fileInfo.path
-                    }).catch((error) => {
-                        console.log(error);
-                    });
+                    // await Audios.create({
+                    //     user_id: user?.user_id,
+                    //     audio_url: fileInfo.path
+                    // }).catch((error) => {
+                    //     console.log(error);
+                    // });
                     break;
                 case 'application/pdf':
-                    await Pdfs.create({
-                        user_id: user?.user_id,
-                        pdf_url: fileInfo.path
-                    }).catch((error) => {
-                        console.log(error);
-                    });
+                    // await Pdfs.create({
+                    //     user_id: user?.user_id,
+                    //     pdf_url: fileInfo.path
+                    // }).catch((error) => {
+                    //     console.log(error);
+                    // });
                     break;
                 default:
                     // Handle other file types if needed

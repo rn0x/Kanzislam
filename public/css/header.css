@@ -49,30 +49,7 @@
     background-color: var(--background_hover);
 }
 
-#header_menu_left {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-left: 10px;
-}
-
-#header_menu_left a {
-    margin-right: 10px;
-    padding: 6px;
-    width: 80px;
-    border-color: var(--border);
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 5px;
-}
-
-#header_menu_left a:hover {
-    background-color: var(--background_hover);
-    color: var(--colorFontMain_hover);
-}
-
 #header_menu_top {
-    width: 100%;
     display: flex;
     justify-content: center;
 }
@@ -98,94 +75,6 @@
 #header_menu_top p {
     margin-right: 5px;
     margin-left: 8px;
-}
-
-#header_menu_left_isLoggedIn {
-    display: none;
-    height: 100%;
-    padding: 12px;
-    box-sizing: border-box;
-}
-
-#header_menu_left_isLoggedIn:hover {
-    background-color: var(--background_hover);
-}
-
-#header_menu_left_isLoggedIn img {
-    display: block;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    margin: auto;
-}
-
-#menu_logged {
-    display: none;
-    position: absolute;
-    z-index: 1;
-    background-color: var(--background_white);
-    left: 0;
-    width: 150px;
-    margin-top: 60px;
-    border-color: var(--border);
-    border-width: 1px;
-    border-style: solid;
-    padding: 5px;
-}
-
-#menu_logged ul {
-    padding: 0px;
-    list-style: none;
-}
-
-#menu_logged ul li {
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-#menu_logged ul li a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 5px;
-    font-size: 12px;
-    background-color: var(--background_white);
-    border-color: var(--border);
-    border-width: 1px;
-    border-style: solid;
-    box-sizing: border-box;
-}
-
-#menu_logged ul li a:hover {
-    background-color: var(--background_hover);
-}
-
-#menu_logged ul li a img {
-    width: 10px;
-    margin-right: 5px;
-}
-
-#logoutButton {
-    display: none;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 8px;
-    padding: 5px;
-    background-color: var(--button);
-    color: var(--colorWhite);
-    border: none;
-    border-radius: 5px;
-    font-size: 13px;
-}
-
-#logoutButton:hover {
-    background-color: var(--background_hover);
-    color: var(--colorFontMain);
-    border-color: var(--border);
-    border-width: 1px;
-    border-style: solid;
 }
 
 #SideMenuBox {
@@ -248,8 +137,8 @@
 }
 
 
-#SideMenuLogout{
-    display: none;
+#SideMenubut{
+    display: block;
     width: 200px;
     border-radius: 8px;
     border: none;
@@ -260,15 +149,6 @@
     margin-left: auto;
     margin-right: auto;
     padding: 7px;
-    transition: 0.5s ease-in-out;
-}
-
-#SideMenuLogout:hover{
-    background-color: var(--background_hover);
-    color: var(--colorFontMain);
-    border-color: var(--border);
-    border-width: 1px;
-    border-style: solid;
     transition: 0.5s ease-in-out;
 }
 
@@ -309,21 +189,6 @@
         padding-left: 10px;
     }
 
-    #header_menu_left {
-        display: block;
-        width: 100%;
-    }
-    #header_menu_left a {
-        display: block;
-        margin-right: 5px;
-        padding: 1px;
-        width: 100%;
-        font-size: 12px;
-        margin-top: 2px;
-        margin-bottom: 2px;
-        white-space: nowrap;
-    }
-
 }
 
 @media (max-width: 500px) {
@@ -332,16 +197,6 @@
         display: flex;
         justify-content: left;
     }
-    #header_menu_left {
-        display: none;
-        /* visibility: hidden; */
-    }
-    #header_menu_left_isLoggedIn {
-        display: none !important;
-    }
-    #header_menu_left_isLoggedIn img {
-        display: none;
-    }
 }
 
 @media (max-width: 330px) {
@@ -349,7 +204,7 @@
         display: none;
     }
 
-    #SideMenuLogout {
+    #SideMenubut {
         width: 140px;
     }
 

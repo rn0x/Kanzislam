@@ -1,5 +1,4 @@
 import express from 'express';
-import session from 'express-session';
 import fileUpload from 'express-fileupload';
 import compression from 'compression';
 import helmet from "helmet";
@@ -8,45 +7,23 @@ import fs from 'fs-extra';
 import path from 'path';
 import pug from 'pug';
 import jsStringify from 'js-stringify';
-import EmailSender from './modules/emailSender.js';
-import createUploadsFolder from './modules/createUploadsFolder.js';
-import generatePassword from './public/js/modules/generatePassword.js';
-import checkTextLength from './public/js/modules/checkTextLength.js';
-import convertToNumber from './public/js/modules/convertToNumber.js';
-import analyzeText from './public/js/modules/analyzeText.js';
-import getElapsedTime from './public/js/modules/getElapsedTime.js';
-import {
-    sequelize,
-    removeColumn,
-    addColumn,
-    modelObject,
-    getTopicsByCategoryId,
-    getTopicData,
-    deleteTopic,
-    getAllTags
-} from './database/index.js';
-import Pageviews from './modules/Pageviews.js';
+import createUploadsFolder from './utils/createUploadsFolder.js';
+import analyzeText from './utils/analyzeText.js';
 import filterSpan from './public/js/modules/filterSpan.js';
-import sitemap from './routes/sitemap.js';
+import sitemap from './utils/sitemap.js';
 import preview from './routes/preview.js';
 import upload from './routes/upload.js';
-import analytics from './routes/analytics.js';
 import home from './routes/home.js';
-import login from './routes/login.js';
-import reset_password from './routes/reset_password.js';
-import update_password from './routes/update_password.js';
-import activate from './routes/activate.js';
-import register from './routes/register.js';
-import logout from './routes/logout.js';
 import quran from './routes/pages/quran.js';
 import adhkar from './routes/pages/adhkar.js';
 import hisnmuslim from './routes/pages/hisnmuslim.js';
 import prayer from './routes/pages/prayer.js';
-import forum from './routes/forum/index.js';
-import error from './routes/error.js';
+import not_found from './routes/not_found.js';
 import radio from './routes/pages/radio.js';
 import tafsir from './routes/pages/tafsir.js';
 import history from './routes/pages/history.js';
+import fatwas from './routes/pages/fatwas.js';
+import sabha from './routes/pages/sabha.js';
 
 // Get the current working directory
 const __dirname = path.resolve();
@@ -54,13 +31,6 @@ const configPath = path.join(__dirname, 'config.json');
 const config = await fs.readJson(configPath).catch(() => ({}));
 const app = express();
 const port = config.PORT || 3000;
-const emailSender = new EmailSender({
-    host: config?.SMTP_HOST,
-    port: config?.SMTP_PORT,
-    user: config?.SMTP_USER,
-    pass: config?.SMTP_PASS,
-    displayname: config?.SMTP_DISPLAY_NAME,
-});
 const param = {
     app,
     pug,
@@ -69,20 +39,8 @@ const param = {
     config,
     __dirname: path.resolve(),
     jsStringify,
-    model: modelObject,
     filterSpan,
-    emailSender,
-    generatePassword,
-    checkTextLength,
-    database: {
-        getTopicsByCategoryId,
-        getTopicData,
-        deleteTopic,
-        getAllTags
-    },
-    convertToNumber,
     analyzeText,
-    getElapsedTime,
 };
 
 await createUploadsFolder(param); // إنشاء مجلد uploads والمجلدات الفرعية
@@ -134,42 +92,27 @@ app.use(fileUpload());
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json({ limit: '200mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(
-    session({
-        secret: config.SESSION_SECRET,
-        resave: false,
-        saveUninitialized: true,
-    })
-);
-
-// وسيط لجمع معلومات المتصفح والجهاز والمشاهدات
-app.use(Pageviews({ model: modelObject }));
 
 // routes
 await preview(param);
 await upload(param);
-await analytics(param);
 await home(param);
-await login(param);
-await register(param);
-await logout(param);
-await reset_password(param);
-await update_password(param);
-await activate(param);
 await quran(param);
 await adhkar(param);
 await hisnmuslim(param);
 await prayer(param);
-await forum(param);
 await radio(param);
 await tafsir(param);
 await history(param);
+await fatwas(param);
+await sabha(param);
+await not_found(param);
 
 // يقوم بإنشاء ملف sitemap وفهرس sitemap بناءً على الصفحات المعطاة.
-await sitemap(param);
+await sitemap();
 
 app.use(async (request, response, next) => {
-    await error({ config, request, path, response, __dirname, pug, jsStringify });
+    response.redirect('/not-found');
 });
 
 app.use(function (err, request, response, next) {
@@ -183,7 +126,6 @@ app.use(function (err, request, response, next) {
         preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent("خطأ في الخادم الداخلي 505 ")}&description=${encodeURIComponent("صفحة الخطأ 505 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.")}`,
         errorMassage: err,
         status: 500,
-        session: request.session
     };
     const pugPath = path.join(__dirname, './views/Error.pug');
     const render = pug.renderFile(pugPath, { options, jsStringify });

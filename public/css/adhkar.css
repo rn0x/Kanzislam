@@ -17,10 +17,14 @@
     border-color: var(--border);
     border-width: 1px;
     border-style: solid;
+    transition: 0.3s ease-in-out;
 }
 
 #adhkar_boxPage ul li:hover {
     background-color: var(--background_hover);
+    transform: scale(1.05); 
+    box-shadow: 0 0 10px #0000002e;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 #adhkar_boxPage ul li a {
@@ -79,7 +83,7 @@
     }
 
     #adhkar_boxPage ul li {
-        width: 90%;
+        width: 85%;
         margin-left: auto;
         margin-right: auto;
     }
@@ -162,6 +166,13 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+    transition: 0.3s ease-in-out;
+}
+
+.repetition:hover {
+    transform: scale(1.02); 
+    box-shadow: 0 0 10px #0000002e;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .repetition p {
@@ -194,6 +205,13 @@
 
     .repetition {
         width: 100%;
+        margin-top: 5px;
+    }
+
+    .repetition:hover {
+        transform: none; 
+        box-shadow: none;
+        transition: none;
     }
 
     .adhkar_text {

@@ -1,6 +1,3 @@
-import error from "../error.js";
-
-
 export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filterSpan }) => {
 
     const tafsir_name_path = path.join(__dirname, 'public/json/tafsir/tafsir_name.json');
@@ -18,7 +15,6 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
             keywords: ["تفاسير القرآن", "تفسير", "تفسير القران", "الطبري", "ابن كثير", "السعدي", "القرطبي", "البغوي", "ابن عاشور", "الأعلام القرآنية", "تفسير القرآن الكريم", "تفاسير إسلامية", "تفسير آيات القرآن", "تفسير القرآن الكريم باللغة العربية", "علماء الإسلام", "فهم القرآن", "تفسير القرآن باللغة العربية", "معاني القرآن", "تفاسير قرآنية", "تفسير سور القرآن", "مفهوم القرآن", "تفاسير مشهورة"],
             description: "استمتع بفهم أعمق لآيات القرآن الكريم من خلال تفاسير متنوعة من قبل علماء الإسلام مثل: ابن كثير والسعدي والقرطبي والطبري. والمزيد.",
             preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent("تفاسير القرآن الكريم - الطبري, ابن كثير، السعدي، القرطبي، البغوي، ابن عاشور والمزيد")}&description=${encodeURIComponent("استمتع بفهم أعمق لآيات القرآن الكريم من خلال تفاسير متنوعة من قبل علماء الإسلام مثل: ابن كثير والسعدي والقرطبي والطبري. والمزيد.")}`,
-            session: request.session,
             tafsir_name: tafsir_name_json
         };
         const pugPath = path.join(__dirname, './views/pages/tafsir.pug');
@@ -47,7 +43,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
             response.send(render);
 
         } else {
-            await error({ config, request, path, response, __dirname, pug, jsStringify });
+            response.redirect('/not-found');
         }
     });
 
@@ -74,7 +70,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
             response.send(render);
 
         } else {
-            await error({ config, request, path, response, __dirname, pug, jsStringify });
+            response.redirect('/not-found');
         }
     });
 
@@ -97,7 +93,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
                 title: `تفسير القرآن الكريم (${tafsir?.name}) : سورة ${quranSurah?.name} آية رقم ${ayah}- ${config.WEBSITE_NAME}`,
                 keywords: ["تفاسير القرآن", "تفسير", "تفسير القران", "الطبري", "ابن كثير", "السعدي", "القرطبي", "البغوي", "ابن عاشور", "الأعلام القرآنية", "تفسير القرآن الكريم", "تفاسير إسلامية", "تفسير آيات القرآن", "تفسير القرآن الكريم باللغة العربية", "علماء الإسلام", "فهم القرآن", "تفسير القرآن باللغة العربية", "معاني القرآن", "تفاسير قرآنية", "تفسير سور القرآن", "مفهوم القرآن", "تفاسير مشهورة"],
                 description: "استمتع بفهم أعمق لآيات القرآن الكريم من خلال تفاسير متنوعة من قبل علماء الإسلام مثل: ابن كثير والسعدي والقرطبي والطبري. والمزيد.",
-                preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent("تفاسير القرآن الكريم - الطبري, ابن كثير، السعدي، القرطبي، البغوي، ابن عاشور والمزيد")}&description=${encodeURIComponent("استمتع بفهم أعمق لآيات القرآن الكريم من خلال تفاسير متنوعة من قبل علماء الإسلام مثل: ابن كثير والسعدي والقرطبي والطبري. والمزيد.")}`,
+                preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`تفسير القرآن الكريم (${tafsir?.name}) : سورة ${quranSurah?.name} آية رقم ${ayah}- ${config.WEBSITE_NAME}`)}&description=${encodeURIComponent("استمتع بفهم أعمق لآيات القرآن الكريم من خلال تفاسير متنوعة من قبل علماء الإسلام مثل: ابن كثير والسعدي والقرطبي والطبري. والمزيد.")}`,
                 session: request.session,
                 tafsir: tafsir,
                 surah: quranSurah,
@@ -111,7 +107,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
             response.send(render);
 
         } else {
-            await error({ config, request, path, response, __dirname, pug, jsStringify });
+            response.redirect('/not-found');
         }
     });
 

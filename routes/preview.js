@@ -1,5 +1,4 @@
-import convertHTMLandCSSToImage from '../modules/convertHTMLandCSSToImage.js';
-import error from './error.js';
+import convertHTMLandCSSToImage from '../utils/convertHTMLandCSSToImage.js';
 
 export default async ({ app, pug, path, fs, config, __dirname, jsStringify, analyzeText }) => {
     // Middleware function to check if an image exists
@@ -19,7 +18,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, anal
         const formattedDate = new Date().toISOString().slice(0, 10).replace(/-/g, '/');
 
         if (title && description) {
-            const analyzeDescription = analyzeText(description);
+            const analyzeDescription = await analyzeText(description, config);
             const keywords = analyzeDescription?.words?.value;
             const options = {
                 website_name: config.WEBSITE_NAME,
@@ -39,20 +38,22 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, anal
             const render = pug.renderFile(pugPath, { options, jsStringify });
             response.send(render);
         } else {
-            await error({ config, request, path, response, __dirname, pug, jsStringify });
+            response.redirect('/not-found');
         }
     });
 
     app.get('/puppeteer', async (request, response) => {
         const title = request.query?.title;
         const description = request.query?.description;
-        const username = request.query?.username;
         const formattedDate = new Date().toISOString().slice(0, 10).replace(/-/g, '/');
 
         if (title && description) {
             const previewPath = path.join(__dirname, 'public', 'preview');
-            fs.ensureDirSync(previewPath);
-            const imagePath = path.join(__dirname, `public/preview/${removeArabicSymbols(title)}.png`);
+            fs.ensureDirSync(previewPath); // يتأكد من وجود المجلد أو يقوم بإنشائه إذا لم يكن موجودًا
+
+            const cleanedTitle = cleanUrlText(title);
+            const imagePath = path.join(previewPath, `${cleanedTitle}.jpeg`);
+
             if (checkIfImageExists(imagePath)) {
                 // Image exists, serve it directly
                 response.sendFile(imagePath);
@@ -70,7 +71,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, anal
                         '--disable-accelerated-2d-canvas',
                         '--disable-gpu',
                     ],
-                    executablePath: config?.CHROMIUM_PATH ? config?.CHROMIUM_PATH : undefined // مسار متصفح Chromium او Chrome
+                    executablePath: config?.CHROMIUM_PATH ? config?.CHROMIUM_PATH : undefined
                 };
 
                 const result = await convertHTMLandCSSToImage({
@@ -78,29 +79,60 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, anal
                     width: 1200,
                     height: 630,
                     retryLimit: 3,
-                    format: 'png',
+                    format: 'jpeg',
                     cspHeader: "default-src 'self'; img-src data:;",
                     puppeteerConfig: puppeteerConfig,
                     url: `${config.WEBSITE_DOMAIN}/preview?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}`,
                 });
 
                 if (result.success) {
-                    response.setHeader('Content-Type', 'image/png');
+                    response.setHeader('Content-Type', 'image/jpeg');
                     response.sendFile(imagePath);
                 } else {
                     response.status(500).send(`Error: ${result.message}`);
                 }
             }
 
-            function removeArabicSymbols(text) {
-                // تحويل المسافات إلى شرطة سفلية
-                text = text?.replace(/\s/g, '_');
-                // إزالة الرموز غير القابلة للعرض
-                text = text?.replace(/[^\u0600-\u06FF\uFB50-\uFDFF\uFE70-\uFEFF\u0750-\u077F_]+/g, '');
-            
+            function cleanUrlText(text) {
+                // Map for replacing Arabic characters with English equivalents
+                const arabicToEnglishMap = {
+                    'ا': 'a', 'أ': 'a', 'إ': 'a', 'آ': 'a',
+                    'ب': 'b', 'ت': 't', 'ث': 'th', 'ج': 'j',
+                    'ح': 'h', 'خ': 'kh', 'د': 'd', 'ذ': 'dh',
+                    'ر': 'r', 'ز': 'z', 'س': 's', 'ش': 'sh',
+                    'ص': 's', 'ض': 'd', 'ط': 't', 'ظ': 'z',
+                    'ع': 'e', 'غ': 'gh', 'ف': 'f', 'ق': 'q',
+                    'ك': 'k', 'ل': 'l', 'م': 'm', 'ن': 'n',
+                    'ه': 'h', 'ة': 'h', 'و': 'o', 'ؤ': 'o',
+                    'ي': 'y', 'ئ': 'y', 'ى': 'a'
+                };
+
+                // Regular expression to remove diacritics (Tashkeel) from Arabic text
+                const arabicDiacriticsRegex = /[\u064B-\u065F\u0670\u0610-\u061A]/g;
+                // Remove diacritics from the text
+                text = text.replace(arabicDiacriticsRegex, '');
+
+                // Convert the text to lowercase for consistency
+                text = text.toLowerCase();
+
+                // Replace Arabic characters with their English equivalents
+                text = text.replace(/[^\u0000-\u007E]/g, function (char) {
+                    return arabicToEnglishMap[char] || ''; // Use the corresponding English character if exists, otherwise empty string
+                });
+
+                // Replace spaces with underscores
+                text = text.replace(/\s+/g, '_');
+
+                // Remove any characters not allowed in URL paths
+                text = text.replace(/[^a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=]/g, '');
+
+                // Remove parentheses and other unwanted symbols
+                text = text.replace(/[(){}<>\[\]]+/g, '');
+
                 return text;
-            }            
-            
+            }
+
+
         }
     });
 }

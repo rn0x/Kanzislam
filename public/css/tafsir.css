@@ -16,7 +16,7 @@
 }
 
 #tafsir_ul li {
-    width: calc(90% / 2);
+    width: calc(95% / 2);
     margin: 5px 5px 5px 5px;
     align-self: stretch;
 }
@@ -26,16 +26,20 @@
     width: 100%;
     height: 100%;
     background-color: var(--background_white);
-    padding: 5px;
+    padding: 8px;
     border-radius: 5px;
     border-color: var(--border);
     border-width: 1px;
     border-style: solid;
     box-sizing: border-box;
+    transition: 0.3s ease-in-out;
 }
 
 #tafsir_ul li a:hover {
     background-color: var(--background_hover);
+    transform: scale(1.02);
+    box-shadow: 0 0 10px #0000002e;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 
@@ -64,10 +68,14 @@
     border-color: var(--border);
     border-width: 1px;
     border-style: solid;
+    transition: 0.3s ease-in-out;
 }
 
 #surahBox li:hover {
     background-color: var(--background_hover);
+    transform: scale(1.02);
+    box-shadow: 0 0 10px #0000002e;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 #surahBox li h2 {
@@ -116,6 +124,12 @@
     }
 }
 
+@media (max-width: 450px) {
+    #tafsir_ul li {
+        width: 100%;
+    }
+}
+
 @media (max-width: 380px) {
     #surahBox li {
         width: 100%
@@ -157,10 +171,14 @@
     border-color: var(--border);
     border-width: 1px;
     border-style: solid;
+    transition: 0.3s ease-in-out;
 }
 
 #ayat li a:hover {
     background-color: var(--background_hover);
+    transform: scale(1.02);
+    box-shadow: 0 0 10px #0000002e;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .id {

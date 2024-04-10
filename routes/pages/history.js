@@ -1,5 +1,3 @@
-import error from "../error.js";
-
 export default async ({ app, pug, path, fs, config, __dirname, jsStringify, analyzeText, filterSpan }) => {
 
     const historyPath = path.join(__dirname, 'public/json/history.json');
@@ -25,15 +23,14 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, anal
         const findHistory = historyJson.find(e => e.id === Number(id));
 
         if (findHistory) {
-            const analyze = analyzeText(findHistory?.title);
+            const analyze = await analyzeText(findHistory?.title, config);
             const keywords = analyze?.words;
             const options = {
                 website_name: config.WEBSITE_NAME,
                 title: `${findHistory?.title} - ${config.WEBSITE_NAME}`,
                 keywords: keywords?.value,
                 description: findHistory?.text?.substring(0, 200),
-                preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(findHistory?.title)}&description=${encodeURIComponent(findHistory?.text?.substring(0, 200)+"...")}`,
-                session: request.session,
+                preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(findHistory?.title)}&description=${encodeURIComponent(findHistory?.text?.substring(0, 200) + "...")}`,
                 historyJson: findHistory,
                 filterSpan: filterSpan
             };
@@ -42,7 +39,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, anal
             response.send(render);
         }
         else {
-            await error({ config, request, path, response, __dirname, pug, jsStringify });
+            response.redirect('/not-found');
         }
     });
 
