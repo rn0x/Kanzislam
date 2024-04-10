@@ -1,5 +1,8 @@
 import fetch from 'node-fetch';
+import path from 'path';
 import sitemap from './sitemap.js';
+import cleanUrlText from './cleanUrlText.js';
+import checkFileExists from './checkIfFilesExists.js';
 
 async function fetchOgImage(url) {
     try {
@@ -23,10 +26,23 @@ async function fetchOgImage(url) {
 async function main(url) {
     try {
 
+        const __dirname = path.resolve();
         const ogImageUrl = await fetchOgImage(url);
         const decodedUrl = decodeURIComponent(ogImageUrl);
-        const link = decodedUrl.replace(/&amp;/g, '&');
-        const response = await fetch(link);
+        const urlString = decodedUrl?.replace(/&amp;/g, '&');
+        const parsedUrl = new URL(urlString);
+        const queryParams = parsedUrl.searchParams;
+        const title = queryParams.get('title');
+        const cleanedTitle = cleanUrlText(title);
+        const previewPath = path.join(__dirname, 'public', 'preview');
+        const imagePath = path.join(previewPath, `${cleanedTitle}.jpeg`);
+        const checkExists = checkFileExists(imagePath);
+
+        if (checkExists) {
+            return
+        }
+
+        const response = await fetch(urlString);
 
         if (!response.ok) {
             console.log(`HTTP error! Status: ${response.status}`);
@@ -34,11 +50,11 @@ async function main(url) {
         }
 
         await response.buffer();
-        console.log(link);
-        console.log("___________________________");
-        console.log(url);
+
+        console.log("request: true");
     } catch (error) {
         console.error('حدث خطأ:', error.message);
+        console.log(error.message);
     }
 }
 

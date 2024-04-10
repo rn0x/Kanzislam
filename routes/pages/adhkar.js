@@ -48,10 +48,10 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
         if (AdhkarObject) {
             const options = {
                 website_name: config.WEBSITE_NAME,
-                title: `${AdhkarObject.title}- ${config.WEBSITE_NAME}`,
+                title: `${AdhkarObject.title} - ${config.WEBSITE_NAME}`,
                 keywords: ["أذكار الصباح", "أذكار المساء", "أذكار النوم", "أذكار الطعام", "أذكار الصلاة", "التسابيح", "الدعاء اليومي", "الإسلام", "القرآن", "الحديث", "الإيمان"],
                 description: `${AdhkarObject.category} - ${AdhkarObject.description}`,
-                preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`${AdhkarObject.title}- ${config.WEBSITE_NAME}`)}&description=${encodeURIComponent(`${AdhkarObject.category} - ${AdhkarObject.description}`)}`,
+                preview: `${config.WEBSITE_DOMAIN}/puppeteer?title=${encodeURIComponent(`${AdhkarObject.title}`)}&description=${encodeURIComponent(`${AdhkarObject.category} - ${AdhkarObject.description}`)}`,
                 AdhkarObject,
                 filterSpan
             };
