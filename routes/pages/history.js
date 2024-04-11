@@ -7,6 +7,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, anal
 
         const options = {
             website_name: config.WEBSITE_NAME,
+            CONTACT: config.CONTACT,
             title: `تاريخ الإسلام ومسيرة المسلمين: أحداث تاريخية مهمة - ${config.WEBSITE_NAME}`,
             keywords: ["تاريخ الإسلام", "تاريخ المسلمين", "الأحداث التاريخية", "الإسلام والتاريخ", "المسلمون في التاريخ", "تطور الإسلام", "الإسلام في القرون الوسطى", "أحداث تاريخية إسلامية", "الحروب الإسلامية", "العصور الذهبية للإسلام", "الإسلام في العصور الحديثة", "المساهمات الإسلامية في التاريخ", "الإسلام والحضارة", "تأثير الإسلام على العالم", "الإسلام والفن والعلوم"],
             description: "استكشف تاريخ الإسلام ومسار المسلمين من خلال مجموعة من الأحداث التاريخية البارزة. تعرف على الأحداث التي شكلت التاريخ الإسلامي وأثرت على مجتمع المسلمين على مر العصور.",
@@ -27,6 +28,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, anal
             const keywords = analyze?.words;
             const options = {
                 website_name: config.WEBSITE_NAME,
+                CONTACT: config.CONTACT,
                 title: `${findHistory?.title} - ${config.WEBSITE_NAME}`,
                 keywords: keywords?.value,
                 description: findHistory?.text?.substring(0, 200),

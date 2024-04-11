@@ -2,6 +2,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify }) =>
 
     const options = {
         website_name: config.WEBSITE_NAME,
+        CONTACT: config.CONTACT,
     };
     const pugPath = path.join(__dirname, './views/pages/hisnmuslim.pug');
     const hisnmuslimPath = path.join(__dirname, 'public/json/hisnmuslim.json');

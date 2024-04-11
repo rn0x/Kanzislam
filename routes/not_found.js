@@ -3,6 +3,7 @@ export default async ({ app, config, path, __dirname, pug, jsStringify }) => {
     app.get('/not-found', async (request, response) => {
         const options = {
             website_name: config.WEBSITE_NAME,
+            CONTACT: config.CONTACT,
             title: `الصفحة غير موجودة 404 - ${config.WEBSITE_NAME}`,
             keywords: ["صفحة الخطأ 404", "عنوان URL غير صحيح", "عنوان URL غير موجود", "error", "404", "لم يتم العثور على الصفحة", "صفحة غير موجودة", "صفحة غير متاحة", "رسالة الخطأ 404"],
             description: "صفحة الخطأ 404 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.",

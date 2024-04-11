@@ -16,6 +16,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, anal
         try {
             const options = {
                 website_name: config.WEBSITE_NAME,
+                CONTACT: config.CONTACT,
                 title: `موسوعة الفتاوى الإسلامية للشيخ إبن باز - ${config.WEBSITE_NAME}`,
                 keywords: [
                     "فتاوى إسلامية",
@@ -55,6 +56,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, anal
             } else {
                 const options = {
                     website_name: config.WEBSITE_NAME,
+                    CONTACT: config.CONTACT,
                     title: `موسوعة الفتاوى المتعلقة ب${category} - ${config.WEBSITE_NAME}`,
                     keywords: [
                         `فتاوى ${category}`,
@@ -104,6 +106,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, anal
                 const keywords = analyze?.words;
                 const options = {
                     website_name: config.WEBSITE_NAME,
+                    CONTACT: config.CONTACT,
                     title: `فتوى ${FatwaById.title} للشيخ ابن باز - ${config.WEBSITE_NAME}`,
                     keywords: keywords?.value,
                     description: FatwaById.question.substring(0, 200),

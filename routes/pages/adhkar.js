@@ -8,6 +8,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
 
         const options = {
             website_name: config.WEBSITE_NAME,
+            CONTACT: config.CONTACT,
             title: `أذكار الصباح والمساء والنوم والصلاة والطعام: دليلك اليومي للتذكير - ${config.WEBSITE_NAME}`,
             keywords: ["أذكار الصباح", "أذكار المساء", "أذكار النوم", "أذكار الطعام", "أذكار الصلاة", "التسابيح", "الدعاء اليومي", "الإسلام", "القرآن", "الحديث", "الإيمان"],
             description: "تعتبر صفحة الأذكار مصدرًا رائعًا للتأمل والتفكير. تحتوي هذه الصفحة على مجموعة من الأذكار والدعوات التي يمكن قراءتها في أوقات مختلفة من اليوم.",
@@ -26,6 +27,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
         if (isPathAdhkar) {
             const options = {
                 website_name: config.WEBSITE_NAME,
+                CONTACT: config.CONTACT,
                 title: `${adhkarJson[isPathAdhkar].category} - ${config.WEBSITE_NAME}`,
                 keywords: ["أذكار الصباح", "أذكار المساء", "أذكار النوم", "أذكار الطعام", "أذكار الصلاة", "التسابيح", "الدعاء اليومي", "الإسلام", "القرآن", "الحديث", "الإيمان"],
                 description: `تحتوي هذه الصفحة على مجموعة من الأذكار والدعوات التي يمكن قراءتها في ${adhkarJson[isPathAdhkar].category}.`,
@@ -48,6 +50,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
         if (AdhkarObject) {
             const options = {
                 website_name: config.WEBSITE_NAME,
+                CONTACT: config.CONTACT,
                 title: `${AdhkarObject.title} - ${config.WEBSITE_NAME}`,
                 keywords: ["أذكار الصباح", "أذكار المساء", "أذكار النوم", "أذكار الطعام", "أذكار الصلاة", "التسابيح", "الدعاء اليومي", "الإسلام", "القرآن", "الحديث", "الإيمان"],
                 description: `${AdhkarObject.category} - ${AdhkarObject.description}`,

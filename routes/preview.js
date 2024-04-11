@@ -7,7 +7,6 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, anal
     app.get('/preview', async (request, response) => {
         const title = request.query?.title;
         const description = request.query?.description;
-        const username = request.query?.username;
         const formattedDate = new Date().toISOString().slice(0, 10).replace(/-/g, '/');
 
         if (title && description) {
@@ -15,6 +14,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, anal
             const keywords = analyzeDescription?.words?.value;
             const options = {
                 website_name: config.WEBSITE_NAME,
+                CONTACT: config.CONTACT,
                 title: `${title} - ${config.WEBSITE_NAME}`,
                 keywords: keywords,
                 description: description,
@@ -22,8 +22,6 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, anal
                 query: {
                     title,
                     description,
-                    keywords,
-                    username
                 },
                 formattedDate
             };

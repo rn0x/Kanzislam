@@ -34,6 +34,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
     app.get('/quran', (request, response) => {
         const options = {
             website_name: config.WEBSITE_NAME,
+            CONTACT: config.CONTACT,
             title: `فهرس سور القرآن الكريم - قراءة واستماع - ${config.WEBSITE_NAME}`,
             keywords: ["word1", "word2", "word3"],
             description: "فهرس لسور القرآن الكريم للقراءة والاستماع بصوت أكثر من 157 قارئ",
@@ -52,6 +53,7 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify, filt
         if (currentSurah?.name) {
             const options = {
                 website_name: config.WEBSITE_NAME,
+                CONTACT: config.CONTACT,
                 title: `سورة ${currentSurah.name} قراءة وأستماع وتحميل mp3 - ${config.WEBSITE_NAME}`,
                 keywords: ["word1", "word2", "word3"],
                 description: `سورة ${currentSurah.name} -  للقراءة والاستماع بصوت أكثر من 157 قارئ, ومعلومات حول السورة اين نزلت وكم عددة كلماتها وحروفها وآيتها وإسمها باللغة الإنجليزية`,

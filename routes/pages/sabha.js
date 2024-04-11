@@ -2,9 +2,9 @@ export default async ({ app, pug, path, fs, config, __dirname, jsStringify }) =>
 
     app.get('/sabha', async (request, response) => {
 
-        console.log(config);
         const options = {
             website_name: config.WEBSITE_NAME,
+            CONTACT: config.CONTACT,
             title: `عنوان الصفحة - ${config.WEBSITE_NAME}`,
             keywords: ["word1", "word2", "word3"],
             description: "وصف_الصفحة",
