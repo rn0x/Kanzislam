@@ -1,0 +1,14 @@
+extends ./partials/layout.pug
+
+block stylesheet
+  style.
+    #ErrorPage h1 {
+      margin-top: 100px;
+    }
+    #ErrorPage h1 span{
+      color: #ff4646;
+    }
+block content
+  #ErrorPage
+    h1 #{errorTitle} 
+      span #{status}

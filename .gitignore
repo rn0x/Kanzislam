@@ -1,9 +1,7 @@
 node_modules
 package-lock.json
 yarn.lock
-.cache
-database.sqlite
-config_.json
-public/uploads
-public/sitemap
-public/preview
+.env
+old/
+src/data/json
+src/logs/

@@ -1,0 +1,23 @@
+extends ../partials/layout.pug
+
+block stylesheet
+  link(rel="stylesheet" href="/static/css/fatwas.css")
+
+block content
+  #fatwasItemPage 
+    ul.breadcrumb
+      li 
+        a(href="/")
+          img(src="/static/icon/home.svg" alt="الرئيسية" class="iconFilter") 
+      li 
+        small /
+        a(href="/fataawa-ibn-baaz") موسوعة الفتاوى الإسلامية
+      li 
+        small /
+        a(href=`/fataawa-ibn-baaz/${options.category.replace(/ /g, '_')}`)=`الفتاوى المتعلقة ب${options.category}`
+    h2#fatwas_title=options.category
+    ul#box_fatwas_item
+    button#more_fatwa المزيد
+block script
+  script(type="module")
+    include ../../public/js/pages/fatwas.js

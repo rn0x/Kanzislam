@@ -1,0 +1,50 @@
+extends ../partials/layout.pug
+
+block stylesheet
+    link(rel="stylesheet" href="/static/css/prayer.css")
+
+block content
+    #isPermissionLocation
+        p تنبيه
+        h2 يرجى السماح للصفحة بالوصول إلى الموقع الحالي لتحديد خطوط الطول والعرض. ستساعد هذه المعلومات في تحسين تجربتك على الموقع.
+        small قم بتحديث الصفحة F5
+    #prayerPage
+        #BoxTime
+            p#hour_minutes 0:00
+            p#colon :
+            p#seconds 00 
+        img(src="/static/icon/download.svg" alt="تحميل صورة مواقيت الصلاة" title="تحميل صورة مواقيت الصلاة" class="iconFilter")#screenshot 
+        #Boxdata
+            p#data_hijri
+            p#data_today 
+            p#data_Gregorian
+        #BoxTimeZone
+            p المنطقة الزمنية:
+            p#timezone 
+        #BoxRemainingTime
+            P الوقت المتبقي لرفع الأذان لصلاة 
+                span#remaining_name 
+            small#RemainingTime
+        ul#BoxPrayer
+            li#BoxFajr 
+                p الفجر
+                p.timePrayer#PrayerFajr
+            li#BoxSunrise
+                p الشروق
+                p.timePrayer#PrayerSunrise
+            li#BoxDhuhr
+                p الظهر
+                p.timePrayer#PrayerDhuhr
+            li#BoxAsr
+                p العصر
+                p.timePrayer#PrayerAsr
+            li#BoxMaghrib
+                p المغرب
+                p.timePrayer#PrayerMaghrib
+            li#BoxIsha 
+                p العشاء
+                p.timePrayer#PrayerIsha
+        img(src="/static/icon/logo.svg" alt="logo" class="iconFilter")#logoScreen 
+block script
+    script(type="module")
+        include ../../public/js/pages/prayer.js

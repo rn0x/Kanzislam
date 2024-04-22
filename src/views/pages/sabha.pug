@@ -1,0 +1,20 @@
+extends ../partials/layout.pug
+
+block stylesheet
+  link(rel="stylesheet" href="/static/css/sabha.css")
+
+block content
+  #sabhaPage 
+    ul.breadcrumb
+      li 
+        a(href="/")
+          img(src="/static/icon/home.svg" alt="الرئيسية" class="iconFilter") 
+      li 
+        small /
+        a(href="/sabha") المسبحة الرقمية
+    #sabha
+      img(src="/static/icon/repetition.svg" alt="repetition")#repetition_bt
+      h2#sabha_number 0
+block script
+  script(type="module")
+    include ../../public/js/pages/sabha.js

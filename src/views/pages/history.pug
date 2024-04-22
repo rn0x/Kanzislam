@@ -1,0 +1,21 @@
+extends ../partials/layout.pug
+
+block stylesheet
+    link(rel="stylesheet" href="/static/css/history.css")
+
+block content
+    #historyPage
+        ul.breadcrumb
+            li 
+                a(href="/")
+                    img(src="/static/icon/home.svg" alt="الرئيسية" class="iconFilter") 
+            li 
+                small /
+                a(href="/historical-events") الموسوعة التاريخية الإسلامية
+        h2 الموسوعة التاريخية الإسلامية
+        input(type="text", name="search" placeholder="بحث...")#searchHistory
+        ul#historyBox 
+        button#historyMore المزيد
+block script
+    script(type="module")
+        include ../../public/js/pages/history.js

@@ -1,0 +1,23 @@
+doctype html
+html(lang="ar" data-theme="light")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    meta(property="og:type" content="website")
+    meta(property="og:title" content=options.title)
+    meta(property="og:site_name" content="كنز الإسلام")
+    meta(name="keywords" content=options.keywords.join(", "))
+    meta(property="og:image" content="/image/preview.png")
+    meta(property="og:description" content=options.description)
+    meta(name="description" content=options.description)
+    title= options.title
+    link(rel="stylesheet" href="/static/css/preview.css")
+    link(rel="shortcut icon" href="/static/icon/logo_2.svg")
+  body
+    #Box 
+      img(src="/static/icon/logo.svg" alt="")#logo
+      .title
+        p #{options.query.title}
+        p#description #{options.query.description}
+        small#time #{options.formattedDate}

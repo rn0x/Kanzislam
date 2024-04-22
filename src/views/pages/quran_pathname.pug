@@ -1,0 +1,54 @@
+extends ../partials/layout.pug
+
+block stylesheet
+  link(rel="stylesheet" href="/static/css/quran.css")
+
+block content
+  #quranPathPage 
+    ul#breadcrumb
+      li 
+        a(href="/")
+          img(src="/static/icon/home.svg" alt="الرئيسية" class="iconFilter") 
+      li 
+        small /
+        a(href="/quran") القرآن الكريم
+      li 
+        small /
+        a(href=`/quran/سورة_${options.currentSurah.name.replace(/ /g, '_')}`)= `سورة ${options.currentSurah.name}`
+    #quranPathBox
+      a(href="#")#previousSurah
+      a(href="#")#nextSurah
+      h2#titleInfo
+      #QuranInfoBox
+        ul 
+          li 
+            p عدد الآيات:
+              span#number_verses_span
+          li 
+            p عدد الكلمات:
+              span#number_words_span
+          li 
+            p ترتيب السورة:
+              span#number_span
+          li 
+            p عدد الحروف:
+              span#number_letters_span
+          li 
+            p النزول:
+              span#descent_span
+          li 
+            p الإسم بالإنجليزي: 
+              span#english_name_span
+      h2#bisamla
+      #FontSize 
+        button#Plus
+          img(src="/static/icon/plus.svg" alt="" class="iconFilter")
+        button#Minus
+          img(src="/static/icon/minus.svg" alt="" class="iconFilter")
+      p#surah
+      #readerBox 
+        h2 الإستماع الى سورة #{options.currentSurah.name}
+        ul#readerBoxUl
+block script
+  script(type="module")
+    include ../../public/js/pages/quran.js

@@ -1,0 +1,19 @@
+extends ../partials/layout.pug
+
+block stylesheet
+    link(rel="stylesheet" href="/static/css/radio.css")
+
+block content
+    #radioIndex
+        ul.breadcrumb
+            li 
+                a(href="/")
+                    img(src="/static/icon/home.svg" alt="الرئيسية" class="iconFilter") 
+            li 
+                small /
+                a(href="/radio") الإذاعات الإسلامية
+        h2#title الإذاعات الإسلامية: دليلك لإذاعات القرآن والأحاديث والسنة
+        ul#radio 
+block script
+    script(type="module")
+        include ../../public/js/pages/radio.js

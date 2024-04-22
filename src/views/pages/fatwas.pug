@@ -1,0 +1,19 @@
+extends ../partials/layout.pug
+
+block stylesheet
+  link(rel="stylesheet" href="/static/css/fatwas.css")
+
+block content
+  #fatwasPage 
+    ul.breadcrumb
+      li 
+        a(href="/")
+          img(src="/static/icon/home.svg" alt="الرئيسية" class="iconFilter") 
+      li 
+        small /
+        a(href="/fataawa-ibn-baaz") موسوعة الفتاوى الإسلامية
+    h2#fatwas_title موسوعة الفتاوى الإسلامية
+    ul#box_fatwas
+block script
+  script(type="module")
+    include ../../public/js/pages/fatwas.js

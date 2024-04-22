@@ -1,0 +1,33 @@
+extends ../partials/layout.pug
+
+block stylesheet
+    link(rel="stylesheet" href="/static/css/tafsir.css")
+
+block content
+    #tafsirAyahPage
+        ul.breadcrumb
+            li 
+                a(href="/")
+                    img(src="/static/icon/home.svg" alt="الرئيسية" class="iconFilter") 
+            li 
+                small /
+                a(href="/tafsir-quran") تفاسير القرآن الكريم
+            li 
+                small /
+                a(href=`/tafsir-quran/${options.tafsir.name_english}`) #{options.tafsir.name} 
+            li 
+                small /
+                a(href=`/tafsir-quran/${options.tafsir.name_english}/${options.surah.number}`) تفسير سورة #{options.surah.name} 
+            li 
+                small /
+                a(href=`/tafsir-quran/${options.tafsir.name_english}/${options.surah.number}`) آية رقم #{options.ayah.id}
+        #ayahBox
+          #ayahDiv 
+            p.titleDiv آية
+            h2.ayahText!=options.filterSpan(`﴿ ${options.ayah.ar} ﴾`)
+          #tafsirDiv 
+            p.titleDiv تفسير
+            p.tafsirContent!=options.filterSpan(options.tafsirContent)
+block script
+    script(type="module")
+        include ../../public/js/pages/tafsir.js

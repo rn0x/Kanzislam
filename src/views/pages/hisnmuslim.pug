@@ -1,0 +1,41 @@
+extends ../partials/layout.pug
+
+block stylesheet
+    link(rel="stylesheet" href="/static/css/hisnmuslim.css")
+
+block content
+    #hisnmuslimPage
+        ul.breadcrumb
+            li 
+                a(href="/")
+                    img(src="/static/icon/home.svg" alt="الرئيسية" class="iconFilter") 
+            li 
+                small /
+                a(href="/hisnmuslim") فهرس حصن المسلم
+            if options.isAdhkarHisnMuslim
+                li 
+                    small /
+                    a(href=`/hisnmuslim/${options.titleBox.split(" ").join("_")}`) #{options.titleBox}
+            else if options.isHisText
+                li 
+                    small /
+                    a(href=`/hisnmuslim/${options.category.split(" ").join("_")}`) #{options.category}
+        h2 #{options.titleBox}
+        if options.isIndex
+            input(type="text" name="search" placeholder="بحث...")#SearchIndex
+            ul#hisnmuslimIndex 
+        else if options.isAdhkarHisnMuslim
+            ul#hisnmuslimCategory
+        else if options.isHisText
+            ul#hisnmuslimCategory
+                li 
+                    small.HusId #{options.ObjectHis.id}
+                    p#textHis
+                    .Boxicons 
+                        img(src="/static/icon/play.svg" alt="play" class="iconFilter")#hisPlay
+                        img(src="/static/icon/download.svg" alt="play" class="iconFilter")#hisDownload
+                    small.Huscount التكرار : 
+                        span #{options.ObjectHis.count}
+block script
+    script(type="module")
+        include ../../public/js/pages/hisnmuslim.js

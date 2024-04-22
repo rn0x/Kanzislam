@@ -1,0 +1,35 @@
+doctype html
+html(lang="ar" data-theme="light" dir="rtl")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible" content="IE=edge")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        meta(property="og:site_name" content="كنز الإسلام")
+        meta(property="og:type" content="website")
+        if options
+            meta(property="og:title" content=options.title)
+            meta(property="og:description" content=options.description)
+            meta(property="og:image" content=options.preview)
+            meta(name="keywords" content=options.keywords.join(", "))
+            meta(name="description" content=options.description)
+            title=options.title
+        else 
+            meta(property="og:title" content="كنز الإسلام - منصة شاملة للقرآن والأذكار والأحاديث والتفاسير والمحتوى الإسلامي")
+            meta(property="og:description" content="كنز الإسلام هي منصة إسلامية شاملة تهدف إلى توفير القرآن الكريم والأذكار والأحاديث وغيرها من المحتوى الإسلامي بطريقة سهلة ومنظمة. توفر المنصة مجموعة واسعة من الموارد الدينية والتعليمية للمسلمين، استكشف كنز الإسلام اليوم واستفد من محتواه القيم والموثوق.")
+            meta(property="og:image" content="/static/images/preview-kanz.jpg")
+            meta(name="keywords" content="إسلام, قرآن, أذكار, أحاديث, منصة إسلامية, فتاوى, أوقات الصلاة, تفسير, مسبحة")
+            meta(name="description" content="كنز الإسلام هي منصة إسلامية شاملة تهدف إلى توفير القرآن الكريم والأذكار والأحاديث وغيرها من المحتوى الإسلامي بطريقة سهلة ومنظمة. توفر المنصة مجموعة واسعة من الموارد الدينية والتعليمية للمسلمين، استكشف كنز الإسلام اليوم واستفد من محتواه القيم والموثوق.")
+            title="كنز الإسلام - منصة شاملة للقرآن والأذكار والأحاديث والتفاسير والمحتوى الإسلامي"
+        link(rel="stylesheet" href="/static/css/main.css")
+        link(rel="shortcut icon" href="/static/icon/logo_2.svg")
+        block stylesheet
+    body
+        header
+            include ./header.pug
+        img(src="/static/icon/loading.svg" alt="loading" class="iconFilter")#loading
+        #content 
+            block content
+        include ./footer.pug
+        block script
+        script(type="module")
+            include ../../public/js/main.js
