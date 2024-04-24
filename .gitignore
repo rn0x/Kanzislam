@@ -5,3 +5,4 @@ yarn.lock
 old/
 src/data/json
 src/logs/
+src/manifest.json

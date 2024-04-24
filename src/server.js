@@ -11,6 +11,10 @@ import helmet from "helmet";
 import compression from "compression";
 import favicon from "serve-favicon";
 
+/* SYNCDATA */
+import syncData from "./utils/syncData.js";
+await syncData();
+
 app.use(helmet(config.helmet));
 app.use(compression(config.compression));
 

@@ -11,7 +11,7 @@ async function readFile(path) {
 }
 
 /* /RADIO ROUTER */
-import radio from "./modules/radio.js";
+import radio from "./pages/radio.js";
 await radio(router, config, readFile);
 
 export default router;
