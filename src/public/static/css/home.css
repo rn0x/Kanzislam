@@ -47,6 +47,12 @@
     font-size: 23px;
 }
 
+.iconMenuHome {
+    display: block;
+    color: var(--iconColor);
+    font-size: 40px;
+}
+
 /* -------------- */
 
 .list-icon {

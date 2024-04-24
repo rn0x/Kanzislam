@@ -66,29 +66,38 @@
     background-color: var(--background_hover);
 }
 
-#footer_social a img {
-    width: 30px;
-    user-select: none;
-}
-
 #buttonTheme {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
     margin-top: 50px;
-    display: block;
     width: 25px;
+    height: 30px;
+    display: block;
     margin-left: auto;
     margin-right: auto;
     padding: 10px;
     background-color: var(--background_white);
-    border-radius: 5px;
+    border-radius: 100%;
     border-color: var(--border);
     border-width: 1px;
     border-style: solid;
     user-select: none;
     cursor: pointer;
+    font-size: 25px;
+    color: var(--iconColor);
 }
 
 #buttonTheme:hover {
     background-color: var(--background_hover);
+}
+
+.iconSocial {
+    font-size: 30px;
+    color: var(--iconColor);
+    user-select: none;
+    padding: 5px;
 }
 
 

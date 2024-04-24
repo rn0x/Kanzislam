@@ -29,9 +29,9 @@ app.get("/", async (req, res, next) => {
 });
 
 /* ROUTES */
-import pagesRouter from "./routes/pages.js";
+// import pagesRouter from "./routes/pages.js";
 import errorRouter from "./routes/error.js";
-app.use("/", pagesRouter)
+// app.use("/", pagesRouter)
 app.use("/", errorRouter);
 
 

@@ -23,7 +23,8 @@
 }
 
 #icon_menu {
-    width: 22px;
+    font-size: 22px;
+    color: var(--iconColor);
 }
 
 #logo {
@@ -52,23 +53,32 @@
 #header_menu_top {
     display: flex;
     justify-content: center;
+    align-items: center;
+    align-content: center;
 }
 
 #header_menu_top a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 #header_menu_top a:hover {
     background-color: var(--background_hover);
     color: var(--colorFontMain_hover);
+    border-bottom-color: var(--border);
+    border-bottom-width: 1px;
+    border-bottom-style: double;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    padding: 5px;
 }
 
-#header_menu_top a img {
-    width: 15px;
-    margin-right: 8px;
+#header_menu_top a i {
     user-select: none;
 }
 
@@ -137,7 +147,7 @@
 }
 
 
-#SideMenubut{
+#SideMenubut {
     display: block;
     width: 200px;
     border-radius: 8px;
@@ -152,7 +162,7 @@
     transition: 0.5s ease-in-out;
 }
 
-@media (max-width: 750px) {
+@media (max-width: 650px) {
     #header_menu_top {
         display: none;
     }
@@ -160,7 +170,7 @@
     #header_menu_top {
         display: flex;
         align-self: stretch;
-        
+
     }
 
     #header_menu_top a p {
@@ -169,27 +179,22 @@
 
     #header_menu_top a {
         justify-content: center;
+        margin-left: 5px;
+        margin-right: 5px;
     }
 
-    #header_menu_top a img {
-        display: block;
-        width: 20px;
-        margin-right: 15px;
-        margin-left: 15px;
+    #header_menu_top a:hover {
+        background-color: #00000002;
+        border: none;
+        border-radius: 0px;
+    }
+
+    #header_menu_top a i {
+        margin-right: 10px;
+        margin-left: 10px;
     }
 }
 
-@media (max-width: 580px) {
-
-    #header_menu_top a img {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        padding-right: 10px;
-        padding-left: 10px;
-    }
-
-}
 
 @media (max-width: 500px) {
     #header_menu_top {
