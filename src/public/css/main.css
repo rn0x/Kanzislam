@@ -64,12 +64,6 @@ input {
     color: var(--colorFont2);
 }
 
-.breadcrumb li a img {
-    width: 30px;
-    user-select: none;
-}
-
-
 .breadcrumb li a:hover {
     color: var(--colorFontMain_hover);
 }

@@ -108,12 +108,12 @@ document.addEventListener("DOMContentLoaded", async function () {
                 li.appendChild(img);
                 img.id = "icon_download";
                 img.alt = "تحميل";
-                img.src = "/static/icon/download.svg";
+                img.src = "/icon/download.svg";
                 img.className = "iconFilter";
 
                 img.addEventListener("click", async (event) => {
                     event.stopPropagation();
-                    img.src = "/static/icon/loading.svg";
+                    img.src = "/icon/loading.svg";
                     const response = await fetch(item.link);
                     const blob = await response.blob();
                     const url = URL.createObjectURL(blob);
@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     link.href = url;
                     link.download = filename;
                     link.click();
-                    img.src = "/static/icon/download.svg";
+                    img.src = "/icon/download.svg";
                 });
 
                 li.addEventListener("click", async () => {

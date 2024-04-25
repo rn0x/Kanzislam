@@ -1,22 +1,24 @@
 extends ../partials/layout.pug
 
 block stylesheet
-  link(rel="stylesheet" href="/static/css/adhkar.css")
+  link(rel="stylesheet" href="/css/adhkar.css")
 
 block content
   #adhkarPage 
     ul.breadcrumb
       li 
         a(href="/")
-          img(src="/static/icon/home.svg" alt="الرئيسية" class="iconFilter") 
+          i.fa-solid.fa-house-chimney.iconBreadcrumb 
       li 
         small /
         a(href="/adhkar") أذكار
       li 
         small /
-        a(href=`/adhkar/${options.adhkarJson.category.split(" ").join("_")}`) #{options.adhkarJson.category}
-    h1#adhkarTitle #{options.adhkarJson.category}
+        a(href='#' id="breadcrumbCategory")
+    h1#adhkarTitle
     ul#adhkarBox
 block script
-  script(type="module")
-    include ../../public/js/pages/adhkar.js
+  script(type="module").
+   const options = !{JSON.stringify(options)};  // تحويل خصائص options إلى كائن JSON
+   import { PageAdhkarList } from '../js/pages/adhkar.js';
+   PageAdhkarList(options);

@@ -10,8 +10,12 @@ async function readFile(path) {
   return JSON.parse(fileContent);
 }
 
-/* /RADIO ROUTER */
+/* RADIO ROUTER */
 import radio from "./pages/radio.js";
 await radio(router, config, readFile);
+
+/* ADHKAR ROUTER */
+import adhkar from "./pages/adhkar.js";
+await adhkar(router, config, readFile);
 
 export default router;

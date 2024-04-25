@@ -183,11 +183,9 @@
     flex: 1;
 }
 
-.repetition img {
-    display: block;
-    width: 40px;
-    margin-left: auto;
-    margin-right: auto;
+.repetition i {
+    font-size: 35px;
+    color: var(--iconColor);
 }
 
 #titleAdhkar {

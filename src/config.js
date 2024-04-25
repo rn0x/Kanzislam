@@ -2,11 +2,19 @@ import path from "node:path";
 export const root = path.resolve(process.cwd()); // project root directory (./)
 
 const environment = process.env.NODE_ENV; // development or production
+const port = process.env.PORT;
+const domain = `http://127.0.0.1:${port}`; // remove process.env.PORT in production
+
 export const config = {
   /* Server */
-  port: process.env.PORT,
-  domain: "http://127.0.0.1:" + process.env.PORT, // remove process.env.PORT in production
+  port: port,
+  domain: domain,
 
+  /* Config Website */
+  website_name: process.env.WEBSITE_NAME,
+  preview: `/images/preview-kanz.jpg`,
+
+  
   /* Environment */
   isProd: environment === "production",
   isDev: environment === "development",
@@ -61,7 +69,6 @@ export const config = {
     logs: path.join(root, "src", "logs"),
     views: path.join(root, "src", "views"),
     public: path.join(root, "src", "public"),
-    static: path.join(root, "src", "public", "static"),
     favicon: path.join(root, "src", "public", "favicon.ico"),
     json: path.join(root, "src", "data", "json"),
   },

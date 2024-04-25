@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 const li = document.createElement("li");
                 const RadioId = document.createElement("p");
                 const RadioTitle = document.createElement("a");
-                const iconRadio = document.createElement("img");
+                const iconRadio = document.createElement("i");
                 const audio = document.createElement("audio");
                 radio.appendChild(li);
                 li.appendChild(RadioId);
@@ -28,8 +28,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 RadioTitle.innerText = item?.name;
                 RadioTitle.title = item?.name;
                 li.appendChild(iconRadio);
-                iconRadio.className = "iconRadio iconFilter";
-                iconRadio.src = "/static/icon/play.svg";
+                iconRadio.className = "iconRadio fa-solid fa-play"
                 iconRadio.alt = "play";
                 iconRadio.title = item?.name;
                 audio.src = item?.link;
@@ -38,24 +37,24 @@ document.addEventListener("DOMContentLoaded", async function () {
                 iconRadio.addEventListener("click", () => {
                     if (currentAudio && currentAudio !== audio) {
                         currentAudio.pause();
-                        currentIcon.src = "/static/icon/play.svg";
+                        currentIcon.className = "iconRadio fa-solid fa-play"
                     }
                     if (audio.paused) {
-                        iconRadio.src = "/static/icon/loading.svg";
+                        iconRadio.src = "/icon/loading.svg";
                         audio.play();
-                        iconRadio.src = "/static/icon/pause.svg";
+                        iconRadio.className = "iconRadio fa-solid fa-pause"
                         currentAudio = audio;
                         currentIcon = iconRadio;
                     } else {
                         audio.pause();
-                        iconRadio.src = "/static/icon/play.svg";
+                        iconRadio.className = "iconRadio fa-solid fa-play"
                         currentAudio = null;
                         currentIcon = null;
                     }
                 });
 
                 audio.addEventListener("ended", () => {
-                    iconRadio.src = "/static/icon/play.svg";
+                    iconRadio.className = "iconRadio fa-solid fa-play"
                     currentAudio = null;
                 });
             }
@@ -68,24 +67,24 @@ document.addEventListener("DOMContentLoaded", async function () {
         const audio = document.createElement("audio");
         const iconRadio = document.getElementById("iconRadio");
 
-        iconRadio.src = "/static/icon/play.svg";
+        iconRadio.className = "iconRadio fa-solid fa-play"
         iconRadio.title = options?.radioJson?.name;
         audio.src = options?.radioJson?.link;
         audio.preload = 'none';
 
         iconRadio.addEventListener("click", () => {
             if (audio.paused) {
-                iconRadio.src = "/static/icon/loading.svg";
+                iconRadio.src = "/icon/loading.svg";
                 audio.play();
-                iconRadio.src = "/static/icon/pause.svg";
+                iconRadio.className = "iconRadio fa-solid fa-pause"
             } else {
                 audio.pause();
-                iconRadio.src = "/static/icon/play.svg";
+                iconRadio.className = "iconRadio fa-solid fa-play"
             }
         });
 
         audio.addEventListener("ended", () => {
-            iconRadio.src = "/static/icon/play.svg";
+            iconRadio.className = "iconRadio fa-solid fa-play"
         });
 
         loading.style.display = "none";
@@ -99,15 +98,13 @@ document.addEventListener("DOMContentLoaded", async function () {
                 'Content-Type': 'application/json',
             }
         });
-        if (radioFetch.ok) {
-            const response = await radioFetch?.json();
-            if (response?.response !== 0) {
-                return response;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
+        
+        if (!radioFetch.ok) {
+            console.log(`HTTP error! Status: ${radioFetch.status}`);
+            return false
         }
+
+        const response = await radioFetch?.json();
+        return response
     }
 });

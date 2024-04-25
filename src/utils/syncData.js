@@ -50,7 +50,7 @@ const updateLocalData = async () => {
             fs.writeFileSync(manifestLocalFilePath, JSON.stringify(manifest));
             console.log('تم حفظ ملف manifest.json محليًا');
         }
-
+ 
         // مقارنة الإصدارات المحلية بالإصدارات في manifest.json وتحديث البيانات إذا لزم الأمر
         for (const file of manifest.Files) {
             const localFilePath = path.join(localSrc, `${file.FilePath}/${file.FileName}`);
@@ -61,8 +61,6 @@ const updateLocalData = async () => {
                 updateManifestFile(file);
             }
         }
-
-        console.log('تم تحديث البيانات المحلية بنجاح');
     } catch (error) {
         // التعامل مع أي أخطاء في عملية تحديث البيانات المحلية
         console.error('حدث خطأ أثناء تحديث البيانات المحلية:', error.message);

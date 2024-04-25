@@ -1,32 +1,111 @@
 extends ../partials/layout.pug
 
 block stylesheet
-  link(rel="stylesheet" href="/static/css/adhkar.css")
+  link(rel="stylesheet" href="/css/adhkar.css")
 
 block content
   #adhkarPage 
     ul.breadcrumb
       li 
         a(href="/")
-          img(src="/static/icon/home.svg" alt="الرئيسية" class="iconFilter") 
+          i.fa-solid.fa-house-chimney.iconBreadcrumb 
       li 
         small /
         a(href="/adhkar") أذكار
       li 
         small /
-        a(href=`/adhkar/${options.AdhkarObject.category.split(" ").join("_")}`) #{options.AdhkarObject.category}
+        a(href='#' id="breadcrumbCategory")
       li 
         small /
-        a(href=`/adhkars/${options.AdhkarObject.title.split(" ").join("_")}` style#="white-space: normal;") #{options.AdhkarObject.title}
-    h1#titleAdhkar #{options.AdhkarObject.title}
+        a(href='#' id="breadcrumbTitle")
+    h1#titleAdhkar
     #adhkarsBox 
       .repetition#repetition
-        p#repetition_p #{options.AdhkarObject.repetition}
-        img(src="/static/icon/return.svg" alt="إعداة التكرار" class="iconFilter")#repetition_img
+        p#repetition_p
+        i.fa-solid.fa-rotate-left.repetitionIcon#repetition_icon
       .adhkar_text#adhkar_text
-        h3!= options.filterSpan(options.AdhkarObject.adhkar)
-        p!= options.filterSpan(options.AdhkarObject.description)
-        small!= options.filterSpan(options.AdhkarObject.source)
+        h3#adhkarContent
+        p#adhkarDescription
+        small#adhkarSource
 block script
-  script(type="module")
-    include ../../public/js/pages/adhkar.js
+  script(type="module").
+    import manipulateLocalStorage from '/js/modules/manipulateLocalStorage.js';
+    import filterSpan from '/js/modules/filterSpan.js';
+    const adhkarsBox = document.getElementById("adhkarsBox");
+    adhkarsBox.style.display = "none";
+    const options = !{JSON.stringify(options)};  // تحويل خصائص options إلى كائن JSON
+    const adhkarJson = await dataAdhkar();
+    const AdhkarObject = Object.values(adhkarJson).flatMap(item => item.array.filter(subItem => subItem.title.split(" ").join("_") === options.pathname).map(subItem => ({ category: item.category, ...subItem })))?.[0];
+
+    if (!AdhkarObject) {
+        window.location = "/404";
+    }
+
+    const repetition = document.getElementById("repetition");
+    const repetition_icon = document.getElementById("repetition_icon");
+    const repetition_p = document.getElementById("repetition_p");
+    const adhkarContent = document.getElementById("adhkarContent");
+    const adhkarDescription = document.getElementById("adhkarDescription");
+    const adhkarSource = document.getElementById("adhkarSource");
+
+    repetition_p.innerText = AdhkarObject.repetition;
+    adhkarContent.innerText = AdhkarObject.adhkar;
+    adhkarDescription.innerText = AdhkarObject.description;
+    adhkarSource.innerText = AdhkarObject.source;
+
+
+    const breadcrumbCategory = document.getElementById("breadcrumbCategory");
+    breadcrumbCategory.innerText = AdhkarObject.category;
+    breadcrumbCategory.href = `/adhkar/${AdhkarObject.category.split(" ").join("_")}`
+
+    const breadcrumbTitle = document.getElementById("breadcrumbTitle");
+    breadcrumbTitle.innerText = AdhkarObject.title;
+    breadcrumbTitle.href = `/adhkars/${AdhkarObject.title.split(" ").join("_")}`
+    breadcrumbTitle.style = `white-space: normal;`
+
+    const titleAdhkar = document.getElementById("titleAdhkar");
+    titleAdhkar.innerText = AdhkarObject.title;
+
+
+    repetition.addEventListener("click", () => {
+
+      if (parseInt(repetition_p.textContent) > 0) {
+        const value = parseInt(repetition_p.textContent) - 1;
+        repetition_p.textContent = value;
+        if (parseInt(repetition_p.textContent) === 0) {
+          repetition.style.backgroundColor = "#fad1d1";
+        }
+        const GetAdhkarRepeat = manipulateLocalStorage("get", "adhkarRepeat").value;
+        if (!GetAdhkarRepeat || isNaN(GetAdhkarRepeat)) {
+          GetAdhkarRepeat = 0;
+        }
+        manipulateLocalStorage("set", "adhkarRepeat", parseInt(GetAdhkarRepeat) + 1);
+      }
+    });
+
+    repetition_icon.addEventListener("click", (event) => {
+      event.stopPropagation();
+      repetition_p.textContent = options?.AdhkarObject?.repetition;
+      repetition.style.backgroundColor = "";
+    });
+
+
+    adhkarsBox.style.display = "flex";
+
+    async function dataAdhkar() {
+      const adhkarURL = `${window.location.origin}/data-adhkar`;
+      const adhkarFetch = await fetch(adhkarURL, {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+
+      if (!adhkarFetch.ok) {
+        console.log(`HTTP error! Status: ${adhkarFetch.status}`);
+        return false
+      }
+
+      const response = await adhkarFetch?.json();
+      return response
+    }

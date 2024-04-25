@@ -6,7 +6,7 @@ import uglify from 'gulp-uglify';
 import path from "node:path";
 
 const root = path.resolve(process.cwd());
-const cssFolder = path.join(root, "src/public/static/css");
+const cssFolder = path.join(root, "src/public/css");
 
 // Concatenate and minify CSS files
 gulp.task('styles', () => {

@@ -56,18 +56,18 @@ document.addEventListener("DOMContentLoaded", async function () {
             li.appendChild(Boxicons);
             Boxicons.className = "Boxicons";
             Boxicons.appendChild(iconPlay);
-            iconPlay.src = "/static/icon/play.svg";
+            iconPlay.src = "/icon/play.svg";
             iconPlay.alt = "play";
             iconPlay.className = "iconFilter";
             Boxicons.appendChild(iconDownload);
-            iconDownload.src = "/static/icon/download.svg";
+            iconDownload.src = "/icon/download.svg";
             iconDownload.alt = "download";
             iconDownload.className = "iconFilter";
             Boxicons.appendChild(link);
             link.href = `${url}/hisnmuslims/${title}`;
             link.title = "رابط الذكر في صفحة منفصلة";
             link.appendChild(iconLink);
-            iconLink.src = "/static/icon/link.svg";
+            iconLink.src = "/icon/link.svg";
             iconLink.alt = "link";
             iconLink.className = "iconFilter";
             li.appendChild(Huscount);
@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             Huscount.innerHTML = `التكرار : <span>${item?.count}</span>`;
 
             iconDownload.addEventListener("click", async () => {
-                iconDownload.src = "/static/icon/loading.svg";
+                iconDownload.src = "/icon/loading.svg";
                 try {
                     const response = await fetch(item.audio, { mode: 'cors' });
                     const blob = await response.blob();
@@ -85,13 +85,13 @@ document.addEventListener("DOMContentLoaded", async function () {
                     link.href = url;
                     link.download = filename;
                     link.click();
-                    iconDownload.src = "/static/icon/download.svg";
+                    iconDownload.src = "/icon/download.svg";
                 } catch (error) {
                     iconDownload.title = "حدث خطأ, لايمكن تحميل الملف الصوتي ❌"
                     console.error("Error:", error);
-                    iconDownload.src = "/static/icon/error.svg";
+                    iconDownload.src = "/icon/error.svg";
                     setTimeout(() => {
-                        iconDownload.src = "/static/icon/download.svg";
+                        iconDownload.src = "/icon/download.svg";
                     }, 30000);
                 }
             });
@@ -99,20 +99,20 @@ document.addEventListener("DOMContentLoaded", async function () {
             iconPlay.addEventListener("click", () => {
                 if (currentAudio) { // التحقق من وجود مقطع صوتي حالي وإيقاف تشغيله
                     currentAudio.pause();
-                    currentAudioIcon.src = "/static/icon/play.svg";
+                    currentAudioIcon.src = "/icon/play.svg";
                 }
 
                 if (currentAudio !== audio || !isPlay) {
                     audio.src = item.audio;
                     audio.play();
-                    iconPlay.src = "/static/icon/pause.svg";
+                    iconPlay.src = "/icon/pause.svg";
                     isPlay = true;
                     currentAudio = audio;
                     currentAudioIcon = iconPlay;
                 }
                 else {
                     currentAudio.pause();
-                    iconPlay.src = "/static/icon/play.svg";
+                    iconPlay.src = "/icon/play.svg";
                     isPlay = false;
                     currentAudio = null;
                 }
@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             audio.addEventListener("ended", () => {
                 currentAudio = null;
-                currentAudioIcon.src = "/static/icon/play.svg";
+                currentAudioIcon.src = "/icon/play.svg";
                 isPlay = false;
             });
         }
@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         let isPlay = false;
         textHis.innerHTML = filterSpan(options.ObjectHis.text);
         hisDownload.addEventListener("click", async () => {
-            hisDownload.src = "/static/icon/loading.svg";
+            hisDownload.src = "/icon/loading.svg";
             try {
                 const response = await fetch(options.ObjectHis.audio, { mode: 'cors' });
                 const blob = await response.blob();
@@ -146,13 +146,13 @@ document.addEventListener("DOMContentLoaded", async function () {
                 link.href = url;
                 link.download = filename;
                 link.click();
-                hisDownload.src = "/static/icon/download.svg";
+                hisDownload.src = "/icon/download.svg";
             } catch (error) {
                 hisDownload.title = "حدث خطأ, لايمكن تحميل الملف الصوتي ❌"
                 console.error("Error:", error);
-                hisDownload.src = "/static/icon/error.svg";
+                hisDownload.src = "/icon/error.svg";
                 setTimeout(() => {
-                    hisDownload.src = "/static/icon/download.svg";
+                    hisDownload.src = "/icon/download.svg";
                 }, 30000);
             }
         });
@@ -160,20 +160,20 @@ document.addEventListener("DOMContentLoaded", async function () {
         hisPlay.addEventListener("click", () => {
             if (!isPlay) {
                 audio.src = options.ObjectHis.audio;
-                hisPlay.src = "/static/icon/loading.svg";
+                hisPlay.src = "/icon/loading.svg";
                 audio.play();
-                hisPlay.src = "/static/icon/pause.svg";
+                hisPlay.src = "/icon/pause.svg";
                 isPlay = true;
             }
             else {
                 audio.pause();
-                hisPlay.src = "/static/icon/play.svg";
+                hisPlay.src = "/icon/play.svg";
                 isPlay = false;
             }
         });
 
         audio.addEventListener("ended", () => {
-            hisPlay.src = "/static/icon/play.svg";
+            hisPlay.src = "/icon/play.svg";
             isPlay = false;
         });
 

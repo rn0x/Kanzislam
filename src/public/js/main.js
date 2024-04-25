@@ -15,14 +15,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (getTheme === "dark") {
         document.querySelector("html").setAttribute("data-theme", "dark");
         buttonTheme.className = "fa-solid fa-lightbulb";
-        iconLogo.src = "/static/icon/logo-dark.svg";
-        logo_footer.src = "/static/icon/logoFooterDark.svg";
+        iconLogo.src = "/icon/logo-dark.svg";
+        logo_footer.src = "/icon/logoFooterDark.svg";
     }
     if (getTheme === "light") {
         document.querySelector("html").setAttribute("data-theme", "light");
         buttonTheme.className = "fa-solid fa-moon";
-        iconLogo.src = "/static/icon/logo.svg";
-        logo_footer.src = "/static/icon/logoFooter.svg";
+        iconLogo.src = "/icon/logo.svg";
+        logo_footer.src = "/icon/logoFooter.svg";
     }
 
     // احصل على جميع عناصر img
@@ -70,12 +70,12 @@ document.addEventListener("DOMContentLoaded", async function () {
         const getTheme = storage.getItem("theme");
         if (getTheme === "dark") {
             storage.setItem("theme", "light");
-            buttonTheme.src = "/static/icon/dark.svg";
+            buttonTheme.src = "/icon/dark.svg";
         }
 
         else {
             storage.setItem("theme", "dark");
-            buttonTheme.src = "/static/icon/light.svg";
+            buttonTheme.src = "/icon/light.svg";
         }
 
         window.location.href = window.location.href

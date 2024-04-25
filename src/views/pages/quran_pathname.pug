@@ -1,14 +1,14 @@
 extends ../partials/layout.pug
 
 block stylesheet
-  link(rel="stylesheet" href="/static/css/quran.css")
+  link(rel="stylesheet" href="/css/quran.css")
 
 block content
   #quranPathPage 
     ul#breadcrumb
       li 
         a(href="/")
-          img(src="/static/icon/home.svg" alt="الرئيسية" class="iconFilter") 
+          i.fa-solid.fa-house-chimney.iconBreadcrumb 
       li 
         small /
         a(href="/quran") القرآن الكريم
@@ -42,9 +42,9 @@ block content
       h2#bisamla
       #FontSize 
         button#Plus
-          img(src="/static/icon/plus.svg" alt="" class="iconFilter")
+          img(src="/icon/plus.svg" alt="" class="iconFilter")
         button#Minus
-          img(src="/static/icon/minus.svg" alt="" class="iconFilter")
+          img(src="/icon/minus.svg" alt="" class="iconFilter")
       p#surah
       #readerBox 
         h2 الإستماع الى سورة #{options.currentSurah.name}
