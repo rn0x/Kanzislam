@@ -2,18 +2,42 @@ extends ../partials/layout.pug
 
 block stylesheet
     link(rel="stylesheet" href="/css/radio.css")
-
 block content
-    #radioIndex
-        ul.breadcrumb
-            li 
-                a(href="/")
-                    i.fa-solid.fa-house-chimney.iconBreadcrumb
-            li 
-                small /
-                a(href="/radio") الإذاعات الإسلامية
-        h2#title الإذاعات الإسلامية: دليلك لإذاعات القرآن والأحاديث والسنة
-        ul#radio 
+    if options.radioIndex
+        #radioIndex
+            ul.breadcrumb
+                li 
+                    a(href="/")
+                        i.fa-solid.fa-house-chimney.iconBreadcrumb
+                li 
+                    small /
+                    a(href="/radio") الإذاعات الإسلامية
+            h2#title الإذاعات الإسلامية: دليلك لإذاعات القرآن والأحاديث والسنة
+            ul#radio 
+    else 
+        #radioPage
+            ul.breadcrumb
+                li 
+                    a(href="/")
+                        i.fa-solid.fa-house-chimney.iconBreadcrumb
+                li 
+                    small /
+                    a(href="/radio") الإذاعات الإسلامية
+                li 
+                    small /
+                    a(href=`/radios/${options.radioJson.id}`) #{options.radioJson.name}
+            h2#title #{options.radioJson.name}
+            #radios 
+                p.RadioId #{options.radioJson.id}
+                p(title=options.radioJson.name).RadioTitle #{options.radioJson.name}
+                i.iconRadio.fa-solid.fa-pause#iconRadio
 block script
-    script(type="module")
-        include ../../public/js/pages/radio.js
+    script(type="module").
+        const options = !{JSON.stringify(options)};  // تحويل خصائص options إلى كائن JSON
+        import { radioIndexPage, radioItemPage } from '../js/pages/radio.js';
+
+        if (options.radioIndex) {
+            await radioIndexPage(options);
+        } else {
+            await radioItemPage(options);
+        }

@@ -1,235 +1,224 @@
-import filterSpan from '../js/modules/filterSpan.js';
+import filterSpan from '../modules/filterSpan.js';
 
-document.addEventListener("DOMContentLoaded", async function () {
+const loading = document.getElementById("loading");
+const SearchIndex = document.getElementById("SearchIndex");
+const hisnmuslimIndex = document.getElementById("hisnmuslimIndex");
+loading.style.display = "block";
+const url = window.location.origin;
+const hisnmuslimJson = await dataHisnMuslam();
 
-    const loading = document.getElementById("loading");
-    const SearchIndex = document.getElementById("SearchIndex");
-    const hisnmuslimIndex = document.getElementById("hisnmuslimIndex");
-    loading.style.display = "block";
-    const url = window.location.origin;
-    const hisnmuslimFetch = await fetch(`${url}/json/hisnmuslim.json`);
-    const hisnmuslimJson = await hisnmuslimFetch?.json();
+export const HisnMuslimIndex = async (options) => {
+    for (let item of hisnmuslimJson) {
+        let li = document.createElement("li");
+        let a = document.createElement("a");
+        hisnmuslimIndex.appendChild(li);
+        li.appendChild(a);
+        a.innerText = item?.category;
+        a.href = `${url}/hisnmuslim/${item?.category?.split(" ").join("_")}`
 
-    if (options?.isIndex) {
-
-        for (let item of hisnmuslimJson) {
-            let li = document.createElement("li");
-            let a = document.createElement("a");
-            hisnmuslimIndex.appendChild(li);
-            li.appendChild(a);
-            a.innerText = item?.category;
-            a.href = `${url}/hisnmuslim/${item?.category?.split(" ").join("_")}`
-
-        }
-        loading.style.display = "none";
-
-        SearchIndex.addEventListener("keyup", (e) => {
-            searchAndDisplayLi("hisnmuslimIndex", SearchIndex.value);
-        });
     }
+    loading.style.display = "none";
 
-    else if (options?.isAdhkarHisnMuslim) {
-        const hisnmuslimCategory = document.getElementById("hisnmuslimCategory");
-        let currentAudio = null;
-        let currentAudioIcon = null;
+    SearchIndex.addEventListener("keyup", (e) => {
+        searchAndDisplayLi("hisnmuslimIndex", SearchIndex.value);
+    });
+}
+export const HisnMuslimList = async (options) => {
+    const hisnmuslimCategory = document.getElementById("hisnmuslimCategory");
+    let currentAudio = null;
+    let currentAudioIcon = null;
 
-        for (let item of options?.hisnmuslimFound?.array) {
-            let li = document.createElement("li");
-            let HusId = document.createElement("small");
-            let text = document.createElement("p");
-            let Boxicons = document.createElement("div");
-            let iconPlay = document.createElement("img");
-            let link = document.createElement("a");
-            let iconLink = document.createElement("img");
-            let iconDownload = document.createElement("img");
-            let Huscount = document.createElement("small");
-            let audio = document.createElement("audio");
-            let isPlay = false;
-            let title = removeArabicDiacritics(item?.text, 15);
-
-            hisnmuslimCategory.appendChild(li);
-            li.appendChild(HusId);
-            HusId.className = "HusId";
-            HusId.innerText = item?.id;
-            li.appendChild(text);
-            text.innerHTML = filterSpan(item?.text);
-            li.appendChild(Boxicons);
-            Boxicons.className = "Boxicons";
-            Boxicons.appendChild(iconPlay);
-            iconPlay.src = "/icon/play.svg";
-            iconPlay.alt = "play";
-            iconPlay.className = "iconFilter";
-            Boxicons.appendChild(iconDownload);
-            iconDownload.src = "/icon/download.svg";
-            iconDownload.alt = "download";
-            iconDownload.className = "iconFilter";
-            Boxicons.appendChild(link);
-            link.href = `${url}/hisnmuslims/${title}`;
-            link.title = "رابط الذكر في صفحة منفصلة";
-            link.appendChild(iconLink);
-            iconLink.src = "/icon/link.svg";
-            iconLink.alt = "link";
-            iconLink.className = "iconFilter";
-            li.appendChild(Huscount);
-            Huscount.className = "Huscount";
-            Huscount.innerHTML = `التكرار : <span>${item?.count}</span>`;
-
-            iconDownload.addEventListener("click", async () => {
-                iconDownload.src = "/icon/loading.svg";
-                try {
-                    const response = await fetch(item.audio, { mode: 'cors' });
-                    const blob = await response.blob();
-                    const url = URL.createObjectURL(blob);
-                    const filename = `${options?.hisnmuslimFound?.category?.split(" ").join("_")}_${title}.mp3`;
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.download = filename;
-                    link.click();
-                    iconDownload.src = "/icon/download.svg";
-                } catch (error) {
-                    iconDownload.title = "حدث خطأ, لايمكن تحميل الملف الصوتي ❌"
-                    console.error("Error:", error);
-                    iconDownload.src = "/icon/error.svg";
-                    setTimeout(() => {
-                        iconDownload.src = "/icon/download.svg";
-                    }, 30000);
-                }
-            });
-
-            iconPlay.addEventListener("click", () => {
-                if (currentAudio) { // التحقق من وجود مقطع صوتي حالي وإيقاف تشغيله
-                    currentAudio.pause();
-                    currentAudioIcon.src = "/icon/play.svg";
-                }
-
-                if (currentAudio !== audio || !isPlay) {
-                    audio.src = item.audio;
-                    audio.play();
-                    iconPlay.src = "/icon/pause.svg";
-                    isPlay = true;
-                    currentAudio = audio;
-                    currentAudioIcon = iconPlay;
-                }
-                else {
-                    currentAudio.pause();
-                    iconPlay.src = "/icon/play.svg";
-                    isPlay = false;
-                    currentAudio = null;
-                }
-            });
-
-            audio.addEventListener("ended", () => {
-                currentAudio = null;
-                currentAudioIcon.src = "/icon/play.svg";
-                isPlay = false;
-            });
-        }
-        loading.style.display = "none";
-    }
-
-    else if (options?.isHisText) {
-
-        const textHis = document.getElementById("textHis");
-        const hisPlay = document.getElementById("hisPlay");
-        const hisDownload = document.getElementById("hisDownload");
-        const audio = document.createElement("audio");
+    for (let item of options?.hisnmuslimFound?.array) {
+        let li = document.createElement("li");
+        let HusId = document.createElement("small");
+        let text = document.createElement("p");
+        let Boxicons = document.createElement("div");
+        let iconPlay = document.createElement("i");
+        let link = document.createElement("a");
+        let iconLink = document.createElement("img");
+        let iconDownload = document.createElement("i");
+        let Huscount = document.createElement("small");
+        let audio = document.createElement("audio");
         let isPlay = false;
-        textHis.innerHTML = filterSpan(options.ObjectHis.text);
-        hisDownload.addEventListener("click", async () => {
-            hisDownload.src = "/icon/loading.svg";
+        let title = removeArabicDiacritics(item?.text, 15);
+
+        hisnmuslimCategory.appendChild(li);
+        li.appendChild(HusId);
+        HusId.className = "HusId";
+        HusId.innerText = item?.id;
+        li.appendChild(text);
+        text.innerHTML = filterSpan(item?.text);
+        li.appendChild(Boxicons);
+        Boxicons.className = "Boxicons";
+        Boxicons.appendChild(iconPlay);
+        iconPlay.className = "fa-solid fa-play";
+        Boxicons.appendChild(iconDownload);
+        iconDownload.className = "fa-solid fa-cloud-arrow-down";
+        Boxicons.appendChild(link);
+        link.href = `${url}/hisnmuslims/${title}`;
+        link.title = "رابط الذكر في صفحة منفصلة";
+        link.appendChild(iconLink);
+        iconLink.src = "/icon/link.svg";
+        iconLink.alt = "link";
+        iconLink.className = "iconFilter";
+        li.appendChild(Huscount);
+        Huscount.className = "Huscount";
+        Huscount.innerHTML = `التكرار : <span>${item?.count}</span>`;
+
+        iconDownload.addEventListener("click", async () => {
+            iconDownload.className = "fa-solid fa-spinner";
             try {
-                const response = await fetch(options.ObjectHis.audio, { mode: 'cors' });
+                const response = await fetch(item.audio, { mode: 'cors' });
                 const blob = await response.blob();
                 const url = URL.createObjectURL(blob);
-                const filename = `${options?.category?.split(" ").join("_")}_${window.location.pathname}.mp3`;
+                const filename = `${options?.hisnmuslimFound?.category?.split(" ").join("_")}_${title}.mp3`;
                 const link = document.createElement('a');
                 link.href = url;
-                link.download = filename;
+                link.download = decodeURIComponent(filename);
                 link.click();
-                hisDownload.src = "/icon/download.svg";
+                iconDownload.className = "fa-solid fa-cloud-arrow-down";
             } catch (error) {
-                hisDownload.title = "حدث خطأ, لايمكن تحميل الملف الصوتي ❌"
+                iconDownload.title = "حدث خطأ, لايمكن تحميل الملف الصوتي ❌"
                 console.error("Error:", error);
-                hisDownload.src = "/icon/error.svg";
+                iconDownload.src = "/icon/error.svg";
                 setTimeout(() => {
-                    hisDownload.src = "/icon/download.svg";
+                    iconDownload.className = "fa-solid fa-cloud-arrow-down";
                 }, 30000);
             }
         });
 
-        hisPlay.addEventListener("click", () => {
-            if (!isPlay) {
-                audio.src = options.ObjectHis.audio;
-                hisPlay.src = "/icon/loading.svg";
+        iconPlay.addEventListener("click", () => {
+            if (currentAudio) { // التحقق من وجود مقطع صوتي حالي وإيقاف تشغيله
+                currentAudio.pause();
+                currentAudioIcon.className = "fa-solid fa-play";
+            }
+
+            if (currentAudio !== audio || !isPlay) {
+                audio.src = item.audio;
                 audio.play();
-                hisPlay.src = "/icon/pause.svg";
+                iconPlay.className = "fa-solid fa-pause";
                 isPlay = true;
+                currentAudio = audio;
+                currentAudioIcon = iconPlay;
             }
             else {
-                audio.pause();
-                hisPlay.src = "/icon/play.svg";
+                currentAudio.pause();
+                iconPlay.className = "fa-solid fa-play";
                 isPlay = false;
+                currentAudio = null;
             }
         });
 
         audio.addEventListener("ended", () => {
-            hisPlay.src = "/icon/play.svg";
+            currentAudio = null;
+            currentAudioIcon.className = "fa-solid fa-play";
             isPlay = false;
         });
-
-        loading.style.display = "none";
     }
+    loading.style.display = "none";
+}
+export const HisnMuslimItem = async (options) => {
+    const textHis = document.getElementById("textHis");
+    const hisPlay = document.getElementById("hisPlay");
+    const hisDownload = document.getElementById("hisDownload");
+    const audio = document.createElement("audio");
+    let isPlay = false;
+    textHis.innerHTML = filterSpan(options.ObjectHis.text);
+    hisDownload.addEventListener("click", async () => {
+        hisDownload.className = "fa-solid fa-spinner";
+        try {
+            const response = await fetch(options.ObjectHis.audio, { mode: 'cors' });
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            const filename = `${options?.category?.split(" ").join("_")}_${window.location.pathname}.mp3`;
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = decodeURIComponent(filename);
+            link.click();
+            hisDownload.className = "fa-solid fa-cloud-arrow-down";
+        } catch (error) {
+            hisDownload.title = "حدث خطأ, لايمكن تحميل الملف الصوتي ❌"
+            console.error("Error:", error);
+            hisDownload.src = "/icon/error.svg";
+            setTimeout(() => {
+                hisDownload.className = "fa-solid fa-cloud-arrow-down";
+            }, 30000);
+        }
+    });
+
+    hisPlay.addEventListener("click", () => {
+        if (!isPlay) {
+            audio.src = options.ObjectHis.audio;
+            hisPlay.className = "fa-solid fa-spinner";
+            audio.play();
+            hisPlay.className = "fa-solid fa-pause";
+            isPlay = true;
+        }
+        else {
+            audio.pause();
+            hisPlay.className = "fa-solid fa-play";
+            isPlay = false;
+        }
+    });
+
+    audio.addEventListener("ended", () => {
+        hisPlay.className = "fa-solid fa-play";
+        isPlay = false;
+    });
+
+    loading.style.display = "none";
+}
 
 
 
-    // ========| FUNCTION |========
+function searchAndDisplayLi(ulId, searchText) {
+    // العثور على عنصر UL بواسطة معرفه
+    const ulElement = document.getElementById(ulId);
 
-    function searchAndDisplayLi(ulId, searchText) {
-        // العثور على عنصر UL بواسطة معرفه
-        const ulElement = document.getElementById(ulId);
+    // الحصول على قائمة بجميع عناصر LI داخل عنصر UL
+    const liElements = ulElement.getElementsByTagName("li");
 
-        // الحصول على قائمة بجميع عناصر LI داخل عنصر UL
-        const liElements = ulElement.getElementsByTagName("li");
-
-        // عرض عناصر LI التي تطابق النص المبحوث عنه
-        for (let i = 0; i < liElements.length; i++) {
-            const liText = liElements[i].textContent;
-            if (liText.includes(searchText)) {
-                liElements[i].style.display = "block";
-            } else {
-                liElements[i].style.display = "none";
-            }
+    // عرض عناصر LI التي تطابق النص المبحوث عنه
+    for (let i = 0; i < liElements.length; i++) {
+        const liText = liElements[i].textContent;
+        if (liText.includes(searchText)) {
+            liElements[i].style.display = "block";
+        } else {
+            liElements[i].style.display = "none";
         }
     }
+}
 
-    function removeArabicDiacritics(sentence, itemWords) {
-        const diacriticsMap = {
-            'آ': 'ا',
-            'أ': 'ا',
-            'إ': 'ا',
-            'اً': 'ا',
-            'ٱ': 'ا',
-            'ٲ': 'ا',
-            'ٳ': 'ا',
-            'ٵ': 'ا',
-            'ٷ': 'ؤ',
-            'ٹ': 'ت',
-            // Add more Arabic characters and their replacements as needed
-        };
-        return sentence?.replace(/[\u064B-\u065F\u0670]/g, '')
-            .split(" ")?.slice(0, parseInt(itemWords))?.join(' ')
-            .replace(/\)/g, "")
-            .replace(/\(/g, "")
-            .replace(/\[/g, "")
-            .replace(/\]/g, "")
-            .replace(/\﴿/g, "")
-            .replace(/\﴾/g, "")
-            .replace(/\ /g, "_")
-            .replace(/\,/g, "")
-            .replace(/\،/g, "")
-            .replace(/\:/g, "")
-            .replace(/\./g, "")
-            .replace(/./g, char => diacriticsMap[char] || char);
+function removeArabicDiacritics(sentence, itemWords) {
+    const diacriticsMap = {
+        'آ': 'ا', 'أ': 'ا', 'إ': 'ا', 'اً': 'ا', 'ٱ': 'ا', 'ٲ': 'ا', 'ٳ': 'ا', 'ٵ': 'ا',
+        'ٷ': 'ؤ', 'ٹ': 'ت',
+    };
+    const arabicDiacriticsRegex = /[\u064B-\u065F\u0670\u0610-\u061A]/g;
+    const withoutDiacritics = sentence?.replace(arabicDiacriticsRegex, '');
+    const words = withoutDiacritics?.split(/\s+/);
+    const selectedWords = words?.slice(0, parseInt(itemWords));
+    const correctedWords = selectedWords?.map(word =>
+        word.replace(/./g, char => diacriticsMap[char] || char)
+    );
+    const result = correctedWords?.join('_');
+    return result?.replace(/[\(\[\﴿]/g, "").replace(/[\)\]\﴾]/g, "").replace(/[\,\،\:\.]/g, "");
+}
+
+async function dataHisnMuslam() {
+    const hisnmuslimURL = `${window.location.origin}/data-hisnmuslim`;
+    const hisnmuslimFetch = await fetch(hisnmuslimURL, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    });
+
+    if (!hisnmuslimFetch.ok) {
+        console.log(`HTTP error! Status: ${hisnmuslimFetch.status}`);
+        return false
     }
 
-});
+    const response = await hisnmuslimFetch?.json();
+    return response
+}

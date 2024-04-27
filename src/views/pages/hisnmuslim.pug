@@ -1,14 +1,14 @@
 extends ../partials/layout.pug
 
 block stylesheet
-    link(rel="stylesheet" href="/static/css/hisnmuslim.css")
+    link(rel="stylesheet" href="/css/hisnmuslim.css")
 
 block content
     #hisnmuslimPage
         ul.breadcrumb
             li 
                 a(href="/")
-                    img(src="/static/icon/home.svg" alt="الرئيسية" class="iconFilter") 
+                    i.fa-solid.fa-house-chimney.iconBreadcrumb 
             li 
                 small /
                 a(href="/hisnmuslim") فهرس حصن المسلم
@@ -27,15 +27,24 @@ block content
         else if options.isAdhkarHisnMuslim
             ul#hisnmuslimCategory
         else if options.isHisText
-            ul#hisnmuslimCategory
+            ul#hisnmuslimCategory 
                 li 
                     small.HusId #{options.ObjectHis.id}
                     p#textHis
                     .Boxicons 
-                        img(src="/static/icon/play.svg" alt="play" class="iconFilter")#hisPlay
-                        img(src="/static/icon/download.svg" alt="play" class="iconFilter")#hisDownload
+                        i.fa-solid.fa-play#hisPlay
+                        i.fa-solid.fa-cloud-arrow-down#hisDownload
                     small.Huscount التكرار : 
                         span #{options.ObjectHis.count}
 block script
-    script(type="module")
-        include ../../public/js/pages/hisnmuslim.js
+    script(type="module").
+        const options = !{JSON.stringify(options)};  // تحويل خصائص options إلى كائن JSON
+        import { HisnMuslimIndex, HisnMuslimList, HisnMuslimItem } from '../js/pages/hisnmuslim.js';
+        
+        if (options.isIndex) {
+            await HisnMuslimIndex(options);
+        } else if (options.isAdhkarHisnMuslim) {
+            await HisnMuslimList(options);
+        } else {
+            await HisnMuslimItem(options);
+        }

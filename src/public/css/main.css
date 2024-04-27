@@ -42,7 +42,8 @@ input {
 .breadcrumb {
     display: flex;
     flex-wrap: wrap;
-    width: 95%;
+    align-items: center;
+    width: 90%;
     list-style: none;
     padding: 0px;
     white-space: nowrap;
@@ -50,7 +51,10 @@ input {
     text-overflow: ellipsis;
     margin-top: 40px;
     margin-bottom: 30px;
-    margin-right: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: var(--breadcrumb);
+    border-radius: 5px;
 }
 
 .breadcrumb li {
@@ -61,12 +65,18 @@ input {
 .breadcrumb li small {
     margin-left: 10px;
     user-select: none;
-    color: var(--colorFont2);
+    color: var(--breadcrumbColorHover);
+}
+
+.breadcrumb li a {
+    color: var(--breadcrumbColor);
+
 }
 
 .breadcrumb li a:hover {
-    color: var(--colorFontMain_hover);
+    color: var(--breadcrumbColorHover);
 }
+
 
 #loading {
     display: none;

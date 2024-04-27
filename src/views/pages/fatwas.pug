@@ -15,5 +15,7 @@ block content
     h2#fatwas_title موسوعة الفتاوى الإسلامية
     ul#box_fatwas
 block script
-  script(type="module")
-    include ../../public/js/pages/fatwas.js
+  script(type="module").
+    const options = !{JSON.stringify(options)};  // تحويل خصائص options إلى كائن JSON
+    import { fataawaIndex } from '../js/pages/fatwas.js';
+    fataawaIndex(options);

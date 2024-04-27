@@ -15,5 +15,7 @@ block content
     h2 فهرس سور القران الكريم
     ul#quranIndex 
 block script
-  script(type="module")
-    include ../../public/js/pages/quran.js
+  script(type="module").
+    const options = !{JSON.stringify(options)};  // تحويل خصائص options إلى كائن JSON
+    import { quranIdex } from '../js/pages/quran.js';
+    await quranIdex(options);

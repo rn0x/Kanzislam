@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", async function () {
+export const HistoryIndex = async (options) => {
     const searchHistory = document.getElementById("searchHistory");
     const historyBox = document.getElementById("historyBox");
     const historyMore = document.getElementById("historyMore");
@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     let data = [];
     let currentIndex = 0;
     const itemsPerPage = 10;
-    let searchTerm = ""; 
+    let searchTerm = "";
 
     async function fetchData() {
         const newData = await dataHistory();
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             id.innerText = item?.id;
             li.appendChild(link);
             link.className = "link_history";
-            link.innerText = item?.title; 
+            link.innerText = item?.title;
             link.href = `${window.location.origin}/historical-events/${item?.id}`;
         }
 
@@ -86,4 +86,4 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     await fetchData();
     loading.style.display = "none";
-});
+}

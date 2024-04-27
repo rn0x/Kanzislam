@@ -7,7 +7,7 @@ block content
   #adhkarPage 
     ul.breadcrumb
       li 
-        a(href="/")
+        a(href="/") 
           i.fa-solid.fa-house-chimney.iconBreadcrumb 
       li 
         small /
@@ -31,6 +31,9 @@ block script
   script(type="module").
     import manipulateLocalStorage from '/js/modules/manipulateLocalStorage.js';
     import filterSpan from '/js/modules/filterSpan.js';
+    
+    const loading = document.getElementById("loading");
+    loading.style.display = "block";
     const adhkarsBox = document.getElementById("adhkarsBox");
     adhkarsBox.style.display = "none";
     const options = !{JSON.stringify(options)};  // تحويل خصائص options إلى كائن JSON
@@ -85,7 +88,7 @@ block script
 
     repetition_icon.addEventListener("click", (event) => {
       event.stopPropagation();
-      repetition_p.textContent = options?.AdhkarObject?.repetition;
+      repetition_p.textContent = AdhkarObject?.repetition;
       repetition.style.backgroundColor = "";
     });
 
@@ -109,3 +112,5 @@ block script
       const response = await adhkarFetch?.json();
       return response
     }
+
+    loading.style.display = "none";

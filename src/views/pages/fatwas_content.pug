@@ -26,5 +26,7 @@ block content
         button#fatwasContentDownload تحميل الفتوى mp3
       p#fatwasContentAnswer
 block script
-  script(type="module")
-    include ../../public/js/pages/fatwas.js
+  script(type="module").
+    const options = !{JSON.stringify(options)};  // تحويل خصائص options إلى كائن JSON
+    import { fataawaItem } from '../js/pages/fatwas.js';
+    fataawaItem(options);

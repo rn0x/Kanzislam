@@ -1,7 +1,6 @@
 import path from "node:path";
 export const root = path.resolve(process.cwd()); // project root directory (./)
 
-const environment = process.env.NODE_ENV; // development or production
 const port = process.env.PORT;
 const domain = `http://127.0.0.1:${port}`; // remove process.env.PORT in production
 
@@ -13,11 +12,6 @@ export const config = {
   /* Config Website */
   website_name: process.env.WEBSITE_NAME,
   preview: `/images/preview-kanz.jpg`,
-
-  
-  /* Environment */
-  isProd: environment === "production",
-  isDev: environment === "development",
 
   /* Helmet */
   helmet: {

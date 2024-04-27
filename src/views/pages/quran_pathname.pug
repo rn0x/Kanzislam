@@ -5,7 +5,7 @@ block stylesheet
 
 block content
   #quranPathPage 
-    ul#breadcrumb
+    ul.breadcrumb
       li 
         a(href="/")
           i.fa-solid.fa-house-chimney.iconBreadcrumb 
@@ -42,13 +42,15 @@ block content
       h2#bisamla
       #FontSize 
         button#Plus
-          img(src="/icon/plus.svg" alt="" class="iconFilter")
+          i.fa-solid.fa-square-plus
         button#Minus
-          img(src="/icon/minus.svg" alt="" class="iconFilter")
+          i.fa-solid.fa-square-minus.iconSize
       p#surah
       #readerBox 
-        h2 الإستماع الى سورة #{options.currentSurah.name}
+        h2#titleSurah الإستماع الى سورة #{options.currentSurah.name}
         ul#readerBoxUl
 block script
-  script(type="module")
-    include ../../public/js/pages/quran.js
+  script(type="module").
+    const options = !{JSON.stringify(options)};  // تحويل خصائص options إلى كائن JSON
+    import { quranItem } from '../js/pages/quran.js';
+    await quranItem(options);

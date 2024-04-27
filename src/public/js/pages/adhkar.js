@@ -7,7 +7,7 @@ const adhkarJson = await dataAdhkar();
 const adhkarBox = document.getElementById("adhkarBox");
 
 
-export const PageAdhkarIndex = (a, b) => {
+export const PageAdhkarIndex = (options) => {
     const adhkarKey = Object.keys(adhkarJson);
     const adhkarCategory = document.getElementById("adhkarCategory");
     const adhkarRepeat = document.querySelector("#adhkarRepeat > p");
@@ -30,11 +30,12 @@ export const PageAdhkarIndex = (a, b) => {
         a.appendChild(title);
         title.innerText = adhkar?.category;
     }
-    adhkarRepeat.innerText = GetAdhkarRepeat?.value ? GetAdhkarRepeat?.value : 0
+    adhkarRepeat.innerText = GetAdhkarRepeat?.value ? GetAdhkarRepeat?.value : 0;
+
+    loading.style.display = "none";
 }
 
-export const PageAdhkarList = (options) => {
-
+export const PageAdhkarList = async (options) => {
     const adhkarKey = Object.keys(adhkarJson);
     const isPathAdhkar = adhkarKey.find((e) => adhkarJson[e]?.category?.split(" ")?.join("_") === options?.pathname);
 
@@ -42,9 +43,9 @@ export const PageAdhkarList = (options) => {
         window.location = "/404";
     }
 
+    const adhkarItem = adhkarJson[isPathAdhkar];
     const adhkarTitle = document.getElementById("adhkarTitle");
     const breadcrumbCategory = document.getElementById("breadcrumbCategory");
-    const adhkarItem = adhkarJson[isPathAdhkar];
     adhkarTitle.innerText = adhkarItem.category;
     breadcrumbCategory.innerText = adhkarItem.category;
     breadcrumbCategory.href = `/adhkar/${adhkarItem.category.split(" ").join("_")}`
@@ -104,6 +105,8 @@ export const PageAdhkarList = (options) => {
         });
 
     }
+
+    loading.style.display = "none";
 }
 
 async function dataAdhkar() {
@@ -123,5 +126,3 @@ async function dataAdhkar() {
     const response = await adhkarFetch?.json();
     return response
 }
-
-loading.style.display = "none";

@@ -27,6 +27,7 @@ try {
 // Log error message
 export const logError = (message) => {
   const logMessage = `[ERROR] ${new Date().toISOString()} - ${message}\n`;
+  console.log(logMessage);
   fs.appendFileSync(errorLogPath, logMessage);
 };
 

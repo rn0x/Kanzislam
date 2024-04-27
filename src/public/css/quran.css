@@ -83,34 +83,6 @@
     }
 }
 
-#breadcrumb {
-    display: flex;
-    align-items: center;
-    width: 80%;
-    list-style: none;
-    padding: 15px;
-}
-
-#breadcrumb li {
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-#breadcrumb li small {
-    margin-left: 10px;
-    user-select: none;
-    color: var(--colorFont2);
-}
-
-#breadcrumb li a img {
-    width: 35px;
-    user-select: none;
-}
-
-#breadcrumb li a:hover {
-    color: var(--colorFontMain_hover);
-}
-
 #quranPathBox {
     width: 90%;
     max-width: 1000px;
@@ -189,14 +161,15 @@
     border: none;
     padding: 10px;
     margin-top: -20px;
+    color: var(--iconColor);
 }
 
-#FontSize button img {
+#FontSize button i {
     width: 18px;
     transition: 0.5s ease-in-out;
 }
 
-#FontSize button img:hover {
+#FontSize button i:hover {
     width: 20px;
     transition: 0.5s ease-in-out;
 }
@@ -299,12 +272,15 @@
     border-radius: 5px;
 }
 
-#icon_download {
+.icon_download {
     width: 30px;
     position: absolute;
-    left: 5px;
+    left: 25px;
     top: 50%;
     transform: translate(-50%, -50%);  
+    font-size: 25px;
+    z-index: 100;
+    color: var(--iconColor);
 }
 
 @media (max-width: 700px) {

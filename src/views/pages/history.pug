@@ -12,10 +12,31 @@ block content
             li 
                 small /
                 a(href="/historical-events") الموسوعة التاريخية الإسلامية
-        h2 الموسوعة التاريخية الإسلامية
-        input(type="text", name="search" placeholder="بحث...")#searchHistory
-        ul#historyBox 
-        button#historyMore المزيد
+            if !options.isIndex
+                li 
+                    small /
+                    a(href=`/historical-events/${options.historyJson.id}`) #{options.historyJson.title}
+        if options.isIndex
+            h2 الموسوعة التاريخية الإسلامية
+            input(type="text" name="search" placeholder="بحث...")#searchHistory
+            ul#historyBox 
+            button#historyMore المزيد
+        else
+            #historyBoxText
+                h2 #{options.historyJson.title}
+                ul#boxDate
+                    each item in options.historyJson.date
+                        li #{item}
+                p#HistoryContent
 block script
-    script(type="module")
-        include ../../public/js/pages/history.js
+    script(type="module").
+        const options = !{JSON.stringify(options)};  // تحويل خصائص options إلى كائن JSON
+        import { HistoryIndex } from '../js/pages/history.js';
+        import filterSpan from "/js/modules/filterSpan.js";
+        
+        if (options.isIndex) {
+            HistoryIndex(options);
+        } else {
+            const HistoryContent = document.getElementById("HistoryContent");
+            HistoryContent.innerHTML = filterSpan(options.historyJson.text);
+        }

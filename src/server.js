@@ -38,7 +38,14 @@ app.disable('x-powered-by');
 
 /* HOME */
 app.get("/", async (req, res, next) => {
-  res.render("home");
+  res.render("home", {
+    options: {
+      title: `${config.website_name} - منصة شاملة للقرآن والأذكار والأحاديث والتفاسير والمحتوى الإسلامي`,
+      keywords: ["إسلام", "قرآن", "أذكار", "أحاديث", "منصة إسلامية", "فتاوى", "أوقات الصلاة", "تفسير", "مسبحة"],
+      description: `${config.website_name} هي منصة إسلامية شاملة تهدف إلى توفير القرآن الكريم والأذكار والأحاديث وغيرها من المحتوى الإسلامي بطريقة سهلة ومنظمة. توفر المنصة مجموعة واسعة من الموارد الدينية والتعليمية للمسلمين، استكشف ${config.website_name} اليوم واستفد من محتواه القيم والموثوق.`,
+      preview: `${config.domain}/images/preview-kanz.jpg`,
+    },
+  });
 });
 
 /* ROUTES */
@@ -50,35 +57,36 @@ app.use("/", errorRouter);
 
 /* NOT FOUND */
 app.use((req, res, next) => {
+
   res.status(404).render("error", {
-    title: `الصفحة غير موجودة 404`,
-    keywords: ["صفحة الخطأ 404", "عنوان URL غير صحيح", "عنوان URL غير موجود", "error", "404", "لم يتم العثور على الصفحة", "صفحة غير موجودة", "صفحة غير متاحة", "رسالة الخطأ 404"],
-    description: "صفحة الخطأ 404 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.",
-    status: 404,
-    errorTitle: "الصفحة غير موجودة",
+    options: {
+      title: `الصفحة غير موجودة 404`,
+      keywords: ["صفحة الخطأ 404", "عنوان URL غير صحيح", "عنوان URL غير موجود", "error", "404", "لم يتم العثور على الصفحة", "صفحة غير موجودة", "صفحة غير متاحة", "رسالة الخطأ 404"],
+      description: "صفحة الخطأ 404 هي صفحة تظهر عندما يتم الوصول إلى عنوان URL غير صحيح أو غير موجود. تهدف هذه الصفحة إلى إعلام المستخدم بأن الصفحة التي يحاول الوصول إليها غير متاحة.",
+      status: 404,
+      errorTitle: "الصفحة غير موجودة",
+    }
   });
 });
 
-if (config.isProd) {
-  /* INTERNAL SERVER ERROR */
-  app.use((err, req, res, next) => {
-    logError(err.message);
-    res.status(500).render("error", {
+
+/* INTERNAL SERVER ERROR */
+app.use((err, req, res, next) => {
+  logError(err.message);
+  res.status(500).render("error", {
+    options: {
       title: "خطأ في الخادم الداخلي 500",
       keywords: ["صفحة الخطأ 500", "عنوان URL غير صحيح", "عنوان URL غير موجود", "error", "500", "لم يتم العثور على الصفحة", "صفحة غير موجودة", "صفحة غير متاحة", "رسالة الخطأ 500", "خطأ في الخادم الداخلي"],
       description: `صفحة الخطأ 500 تعني "خطأ في الخادم الداخلي" وتظهر عندما يحدث خطأ تقني داخل الخادم يعيقه عن معالجة الطلب بشكل صحيح.`,
       status: 500,
       errorTitle: "خطأ في الخادم الداخلي",
-    });
+    }
   });
-}
+});
+
 
 const server = app.listen(config.port, () => {
-  if (config.isDev === true) {
-    console.log(`[Kanzislam] Server started on port ${config.port}`);
-  } else if (config.isProd === true) {
-    console.log(`[Kanzislam] Server started, Production environment.`);
-  }
+  console.log(`[Kanzislam] Server started on port ${config.port}`);
 });
 
 function sigHandle(signal) {

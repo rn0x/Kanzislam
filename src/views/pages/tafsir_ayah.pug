@@ -22,12 +22,20 @@ block content
                 small /
                 a(href=`/tafsir-quran/${options.tafsir.name_english}/${options.surah.number}`) آية رقم #{options.ayah.id}
         #ayahBox
-          #ayahDiv 
-            p.titleDiv آية
-            h2.ayahText!=options.filterSpan(`﴿ ${options.ayah.ar} ﴾`)
-          #tafsirDiv 
-            p.titleDiv تفسير
-            p.tafsirContent!=options.filterSpan(options.tafsirContent)
+            #ayahDiv  
+                p.titleDiv آية
+                h2.ayahText#ayahText
+            #tafsirDiv 
+                p.titleDiv تفسير
+                p.tafsirContent#tafsirContent
 block script
-    script(type="module")
-        include ../../public/js/pages/tafsir.js
+    script(type="module").
+        const options = !{JSON.stringify(options)};  // تحويل خصائص options إلى كائن JSON
+        import filterSpan from "/js/modules/filterSpan.js";
+
+        const ayahText = document.getElementById("ayahText");
+        const tafsirContent = document.getElementById("tafsirContent");
+
+        ayahText.innerHTML = filterSpan(`﴿ ${options.ayah.ar} ﴾`);
+        tafsirContent.innerHTML = filterSpan(options.tafsirContent);
+
