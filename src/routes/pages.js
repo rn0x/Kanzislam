@@ -5,6 +5,11 @@ import { logError, logInfo } from "../utils/logger.js";
 import express from "express";
 const router = express.Router();
 
+/* SYNCDATA */
+import { syncData, dataCheck } from "../utils/syncData.js";
+await syncData();
+await dataCheck();
+
 // FS READ FUNCTION
 async function readFile(path) {
   try {
@@ -47,6 +52,10 @@ await fatwas(router, config, readFile, logger);
 
 /* SABHA ROUTER */
 import sabha from "./pages/sabha.js";
-await sabha(router, config);
+await sabha(router);
+
+/* PRAYER TIME ROUTER */
+import prayer from "./pages/prayer.js";
+await prayer(router);
 
 export default router;

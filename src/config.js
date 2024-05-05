@@ -66,4 +66,14 @@ export const config = {
     favicon: path.join(root, "src", "public", "favicon.ico"),
     json: path.join(root, "src", "data", "json"),
   },
+
+  // وسائل التواصل
+
+  contact: {
+    email: process.env.CONTACT_EMAIL,
+    tiktok: process.env.CONTACT_TIKTOK,
+    instagram: process.env.CONTACT_INSTAGRAM,
+    telegram: process.env.CONTACT_TELEGRAM,
+    phone: process.env.CONTACT_PHONE,
+  }
 };

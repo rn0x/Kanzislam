@@ -50,7 +50,7 @@ const updateLocalData = async () => {
             fs.writeFileSync(manifestLocalFilePath, JSON.stringify(manifest));
             console.log('تم حفظ ملف manifest.json محليًا');
         }
- 
+
         // مقارنة الإصدارات المحلية بالإصدارات في manifest.json وتحديث البيانات إذا لزم الأمر
         for (const file of manifest.Files) {
             const localFilePath = path.join(localSrc, `${file.FilePath}/${file.FileName}`);
@@ -115,7 +115,7 @@ const updateManifestFile = (updatedFile) => {
 
 
 
-export default async () => {
+export const syncData = async () => {
     // تنفيذ تحديث البيانات المحلية عند بدء تشغيل التطبيق
     await updateLocalData().catch(err => console.error('حدث خطأ: ', err));
 
@@ -129,3 +129,28 @@ export default async () => {
         }
     }, interval);
 }
+
+export const dataCheck = async () => {
+    return new Promise((resolve, reject) => {
+        const intervalId = setInterval(async () => {
+            try {
+                if (fs.existsSync(manifestLocalFilePath)) {
+
+                    const manifest = await fs.promises.readFile(manifestLocalFilePath, 'utf8'); // تحديث استخدام fs.promises.readFile
+                    const manifestJson = JSON.parse(manifest);
+                    const lastFile = manifestJson?.Files?.[manifestJson?.Files?.length - 1];
+                    const localFilePath = path.join(localSrc, `${lastFile.FilePath}/${lastFile.FileName}`);
+                    const exists = fs.existsSync(localFilePath);
+
+                    if (exists) {
+                        clearInterval(intervalId);
+                        resolve(true);
+                    }
+                }
+            } catch (error) {
+                clearInterval(intervalId);
+                reject(error);
+            }
+        }, 5000);
+    });
+};
