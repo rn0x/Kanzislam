@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const buttonTheme = document.getElementById('buttonTheme');
     const iconLogo = document.getElementById('iconLogo');
     const logo_footer = document.getElementById('logo_footer');
+    const SideMenubut = document.getElementById('SideMenubut');
     const storage = window.localStorage;
     const getTheme = storage.getItem("theme");
 
@@ -40,6 +41,12 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // تغيير بين الوضع الليلي والنهاري
     buttonTheme.addEventListener('click', ThemeHandler);
+
+    // زر الرئيسية في القائمة الجانبية 
+    SideMenubut.addEventListener('click', () => { 
+        window.location.pathname = "/";
+    });
+
 
     // تبديل حالة القائمة الجانبية
     function toggleSideMenu(event) {
