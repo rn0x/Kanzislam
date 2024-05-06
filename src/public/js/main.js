@@ -70,12 +70,13 @@ document.addEventListener("DOMContentLoaded", async function () {
         const getTheme = storage.getItem("theme");
         if (getTheme === "dark") {
             storage.setItem("theme", "light");
-            buttonTheme.src = "/icon/dark.svg";
+            buttonTheme.className = "fa-solid fa-lightbulb";
+
         }
 
         else {
             storage.setItem("theme", "dark");
-            buttonTheme.src = "/icon/light.svg";
+            buttonTheme.className = "fa-solid fa-moon";
         }
 
         window.location.href = window.location.href
