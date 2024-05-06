@@ -5,6 +5,7 @@ import {
 } from './fatawaUtils.js';
 import fs from 'fs-extra';
 import path from 'path';
+import "dotenv/config";
 
 async function generateSitemap() {
 

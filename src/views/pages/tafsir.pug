@@ -44,7 +44,7 @@ block content
 block script
     script(type="module").
         const options = !{JSON.stringify(options)};  // تحويل خصائص options إلى كائن JSON
-        import { tafsirSurahIndex } from '../js/pages/tafsir.js';
+        import { tafsirSurahIndex } from '/js/pages/tafsir.js';
         
         if (options.tafsir) {
             tafsirSurahIndex(options);

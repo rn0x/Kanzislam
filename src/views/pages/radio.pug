@@ -34,7 +34,7 @@ block content
 block script
     script(type="module").
         const options = !{JSON.stringify(options)};  // تحويل خصائص options إلى كائن JSON
-        import { radioIndexPage, radioItemPage } from '../js/pages/radio.js';
+        import { radioIndexPage, radioItemPage } from '/js/pages/radio.js';
 
         if (options.radioIndex) {
             await radioIndexPage(options);

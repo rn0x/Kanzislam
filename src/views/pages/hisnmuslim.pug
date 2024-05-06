@@ -39,7 +39,7 @@ block content
 block script
     script(type="module").
         const options = !{JSON.stringify(options)};  // تحويل خصائص options إلى كائن JSON
-        import { HisnMuslimIndex, HisnMuslimList, HisnMuslimItem } from '../js/pages/hisnmuslim.js';
+        import { HisnMuslimIndex, HisnMuslimList, HisnMuslimItem } from '/js/pages/hisnmuslim.js';
         
         if (options.isIndex) {
             await HisnMuslimIndex(options);
