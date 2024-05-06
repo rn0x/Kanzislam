@@ -12,14 +12,17 @@ html(lang="ar" data-theme="light" dir="rtl")
         meta(name="keywords" content=options.keywords ? options.keywords.join(", ") : "إسلام, قرآن, أذكار, أحاديث, منصة إسلامية, فتاوى, أوقات الصلاة, تفسير, مسبحة")
         meta(name="description" content=options.description ? description : `${website_name} هي منصة إسلامية شاملة تهدف إلى توفير القرآن الكريم والأذكار والأحاديث وغيرها من المحتوى الإسلامي بطريقة سهلة ومنظمة. توفر المنصة مجموعة واسعة من الموارد الدينية والتعليمية للمسلمين، استكشف ${website_name} اليوم واستفد من محتواه القيم والموثوق.`)
         title=options.title ? `${options.title} - ${website_name}` : "كنز الإسلام - منصة شاملة للقرآن والأذكار والأحاديث والتفاسير والمحتوى الإسلامي"
-        // Load CSS files
         //- link(rel="stylesheet" href="/css/main.css")
         //- link(rel="stylesheet" href="/css/header.css")
         //- link(rel="stylesheet" href="/css/footer.css")
         //- link(rel="stylesheet" href="/css/fonts.css")
         //- link(rel="stylesheet" href="/css/variables.css")
+        link(rel="preload", href="/css/dist/styles.min.css", as="style")
+        link(rel="preload", href="/css/fontawesome.all.css", as="style")
         link(rel="stylesheet" href="/css/dist/styles.min.css")
         link(rel="stylesheet" href="/css/fontawesome.all.css")
+        script.
+            if (localStorage.getItem("theme") == "dark") document.documentElement.setAttribute("data-theme", "dark");
         block stylesheet
     body
         header

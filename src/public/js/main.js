@@ -5,24 +5,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     const menuButton = document.getElementById('button_menu_header');
     const sideMenuBox = document.getElementById('SideMenuBox');
     const sideMenu = document.getElementById('SideMenu');
-    const SideMenuSettings = document.getElementById('SideMenuSettings');
     const buttonTheme = document.getElementById('buttonTheme');
     const iconLogo = document.getElementById('iconLogo');
     const logo_footer = document.getElementById('logo_footer');
-    const storage = window.localStorage;
-    const getTheme = storage.getItem("theme");
 
-    if (getTheme === "dark") {
-        document.querySelector("html").setAttribute("data-theme", "dark");
-        buttonTheme.className = "fa-solid fa-lightbulb";
+    if (window.localStorage.getItem("theme") == "dark") {
         iconLogo.src = "/icon/logo-dark.svg";
+        buttonTheme.className = "fa-solid fa-lightbulb";
         logo_footer.src = "/icon/logoFooterDark.svg";
-    }
-    if (getTheme === "light") {
-        document.querySelector("html").setAttribute("data-theme", "light");
-        buttonTheme.className = "fa-solid fa-moon";
-        iconLogo.src = "/icon/logo.svg";
-        logo_footer.src = "/icon/logoFooter.svg";
     }
 
     // احصل على جميع عناصر img
@@ -67,17 +57,14 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // نوع الثيم
     function ThemeHandler() {
-        const getTheme = storage.getItem("theme");
-        if (getTheme === "dark") {
-            storage.setItem("theme", "light");
-            buttonTheme.src = "/icon/dark.svg";
+        if (localStorage.getItem("theme") == "dark") {
+            localStorage.setItem("theme", "light");
+            buttonTheme.className = "fa-solid fa-moon";
+        } else {
+            localStorage.setItem("theme", "dark");
+            buttonTheme.className = "fa-solid fa-lightbulb";
         }
 
-        else {
-            storage.setItem("theme", "dark");
-            buttonTheme.src = "/icon/light.svg";
-        }
-
-        window.location.href = window.location.href
+        location.reload(true);
     }
 });

@@ -91,8 +91,13 @@ const server = app.listen(config.port, () => {
 
 function sigHandle(signal) {
   logInfo(`${signal} signal received.`);
-  server.close(() => {
-    console.log("[Kanzislam] Server closed.");
+  server.close((err) => {
+    if (err) {
+      console.error("[Kanzislam] Error closing server:", err);
+    } else {
+      console.log("[Kanzislam] Server closed.");
+      process.exit(0); // Explicitly exit the process after the server is closed
+    }
   });
 }
 

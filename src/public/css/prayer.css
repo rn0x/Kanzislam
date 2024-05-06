@@ -142,6 +142,8 @@
     left: 25px;
     top: 160px;
     cursor: pointer;
+    font-size: 20px;
+    color: var(--iconColor);
 }
 
 #logoScreen {
