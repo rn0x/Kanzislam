@@ -2,7 +2,7 @@ import path from "node:path";
 import analyzeText from '../../utils/analyzeText.js';
 
 export default async (router, config, readFile, logger) => {
-  const { logError, logInfo } = logger;
+  const { logError } = logger;
   try {
     const historyJson = await readFile(path.join(config.paths.json, "history.json"));
 
@@ -42,7 +42,7 @@ export default async (router, config, readFile, logger) => {
     });
 
     // Data History
-    router.get("/data-history", async (req, res) => {
+    router.get("/data-history", (req, res) => {
       res.status(200).json(historyJson);
     });
   } catch (error) {

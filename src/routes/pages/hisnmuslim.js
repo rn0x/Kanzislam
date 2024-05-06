@@ -2,7 +2,7 @@ import path from "node:path";
 
 export default async (router, config, readFile, logger) => {
 
-  const { logError, logInfo } = logger;
+  const { logError } = logger;
   try {
     const hisnmuslimPath = path.join(config.paths.json, "hisnmuslim.json");
     const hisnmuslimJson = await readFile(hisnmuslimPath);
@@ -74,7 +74,7 @@ export default async (router, config, readFile, logger) => {
     });
 
     // Data Hisn almuslim
-    router.get("/data-hisnmuslim", async (req, res) => {
+    router.get("/data-hisnmuslim", (req, res) => {
       res.status(200).json(hisnmuslimJson);
     });
   } catch (error) {

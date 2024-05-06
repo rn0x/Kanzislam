@@ -1,7 +1,7 @@
 import path from "node:path";
 
 export default async (router, config, readFile, logger) => {
-  const { logError, logInfo } = logger;
+  const { logError } = logger;
   try {
     const fileJson = await readFile(path.join(config.paths.json, "file.json"));
     router.get("/radio", (req, res) => {
@@ -21,7 +21,7 @@ export default async (router, config, readFile, logger) => {
     });
   
     // TODO: REMOVE THIS !!! (AND REPLACE RADIO.JS CODE)
-    router.get("/data-file",async (req, res) => {
+    router.get("/data-file", (req, res) => {
       res.status(200).json(radioJson);
     });
   } catch (error) {

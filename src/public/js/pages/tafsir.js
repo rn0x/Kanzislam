@@ -60,19 +60,3 @@ async function dataQuran() {
     const response = await quranFetch?.json();
     return response
 }
-
-async function dataSurah(nameSurah) {
-    const quranURL = `${window.location.origin}/data-quran?nameSurah=${nameSurah}`;
-    const quranFetch = await fetch(quranURL, {
-        method: "GET",
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    });
-    if (quranFetch.ok) {
-        const response = await quranFetch?.json();
-        if (response?.nameSurah) {
-            return response
-        } else return false
-    } else return false
-}

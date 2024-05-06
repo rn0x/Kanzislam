@@ -1,4 +1,4 @@
-export const HistoryIndex = async (options) => {
+export const HistoryIndex = async () => {
     const searchHistory = document.getElementById("searchHistory");
     const historyBox = document.getElementById("historyBox");
     const historyMore = document.getElementById("historyMore");

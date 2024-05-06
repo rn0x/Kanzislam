@@ -7,7 +7,7 @@ loading.style.display = "block";
 const url = window.location.origin;
 const hisnmuslimJson = await dataHisnMuslam();
 
-export const HisnMuslimIndex = async (options) => {
+export const HisnMuslimIndex = () => {
     for (let item of hisnmuslimJson) {
         let li = document.createElement("li");
         let a = document.createElement("a");
@@ -23,7 +23,7 @@ export const HisnMuslimIndex = async (options) => {
         searchAndDisplayLi("hisnmuslimIndex", SearchIndex.value);
     });
 }
-export const HisnMuslimList = async (options) => {
+export const HisnMuslimList = (options) => {
     const hisnmuslimCategory = document.getElementById("hisnmuslimCategory");
     let currentAudio = null;
     let currentAudioIcon = null;
@@ -117,7 +117,7 @@ export const HisnMuslimList = async (options) => {
     }
     loading.style.display = "none";
 }
-export const HisnMuslimItem = async (options) => {
+export const HisnMuslimItem = (options) => {
     const textHis = document.getElementById("textHis");
     const hisPlay = document.getElementById("hisPlay");
     const hisDownload = document.getElementById("hisDownload");

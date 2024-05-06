@@ -42,9 +42,9 @@ block script
         import { HisnMuslimIndex, HisnMuslimList, HisnMuslimItem } from '/js/pages/hisnmuslim.js';
         
         if (options.isIndex) {
-            await HisnMuslimIndex(options);
+            HisnMuslimIndex(options);
         } else if (options.isAdhkarHisnMuslim) {
-            await HisnMuslimList(options);
+            HisnMuslimList(options);
         } else {
-            await HisnMuslimItem(options);
+            HisnMuslimItem(options);
         }

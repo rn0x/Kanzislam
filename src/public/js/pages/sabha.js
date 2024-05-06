@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", async function () {
+document.addEventListener("DOMContentLoaded", function () {
 
     const sabha_number = document.getElementById('sabha_number');
     const sabha = document.getElementById('sabha');

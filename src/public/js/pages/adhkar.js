@@ -35,7 +35,7 @@ export const PageAdhkarIndex = (options) => {
     loading.style.display = "none";
 }
 
-export const PageAdhkarList = async (options) => {
+export const PageAdhkarList = (options) => {
     const adhkarKey = Object.keys(adhkarJson);
     const isPathAdhkar = adhkarKey.find((e) => adhkarJson[e]?.category?.split(" ")?.join("_") === options?.pathname);
 

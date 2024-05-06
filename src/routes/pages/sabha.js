@@ -1,4 +1,4 @@
-export default async (router) => {
+export default (router) => {
   router.get("/sabha", (req, res) => {
     res.render("pages/sabha", {
       options: {

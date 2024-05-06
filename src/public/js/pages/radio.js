@@ -4,7 +4,7 @@ loading.style.display = "block";
 let currentAudio = null;
 let currentIcon = null;
 
-export const radioIndexPage = async (options) => {
+export const radioIndexPage = async () => {
     const radio = document.getElementById("radio");
     const radioJson = await dataRadio();
 
@@ -60,7 +60,7 @@ export const radioIndexPage = async (options) => {
     }
 }
 
-export const radioItemPage = async (options) => {
+export const radioItemPage = (options) => {
     const audio = document.createElement("audio");
     const iconRadio = document.getElementById("iconRadio");
 

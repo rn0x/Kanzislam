@@ -5,7 +5,7 @@ const quranIndex = document.getElementById("quranIndex");
 loading.style.display = "block";
 const QuranData = await dataQuran();
 
-export const quranIdex = async (options) => {
+export const quranIdex = () => {
 
     for (const item of QuranData?.quranJson) {
 
@@ -36,7 +36,7 @@ export const quranIdex = async (options) => {
     loading.style.display = "none";
 }
 
-export const quranItem = async (options) => {
+export const quranItem = (options) => {
     const fontPlus = document.getElementById("Plus");
     const fontMinus = document.getElementById("Minus");
     const readerBoxUl = document.getElementById("readerBoxUl");
@@ -51,7 +51,7 @@ export const quranItem = async (options) => {
     const english_name_span = document.getElementById("english_name_span");
     const bisamla = document.getElementById("bisamla");
     const surah = document.getElementById("surah");
-    const DataSurah = await dataQuranSurah(QuranData, options.nameSurah);
+    const DataSurah = dataQuranSurah(QuranData, options.nameSurah);
 
     if (!DataSurah?.nameSurah) {
         window.location = "/404";
@@ -71,12 +71,12 @@ export const quranItem = async (options) => {
     bisamla.innerText = DataSurah?.bisamla;
     surah.innerHTML = DataSurah?.surah;
 
-    fontPlus.addEventListener("click", async () => {
+    fontPlus.addEventListener("click", () => {
         changeFontSize("bisamla", 2);
         changeFontSize("surah", 2);
     });
 
-    fontMinus.addEventListener("click", async () => {
+    fontMinus.addEventListener("click", () => {
         changeFontSize("bisamla", -2);
         changeFontSize("surah", -2);
     });
@@ -119,7 +119,7 @@ export const quranItem = async (options) => {
             IconDownload.className = "fa-solid fa-cloud-arrow-down icon_download";
         });
 
-        li.addEventListener("click", async () => {
+        li.addEventListener("click", () => {
 
             if (currentAudio) { // التحقق من وجود مقطع صوتي حالي وإيقاف تشغيله
                 currentAudio.pause();
@@ -183,7 +183,7 @@ function changeFontSize(elementId, increment) {
     element.style.fontSize = fontSize + 'px';
 }
 
-async function dataQuranSurah(QuranData, nameSurah) {
+function dataQuranSurah(QuranData, nameSurah) {
     const currentQuranIndex = QuranData.quranJson.findIndex(e => e.name === nameSurah);
     const currentSurahIndex = QuranData.surahJson.findIndex(e => e.name === nameSurah);
     const currentSurah = { ...QuranData.quranJson[currentQuranIndex], ...QuranData.surahJson[currentSurahIndex] };

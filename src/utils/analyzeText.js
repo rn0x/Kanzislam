@@ -3,7 +3,7 @@
  * @param {string} text - النص المدخل للتحليل.
  * @returns كائن يحتوي على الإحصائيات المختلفة عن النص.
  */
-export default async function analyzeText(text) {
+export default function analyzeText(text) {
     // تحسين الأداء: التحقق من أن النص غير فارغ
     if (text?.trim() === '') {
         return {

@@ -2,7 +2,7 @@ import path from "node:path";
 
 export default async (router, config, readFile, logger) => {
 
-  const { logError, logInfo } = logger;
+  const { logError } = logger;
   try {
     const quranPath = path.join(config.paths.json, 'quran_info.json');
     const surahPath = path.join(config.paths.json, 'surah.json');
@@ -22,7 +22,7 @@ export default async (router, config, readFile, logger) => {
       });
     });
 
-    router.get("/quran/:pathname", async (req, res) => {
+    router.get("/quran/:pathname", (req, res) => {
       const { pathname } = req.params;
       const nameSurah = pathname?.split("سورة")?.join("")?.split("_")?.join(" ")?.trim();
       const currentSurah = quranJson.find(e => e.name === nameSurah);
@@ -44,7 +44,7 @@ export default async (router, config, readFile, logger) => {
     });
 
     // Data Quran
-    router.get("/data-quran", async (req, res) => {
+    router.get("/data-quran", (req, res) => {
       res.status(200).json({
         quranJson,
         mp3quranJson,

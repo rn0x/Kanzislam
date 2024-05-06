@@ -1,5 +1,4 @@
-document.addEventListener("DOMContentLoaded", async function () {
-  let isSideMenu = false;
+document.addEventListener("DOMContentLoaded", function () {
 
   const menuButton = document.getElementById("button_menu_header");
   const sideMenuBox = document.getElementById("SideMenuBox");
@@ -29,6 +28,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   buttonTheme.addEventListener("click", ThemeHandler);
 
   // تبديل حالة القائمة الجانبية
+  let isSideMenu = false;
   function toggleSideMenu(event) {
     sideMenuBox.classList.toggle("active");
     sideMenu.classList.toggle("active");

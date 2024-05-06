@@ -2,7 +2,7 @@ import path from "node:path";
 
 export default async (router, config, readFile, logger) => {
 
-  const { logError, logInfo } = logger;
+  const { logError } = logger;
   try {
     const adhkarJson = await readFile(path.join(config.paths.json, "adhkar.json"));
     const adhkarKey = Object.keys(adhkarJson);
@@ -17,7 +17,7 @@ export default async (router, config, readFile, logger) => {
       });
     });
 
-    router.get("/adhkar/:pathname", async (req, res) => {
+    router.get("/adhkar/:pathname", (req, res) => {
       const pathname = req.params.pathname;
       const currentAdhkarKey = adhkarKey.find((e) => adhkarJson[e]?.category?.split(" ")?.join("_") === pathname);
       const currentAdhkar = adhkarJson[currentAdhkarKey];
@@ -37,7 +37,7 @@ export default async (router, config, readFile, logger) => {
       });
     });
 
-    router.get("/adhkars/:pathname", async (req, res) => {
+    router.get("/adhkars/:pathname", (req, res) => {
       const pathname = req.params.pathname;
       const AdhkarObject = Object.values(adhkarJson).flatMap(item => item.array.filter(subItem => subItem.title.split(" ").join("_") === pathname).map(subItem => ({ category: item.category, ...subItem })))?.[0];
 
@@ -58,7 +58,7 @@ export default async (router, config, readFile, logger) => {
     });
 
     // Data Adhkar
-    router.get("/data-adhkar", async (req, res) => {
+    router.get("/data-adhkar", (req, res) => {
       res.status(200).json(adhkarJson);
     });
   } catch (error) {

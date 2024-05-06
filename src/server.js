@@ -38,7 +38,7 @@ app.use(bodyParser.json({ limit: config.bodyParser.limit }));
 app.disable('x-powered-by');
 
 /* HOME */
-app.get("/", async (req, res, next) => {
+app.get("/", (req, res, next) => {
   res.render("home", {
     options: {
       title: `${config.website_name} - منصة شاملة للقرآن والأذكار والأحاديث والتفاسير والمحتوى الإسلامي`,

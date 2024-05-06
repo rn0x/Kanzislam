@@ -1,5 +1,5 @@
 
-export default async (router) => {
+export default (router) => {
   router.get("/prayer", (req, res) => {
     res.render("pages/prayer", {
       options: {

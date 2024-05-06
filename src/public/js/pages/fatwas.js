@@ -2,7 +2,7 @@ import filterSpan from '/js/modules/filterSpan.js';
 
 const loading = document.getElementById("loading");
 
-export const fataawaIndex = async (options) => {
+export const fataawaIndex = async () => {
     loading.style.display = "block";
     const url = `${window.location.protocol}//${window.location.host}`
     const categoryFetch = await fetch(`/fataawa-get-category-and-counts`);
@@ -38,7 +38,7 @@ export const fataawaIndex = async (options) => {
     loading.style.display = "none";
 }
 
-export const fataawaList = async (options) => {
+export const fataawaList = (options) => {
     const more_fatwa = document.getElementById("more_fatwa");
     const box_fatwas_item = document.getElementById("box_fatwas_item");
 
@@ -95,7 +95,7 @@ export const fataawaList = async (options) => {
     });
 }
 
-export const fataawaItem = async (options) => {
+export const fataawaItem = (options) => {
     const fatwasContentDownload = document.getElementById("fatwasContentDownload");
     const fatwasContentAnswer = document.getElementById("fatwasContentAnswer");
     fatwasContentAnswer.innerHTML = filterSpan(options.FatwaById.answer);

@@ -2,7 +2,7 @@ import path from "node:path";
 
 export default async (router, config, readFile, logger) => {
 
-  const { logError, logInfo } = logger;
+  const { logError } = logger;
   try {
     const tafsir_name_path = path.join(config.paths.json, 'tafsir/tafsir_name.json');
     const quranPath = path.join(config.paths.json, 'quran_info.json');
@@ -11,7 +11,7 @@ export default async (router, config, readFile, logger) => {
     const quranJson = await readFile(quranPath);
     const ayatJson = await readFile(ayatPath);
 
-    router.get("/tafsir-quran", async (req, res, next) => {
+    router.get("/tafsir-quran", (req, res, next) => {
       res.render("pages/tafsir", {
         options: {
           tafsir_name: tafsir_name_json,
@@ -22,7 +22,7 @@ export default async (router, config, readFile, logger) => {
       });
     });
 
-    router.get("/tafsir-quran/:tfs", async (req, res, next) => {
+    router.get("/tafsir-quran/:tfs", (req, res, next) => {
       const { tfs } = req.params;
       const tafsir = tafsir_name_json.find((e) => e?.name_english === tfs);
 
@@ -43,7 +43,7 @@ export default async (router, config, readFile, logger) => {
 
     });
 
-    router.get("/tafsir-quran/:tfs/:surah/", async (req, res, next) => {
+    router.get("/tafsir-quran/:tfs/:surah/", (req, res, next) => {
       const { tfs, surah } = req.params;
       const tafsir = tafsir_name_json.find((e) => e?.name_english === tfs);
       const quranSurah = quranJson.find((e) => e?.number === Number(surah));
