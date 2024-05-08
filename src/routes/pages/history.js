@@ -26,8 +26,8 @@ export default async (router, config, readFile, logger) => {
         res.redirect('/404');
         return
       }
-
-      const analyze = await analyzeText(findHistory?.title).catch(error => logError(`history/analyzeText: ${error}`));
+ 
+      const analyze = analyzeText(findHistory?.title)
       const keywords = analyze?.words;
 
       res.render("pages/history", {
