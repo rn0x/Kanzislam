@@ -7,7 +7,7 @@ const adhkarJson = await dataAdhkar();
 const adhkarBox = document.getElementById("adhkarBox");
 
 
-export const PageAdhkarIndex = (options) => {
+export const PageAdhkarIndex = () => {
     const adhkarKey = Object.keys(adhkarJson);
     const adhkarCategory = document.getElementById("adhkarCategory");
     const adhkarRepeat = document.querySelector("#adhkarRepeat > p");

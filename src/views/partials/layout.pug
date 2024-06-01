@@ -25,6 +25,9 @@ html(lang="ar" data-theme="light" dir="rtl")
             if (localStorage.getItem("theme") == "dark") document.documentElement.setAttribute("data-theme", "dark");
         block stylesheet
     body
+        noscript
+            p Warning: This website will not function without JavaScript enabled. Please enable JavaScript and refresh the page
+            p(lang="ar" dir="rtl") تحذير: هذا الموقع لن يعمل بدون تمكين الجافا سكريبت. يرجى تمكين الجافا سكريبت وتحديث الصفحة
         header
             include ./header.pug
         img(src="/icon/loading.svg" alt="loading")#loading
