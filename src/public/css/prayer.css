@@ -170,14 +170,14 @@
     border-style: solid;
 }
 
-#isPermissionLocation h2{
+#isPermissionLocation h2 {
     font-size: 16px;
     font-weight: 400;
     margin: 0px;
     color: #ff4646;
 }
 
-#isPermissionLocation p{
+#isPermissionLocation p {
     width: 50px;
     position: absolute;
     margin-top: -25px;
@@ -188,10 +188,30 @@
     border-radius: 3px;
 }
 
-#isPermissionLocation small{
+#isPermissionLocation small {
     margin-top: 10px;
     color: var(--colorFont2);
     font-size: 12px;
+}
+
+#bt_manual_entry,
+#bt_manual_entry_pr {
+    display: block;
+    background-color: var(--button);
+    padding: 8px;
+    color: var(--background_white);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
+    border-radius: 8px;
+    transition: 0.5s ease-in-out;
+}
+
+#bt_manual_entry:hover {
+    padding: 15px;
+    transition: 0.5s ease-in-out;
 }
 
 @media (max-width: 450px) {

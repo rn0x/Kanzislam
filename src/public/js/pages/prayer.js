@@ -7,6 +7,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     const logoScreen = document.getElementById("logoScreen");
     const loading = document.getElementById("loading");
     const isPermissionLocation = document.getElementById("isPermissionLocation");
+    const latitude = localStorage.getItem("latitude");
+    const longitude = localStorage.getItem("longitude");
+    const timezone = localStorage.getItem("timezone");
     const getLocation = await new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition((position) => {
             const latitude = position.coords.latitude; // خط العرض
@@ -29,17 +32,23 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
 
-    if (getLocation) {
+    if (getLocation || (latitude && longitude && timezone)) {
 
         loading.style.display = "block";
-        
+
         setInterval(() => {
+            const latitude = localStorage.getItem("latitude");
+            const longitude = localStorage.getItem("longitude");
+            const timezoneStor = localStorage.getItem("timezone");
+            const madhabStor = localStorage.getItem("madhab");
+            const calculationStor = localStorage.getItem("calculation");
             const prayerData = prayerTimes({
-                Calculation: "UmmAlQura",
-                latitude: getLocation.latitude,
-                longitude: getLocation.longitude,
-                Madhab: "Shafi",
+                Calculation: calculationStor ? calculationStor : "UmmAlQura",
+                latitude: latitude ? latitude : getLocation.latitude,
+                longitude: longitude ? longitude : getLocation.longitude,
+                Madhab: madhabStor ? madhabStor : "Shafi",
                 Shafaq: "Ahmer",
+                Timezone: timezoneStor ? timezoneStor : "Asia/Riyadh",
                 // fajr: 0,
                 // dhuhr: 0,
                 // asr: 0,

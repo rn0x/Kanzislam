@@ -1,0 +1,85 @@
+extends ../partials/layout.pug
+
+block stylesheet
+    link(rel="stylesheet" href="/css/input_location.css")
+
+block content
+    h1.dynamic-title إدخال الموقع يدوياً
+    form#locationForm
+        div#errorMessages
+        div.form-group
+            label(for="latitude") خط العرض
+            input#latitude(type="number" step="any" required)
+        div.form-group
+            label(for="longitude") خط الطول
+            input#longitude(type="number" step="any" required)
+        div.form-group
+            label(for="calculation") طريقة حساب الأوقات الصلاة
+            select#calculation
+                option(value="MuslimWorldLeague") MuslimWorldLeague
+                option(value="Egyptian") Egyptian
+                option(value="Karachi") Karachi
+                option(value="UmmAlQura") UmmAlQura
+                option(value="Dubai") Dubai
+                option(value="Qatar") Qatar
+                option(value="Kuwait") Kuwait
+                option(value="Singapore") Singapore
+                option(value="Turkey") Turkey
+                option(value="Tehran") Tehran
+        div.form-group
+            label(for="madhab") المذهب الفقهي
+            select#madhab
+                option(value="Hanafi") Hanafi
+                option(value="Shafi") Shafi
+        div.form-group
+            label(for="timezone") المنطقة الزمنية
+            input#timezone(type="text" placeholder="المنطقة الزمنية - Asia/Riyadh" required)
+        button#saveButton(type="button") حفظ
+block script
+    script(type="module").
+        document.getElementById('saveButton').addEventListener('click', function() {
+            const latitude = parseFloat(document.getElementById('latitude').value);
+            const longitude = parseFloat(document.getElementById('longitude').value);
+            const calculation = document.getElementById('calculation').value;
+            const madhab = document.getElementById('madhab').value;
+            const timezone = document.getElementById('timezone').value;
+            const errorMessages = document.getElementById('errorMessages');
+
+            let errors = [];
+
+            if (isNaN(latitude) || latitude < -90 || latitude > 90) {
+                errors.push('خط العرض يجب أن يكون رقماً بين -90 و 90.');
+            }
+
+            if (isNaN(longitude) || longitude < -180 || longitude > 180) {
+                errors.push('خط الطول يجب أن يكون رقماً بين -180 و 180.');
+            }
+
+            if (!calculation) {
+                errors.push('يرجى اختيار طريقة حساب الأوقات الصلاة.');
+            }
+
+            if (!madhab) {
+                errors.push('يرجى اختيار المذهب الفقهي.');
+            }
+
+            if (!timezone) {
+                errors.push('يرجى إدخال المنطقة الزمنية.');
+            }
+
+            if (errors.length > 0) {
+                errorMessages.innerHTML = errors.join('<br>');
+                errorMessages.style.color = 'red';
+            } else {
+                localStorage.setItem('latitude', latitude);
+                localStorage.setItem('longitude', longitude);
+                localStorage.setItem('calculation', calculation);
+                localStorage.setItem('madhab', madhab);
+                localStorage.setItem('timezone', timezone);
+
+                alert('تم حفظ الموقع بنجاح!');
+                errorMessages.innerHTML = '';
+
+                setTimeout(() => window.location.pathname = "/prayer", 5000);
+            }
+        });

@@ -8,6 +8,7 @@ block content
         p تنبيه
         h2 يرجى السماح للصفحة بالوصول إلى الموقع الحالي لتحديد خطوط الطول والعرض. ستساعد هذه المعلومات في تحسين تجربتك على الموقع.
         small قم بتحديث الصفحة F5
+        button#bt_manual_entry ادخال يدوي
     #prayerPage
         #BoxTime
             p#hour_minutes 0:00
@@ -45,6 +46,12 @@ block content
                 p العشاء
                 p.timePrayer#PrayerIsha
         img(src="/icon/logo.svg" alt="logo" class="iconFilter")#logoScreen 
+        button#bt_manual_entry_pr ادخال يدوي للموقع
 block script
     script(type="module")
         include ../../public/js/pages/prayer.js
+    script. 
+        const bt_manual_entry = document.getElementById("bt_manual_entry");
+        const bt_manual_entry_pr = document.getElementById("bt_manual_entry_pr");
+        bt_manual_entry.addEventListener("click", () => window.location.pathname = '/input-location');
+        bt_manual_entry_pr.addEventListener("click", () => window.location.pathname = '/input-location');
