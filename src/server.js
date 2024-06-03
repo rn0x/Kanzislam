@@ -12,7 +12,7 @@ import compression from "compression";
 import favicon from "serve-favicon";
 
 app.use(helmet(config.helmet));
-app.use(compression(config.compression));
+app.use(compression()); // USE THE DEFAULTS 
 
 app.set("view engine", "pug");
 app.set("views", config.paths.views);
@@ -24,10 +24,13 @@ app.use(bodyParser.urlencoded({ extended: config.bodyParser.extended }));
 app.use(bodyParser.json({ limit: config.bodyParser.limit }));
 app.disable("x-powered-by");
 
-/* SYNCDATA */
-import { syncData, dataCheck } from "./utils/syncData.js";
-await syncData();
-await dataCheck();
+/*
+  SYNCDATA
+  KEMZO NOTE: IT'S USELESS WITHOUT MANY UPDATES PUSHED TO THE DATA REPO (IN THE CURRENT MOMENT).
+*/
+// import { syncData, dataCheck } from "./utils/syncData.js";
+// await syncData();
+// await dataCheck();
 
 app.use((req, res, next) => {
   res.locals.website_name = config.website_name;
@@ -57,7 +60,6 @@ app.get("/", (req, res, next) => {
         "مسبحة",
       ],
       description: `${config.website_name} هي منصة إسلامية شاملة تهدف إلى توفير القرآن الكريم والأذكار والأحاديث وغيرها من المحتوى الإسلامي بطريقة سهلة ومنظمة. توفر المنصة مجموعة واسعة من الموارد الدينية والتعليمية للمسلمين، استكشف ${config.website_name} اليوم واستفد من محتواه القيم والموثوق.`,
-      preview: `${config.domain}/images/preview-kanz.jpg`,
     },
   });
 });

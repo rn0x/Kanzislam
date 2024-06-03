@@ -1,4 +1,3 @@
-import manipulateLocalStorage from '../modules/manipulateLocalStorage.js';
 import filterSpan from '../modules/filterSpan.js';
 
 const loading = document.getElementById("loading");
@@ -11,7 +10,7 @@ export const PageAdhkarIndex = () => {
     const adhkarKey = Object.keys(adhkarJson);
     const adhkarCategory = document.getElementById("adhkarCategory");
     const adhkarRepeat = document.querySelector("#adhkarRepeat > p");
-    const GetAdhkarRepeat = manipulateLocalStorage("get", "adhkarRepeat");
+    const GetAdhkarRepeat = localStorage.getItem("adhkarRepeat");
     for (const item of adhkarKey) {
         const adhkar = adhkarJson[item];
         const li = document.createElement("li");
@@ -30,7 +29,7 @@ export const PageAdhkarIndex = () => {
         a.appendChild(title);
         title.innerText = adhkar?.category;
     }
-    adhkarRepeat.innerText = GetAdhkarRepeat?.value ? GetAdhkarRepeat?.value : 0;
+    adhkarRepeat.innerText = GetAdhkarRepeat ? GetAdhkarRepeat : 0;
 
     loading.style.display = "none";
 }
@@ -90,11 +89,11 @@ export const PageAdhkarList = (options) => {
                 if (parseInt(repetition_p.innerText) === 0) {
                     repetition.style.backgroundColor = "#fad1d1";
                 }
-                let GetAdhkarRepeat = manipulateLocalStorage("get", "adhkarRepeat").value;
+                let GetAdhkarRepeat = localStorage.getItem("adhkarRepeat");;
                 if (!GetAdhkarRepeat || isNaN(GetAdhkarRepeat)) {
                     GetAdhkarRepeat = 0;
                 }
-                manipulateLocalStorage("set", "adhkarRepeat", parseInt(GetAdhkarRepeat) + 1);
+                localStorage.setItem("adhkarRepeat", parseInt(GetAdhkarRepeat) + 1);
             }
         });
 

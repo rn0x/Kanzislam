@@ -29,7 +29,6 @@ block content
         small#adhkarSource
 block script
   script(type="module").
-    import manipulateLocalStorage from '/js/modules/manipulateLocalStorage.js';
     import filterSpan from '/js/modules/filterSpan.js';
     
     const loading = document.getElementById("loading");
@@ -78,11 +77,11 @@ block script
         if (parseInt(repetition_p.textContent) === 0) {
           repetition.style.backgroundColor = "#fad1d1";
         }
-        const GetAdhkarRepeat = manipulateLocalStorage("get", "adhkarRepeat").value;
+        const GetAdhkarRepeat = localStorage.getItem("adhkarRepeat");
         if (!GetAdhkarRepeat || isNaN(GetAdhkarRepeat)) {
           GetAdhkarRepeat = 0;
         }
-        manipulateLocalStorage("set", "adhkarRepeat", parseInt(GetAdhkarRepeat) + 1);
+        localStorage.setItem("adhkarRepeat", parseInt(GetAdhkarRepeat) + 1);
       }
     });
 
