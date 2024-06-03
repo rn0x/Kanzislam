@@ -50,13 +50,6 @@ export const config = {
     limit: "50kb", // body limit
   },
 
-  /* Compression */
-  compression: {
-    level: 6,
-    threshold: 1000,
-    memLevel: 8,
-  },
-
   /* Paths */
   paths: {
     root: root,
