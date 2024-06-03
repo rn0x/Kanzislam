@@ -199,7 +199,7 @@
     display: block;
     background-color: var(--button);
     padding: 8px;
-    color: var(--background_white);
+    color: var(--colorWhite);
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: auto;

@@ -1,16 +1,20 @@
 
-.form-group h1 {
+.dynamic-title {
     text-align: center;
     color: var(--colorFontMain);
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 #locationForm {
+    display: block;
     background-color: var(--background_white);
-    padding: 20px;
+    padding: 10px;
     border-radius: 8px;
     box-shadow: 0 0 10px #0000001a;
-    width: 95%;
-    max-width: 500px;
+    max-width: 400px;
+    width: 90%;
     margin-left: auto;
     margin-right: auto;
 }
