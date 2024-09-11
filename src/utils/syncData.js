@@ -5,7 +5,7 @@ import path from 'path';
 /**
  * الرابط الأساسي لمستودع الملفات الخارجية
  */
-const Repo = 'https://raw.githubusercontent.com/kanzislam/kanzislam-data/main';
+const Repo = 'https://raw.githubusercontent.com/rn0x/kanzislam-data/main';
 const manifestURL = `${Repo}/manifest.json`;
 const root = path.resolve(process.cwd());
 const localSrc = path.join(root, 'src');
