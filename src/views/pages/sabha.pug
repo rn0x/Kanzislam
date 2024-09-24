@@ -7,14 +7,14 @@ block content
   #sabhaPage 
     ul.breadcrumb
       li 
-        a(href="/")
+        a(href="/" aria-label="الرئيسية" title="العودة إلى الصفحة الرئيسية")
           i.fa-solid.fa-house-chimney.iconBreadcrumb 
       li 
         small /
-        a(href="/sabha") المسبحة الرقمية
+        a(href="/sabha" aria-label="المسبحة الرقمية" title="الذهاب إلى المسبحة الرقمية") المسبحة الرقمية
     #sabha
-      i.fa-solid.fa-repeat#repetition_bt
-      h2#sabha_number 0
+      i.fa-solid.fa-repeat#repetition_bt(aria-label="إعادة العد" title="إعادة العد")
+      h2#sabha_number(aria-label="عدد التكرارات" title="عدد التكرارات الحالي") 0
 block script
   script(type="module")
     include ../../public/js/pages/sabha.js

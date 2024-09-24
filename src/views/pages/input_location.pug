@@ -8,36 +8,37 @@ block content
     form#locationForm
         div#errorMessages
         div.form-group
-            label(for="latitude") خط العرض
-            input#latitude(type="number" step="any" required)
+            label(for="latitude" title="خط العرض") خط العرض
+            input#latitude(type="number" step="any" required aria-label="خط العرض" title="خط العرض")
         div.form-group
             label(for="longitude") خط الطول
-            input#longitude(type="number" step="any" required)
+            input#longitude(type="number" step="any" required aria-label="خط الطول" title="خط الطول")
         div.form-group
-            label(for="calculation") طريقة حساب الأوقات الصلاة
-            select#calculation
-                option(value="MuslimWorldLeague") MuslimWorldLeague
-                option(value="Egyptian") Egyptian
-                option(value="Karachi") Karachi
-                option(value="UmmAlQura") UmmAlQura
-                option(value="Dubai") Dubai
-                option(value="Qatar") Qatar
-                option(value="Kuwait") Kuwait
-                option(value="Singapore") Singapore
-                option(value="Turkey") Turkey
-                option(value="Tehran") Tehran
+            label(for="calculation" title="طريقة حساب الأوقات الصلاة" aria-label="طريقة حساب الأوقات الصلاة") طريقة حساب الأوقات الصلاة
+            select#calculation(required title="طريقة حساب الأوقات الصلاة" aria-label="طريقة حساب الأوقات الصلاة")
+                option(value="MuslimWorldLeague" title="MuslimWorldLeague" aria-label="MuslimWorldLeague") MuslimWorldLeague
+                option(value="Egyptian" title="Egyptian" aria-label="Egyptian") Egyptian
+                option(value="Karachi" title="Karachi" aria-label="Karachi") Karachi
+                option(value="UmmAlQura" title="UmmAlQura" aria-label="UmmAlQura") UmmAlQura
+                option(value="Dubai" title="Dubai" aria-label="Dubai") Dubai
+                option(value="Qatar" title="Qatar" aria-label="Qatar") Qatar
+                option(value="Kuwait" title="Kuwait" aria-label="Kuwait") Kuwait
+                option(value="Singapore" title="Singapore" aria-label="Singapore") Singapore
+                option(value="Turkey" title="Turkey" aria-label="Turkey") Turkey
+                option(value="Tehran" title="Tehran" aria-label="Tehran") Tehran
         div.form-group
-            label(for="madhab") المذهب الفقهي
-            select#madhab
-                option(value="Hanafi") Hanafi
-                option(value="Shafi") Shafi
+            label(for="madhab" title="المذهب الفقهي" aria-label="المذهب الفقهي") المذهب الفقهي
+            select#madhab(required title="المذهب الفقهي" aria-label="المذهب الفقهي")
+                option(value="Hanafi" title="Hanafi" aria-label="Hanafi") Hanafi
+                option(value="Shafi" title="Shafi" aria-label="Shafi") Shafi
         div.form-group
-            label(for="timezone") المنطقة الزمنية
-            input#timezone(type="text" placeholder="المنطقة الزمنية - Asia/Riyadh" required)
-        button#saveButton(type="button") حفظ
+            label(for="timezone" title="المنطقة الزمنية" aria-label="المنطقة الزمنية") المنطقة الزمنية
+            input#timezone(type="text" placeholder="المنطقة الزمنية - Asia/Riyadh" required title="المنطقة الزمنية" aria-label="المنطقة الزمنية")
+        button#saveButton(type="button" title="حفظ" aria-label="حفظ") حفظ
 block script
     script(type="module").
-        document.getElementById('saveButton').addEventListener('click', function() {
+        document.getElementById('locationForm').addEventListener('submit', function(event) {
+            event.preventDefault();  // منع الإرسال الافتراضي للنموذج
             const latitude = parseFloat(document.getElementById('latitude').value);
             const longitude = parseFloat(document.getElementById('longitude').value);
             const calculation = document.getElementById('calculation').value;
@@ -82,4 +83,9 @@ block script
 
                 setTimeout(() => window.location.pathname = "/prayer", 5000);
             }
+        });
+
+        // إضافة مستمع للزر "حفظ" ليقوم بإرسال النموذج
+        document.getElementById('saveButton').addEventListener('click', function() {
+            document.getElementById('locationForm').dispatchEvent(new Event('submit'));
         });

@@ -1,6 +1,7 @@
 #sabha {
     display: block;
     width: 90%;
+    max-width: 1000px;
     /* height: 100vh; */
     background-color: var(--background_white);
     position: relative;

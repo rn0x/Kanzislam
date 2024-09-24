@@ -19,15 +19,19 @@ export const radioIndexPage = async () => {
             li.appendChild(RadioId);
             RadioId.className = "RadioId";
             RadioId.innerText = item?.id;
+            RadioId.title = item?.id;
+            RadioId.ariaLabel = item?.id;
             li.appendChild(RadioTitle);
             RadioTitle.className = "RadioTitle";
             RadioTitle.href = `${window.location.origin}/radios/${item?.id}`;
             RadioTitle.innerText = item?.name;
             RadioTitle.title = item?.name;
+            RadioTitle.ariaLabel = item?.name;
             li.appendChild(iconRadio);
             iconRadio.className = "iconRadio fa-solid fa-play"
             iconRadio.alt = "play";
             iconRadio.title = item?.name;
+            iconRadio.ariaLabel = item?.name;
             audio.src = item?.link;
             audio.preload = 'none';
 
@@ -35,16 +39,22 @@ export const radioIndexPage = async () => {
                 if (currentAudio && currentAudio !== audio) {
                     currentAudio.pause();
                     currentIcon.className = "iconRadio fa-solid fa-play"
+                    currentIcon.title = "play"
+                    currentIcon.ariaLabel = "play"
                 }
                 if (audio.paused) {
                     iconRadio.className = "fa-solid fa-spinner iconRadio";
                     audio.play();
                     iconRadio.className = "iconRadio fa-solid fa-pause"
+                    iconRadio.title = "pause"
+                    iconRadio.ariaLabel = "pause"
                     currentAudio = audio;
                     currentIcon = iconRadio;
                 } else {
                     audio.pause();
                     iconRadio.className = "iconRadio fa-solid fa-play"
+                    iconRadio.title = "play"
+                    iconRadio.ariaLabel = "play"
                     currentAudio = null;
                     currentIcon = null;
                 }
@@ -52,6 +62,8 @@ export const radioIndexPage = async () => {
 
             audio.addEventListener("ended", () => {
                 iconRadio.className = "iconRadio fa-solid fa-play"
+                iconRadio.title = "play"
+                iconRadio.ariaLabel = "play"
                 currentAudio = null;
             });
         }
@@ -66,6 +78,7 @@ export const radioItemPage = (options) => {
 
     iconRadio.className = "iconRadio fa-solid fa-play"
     iconRadio.title = options?.radioJson?.name;
+    iconRadio.ariaLabel = options?.radioJson?.name;
     audio.src = options?.radioJson?.link;
     audio.preload = 'none';
 
@@ -74,14 +87,20 @@ export const radioItemPage = (options) => {
             iconRadio.className = "fa-solid fa-spinner iconRadio";
             audio.play();
             iconRadio.className = "iconRadio fa-solid fa-pause"
+            iconRadio.title = "pause"
+            iconRadio.ariaLabel = "pause"
         } else {
             audio.pause();
             iconRadio.className = "iconRadio fa-solid fa-play"
+            iconRadio.title = "play"
+            iconRadio.ariaLabel = "play"
         }
     });
 
     audio.addEventListener("ended", () => {
         iconRadio.className = "iconRadio fa-solid fa-play"
+        iconRadio.title = "play"
+        iconRadio.ariaLabel = "play"
     });
 
     loading.style.display = "none";

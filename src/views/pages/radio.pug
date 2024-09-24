@@ -2,35 +2,36 @@ extends ../partials/layout.pug
 
 block stylesheet
     link(rel="stylesheet" href="/css/radio.css")
+
 block content
     if options.radioIndex
         #radioIndex
             ul.breadcrumb
                 li 
-                    a(href="/")
+                    a(href="/" aria-label="الرئيسية" title="العودة إلى الصفحة الرئيسية")
                         i.fa-solid.fa-house-chimney.iconBreadcrumb
                 li 
                     small /
-                    a(href="/radio") الإذاعات الإسلامية
-            h2#title الإذاعات الإسلامية: دليلك لإذاعات القرآن والأحاديث والسنة
-            ul#radio 
+                    a(href="/radio" aria-label="الإذاعات الإسلامية" title="الذهاب إلى الإذاعات الإسلامية") الإذاعات الإسلامية
+            h2#title(aria-label="الإذاعات الإسلامية" title="دليلك لإذاعات القرآن والأحاديث والسنة") الإذاعات الإسلامية: دليلك لإذاعات القرآن والأحاديث والسنة
+            ul#radio(aria-label="قائمة الإذاعات" title="قائمة الإذاعات الإسلامية") 
     else 
         #radioPage
             ul.breadcrumb
                 li 
-                    a(href="/")
+                    a(href="/" aria-label="الرئيسية" title="العودة إلى الصفحة الرئيسية")
                         i.fa-solid.fa-house-chimney.iconBreadcrumb
                 li 
                     small /
-                    a(href="/radio") الإذاعات الإسلامية
+                    a(href="/radio" aria-label="الإذاعات الإسلامية" title="الذهاب إلى الإذاعات الإسلامية") الإذاعات الإسلامية
                 li 
                     small /
-                    a(href=`/radios/${options.radioJson.id}`) #{options.radioJson.name}
-            h2#title #{options.radioJson.name}
+                    a(href=`/radios/${options.radioJson.id}` aria-label=options.radioJson.name title=`الذهاب إلى ${options.radioJson.name}`) #{options.radioJson.name}
+            h2#title(aria-label=options.radioJson.name title=options.radioJson.name) #{options.radioJson.name}
             #radios 
-                p.RadioId #{options.radioJson.id}
-                p(title=options.radioJson.name).RadioTitle #{options.radioJson.name}
-                i.iconRadio.fa-solid.fa-pause#iconRadio
+                p.RadioId(aria-label="معرف الإذاعة" title="معرف الإذاعة") #{options.radioJson.id}
+                p.RadioTitle(aria-label="عنوان الإذاعة" title="عنوان الإذاعة") #{options.radioJson.name}
+                i.iconRadio.fa-solid.fa-pause#iconRadio(aria-label="إيقاف الإذاعة" title="إيقاف الإذاعة")
 block script
     script(type="module").
         const options = !{JSON.stringify(options)};  // تحويل خصائص options إلى كائن JSON

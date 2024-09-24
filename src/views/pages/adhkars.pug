@@ -7,30 +7,31 @@ block content
   #adhkarPage 
     ul.breadcrumb
       li 
-        a(href="/") 
+        a(href="/" title="الصفحة الرئيسية" aria-label="العودة إلى الصفحة الرئيسية") 
           i.fa-solid.fa-house-chimney.iconBreadcrumb 
       li 
         small /
-        a(href="/adhkar") أذكار
+        a(href="/adhkar" title="أذكار" aria-label="الانتقال إلى أذكار") أذكار
       li 
         small /
-        a(href='#' id="breadcrumbCategory")
+        a(href='#' id="breadcrumbCategory" title="فئة الأذكار" aria-label="الفئة الحالية للأذكار")
       li 
         small /
-        a(href='#' id="breadcrumbTitle")
-    h1#titleAdhkar
+        a(href='#' id="breadcrumbTitle" title="عنوان الأذكار" aria-label="عنوان الأذكار الحالية")
+    h1#titleAdhkar(aria-label="عنوان الأذكار") 
     #adhkarsBox 
-      .repetition#repetition
-        p#repetition_p
-        i.fa-solid.fa-rotate-left.repetitionIcon#repetition_icon
-      .adhkar_text#adhkar_text
-        h3#adhkarContent
-        p#adhkarDescription
-        small#adhkarSource
+      .repetition#repetition(aria-label="عدد التكرارات للأذكار")
+        p#repetition_p(aria-label="عدد التكرارات") 
+        i.fa-solid.fa-rotate-left.repetitionIcon#repetition_icon(title="إعادة التكرار" aria-label="إعادة التكرار للأذكار")
+      .adhkar_text#adhkar_text(aria-label="نص الأذكار")
+        h3#adhkarContent(aria-label="محتوى الأذكار")
+        p#adhkarDescription(aria-label="وصف الأذكار")
+        small#adhkarSource(aria-label="مصدر الأذكار")
+
 block script
-  script(type="module").
+  script(type="module"). 
     import filterSpan from '/js/modules/filterSpan.js';
-    
+
     const loading = document.getElementById("loading");
     loading.style.display = "block";
     const adhkarsBox = document.getElementById("adhkarsBox");
@@ -40,7 +41,7 @@ block script
     const AdhkarObject = Object.values(adhkarJson).flatMap(item => item.array.filter(subItem => subItem.title.split(" ").join("_") === options.pathname).map(subItem => ({ category: item.category, ...subItem })))?.[0];
 
     if (!AdhkarObject) {
-        window.location = "/404";
+      window.location = "/404";
     }
 
     const repetition = document.getElementById("repetition");
@@ -51,26 +52,33 @@ block script
     const adhkarSource = document.getElementById("adhkarSource");
 
     repetition_p.innerText = AdhkarObject.repetition;
+    repetition_p.title = AdhkarObject.repetition;
+    repetition_p.ariaLabel = AdhkarObject.repetition;
     adhkarContent.innerText = AdhkarObject.adhkar;
+    adhkarContent.title = AdhkarObject.adhkar;
+    adhkarContent.ariaLabel = AdhkarObject.adhkar;
     adhkarDescription.innerText = AdhkarObject.description;
     adhkarSource.innerText = AdhkarObject.source;
-
+    adhkarSource.title = AdhkarObject.source;
+    adhkarSource.ariaLabel = AdhkarObject.source;
 
     const breadcrumbCategory = document.getElementById("breadcrumbCategory");
     breadcrumbCategory.innerText = AdhkarObject.category;
-    breadcrumbCategory.href = `/adhkar/${AdhkarObject.category.split(" ").join("_")}`
+    breadcrumbCategory.title = AdhkarObject.category;
+    breadcrumbCategory.ariaLabel = AdhkarObject.category;
+    breadcrumbCategory.href = `/adhkar/${AdhkarObject.category.split(" ").join("_")}`;
 
     const breadcrumbTitle = document.getElementById("breadcrumbTitle");
     breadcrumbTitle.innerText = AdhkarObject.title;
-    breadcrumbTitle.href = `/adhkars/${AdhkarObject.title.split(" ").join("_")}`
-    breadcrumbTitle.style = `white-space: normal;`
+    breadcrumbTitle.title = AdhkarObject.title;
+    breadcrumbTitle.ariaLabel = AdhkarObject.title;
+    breadcrumbTitle.href = `/adhkars/${AdhkarObject.title.split(" ").join("_")}`;
+    breadcrumbTitle.style = `white-space: normal;`;
 
     const titleAdhkar = document.getElementById("titleAdhkar");
     titleAdhkar.innerText = AdhkarObject.title;
 
-
     repetition.addEventListener("click", () => {
-
       if (parseInt(repetition_p.textContent) > 0) {
         const value = parseInt(repetition_p.textContent) - 1;
         repetition_p.textContent = value;
@@ -91,7 +99,6 @@ block script
       repetition.style.backgroundColor = "";
     });
 
-
     adhkarsBox.style.display = "flex";
 
     async function dataAdhkar() {
@@ -105,11 +112,11 @@ block script
 
       if (!adhkarFetch.ok) {
         console.log(`HTTP error! Status: ${adhkarFetch.status}`);
-        return false
+        return false;
       }
 
       const response = await adhkarFetch?.json();
-      return response
+      return response;
     }
 
     loading.style.display = "none";

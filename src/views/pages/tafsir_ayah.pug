@@ -7,27 +7,27 @@ block content
     #tafsirAyahPage
         ul.breadcrumb
             li 
-                a(href="/")
+                a(href="/" aria-label="الرئيسية" title="العودة إلى الصفحة الرئيسية")
                     i.fa-solid.fa-house-chimney.iconBreadcrumb 
             li 
                 small /
-                a(href="/tafsir-quran") تفاسير القرآن الكريم
+                a(href="/tafsir-quran" aria-label="تفاسير القرآن الكريم" title="الذهاب إلى تفاسير القرآن الكريم") تفاسير القرآن الكريم
             li 
                 small /
-                a(href=`/tafsir-quran/${options.tafsir.name_english}`) #{options.tafsir.name} 
+                a(href=`/tafsir-quran/${options.tafsir.name_english}` aria-label=options.tafsir.name title=`الذهاب إلى تفسير ${options.tafsir.name}`) #{options.tafsir.name} 
             li 
                 small /
-                a(href=`/tafsir-quran/${options.tafsir.name_english}/${options.surah.number}`) تفسير سورة #{options.surah.name} 
+                a(href=`/tafsir-quran/${options.tafsir.name_english}/${options.surah.number}` aria-label=`تفسير سورة ${options.surah.name}` title=`الذهاب إلى تفسير سورة ${options.surah.name}`) تفسير سورة #{options.surah.name} 
             li 
                 small /
-                a(href=`/tafsir-quran/${options.tafsir.name_english}/${options.surah.number}`) آية رقم #{options.ayah.id}
+                a(href=`/tafsir-quran/${options.tafsir.name_english}/${options.surah.number}` aria-label=`آية رقم ${options.ayah.id}` title=`الذهاب إلى آية رقم ${options.ayah.id}`) آية رقم #{options.ayah.id}
         #ayahBox
             #ayahDiv  
-                p.titleDiv آية
-                h2.ayahText#ayahText
+                p.titleDiv(title="آية" aria-label="آية") آية
+                h2.ayahText#ayahText(aria-label="نص الآية" title="نص الآية") 
             #tafsirDiv 
-                p.titleDiv تفسير
-                p.tafsirContent#tafsirContent
+                p.titleDiv(title="تفسير" aria-label="تفسير") تفسير
+                p.tafsirContent#tafsirContent(aria-label="تفسير الآية" title="تفسير الآية")
 block script
     script(type="module").
         const options = !{JSON.stringify(options)};  // تحويل خصائص options إلى كائن JSON
@@ -37,5 +37,6 @@ block script
         const tafsirContent = document.getElementById("tafsirContent");
 
         ayahText.innerHTML = filterSpan(`﴿ ${options.ayah.ar} ﴾`);
+        ayahText.title = `﴿ ${options.ayah.ar} ﴾`;
+        ayahText.ariaLabel = `﴿ ${options.ayah.ar} ﴾`;
         tafsirContent.innerHTML = filterSpan(options.tafsirContent);
-

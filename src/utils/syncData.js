@@ -14,46 +14,46 @@ const manifestLocalFilePath = path.join(localSrc, 'manifest.json');
 /**
  * دالة لتنزيل ملف من المستودع الخارجي وحفظه محليًا
  * @param {object} file بيانات الملف المراد تنزيله
+ * @returns {Promise<void>}
  */
 const downloadFile = async (file) => {
+    const filePath = path.join(localSrc, file.FilePath, file.FileName);
     try {
         const response = await fetch(`${Repo}/${file.FilePath}/${file.FileName}`);
-        const fileDataBuffer = await response.arrayBuffer();
-        const fileData = Buffer.from(fileDataBuffer);
-        const filePath = path.join(localSrc, `${file.FilePath}/${file.FileName}`);
+        if (!response.ok) throw new Error(`فشل في تنزيل ${file.FileName}: ${response.statusText}`);
+
+        const fileData = await response.arrayBuffer();
 
         // إنشاء المسار المحلي إذا لم يكن موجودًا
-
-        if (!fs.existsSync(path.join(localSrc, file.FilePath))) {
-            fs.mkdirSync(path.join(localSrc, file.FilePath), { recursive: true });
-        }
-
-        fs.writeFileSync(filePath, fileData);
+        fs.mkdirSync(path.dirname(filePath), { recursive: true });
+        fs.writeFileSync(filePath, Buffer.from(fileData));
         console.log(`تم تنزيل ${file.FileName} بنجاح`);
     } catch (error) {
-        // التعامل مع أي أخطاء في عملية التنزيل
-        console.error(`حدث خطأ أثناء تنزيل ${file.FileName}:`, error.message);
+        console.error(`حدث خطأ أثناء تنزيل ${file.FileName}: ${error.message}`);
     }
 };
 
 /**
  * دالة لتحديث البيانات المحلية باستخدام ملف manifest.json من المستودع
+ * @returns {Promise<void>}
  */
 const updateLocalData = async () => {
     try {
         // جلب ملف manifest.json من المستودع
         const response = await fetch(manifestURL);
+        if (!response.ok) throw new Error(`فشل في جلب manifest.json: ${response.statusText}`);
+
         const manifest = await response.json();
 
         // حفظ ملف manifest.json محليًا إذا لم يكن موجودًا
         if (!fs.existsSync(manifestLocalFilePath)) {
-            fs.writeFileSync(manifestLocalFilePath, JSON.stringify(manifest));
+            fs.writeFileSync(manifestLocalFilePath, JSON.stringify(manifest, null, 2));
             console.log('تم حفظ ملف manifest.json محليًا');
         }
 
         // مقارنة الإصدارات المحلية بالإصدارات في manifest.json وتحديث البيانات إذا لزم الأمر
         for (const file of manifest.Files) {
-            const localFilePath = path.join(localSrc, `${file.FilePath}/${file.FileName}`);
+            const localFilePath = path.join(localSrc, file.FilePath, file.FileName);
             const localFileVersion = fs.existsSync(localFilePath) ? getFileVersion(file) : '0.0';
 
             if (file.Version !== localFileVersion) {
@@ -62,7 +62,6 @@ const updateLocalData = async () => {
             }
         }
     } catch (error) {
-        // التعامل مع أي أخطاء في عملية تحديث البيانات المحلية
         console.error('حدث خطأ أثناء تحديث البيانات المحلية:', error.message);
     }
 };
@@ -77,11 +76,9 @@ const getFileVersion = (file) => {
         const manifest = fs.readFileSync(manifestLocalFilePath, 'utf8');
         const manifestJson = JSON.parse(manifest);
         const fileInManifest = manifestJson.Files.find(f => f.Id === file.Id && f.FileName === file.FileName);
-
         return fileInManifest ? fileInManifest.Version : '0.0';
     } catch (error) {
-        // التعامل مع أي أخطاء في قراءة إصدار الملف
-        console.error(`حدث خطأ أثناء قراءة إصدار الملف ${file.FileName}:`, error.message);
+        console.error(`حدث خطأ أثناء قراءة إصدار الملف ${file.FileName}: ${error.message}`);
         return '0.0';
     }
 };
@@ -94,63 +91,57 @@ const updateManifestFile = (updatedFile) => {
     try {
         const manifest = fs.readFileSync(manifestLocalFilePath, 'utf8');
         const manifestJson = JSON.parse(manifest);
-
         const { FileName, FilePath, Version } = updatedFile;
         const fileToUpdate = manifestJson.Files.find(file => file.FileName === FileName && file.FilePath === FilePath);
 
         if (fileToUpdate) {
             fileToUpdate.Version = Version;
+            fs.writeFileSync(manifestLocalFilePath, JSON.stringify(manifestJson, null, 2));
+            console.log('تم تحديث ملف manifest.json بنجاح');
         } else {
             console.warn(`الملف '${FileName}' غير موجود في الملف المحلي manifest.json`);
         }
-
-        fs.writeFileSync(manifestLocalFilePath, JSON.stringify(manifestJson, null, 2));
-        console.log('تم تحديث ملف manifest.json بنجاح');
-
     } catch (error) {
-        // التعامل مع أي أخطاء في تحديث ملف manifest.json
         console.error('حدث خطأ أثناء تحديث ملف manifest.json:', error.message);
     }
 };
 
+/**
+ * دالة لفحص وجود الملفات المحلية وتحديثها عند الضرورة
+ * @returns {Promise<boolean>} تعود بقيمة صحيحة إذا كانت الملفات موجودة ومحدثة
+ */
+const checkAndUpdateFiles = async () => {
+    await updateLocalData();
 
-
-export const syncData = async () => {
-    // تنفيذ تحديث البيانات المحلية عند بدء تشغيل التطبيق
-    await updateLocalData().catch(err => console.error('حدث خطأ: ', err));
-
-    // تكرار تحديث البيانات المحلية كل ساعة
-    const interval = 60 * 60 * 1000; // تحديد فاصل زمني بالميلي ثانية (ساعة واحدة)
-    setInterval(async () => {
-        try {
-            await updateLocalData();
-        } catch (err) {
-            console.error('حدث خطأ: ', err);
+    // تحقق من وجود ملفات محلية وإصداراتها
+    const manifest = JSON.parse(fs.readFileSync(manifestLocalFilePath, 'utf8'));
+    for (const file of manifest.Files) {
+        const localFilePath = path.join(localSrc, file.FilePath, file.FileName);
+        if (!fs.existsSync(localFilePath) || getFileVersion(file) !== file.Version) {
+            return false; // إذا كانت هناك ملفات مفقودة أو غير محدثة
         }
-    }, interval);
-}
-
-export const dataCheck = async () => {
-    return new Promise((resolve, reject) => {
-        const intervalId = setInterval(async () => {
-            try {
-                if (fs.existsSync(manifestLocalFilePath)) {
-
-                    const manifest = await fs.promises.readFile(manifestLocalFilePath, 'utf8'); // تحديث استخدام fs.promises.readFile
-                    const manifestJson = JSON.parse(manifest);
-                    const lastFile = manifestJson?.Files?.[manifestJson?.Files?.length - 1];
-                    const localFilePath = path.join(localSrc, `${lastFile.FilePath}/${lastFile.FileName}`);
-                    const exists = fs.existsSync(localFilePath);
-
-                    if (exists) {
-                        clearInterval(intervalId);
-                        resolve(true);
-                    }
-                }
-            } catch (error) {
-                clearInterval(intervalId);
-                reject(error);
-            }
-        }, 5000);
-    });
+    }
+    return true; // كل شيء جيد
 };
+
+/**
+ * دالة لبدء التطبيق والتحقق من وجود الملفات قبل التشغيل
+ * @returns {Promise<void>}
+ */
+export const startApp = async () => {
+    try {
+        const filesAreUpdated = await checkAndUpdateFiles();
+        if (filesAreUpdated) {
+            console.log('جميع الملفات محدثة. بدء التطبيق...');
+            // هنا يمكنك إضافة الكود لبدء التطبيق الفعلي
+        } else {
+            console.log('تحديث الملفات...');
+            await updateLocalData();
+        }
+    } catch (error) {
+        console.error('حدث خطأ أثناء بدء التطبيق:', error.message);
+    }
+};
+
+// استدعاء startApp عند تشغيل التطبيق
+startApp();

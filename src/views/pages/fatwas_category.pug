@@ -7,19 +7,20 @@ block content
   #fatwasItemPage 
     ul.breadcrumb
       li 
-        a(href="/")
+        a(href="/" title="الصفحة الرئيسية" aria-label="العودة إلى الصفحة الرئيسية") 
           i.fa-solid.fa-house-chimney.iconBreadcrumb 
       li 
         small /
-        a(href="/fataawa-ibn-baaz") موسوعة الفتاوى الإسلامية
+        a(href="/fataawa-ibn-baaz" title="موسوعة الفتاوى الإسلامية" aria-label="الانتقال إلى موسوعة الفتاوى الإسلامية") موسوعة الفتاوى الإسلامية
       li 
         small /
-        a(href=`/fataawa-ibn-baaz/${options.category.replace(/ /g, '_')}`)=`الفتاوى المتعلقة ب${options.category}`
-    h2#fatwas_title=options.category
-    ul#box_fatwas_item
-    button#more_fatwa المزيد
+        a(href=`/fataawa-ibn-baaz/${options.category.replace(/ /g, '_')}` title=`الفتاوى المتعلقة بـ ${options.category}` aria-label=`الفتاوى المتعلقة بـ ${options.category}`)= `الفتاوى المتعلقة ب${options.category}`
+    h2#fatwas_title(aria-label="عنوان الفتاوى")= options.category
+    ul#box_fatwas_item(aria-label="قائمة الفتاوى")
+    button#more_fatwa(title="تحميل المزيد من الفتاوى" aria-label="تحميل المزيد من الفتاوى") المزيد
+
 block script
-  script(type="module").
+  script(type="module"). 
     const options = !{JSON.stringify(options)};  // تحويل خصائص options إلى كائن JSON
     import { fataawaList } from '/js/pages/fatwas.js';
     fataawaList(options);

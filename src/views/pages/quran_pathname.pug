@@ -7,48 +7,48 @@ block content
   #quranPathPage 
     ul.breadcrumb
       li 
-        a(href="/")
+        a(href="/" aria-label="الرئيسية" title="العودة إلى الصفحة الرئيسية")
           i.fa-solid.fa-house-chimney.iconBreadcrumb 
       li 
         small /
-        a(href="/quran") القرآن الكريم
+        a(href="/quran" aria-label="القرآن الكريم" title="الذهاب إلى القرآن الكريم") القرآن الكريم
       li 
         small /
-        a(href=`/quran/سورة_${options.currentSurah.name.replace(/ /g, '_')}`)= `سورة ${options.currentSurah.name}`
+        a(href=`/quran/سورة_${options.currentSurah.name.replace(/ /g, '_')}` aria-label=`سورة ${options.currentSurah.name}` title=`الذهاب إلى سورة ${options.currentSurah.name}`)= `سورة ${options.currentSurah.name}`
     #quranPathBox
-      a(href="#")#previousSurah
-      a(href="#")#nextSurah
-      h2#titleInfo
+      a(href="#" aria-label="السورة السابقة" title="الذهاب إلى السورة السابقة")#previousSurah
+      a(href="#" aria-label="السورة التالية" title="الذهاب إلى السورة التالية")#nextSurah
+      h2#titleInfo(aria-label="معلومات السورة" title="معلومات حول السورة الحالية")
       #QuranInfoBox
         ul 
           li 
-            p عدد الآيات:
-              span#number_verses_span
+            p(aria-label="عدد الآيات" title="عدد الآيات في السورة") عدد الآيات:
+              span#number_verses_span(aria-label="عدد الآيات في السورة" title="عدد الآيات") 
           li 
-            p عدد الكلمات:
-              span#number_words_span
+            p(aria-label="عدد الكلمات" title="عدد الكلمات في السورة") عدد الكلمات:
+              span#number_words_span(aria-label="عدد الكلمات في السورة" title="عدد الكلمات") 
           li 
-            p ترتيب السورة:
-              span#number_span
+            p(aria-label="ترتيب السورة" title="ترتيب السورة في القرآن") ترتيب السورة:
+              span#number_span(aria-label="ترتيب السورة" title="ترتيب السورة") 
           li 
-            p عدد الحروف:
-              span#number_letters_span
+            p(aria-label="عدد الحروف" title="عدد الحروف في السورة") عدد الحروف:
+              span#number_letters_span(aria-label="عدد الحروف في السورة" title="عدد الحروف") 
           li 
-            p النزول:
-              span#descent_span
+            p(aria-label="النزول" title="نزول السورة") النزول:
+              span#descent_span(aria-label="نزول السورة" title="نزول السورة") 
           li 
-            p الإسم بالإنجليزي: 
-              span#english_name_span
-      h2#bisamla
+            p(aria-label="الإسم بالإنجليزي" title="اسم السورة بالإنجليزية") الإسم بالإنجليزي: 
+              span#english_name_span(aria-label="اسم السورة بالإنجليزية" title="اسم السورة بالإنجليزية") 
+      h2#bisamla(aria-label="بسم الله الرحمن الرحيم" title="بسم الله الرحمن الرحيم") بسم الله الرحمن الرحيم
       #FontSize 
-        button#Plus
+        button#Plus(aria-label="زيادة حجم الخط" title="زيادة حجم الخط")
           i.fa-solid.fa-square-plus
-        button#Minus
+        button#Minus(aria-label="تقليل حجم الخط" title="تقليل حجم الخط") 
           i.fa-solid.fa-square-minus.iconSize
-      p#surah
+      p#surah(aria-label="محتوى السورة" title="محتوى السورة") 
       #readerBox 
-        h2#titleSurah الإستماع الى سورة #{options.currentSurah.name}
-        ul#readerBoxUl
+        h2#titleSurah(aria-label="الإستماع إلى السورة" title=`الإستماع إلى سورة ${options.currentSurah.name}`) الإستماع الى سورة #{options.currentSurah.name}
+        ul#readerBoxUl(aria-label="عناصر الاستماع إلى السورة" title="عناصر الاستماع إلى السورة")
 block script
   script(type="module").
     const options = !{JSON.stringify(options)};  // تحويل خصائص options إلى كائن JSON

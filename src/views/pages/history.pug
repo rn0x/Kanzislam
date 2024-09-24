@@ -7,26 +7,26 @@ block content
     #historyPage
         ul.breadcrumb
             li 
-                a(href="/")
+                a(href="/" title="الصفحة الرئيسية" aria-label="العودة إلى الصفحة الرئيسية")
                     i.fa-solid.fa-house-chimney.iconBreadcrumb 
             li 
                 small /
-                a(href="/historical-events") الموسوعة التاريخية الإسلامية
+                a(href="/historical-events" title="الموسوعة التاريخية الإسلامية" aria-label="الانتقال إلى الموسوعة التاريخية الإسلامية") موسوعة الفتاوى الإسلامية
             if !options.isIndex
                 li 
                     small /
-                    a(href=`/historical-events/${options.historyJson.id}`) #{options.historyJson.title}
+                    a(href=`/historical-events/${options.historyJson.id}` title=options.historyJson.title aria-label=`الانتقال إلى ${options.historyJson.title}`) #{options.historyJson.title}
         if options.isIndex
-            h2 الموسوعة التاريخية الإسلامية
-            input(type="text" name="search" placeholder="بحث...")#searchHistory
+            h2(aria-label="عنوان الموسوعة التاريخية الإسلامية") موسوعة الفتاوى الإسلامية
+            input(type="text" name="search" placeholder="بحث..." aria-label="البحث في الموسوعة التاريخية" title="البحث في الموسوعة التاريخية")#searchHistory
             ul#historyBox 
-            button#historyMore المزيد
+            button#historyMore(title="المزيد من الأحداث التاريخية" aria-label="تحميل المزيد من الأحداث التاريخية") المزيد
         else
             #historyBoxText
-                h2 #{options.historyJson.title}
+                h2(title=`${options.historyJson.title}` aria-label=`${options.historyJson.title}`) #{options.historyJson.title}
                 ul#boxDate
                     each item in options.historyJson.date
-                        li #{item}
+                        li(title=`${item}` aria-label=`${item}`) #{item}
                 p#HistoryContent
 block script
     script(type="module").

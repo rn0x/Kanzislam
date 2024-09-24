@@ -55,6 +55,7 @@
 
 #hisnmuslimCategory {
     width: 95%;
+    max-width: 1000px;
     padding: 10px;
     list-style: none;
     margin-left: auto;

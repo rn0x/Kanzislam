@@ -56,9 +56,13 @@ export const HistoryIndex = async () => {
             li.appendChild(id);
             id.className = "id_history";
             id.innerText = item?.id;
+            id.title = item?.id;
+            id.ariaLabel = item?.id;
             li.appendChild(link);
             link.className = "link_history";
             link.innerText = item?.title;
+            link.title = item?.title;
+            link.ariaLabel = item?.title;
             link.href = `${window.location.origin}/historical-events/${item?.id}`;
         }
 

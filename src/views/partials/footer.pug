@@ -1,22 +1,24 @@
-i.fa-solid.fa-moon#buttonTheme 
+i.fa-solid.fa-moon#buttonTheme(title="تغيير السمة" aria-label="تغيير السمة")
+
 #rights
-    p=`جميع الحقوق محفوظة كنز الإسلام ©2024`
+    p(aria-label="جميع الحقوق محفوظة كنز الإسلام")=`جميع الحقوق محفوظة كنز الإسلام ©2024`
+
 #footer
-    img(src="/icon/logoFooter.svg" alt="logo" class="iconFilter" width="30" height="30")#logo_footer.iconFilter
+    img(src="/icon/logoFooter.svg" alt="شعار المنصة" class="iconFilter" width="30" height="30")#logo_footer.iconFilter
     #footer_box
-        #footer_right 
-            h2.footer_category حول المنصة
-            p="منصة كنز الإسلام هي منصة إلكترونية تهدف إلى تقديم محتوى إسلامي شامل يشمل القرآن الكريم، الأذكار، الفتاوى، الأدعية، أوقات الصلاة، وغيرها من المحتوى الإسلامي."
+        #footer_right
+            h2.footer_category(title="حول المنصة" aria-label="حول المنصة") حول المنصة
+            p(aria-label="وصف منصة كنز الإسلام")="منصة كنز الإسلام هي منصة إلكترونية تهدف إلى تقديم محتوى إسلامي شامل يشمل القرآن الكريم، الأذكار، الفتاوى، الأدعية، أوقات الصلاة، وغيرها من المحتوى الإسلامي." 
         #footer_left 
-            h2.footer_category وسائل التواصل
+            h2.footer_category(title="وسائل التواصل" aria-label="وسائل التواصل") وسائل التواصل
             #footer_social 
-                a(href=telegram)
+                a(href=telegram, title="التواصل عبر تيليجرام" aria-label="التواصل عبر تيليجرام")
                     i.fa-brands.fa-telegram.iconSocial 
-                a(href=instagram)
+                a(href=instagram, title="التواصل عبر إنستغرام" aria-label="التواصل عبر إنستغرام")
                     i.fa-brands.fa-square-instagram.iconSocial  
-                a(href=tiktok)
+                a(href=tiktok, title="التواصل عبر تيك توك" aria-label="التواصل عبر تيك توك")
                     i.fa-brands.fa-tiktok.iconSocial 
-                a(href=`mailto:${email}`)
+                a(href=`mailto:${email}`, title="إرسال بريد إلكتروني" aria-label="إرسال بريد إلكتروني إلى ${email}")
                     i.fa-solid.fa-envelope.iconSocial 
-                a(href=`SMS:${phone}`)
-                    i.fa-solid.fa-comment-sms.iconSocial
+                a(href=`SMS:${phone}`, title="إرسال رسالة نصية" aria-label="إرسال رسالة نصية إلى ${phone}")
+                    i.fa-solid.fa-comment-sms.iconSocial 

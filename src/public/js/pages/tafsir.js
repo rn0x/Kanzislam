@@ -29,14 +29,22 @@ export const tafsirSurahIndex = async (options) => {
         a.href = `/tafsir-quran/${options.tafsir.name_english}/${item?.number}`;
         a.appendChild(name);
         name.innerText = item?.name;
+        name.title = item?.name;
+        name.ariaLabel = item?.name;
         a.appendChild(number);
         number.innerText = item?.number;
+        number.title = item?.number;
+        number.ariaLabel = item?.number;
         a.appendChild(div);
         div.appendChild(descent);
         descent.innerText = item?.descent;
+        descent.title = item?.descent;
+        descent.ariaLabel = item?.descent;
         descent.className = 'descent';
         div.appendChild(english_name);
         english_name.innerText = item?.english_name;
+        english_name.title = item?.english_name;
+        english_name.ariaLabel = item?.english_name;
         english_name.className = 'english_name';
     }
 

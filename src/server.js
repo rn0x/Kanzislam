@@ -24,14 +24,6 @@ app.use(bodyParser.urlencoded({ extended: config.bodyParser.extended }));
 app.use(bodyParser.json({ limit: config.bodyParser.limit }));
 app.disable("x-powered-by");
 
-/*
-  SYNCDATA
-  KEMZO NOTE: IT'S USELESS WITHOUT MANY UPDATES PUSHED TO THE DATA REPO (IN THE CURRENT MOMENT).
-*/
-// import { syncData, dataCheck } from "./utils/syncData.js";
-// await syncData();
-// await dataCheck();
-
 app.use((req, res, next) => {
   res.locals.website_name = config.website_name;
   res.locals.MainPreview = config.preview;

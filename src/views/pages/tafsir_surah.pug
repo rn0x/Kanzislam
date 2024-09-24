@@ -7,22 +7,22 @@ block content
     #tafsirSurahPage
         ul.breadcrumb
             li 
-                a(href="/")
+                a(href="/" aria-label="الرئيسية" title="العودة إلى الصفحة الرئيسية")
                     i.fa-solid.fa-house-chimney.iconBreadcrumb 
             li 
                 small /
-                a(href="/tafsir-quran") تفاسير القرآن الكريم
+                a(href="/tafsir-quran" aria-label="تفاسير القرآن الكريم" title="الذهاب إلى تفاسير القرآن الكريم") تفاسير القرآن الكريم
             li 
                 small /
-                a(href=`/tafsir-quran/${options.tafsir.name_english}`) #{options.tafsir.name} 
+                a(href=`/tafsir-quran/${options.tafsir.name_english}` aria-label=options.tafsir.name title=`الذهاب إلى تفسير ${options.tafsir.name}`) #{options.tafsir.name} 
             li 
                 small /
-                a(href=`/tafsir-quran/${options.tafsir.name_english}/${options.surah.number}`) تفسير سورة #{options.surah.name} 
+                a(href=`/tafsir-quran/${options.tafsir.name_english}/${options.surah.number}` aria-label=`تفسير سورة ${options.surah.name}` title=`الذهاب إلى تفسير سورة ${options.surah.name}`) تفسير سورة #{options.surah.name} 
         #SurahBox 
-            h2 تفسير سورة #{options.surah.name} لـ #{options.tafsir.name} 
+            h2(title=`تفسير سورة ${options.surah.name} لـ ${options.tafsir.name}` aria-label=`تفسير سورة ${options.surah.name} لـ ${options.tafsir.name}`) تفسير سورة #{options.surah.name} لـ #{options.tafsir.name} 
             ul#ayat 
                 - for (let index = 1; index <= options.surah.number_verses; index++)
                     li 
-                        a(href=`/tafsir-quran/${options.tafsir.name_english}/${options.surah.number}/${index}`)
-                            p.id #{index}
-                            p.ayah آية 
+                        a(href=`/tafsir-quran/${options.tafsir.name_english}/${options.surah.number}/${index}` aria-label=`تفسير الآية رقم ${index}` title=`الذهاب إلى تفسير الآية رقم ${index}`)
+                            p.id(title=index aria-label=index) #{index}
+                            p.ayah(title=`آية ${index}` aria-label=`آية ${index}`) آية #{index}

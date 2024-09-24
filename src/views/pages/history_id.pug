@@ -7,17 +7,17 @@ block content
     #historyPage
         ul.breadcrumb
             li 
-                a(href="/")
+                a(href="/" title="الصفحة الرئيسية" aria-label="العودة إلى الصفحة الرئيسية")
                     i.fa-solid.fa-house-chimney.iconBreadcrumb 
             li 
                 small /
-                a(href="/historical-events") الموسوعة التاريخية الإسلامية
+                a(href="/historical-events" title="الموسوعة التاريخية الإسلامية" aria-label="الانتقال إلى الموسوعة التاريخية الإسلامية") الموسوعة التاريخية الإسلامية
             li 
                 small /
-                a(href=`/historical-events/${options.historyJson.id}`) #{options.historyJson.title}
+                a(href=`/historical-events/${options.historyJson.id}` title=`${options.historyJson.title}` aria-label=`الانتقال إلى ${options.historyJson.title}`) #{options.historyJson.title}
         #historyBoxText
-            h2 #{options.historyJson.title}
+            h2(title=`${options.historyJson.title}` aria-label=`${options.historyJson.title}`) #{options.historyJson.title}
             ul#boxDate
                 each item in options.historyJson.date
-                    li #{item}
-            p!=options.filterSpan(options.historyJson.text)
+                    li(title=`${item}` aria-label=`${item}`) #{item}
+            p(title=options.historyJson.text aria-label=options.historyJson.text)!=options.filterSpan(options.historyJson.text)

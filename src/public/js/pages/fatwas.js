@@ -22,6 +22,8 @@ export const fataawaIndex = async () => {
         a.appendChild(fataawa_category);
         fataawa_category.className = "fataawa_category";
         fataawa_category.innerText = item.category;
+        fataawa_category.title = item.category;
+        fataawa_category.ariaLabel = item.category;
 
         let countText;
         if (item.numberOfFatwas <= 10 && item.numberOfFatwas !== 1) {
@@ -32,6 +34,8 @@ export const fataawaIndex = async () => {
         a.appendChild(fataawa_counts);
         fataawa_counts.className = "fataawa_counts";
         fataawa_counts.innerText = `${item.numberOfFatwas} ${countText}`;
+        fataawa_counts.title = `${item.numberOfFatwas} ${countText}`;
+        fataawa_counts.ariaLabel = `${item.numberOfFatwas} ${countText}`;
 
     }
 
@@ -67,12 +71,18 @@ export const fataawaList = (options) => {
 
             fatwas_item_id.className = "fatwas_item_id";
             fatwas_item_id.innerText = item.id;
+            fatwas_item_id.title = item.id;
+            fatwas_item_id.ariaLabel = item.id;
 
             fatwas_item_title.className = "fatwas_item_title";
             fatwas_item_title.innerText = item.title;
+            fatwas_item_title.title = item.title;
+            fatwas_item_title.ariaLabel = item.title;
 
             fatwas_item_question.className = "fatwas_item_question";
             fatwas_item_question.innerText = item.question;
+            fatwas_item_question.title = item.question;
+            fatwas_item_question.ariaLabel = item.question;
 
             a.appendChild(fatwas_item_id);
             a.appendChild(fatwas_item_title);
@@ -99,6 +109,8 @@ export const fataawaItem = (options) => {
     const fatwasContentDownload = document.getElementById("fatwasContentDownload");
     const fatwasContentAnswer = document.getElementById("fatwasContentAnswer");
     fatwasContentAnswer.innerHTML = filterSpan(options.FatwaById.answer);
+    fatwasContentAnswer.title = options.FatwaById.answer;
+    fatwasContentAnswer.ariaLabel = options.FatwaById.answer;
     fatwasContentDownload.addEventListener("click", () => {
         downloadFile(options.FatwaById.audio, `${options.FatwaById.title.replace(/ /g, '_')}_كنز_الإسلام.mp3`);
     })

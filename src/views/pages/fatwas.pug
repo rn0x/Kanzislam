@@ -7,15 +7,16 @@ block content
   #fatwasPage 
     ul.breadcrumb
       li 
-        a(href="/")
+        a(href="/" title="الصفحة الرئيسية" aria-label="العودة إلى الصفحة الرئيسية")
           i.fa-solid.fa-house-chimney.iconBreadcrumb 
       li 
         small /
-        a(href="/fataawa-ibn-baaz") موسوعة الفتاوى الإسلامية
-    h2#fatwas_title موسوعة الفتاوى الإسلامية
-    ul#box_fatwas
+        a(href="/fataawa-ibn-baaz" title="موسوعة الفتاوى الإسلامية" aria-label="الانتقال إلى موسوعة الفتاوى الإسلامية") موسوعة الفتاوى الإسلامية
+    h2#fatwas_title(aria-label="موسوعة الفتاوى الإسلامية" title="موسوعة الفتاوى الإسلامية") موسوعة الفتاوى الإسلامية
+    ul#box_fatwas(aria-label="قائمة الفتاوى")
+
 block script
-  script(type="module").
+  script(type="module"). 
     const options = !{JSON.stringify(options)};  // تحويل خصائص options إلى كائن JSON
     import { fataawaIndex } from '/js/pages/fatwas.js';
     fataawaIndex(options);

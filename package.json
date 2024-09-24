@@ -1,58 +1,59 @@
 {
+  "name": "kanzislam",
+  "version": "2.1.0",
+  "description": "منصة كنز الإسلام - Kanzislam.net",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "syncData": "node src/utils/syncData.js",
+    "start": "npm run syncData && node src/server.js",
+    "dev": "npm run syncData && nodemon src/server.js",
+    "gulp": "node src/utils/gulpfile.js",
+    "sitemap": "node src/utils/generateSitemap.js"
+  },
+  "author": {
     "name": "kanzislam",
-    "version": "2.0.0",
-    "description": "منصة كنز الإسلام - Kanzislam.net",
-    "main": "src/server.js",
-    "type": "module",
-    "scripts": {
-        "start": "node src/server.js",
-        "dev": "nodemon node src/server.js",
-        "gulp": "node src/utils/gulpfile.js",
-        "sitemap": "node src/utils/generateSitemap.js"
-    },
-    "author": {
-        "name": "kanzislam",
-        "url": "https://github.com/kanzislam"
-    },
-    "license": "GPL-3.0-only",
-    "keywords": [
-        "kanzislam",
-        "islam",
-        "islamic",
-        "website",
-        "ar"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/kanzislam/Kanzislam.git"
-    },
-    "bugs": {
-        "url": "https://github.com/kanzislam/Kanzislam/issues"
-    },
-    "homepage": "https://github.com/kanzislam/Kanzislam#readme",
-    "nodemonConfig": {
-        "ignore": [
-            "**/public/**",
-            "**/logs/**",
-            "**/data/**"
-        ]
-    },
-    "dependencies": {
-        "body-parser": "^1.20.3",
-        "compression": "^1.7.4",
-        "dotenv": "^16.4.5",
-        "express": "^4.21.0",
-        "fs-extra": "^11.2.0",
-        "helmet": "^7.1.0",
-        "node-fetch": "^3.3.2",
-        "pug": "^3.0.3",
-        "serve-favicon": "^2.5.0"
-    },
-    "devDependencies": {
-        "gulp": "^5.0.0",
-        "gulp-clean-css": "^4.3.0",
-        "gulp-concat": "^2.6.1",
-        "gulp-uglify": "^3.0.2",
-        "nodemon": "^3.1.7"
-    }
+    "url": "https://github.com/kanzislam"
+  },
+  "license": "GPL-3.0-only",
+  "keywords": [
+    "kanzislam",
+    "islam",
+    "islamic",
+    "website",
+    "ar"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kanzislam/Kanzislam.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kanzislam/Kanzislam/issues"
+  },
+  "homepage": "https://github.com/kanzislam/Kanzislam#readme",
+  "nodemonConfig": {
+    "ignore": [
+      "**/public/**",
+      "**/logs/**",
+      "**/data/**"
+    ]
+  },
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "compression": "^1.7.4",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "fs-extra": "^11.2.0",
+    "helmet": "^7.1.0",
+    "node-fetch": "^3.3.2",
+    "pug": "^3.0.3",
+    "serve-favicon": "^2.5.0"
+  },
+  "devDependencies": {
+    "gulp": "^5.0.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-uglify": "^3.0.2",
+    "nodemon": "^3.1.7"
+  }
 }

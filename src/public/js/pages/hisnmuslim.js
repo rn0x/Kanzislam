@@ -14,6 +14,8 @@ export const HisnMuslimIndex = () => {
         hisnmuslimIndex.appendChild(li);
         li.appendChild(a);
         a.innerText = item?.category;
+        a.title = item?.category;
+        a.ariaLabel = item?.category;
         a.href = `${url}/hisnmuslim/${item?.category?.split(" ").join("_")}`
 
     }
@@ -46,24 +48,37 @@ export const HisnMuslimList = (options) => {
         li.appendChild(HusId);
         HusId.className = "HusId";
         HusId.innerText = item?.id;
+        HusId.title = item?.id;
+        HusId.ariaLabel = item?.id;
         li.appendChild(text);
         text.innerHTML = filterSpan(item?.text);
+        text.title = item?.text;
+        text.ariaLabel = item?.text;
         li.appendChild(Boxicons);
         Boxicons.className = "Boxicons";
         Boxicons.appendChild(iconPlay);
         iconPlay.className = "fa-solid fa-play";
+        iconPlay.title = "play";
+        iconPlay.ariaLabel = "play";
         Boxicons.appendChild(iconDownload);
         iconDownload.className = "fa-solid fa-cloud-arrow-down";
+        iconDownload.title = "download";
+        iconDownload.ariaLabel = "download";
         Boxicons.appendChild(link);
         link.href = `${url}/hisnmuslims/${title}`;
         link.title = "رابط الذكر في صفحة منفصلة";
+        link.ariaLabel = "رابط الذكر في صفحة منفصلة";
         link.appendChild(iconLink);
         iconLink.src = "/icon/link.svg";
         iconLink.alt = "link";
+        iconLink.ariaLabel = "link";
+        iconLink.title = "link";
         iconLink.className = "iconFilter";
         li.appendChild(Huscount);
         Huscount.className = "Huscount";
         Huscount.innerHTML = `التكرار : <span>${item?.count}</span>`;
+        Huscount.ariaLabel = `التكرار ${item?.count}`;
+        Huscount.title = `التكرار ${item?.count}`;
 
         iconDownload.addEventListener("click", async () => {
             iconDownload.className = "fa-solid fa-spinner";
@@ -79,6 +94,7 @@ export const HisnMuslimList = (options) => {
                 iconDownload.className = "fa-solid fa-cloud-arrow-down";
             } catch (error) {
                 iconDownload.title = "حدث خطأ, لايمكن تحميل الملف الصوتي ❌"
+                iconDownload.ariaLabel = "حدث خطأ, لايمكن تحميل الملف الصوتي ❌"
                 console.error("Error:", error);
                 iconDownload.src = "/icon/error.svg";
                 setTimeout(() => {
@@ -138,6 +154,7 @@ export const HisnMuslimItem = (options) => {
             hisDownload.className = "fa-solid fa-cloud-arrow-down";
         } catch (error) {
             hisDownload.title = "حدث خطأ, لايمكن تحميل الملف الصوتي ❌"
+            hisDownload.ariaLabel = "حدث خطأ, لايمكن تحميل الملف الصوتي ❌"
             console.error("Error:", error);
             hisDownload.src = "/icon/error.svg";
             setTimeout(() => {

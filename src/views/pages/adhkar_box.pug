@@ -6,18 +6,19 @@ block stylesheet
 block content
   ul.breadcrumb
     li 
-      a(href="/")
+      a(href="/" title="الصفحة الرئيسية" aria-label="العودة إلى الصفحة الرئيسية")
         i.fa-solid.fa-house-chimney.iconBreadcrumb 
     li 
       small /
-      a(href="/adhkar") أذكار
+      a(href="/adhkar" title="أذكار" aria-label="الانتقال إلى أذكار") أذكار
   #adhkar_boxPage 
-    ul#adhkarCategory
+    ul#adhkarCategory(aria-label="قائمة الأذكار")
     #adhkarRepeat
-      small عدد التكرارات :
-      p 
+      small(aria-label="عدد التكرارات") عدد التكرارات :
+      p(aria-label="تكرار الأذكار") 
+
 block script
-  script(type="module").
+  script(type="module"). 
     const options = !{JSON.stringify(options)};  // تحويل خصائص options إلى كائن JSON
     import { PageAdhkarIndex } from '/js/pages/adhkar.js';
     PageAdhkarIndex(options);

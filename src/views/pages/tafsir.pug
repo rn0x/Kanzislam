@@ -7,42 +7,42 @@ block content
     #tafsirPage
         ul.breadcrumb
             li 
-                a(href="/")
+                a(href="/" aria-label="الرئيسية" title="العودة إلى الصفحة الرئيسية")
                     i.fa-solid.fa-house-chimney.iconBreadcrumb 
             li 
                 small /
-                a(href="/tafsir-quran") تفاسير القرآن الكريم
+                a(href="/tafsir-quran" aria-label="تفاسير القرآن الكريم" title="الذهاب إلى تفاسير القرآن الكريم") تفاسير القرآن الكريم
             if options.tafsir
                 li 
                     small /
-                    a(href=`/tafsir-quran/${options.tafsir.name_english}`) #{options.tafsir.name} 
+                    a(href=`/tafsir-quran/${options.tafsir.name_english}` aria-label=options.tafsir.name title=`الذهاب إلى تفسير ${options.tafsir.name}`) #{options.tafsir.name} 
         if options.tafsir_name
             #tafsir_index 
-                h2 تفاسير القرآن الكريم
+                h2(title="تفاسير القرآن الكريم" aria-label="تفاسير القرآن الكريم") تفاسير القرآن الكريم
                 ul#tafsir_ul 
                     li 
-                        a(href="/tafsir-quran/tabary") تفسير الطبري 
+                        a(href="/tafsir-quran/tabary" aria-label="تفسير الطبري" title="الذهاب إلى تفسير الطبري") تفسير الطبري 
                     li 
-                        a(href="/tafsir-quran/katheer") تفسير ابن كثير 
+                        a(href="/tafsir-quran/katheer" aria-label="تفسير ابن كثير" title="الذهاب إلى تفسير ابن كثير") تفسير ابن كثير 
                     li 
-                        a(href="/tafsir-quran/saadi") تفسير السعدي 
+                        a(href="/tafsir-quran/saadi" aria-label="تفسير السعدي" title="الذهاب إلى تفسير السعدي") تفسير السعدي 
                     li 
-                        a(href="/tafsir-quran/qortobi") تفسير القرطبي 
+                        a(href="/tafsir-quran/qortobi" aria-label="تفسير القرطبي" title="الذهاب إلى تفسير القرطبي") تفسير القرطبي 
                     li 
-                        a(href="/tafsir-quran/baghawy") تفسير البغوي 
+                        a(href="/tafsir-quran/baghawy" aria-label="تفسير البغوي" title="الذهاب إلى تفسير البغوي") تفسير البغوي 
                     li 
-                        a(href="/tafsir-quran/tanweer") تفسير ابن عاشور 
+                        a(href="/tafsir-quran/tanweer" aria-label="تفسير ابن عاشور" title="الذهاب إلى تفسير ابن عاشور") تفسير ابن عاشور 
                     li 
-                        a(href="/tafsir-quran/eerab") إعراب القرآن لدعاس
+                        a(href="/tafsir-quran/eerab" aria-label="إعراب القرآن لدعاس" title="الذهاب إلى إعراب القرآن لدعاس") إعراب القرآن لدعاس
                     li 
-                        a(href="/tafsir-quran/waseet") الوسيط لطنطاوي 
+                        a(href="/tafsir-quran/waseet" aria-label="الوسيط لطنطاوي" title="الذهاب إلى الوسيط لطنطاوي") الوسيط لطنطاوي 
         if options.tafsir
             #surah_index
                 h2 تفسير #{options.tafsir.name} 
                 ul#surahBox 
 
 block script
-    script(type="module").
+    script(type="module"). 
         const options = !{JSON.stringify(options)};  // تحويل خصائص options إلى كائن JSON
         import { tafsirSurahIndex } from '/js/pages/tafsir.js';
         

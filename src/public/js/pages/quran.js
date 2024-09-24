@@ -20,16 +20,26 @@ export const quranIdex = () => {
         quranIndex.appendChild(li);
         li.appendChild(a);
         a.href = `/quran/سورة_${item?.name.split(" ").join("_")}`;
+        a.title = `سورة ${item?.name}`;
+        a.ariaLabel = `سورة ${item?.name}`;
         a.appendChild(name);
         name.innerText = item?.name;
+        name.title = item?.name;
+        name.ariaLabel = item?.name;
         a.appendChild(number);
         number.innerText = item?.number;
+        number.title = item?.number;
+        number.ariaLabel = item?.number;
         a.appendChild(div);
         div.appendChild(descent);
         descent.innerText = item?.descent;
+        descent.title = item?.descent;
+        descent.ariaLabel = item?.descent;
         descent.className = 'descent';
         div.appendChild(english_name);
         english_name.innerText = item?.english_name;
+        english_name.title = item?.english_name;
+        english_name.ariaLabel = item?.english_name;
         english_name.className = 'english_name';
     }
 
@@ -59,17 +69,37 @@ export const quranItem = (options) => {
     
     previousSurah.href = `/quran/سورة_${DataSurah?.previousSurah?.name?.split(" ")?.join("_")}`;
     previousSurah.innerText = DataSurah?.previousSurah?.name;
+    previousSurah.title = DataSurah?.previousSurah?.name;
+    previousSurah.ariaLabel = DataSurah?.previousSurah?.name;
     nextSurah.href = `/quran/سورة_${DataSurah?.nextSurah?.name?.split(" ")?.join("_")}`;
     nextSurah.innerText = DataSurah.nextSurah.name;
+    nextSurah.title = DataSurah.nextSurah.name;
+    nextSurah.ariaLabel = DataSurah.nextSurah.name;
     titleInfo.innerText = `معلومات حول سورة ${DataSurah?.currentSurah?.name}`;
     number_verses_span.innerText = DataSurah?.currentSurah?.number_verses;
+    number_verses_span.title = DataSurah?.currentSurah?.number_verses;
+    number_verses_span.ariaLabel = DataSurah?.currentSurah?.number_verses;
     number_words_span.innerText = DataSurah?.currentSurah?.number_words;
+    number_words_span.title = DataSurah?.currentSurah?.number_words;
+    number_words_span.ariaLabel = DataSurah?.currentSurah?.number_words;
     number_span.innerText = DataSurah?.currentSurah?.number;
+    number_span.title = DataSurah?.currentSurah?.number;
+    number_span.ariaLabel = DataSurah?.currentSurah?.number;
     number_letters_span.innerText = DataSurah?.currentSurah?.number_letters;
+    number_letters_span.title = DataSurah?.currentSurah?.number_letters;
+    number_letters_span.ariaLabel = DataSurah?.currentSurah?.number_letters;
     descent_span.innerText = DataSurah?.currentSurah?.descent;
+    descent_span.title = DataSurah?.currentSurah?.descent;
+    descent_span.ariaLabel = DataSurah?.currentSurah?.descent;
     english_name_span.innerText = DataSurah?.currentSurah?.english_name;
+    english_name_span.title = DataSurah?.currentSurah?.english_name;
+    english_name_span.ariaLabel = DataSurah?.currentSurah?.english_name;
     bisamla.innerText = DataSurah?.bisamla;
+    bisamla.title = DataSurah?.bisamla;
+    bisamla.ariaLabel = DataSurah?.bisamla;
     surah.innerHTML = DataSurah?.surah;
+    surah.title = DataSurah?.surah;
+    surah.ariaLabel = DataSurah?.surah;
 
     fontPlus.addEventListener("click", () => {
         changeFontSize("bisamla", 2);
@@ -97,8 +127,12 @@ export const quranItem = (options) => {
         readerBoxUl.appendChild(li);
         li.appendChild(small);
         small.innerText = item.rewaya;
+        small.title = item.rewaya;
+        small.ariaLabel = item.rewaya;
         li.appendChild(p);
         p.innerText = item.reader;
+        p.title = item.reader;
+        p.ariaLabel = item.reader;
         li.appendChild(span);
         span.className = 'timeupdate';
         audio.preload = 'none';

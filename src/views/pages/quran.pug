@@ -7,13 +7,13 @@ block content
   #quranPage
     ul.breadcrumb
       li 
-        a(href="/")
+        a(href="/" aria-label="الرئيسية" title="العودة إلى الصفحة الرئيسية")
           i.fa-solid.fa-house-chimney.iconBreadcrumb 
       li 
         small /
-        a(href="/quran") فهرس سور القران الكريم
-    h2 فهرس سور القران الكريم
-    ul#quranIndex 
+        a(href="/quran" aria-label="فهرس سور القرآن الكريم" title="الذهاب إلى فهرس سور القرآن الكريم") فهرس سور القران الكريم
+    h2(aria-label="فهرس سور القرآن الكريم" title="فهرس سور القرآن الكريم") فهرس سور القران الكريم
+    ul#quranIndex(aria-label="فهرس السور" title="فهرس سور القرآن الكريم") 
 block script
   script(type="module").
     const options = !{JSON.stringify(options)};  // تحويل خصائص options إلى كائن JSON

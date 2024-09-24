@@ -7,37 +7,38 @@ block content
     #hisnmuslimPage
         ul.breadcrumb
             li 
-                a(href="/")
+                a(href="/" title="الصفحة الرئيسية" aria-label="العودة إلى الصفحة الرئيسية")
                     i.fa-solid.fa-house-chimney.iconBreadcrumb 
             li 
                 small /
-                a(href="/hisnmuslim") فهرس حصن المسلم
+                a(href="/hisnmuslim" title="فهرس حصن المسلم" aria-label="الانتقال إلى فهرس حصن المسلم") فهرس حصن المسلم
             if options.isAdhkarHisnMuslim
                 li 
                     small /
-                    a(href=`/hisnmuslim/${options.titleBox.split(" ").join("_")}`) #{options.titleBox}
+                    a(href=`/hisnmuslim/${options.titleBox.split(" ").join("_")}` title=`${options.titleBox}` aria-label=`الانتقال إلى ${options.titleBox}`) #{options.titleBox}
             else if options.isHisText
                 li 
                     small /
-                    a(href=`/hisnmuslim/${options.category.split(" ").join("_")}`) #{options.category}
-        h2 #{options.titleBox}
+                    a(href=`/hisnmuslim/${options.category.split(" ").join("_")}` title=`${options.category}` aria-label=`الانتقال إلى ${options.category}`) #{options.category}
+        h2(aria-label="عنوان الصفحة") #{options.titleBox}
         if options.isIndex
-            input(type="text" name="search" placeholder="بحث...")#SearchIndex
+            input(type="text" name="search" placeholder="بحث..." aria-label="بحث في حصن المسلم" title="بحث في حصن المسلم")#SearchIndex
             ul#hisnmuslimIndex 
         else if options.isAdhkarHisnMuslim
             ul#hisnmuslimCategory
         else if options.isHisText
             ul#hisnmuslimCategory 
                 li 
-                    small.HusId #{options.ObjectHis.id}
+                    small.HusId(title=`${options.ObjectHis.id}` aria-label=`${options.ObjectHis.id}`) #{options.ObjectHis.id}
                     p#textHis
                     .Boxicons 
-                        i.fa-solid.fa-play#hisPlay
-                        i.fa-solid.fa-cloud-arrow-down#hisDownload
-                    small.Huscount التكرار : 
-                        span #{options.ObjectHis.count}
+                        i.fa-solid.fa-play#hisPlay(aria-label="تشغيل" title="تشغيل")
+                        i.fa-solid.fa-cloud-arrow-down#hisDownload(aria-label="تحميل" title="تحميل")
+                    small.Huscount(title="التكرار" aria-label="التكرار") التكرار : 
+                        span(title=`${options.ObjectHis.count}` aria-label=`${options.ObjectHis.count}`) #{options.ObjectHis.count}
+
 block script
-    script(type="module").
+    script(type="module"). 
         const options = !{JSON.stringify(options)};  // تحويل خصائص options إلى كائن JSON
         import { HisnMuslimIndex, HisnMuslimList, HisnMuslimItem } from '/js/pages/hisnmuslim.js';
         

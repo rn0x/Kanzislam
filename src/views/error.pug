@@ -8,7 +8,8 @@ block stylesheet
     #ErrorPage h1 span{
       color: #ff4646;
     }
+
 block content
   #ErrorPage
-    h1 #{options.errorTitle} 
-      span #{options.status}
+    h1(title="عنوان الخطأ" aria-label="عنوان الخطأ") #{options.errorTitle} 
+      span(title="رمز الحالة" aria-label="رمز الحالة") #{options.status}

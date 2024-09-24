@@ -7,26 +7,27 @@ block content
   #fatwasContentPage 
     ul.breadcrumb
       li 
-        a(href="/")
+        a(href="/" title="الصفحة الرئيسية" aria-label="العودة إلى الصفحة الرئيسية")
           i.fa-solid.fa-house-chimney.iconBreadcrumb 
       li 
         small /
-        a(href="/fataawa-ibn-baaz") موسوعة الفتاوى الإسلامية
+        a(href="/fataawa-ibn-baaz" title="موسوعة الفتاوى الإسلامية" aria-label="الانتقال إلى موسوعة الفتاوى الإسلامية") موسوعة الفتاوى الإسلامية
       li 
         small /
-        a(href=`/fataawa-ibn-baaz/${options.category.replace(/ /g, '_')}`)=`الفتاوى المتعلقة ب${options.category}`
+        a(href=`/fataawa-ibn-baaz/${options.category.replace(/ /g, '_')}` title=`الفتاوى المتعلقة بـ ${options.category}` aria-label=`الفتاوى المتعلقة بـ ${options.category}`)= `الفتاوى المتعلقة ب${options.category}`
       li 
         small /
-        a(href=`/fataawa-ibn-baaz/${options.category.replace(/ /g, '_')}/${options.id}`)=`${options.FatwaById.title}`
-    h2#fatwas_title=options.FatwaById.title
+        a(href=`/fataawa-ibn-baaz/${options.category.replace(/ /g, '_')}/${options.id}` title=`${options.FatwaById.title}` aria-label=`${options.FatwaById.title}`)= `${options.FatwaById.title}`
+    h2#fatwas_title(aria-label="عنوان الفتوى" title=`${options.FatwaById.title}`)= options.FatwaById.title
     div#fatwasContent
-      h2#fatwasContentTitle=options.FatwaById.question
+      h2#fatwasContentTitle(aria-label="سؤال الفتوى" title=`${options.FatwaById.question}`)= options.FatwaById.question
       if options.FatwaById.audio
         audio(src=options.FatwaById.audio controls autoplay)#fatwasContentAudio
-        button#fatwasContentDownload تحميل الفتوى mp3
-      p#fatwasContentAnswer
+        button#fatwasContentDownload(title="تحميل الفتوى بصيغة MP3" aria-label="تحميل الفتوى بصيغة MP3") تحميل الفتوى mp3
+      p#fatwasContentAnswer(aria-label="إجابة الفتوى") 
+
 block script
-  script(type="module").
+  script(type="module"). 
     const options = !{JSON.stringify(options)};  // تحويل خصائص options إلى كائن JSON
     import { fataawaItem } from '/js/pages/fatwas.js';
     fataawaItem(options);

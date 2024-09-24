@@ -5,48 +5,48 @@ block stylesheet
 
 block content
     #isPermissionLocation
-        p تنبيه
-        h2 يرجى السماح للصفحة بالوصول إلى الموقع الحالي لتحديد خطوط الطول والعرض. ستساعد هذه المعلومات في تحسين تجربتك على الموقع.
-        small قم بتحديث الصفحة F5
-        button#bt_manual_entry ادخال يدوي
+        p(aria-label="تنبيه" title="تنبيه") تنبيه
+        h2(aria-label="رسالة الإذن" title="يرجى السماح للصفحة بالوصول إلى الموقع") يرجى السماح للصفحة بالوصول إلى الموقع الحالي لتحديد خطوط الطول والعرض. ستساعد هذه المعلومات في تحسين تجربتك على الموقع.
+        small(aria-label="تحديث الصفحة" title="قم بتحديث الصفحة") قم بتحديث الصفحة F5
+        button#bt_manual_entry(type="button" aria-label="ادخال الموقع يدوياً" title="ادخال الموقع يدوياً") ادخال يدوي
     #prayerPage
         #BoxTime
-            p#hour_minutes 0:00
-            p#colon :
-            p#seconds 00  
-        i.fa-solid.fa-camera#screenshot 
+            p#hour_minutes(aria-label="الساعة والدقائق" title="الوقت الحالي") 0:00
+            p#colon(aria-label="فاصل زمني" title="فاصل زمني بين الساعات") :
+            p#seconds(aria-label="الثواني" title="الثواني الحالية") 00  
+        i.fa-solid.fa-camera#screenshot(aria-label="لقطة الشاشة" title="التقاط صورة") 
         #Boxdata
-            p#data_hijri
-            p#data_today 
-            p#data_Gregorian
+            p#data_hijri(aria-label="التاريخ الهجري" title="التاريخ الهجري") التاريخ الهجري
+            p#data_today(aria-label="تاريخ اليوم" title="تاريخ اليوم") تاريخ اليوم
+            p#data_Gregorian(aria-label="التاريخ الميلادي" title="التاريخ الميلادي") التاريخ الميلادي
         #BoxTimeZone
-            p المنطقة الزمنية:
-            p#timezone 
+            p(aria-label="المنطقة الزمنية" title="المعلومات عن المنطقة الزمنية") المنطقة الزمنية:
+            p#timezone(aria-label="المنطقة الزمنية الحالية" title="المنطقة الزمنية") 
         #BoxRemainingTime
-            P الوقت المتبقي لرفع الأذان لصلاة 
-                span#remaining_name 
-            small#RemainingTime
+            p(aria-label="الوقت المتبقي لرفع الأذان" title="الوقت المتبقي لرفع الأذان") الوقت المتبقي لرفع الأذان لصلاة 
+                span#remaining_name(aria-label="اسم الصلاة المتبقي" title="اسم الصلاة المتبقي") 
+            small#RemainingTime(aria-label="الوقت المتبقي" title="الوقت المتبقي لرفع الأذان") 
         ul#BoxPrayer
             li#BoxFajr 
-                p الفجر
-                p.timePrayer#PrayerFajr
+                p(aria-label="صلاة الفجر" title="وقت صلاة الفجر") الفجر
+                p.timePrayer#PrayerFajr(aria-label="وقت صلاة الفجر" title="وقت صلاة الفجر") 
             li#BoxSunrise
-                p الشروق
-                p.timePrayer#PrayerSunrise
+                p(aria-label="صلاة الشروق" title="وقت صلاة الشروق") الشروق
+                p.timePrayer#PrayerSunrise(aria-label="وقت صلاة الشروق" title="وقت صلاة الشروق") 
             li#BoxDhuhr
-                p الظهر
-                p.timePrayer#PrayerDhuhr
+                p(aria-label="صلاة الظهر" title="وقت صلاة الظهر") الظهر
+                p.timePrayer#PrayerDhuhr(aria-label="وقت صلاة الظهر" title="وقت صلاة الظهر") 
             li#BoxAsr
-                p العصر
-                p.timePrayer#PrayerAsr
+                p(aria-label="صلاة العصر" title="وقت صلاة العصر") العصر
+                p.timePrayer#PrayerAsr(aria-label="وقت صلاة العصر" title="وقت صلاة العصر") 
             li#BoxMaghrib
-                p المغرب
-                p.timePrayer#PrayerMaghrib
+                p(aria-label="صلاة المغرب" title="وقت صلاة المغرب") المغرب
+                p.timePrayer#PrayerMaghrib(aria-label="وقت صلاة المغرب" title="وقت صلاة المغرب") 
             li#BoxIsha 
-                p العشاء
-                p.timePrayer#PrayerIsha
-        img(src="/icon/logo.svg" alt="logo" class="iconFilter")#logoScreen 
-        button#bt_manual_entry_pr ادخال يدوي للموقع
+                p(aria-label="صلاة العشاء" title="وقت صلاة العشاء") العشاء
+                p.timePrayer#PrayerIsha(aria-label="وقت صلاة العشاء" title="وقت صلاة العشاء") 
+        img(src="/icon/logo.svg" alt="شعار الموقع" class="iconFilter" aria-label="شعار الموقع" title="شعار الموقع")#logoScreen 
+        button#bt_manual_entry_pr(type="button" aria-label="ادخال الموقع يدوياً" title="ادخال الموقع يدوياً") ادخال يدوي للموقع
 block script
     script(type="module")
         include ../../public/js/pages/prayer.js
