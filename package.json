@@ -2,14 +2,13 @@
   "name": "kanzislam",
   "version": "2.1.0",
   "description": "منصة كنز الإسلام - Kanzislam.net",
-  "main": "src/server.js",
-  "type": "module",
+  "main": "src/server.mjs",
   "scripts": {
-    "syncData": "node src/utils/syncData.js",
-    "start": "npm run syncData && node src/server.js",
-    "dev": "npm run syncData && nodemon src/server.js",
-    "gulp": "node src/utils/gulpfile.js",
-    "sitemap": "node src/utils/generateSitemap.js"
+    "syncData": "node src/utils/syncData.mjs",
+    "start": "npm run syncData && node src/server.mjs",
+    "dev": "npm run syncData && nodemon src/server.mjs",
+    "gulp": "node src/utils/gulpfile.mjs",
+    "sitemap": "node src/utils/generateSitemap.mjs"
   },
   "author": {
     "name": "kanzislam",

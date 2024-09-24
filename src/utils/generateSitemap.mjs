@@ -1,8 +1,8 @@
-import sitemapUtlis from './sitemapUtlis.js';
+import sitemapUtlis from './sitemapUtlis.mjs';
 import {
     getAllCategories,
     getFatwasForCategory,
-} from './fatawaUtils.js';
+} from './fatawaUtils.mjs';
 import fs from 'fs-extra';
 import path from 'path';
 import "dotenv/config";

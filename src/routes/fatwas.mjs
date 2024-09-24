@@ -1,18 +1,18 @@
 import path from "node:path";
-import readFile from "../utils/readFile.js";
+import readFile from "../utils/readFile.mjs";
 
 import { Router } from "express";
 const router = Router();
 
-import { config } from "../config.js";
-import { logError } from "../utils/logger.js";
+import { config } from "../config.mjs";
+import { logError } from "../utils/logger.mjs";
 
-import analyzeText from "../utils/analyzeText.js";
+import analyzeText from "../utils/analyzeText.mjs";
 import {
   getCategorysWithCounts,
   getFatwasForCategory,
   getFatwaById,
-} from "../utils/fatawaUtils.js";
+} from "../utils/fatawaUtils.mjs";
 
 const fatwas = await readFile(path.join(config.paths.json, "fatwas.json"));
 

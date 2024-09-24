@@ -1,10 +1,10 @@
 import path from "node:path";
-import readFile from "../utils/readFile.js";
+import readFile from "../utils/readFile.mjs";
 
 import { Router } from "express";
 const router = Router();
 
-import { config } from "../config.js";
+import { config } from "../config.mjs";
 
 const adhkarJson = await readFile(path.join(config.paths.json, "adhkar.json"));
 const adhkarKey = Object.keys(adhkarJson);

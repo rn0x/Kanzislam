@@ -1,10 +1,10 @@
 import path from "node:path";
-import readFile from "../utils/readFile.js";
+import readFile from "../utils/readFile.mjs";
 
 import { Router } from "express";
 const router = Router();
 
-import { config } from "../config.js";
+import { config } from "../config.mjs";
 
 const quranPath = path.join(config.paths.json, "quran_info.json");
 const surahPath = path.join(config.paths.json, "surah.json");

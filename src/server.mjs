@@ -3,8 +3,8 @@ import "dotenv/config";
 import express from "express";
 const app = express();
 
-import { config } from "./config.js";
-import { logError, logInfo } from "./utils/logger.js";
+import { config } from "./config.mjs";
+import { logError, logInfo } from "./utils/logger.mjs";
 
 import bodyParser from "body-parser";
 import helmet from "helmet";
@@ -57,35 +57,35 @@ app.get("/", (req, res, next) => {
 });
 
 /* PAGES ROUTES */
-import adhkar from "./routes/adhkar.js";
+import adhkar from "./routes/adhkar.mjs";
 app.use("/", adhkar);
 
-import fatwas from "./routes/fatwas.js";
+import fatwas from "./routes/fatwas.mjs";
 app.use("/", fatwas);
 
-import hisnmuslim from "./routes/hisnmuslim.js";
+import hisnmuslim from "./routes/hisnmuslim.mjs";
 app.use("/", hisnmuslim);
 
-import history from "./routes/history.js";
+import history from "./routes/history.mjs";
 app.use("/", history);
 
-import prayer from "./routes/prayer.js";
+import prayer from "./routes/prayer.mjs";
 app.use("/", prayer);
 
-import quran from "./routes/quran.js";
+import quran from "./routes/quran.mjs";
 app.use("/", quran);
 
-import radio from "./routes/radio.js";
+import radio from "./routes/radio.mjs";
 app.use("/", radio);
 
-import sabha from "./routes/sabha.js";
+import sabha from "./routes/sabha.mjs";
 app.use("/", sabha);
 
-import tafsir from "./routes/tafsir.js";
+import tafsir from "./routes/tafsir.mjs";
 app.use("/", tafsir);
 
 /* ERROR ROUTER */
-import errorRouter from "./routes/error.js";
+import errorRouter from "./routes/error.mjs";
 app.use("/", errorRouter);
 
 /* INTERNAL SERVER ERROR */
