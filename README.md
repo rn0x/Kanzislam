@@ -15,7 +15,8 @@
 
 ![Kanzislam](./README/kanz-200px.png)
 
-![Kanzislam](./README/pagespeed.png)
+![brave_oH9z1oPUVq](https://github.com/user-attachments/assets/8a74a6a9-5c60-4a72-ac6a-e0e216399613)
+
 
 </div>
 
