@@ -1,7 +1,7 @@
 import path from "node:path";
 export const root = path.resolve(process.cwd()); // project root directory (./)
 
-const port = process.env.PORT;
+const port = process.env.PORT || 3000; // Use default port 3000 if environment variable is not set
 const domain = `http://127.0.0.1:${port}`; // remove process.env.PORT in production
 
 export const config = {
@@ -10,7 +10,7 @@ export const config = {
   domain: domain,
 
   /* Config Website */
-  website_name: process.env.WEBSITE_NAME,
+  website_name: process.env.WEBSITE_NAME || 'كنز الإسلام',
   preview: `/images/preview-kanz.jpg`,
 
   /* Helmet */
@@ -63,10 +63,10 @@ export const config = {
   // وسائل التواصل
 
   contact: {
-    email: process.env.CONTACT_EMAIL,
-    tiktok: process.env.CONTACT_TIKTOK,
-    instagram: process.env.CONTACT_INSTAGRAM,
-    telegram: process.env.CONTACT_TELEGRAM,
-    phone: process.env.CONTACT_PHONE,
+    email: process.env.CONTACT_EMAIL || 'info@kanzislam.com',
+    tiktok: process.env.CONTACT_TIKTOK || 'https://www.tiktok.com/@kanzislam',
+    instagram: process.env.CONTACT_INSTAGRAM || 'https://www.instagram.com/kanzislam',
+    telegram: process.env.CONTACT_TELEGRAM || 'https://t.me/kanzislam',
+    phone: process.env.CONTACT_PHONE || '+1234567890',
   },
 };

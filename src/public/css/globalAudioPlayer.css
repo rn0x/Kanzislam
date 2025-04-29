@@ -1,0 +1,147 @@
+/* Global Audio Player Styles */
+.global-quran-player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--sidebarBackground, #1a3644);
+  color: white;
+  padding: 10px 15px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  direction: rtl;
+  transition: all 0.3s ease;
+  border-top: 2px solid var(--backgroundQuranStart, #198754);
+}
+
+.global-quran-player .player-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.global-quran-player .surah-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.global-quran-player #globalPlayerSurahName {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.global-quran-player #globalPlayerReader {
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+.global-quran-player .player-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.global-quran-player .player-controls button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.global-quran-player .player-controls button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+#globalPlayerPlayPause {
+  background-color: var(--backgroundQuranStart, #198754);
+}
+
+#globalPlayerClose {
+  margin-right: 8px;
+  font-size: 0.9rem;
+}
+
+.global-quran-player .player-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.global-quran-player #globalPlayerProgressBar {
+  flex: 1;
+  height: 4px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+.global-quran-player #globalPlayerProgressBar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: var(--backgroundQuranStart, #198754);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.global-quran-player #globalPlayerProgressBar::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: var(--backgroundQuranStart, #198754);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+
+.global-quran-player #globalPlayerCurrentTime,
+.global-quran-player #globalPlayerDuration {
+  font-size: 0.8rem;
+  min-width: 40px;
+}
+
+/* Adjust footer margin to prevent overlap with the player */
+#content, #footer, #rights {
+  margin-bottom: 74px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .global-quran-player .player-info {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .global-quran-player .surah-info {
+    text-align: center;
+    margin-bottom: 5px;
+  }
+  
+  .global-quran-player #globalPlayerProgressBar {
+    height: 3px;
+  }
+  
+  .global-quran-player #globalPlayerCurrentTime,
+  .global-quran-player #globalPlayerDuration {
+    font-size: 0.7rem;
+  }
+  
+  /* Adjust footer margin for mobile */
+  #content, #footer, #rights {
+    margin-bottom: 100px;
+  }
+} 
