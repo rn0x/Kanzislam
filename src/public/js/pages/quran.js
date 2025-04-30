@@ -1,4 +1,5 @@
 import filterSpan from '../modules/filterSpan.js';
+import { playSurah, pauseAudio } from '../modules/globalAudioPlayer.js';
 
 const loading = document.getElementById("loading");
 const quranIndex = document.getElementById("quranIndex");
@@ -111,19 +112,18 @@ export const quranItem = (options) => {
         changeFontSize("surah", -2);
     });
 
-    let currentAudio = null; // تعريف المقطع الصوتي الحالي
+    let currentItem = null;
     let currentLi = null;
-    let currentTimeupdate = null;
 
     for (const item of DataSurah.mp3quranFind) {
+        if (!item.link) continue; // Skip items without a link
 
         const li = document.createElement("li");
         const p = document.createElement("p");
         const small = document.createElement("small");
-        const audio = document.createElement("audio");
         const span = document.createElement("span");
         const IconDownload = document.createElement("i");
-        let isPlay = false;
+        
         readerBoxUl.appendChild(li);
         li.appendChild(small);
         small.innerText = item.rewaya;
@@ -135,7 +135,7 @@ export const quranItem = (options) => {
         p.ariaLabel = item.reader;
         li.appendChild(span);
         span.className = 'timeupdate';
-        audio.preload = 'none';
+        span.style.display = 'none';
         li.appendChild(IconDownload);
         IconDownload.className = "fa-solid fa-cloud-arrow-down icon_download";
 
@@ -154,58 +154,31 @@ export const quranItem = (options) => {
         });
 
         li.addEventListener("click", () => {
-
-            if (currentAudio) { // التحقق من وجود مقطع صوتي حالي وإيقاف تشغيله
-                currentAudio.pause();
+            // Reset previous selection
+            if (currentLi) {
                 currentLi.style.backgroundColor = '';
-                currentTimeupdate.style.display = 'none';
-                currentTimeupdate.innerText = '';
             }
-
-            if (currentAudio !== audio || !isPlay) { // التحقق من عدم تشغيل المقطع الصوتي الحالي
-                audio.src = item.link;
-                audio.play();
-                li.style.backgroundColor = 'var(--backgroundQuranStart)';
-                isPlay = true;
-                currentAudio = audio; // تعيين المقطع الصوتي الحالي
-                currentLi = li;
-                currentTimeupdate = span;
-                span.style.display = 'block';
-            }
-            else {
-                audio.pause();
-                li.style.backgroundColor = '';
-                isPlay = false;
-                currentAudio = null; // إزالة المقطع الصوتي الحالي
-                currentLi = null; // إزالة العنصر الحالي
-                currentTimeupdate.style.display = 'none';
-                currentTimeupdate.innerText = '';
-            }
-        });
-
-        audio.addEventListener("timeupdate", () => {
-            const remainingTime = audio.duration - audio.currentTime;
-            const hours = Math.floor(remainingTime / 3600); // حساب عدد الساعات
-            const minutes = Math.floor((remainingTime % 3600) / 60); // حساب عدد الدقائق
-            const seconds = Math.floor(remainingTime % 60); // حساب عدد الثواني
-
-            if (hours > 0) {
-                span.innerText = `${hours}:${minutes}:${seconds}`; // عرض الوقت المتبقي بالساعات
+            
+            // If clicking the same item again, pause
+            if (currentItem === item) {
+                pauseAudio();
+                currentLi.style.backgroundColor = '';
+                currentItem = null;
+                currentLi = null;
             } else {
-                span.innerText = `${minutes}:${seconds}`; // عرض الوقت المتبقي بالدقائق والثواني
+                // Play the new audio
+                playSurah(
+                    DataSurah.currentSurah.name,
+                    item.reader,
+                    item.rewaya,
+                    item.link
+                );
+                li.style.backgroundColor = 'var(--backgroundQuranStart)';
+                currentItem = item;
+                currentLi = li;
             }
-        });
-
-
-        audio.addEventListener("ended", () => {
-            li.style.backgroundColor = ''; // استعادة اللون الأصلي للعنصر
-            currentAudio = null; // إزالة المقطع الصوتي الحالي
-            currentLi = null; // إزالة العنصر الحالي
-            currentTimeupdate.style.display = 'none'; // إزالة عرض مدة الصوت المتبقية عند الانتهاء
-            currentTimeupdate.innerText = '';
         });
     }
-
 
     loading.style.display = "none";
 }
@@ -249,19 +222,13 @@ function dataQuranSurah(QuranData, nameSurah) {
 }
 
 async function dataQuran() {
-    const quranURL = `${window.location.origin}/data-quran`;
-    const quranFetch = await fetch(quranURL, {
-        method: "GET",
-        headers: {
-            'Content-Type': 'application/json',
+    try {
+        const response = await fetch('/data-quran');
+        if (!response.ok) {
+            throw new Error('Error Fetch data');
         }
-    });
-
-    if (!quranFetch.ok) {
-        console.log(`HTTP error! Status: ${quranFetch.status}`);
-        return false
+        return await response.json();
+    } catch (error) {
+        console.log(error);
     }
-
-    const response = await quranFetch?.json();
-    return response
 }

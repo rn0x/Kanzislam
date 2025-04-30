@@ -1,3 +1,6 @@
+// Import global audio player module
+import './modules/globalAudioPlayer.js';
+
 document.addEventListener("DOMContentLoaded", function () {
 
   const menuButton = document.getElementById("button_menu_header");
