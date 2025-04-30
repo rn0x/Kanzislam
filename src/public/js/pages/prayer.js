@@ -1,5 +1,5 @@
-import domtoimage from '../js/modules/dom-to-image.min.js';
-import prayerTimes from '../js/modules/prayerTimes.js';
+import domtoimage from '/js/modules/dom-to-image.min.js';
+import prayerTimes from '/js/modules/prayerTimes.js';
 
 document.addEventListener("DOMContentLoaded", async function () {
     const screenshot = document.getElementById("screenshot");

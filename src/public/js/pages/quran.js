@@ -1,5 +1,5 @@
-import filterSpan from '../modules/filterSpan.js';
-import { playSurah, pauseAudio } from '../modules/globalAudioPlayer.js';
+import filterSpan from '/js/modules/filterSpan.js';
+import { playSurah, pauseAudio } from '/js/modules/globalAudioPlayer.js';
 
 const loading = document.getElementById("loading");
 const quranIndex = document.getElementById("quranIndex");

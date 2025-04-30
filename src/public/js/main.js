@@ -1,5 +1,5 @@
 // Import global audio player module
-import './modules/globalAudioPlayer.js';
+import '/js/modules/globalAudioPlayer.js';
 
 document.addEventListener("DOMContentLoaded", function () {
 

@@ -1,4 +1,4 @@
-import filterSpan from '../modules/filterSpan.js';
+import filterSpan from '/js/modules/filterSpan.js';
 
 const loading = document.getElementById("loading");
 const SearchIndex = document.getElementById("SearchIndex");
