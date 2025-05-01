@@ -62,6 +62,9 @@ block script
     adhkarSource.title = AdhkarObject.source;
     adhkarSource.ariaLabel = AdhkarObject.source;
 
+    // Initially set the reset button to disabled since counter is at full value
+    updateResetButtonState();
+
     const breadcrumbCategory = document.getElementById("breadcrumbCategory");
     breadcrumbCategory.innerText = AdhkarObject.category;
     breadcrumbCategory.title = AdhkarObject.category;
@@ -78,26 +81,81 @@ block script
     const titleAdhkar = document.getElementById("titleAdhkar");
     titleAdhkar.innerText = AdhkarObject.title;
 
-    repetition.addEventListener("click", () => {
+    repetition.addEventListener("click", function(event) {
+      // Prevent any default behavior
+      event.preventDefault();
+      
+      // Handle click on counter
+      decrementCounter();
+    });
+
+    // Also add touchend event for mobile devices
+    repetition.addEventListener("touchend", function(event) {
+      // Prevent any default behavior and immediate propagation
+      event.preventDefault();
+      event.stopPropagation();
+      
+      // Handle touch on counter
+      decrementCounter();
+    }, { passive: false });
+
+    repetition_icon.addEventListener("click", function(event) {
+      // Only process if the button is not disabled
+      if (!repetition_icon.classList.contains('disabled')) {
+        event.stopPropagation();
+        event.preventDefault();
+        resetCounter();
+      }
+    });
+
+    // Also add touchend event for the reset icon
+    repetition_icon.addEventListener("touchend", function(event) {
+      // Only process if the button is not disabled
+      if (!repetition_icon.classList.contains('disabled')) {
+        event.stopPropagation();
+        event.preventDefault();
+        resetCounter();
+      }
+    }, { passive: false });
+
+    // Helper function to decrement counter
+    function decrementCounter() {
       if (parseInt(repetition_p.textContent) > 0) {
         const value = parseInt(repetition_p.textContent) - 1;
         repetition_p.textContent = value;
         if (parseInt(repetition_p.textContent) === 0) {
           repetition.style.backgroundColor = "#fad1d1";
         }
-        const GetAdhkarRepeat = localStorage.getItem("adhkarRepeat");
+        let GetAdhkarRepeat = localStorage.getItem("adhkarRepeat");
         if (!GetAdhkarRepeat || isNaN(GetAdhkarRepeat)) {
           GetAdhkarRepeat = 0;
         }
         localStorage.setItem("adhkarRepeat", parseInt(GetAdhkarRepeat) + 1);
+        
+        // Enable reset button as counter is decremented
+        repetition_icon.classList.remove('disabled');
       }
-    });
+    }
 
-    repetition_icon.addEventListener("click", (event) => {
-      event.stopPropagation();
+    // Helper function to reset counter
+    function resetCounter() {
       repetition_p.textContent = AdhkarObject?.repetition;
+      repetition_p.title = AdhkarObject?.repetition;
+      repetition_p.ariaLabel = AdhkarObject?.repetition;
       repetition.style.backgroundColor = "";
-    });
+      
+      // Disable reset button after reset
+      updateResetButtonState();
+    }
+    
+    // Function to update reset button state
+    function updateResetButtonState() {
+      if (parseInt(repetition_p.textContent) === parseInt(AdhkarObject?.repetition)) {
+        repetition_icon.classList.add('disabled');
+      } else {
+        repetition_icon.classList.remove('disabled');
+      }
+    }
 
     adhkarsBox.style.display = "flex";
 

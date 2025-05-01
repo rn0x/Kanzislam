@@ -137,21 +137,50 @@ app.use((req, res, next) => {
   });
 });
 
-const server = app.listen(config.port, () => {
-  console.log(`[Kanzislam] Server started on port ${config.port}`);
-});
+// Function to start the server with port fallback
+function startServer(port, maxAttempts = 5) {
+  let currentPort = port;
+  let attempts = 0;
 
-function sigHandle(signal) {
-  logInfo(`${signal} signal received.`);
-  server.close((err) => {
-    if (err) {
-      console.error("[Kanzislam] Error closing server:", err);
-    } else {
-      console.log("[Kanzislam] Server closed.");
-      process.exit(0); // Explicitly exit the process after the server is closed
+  function attemptToListen() {
+    const server = app.listen(currentPort)
+      .on('listening', () => {
+        // Update the domain with the actual port being used
+        config.domain = `http://127.0.0.1:${currentPort}`;
+        console.log(`[Kanzislam] Server started on port ${currentPort}`);
+        console.log(`[Kanzislam] Server URL: ${config.domain}`);
+      })
+      .on('error', (err) => {
+        if (err.code === 'EADDRINUSE' && attempts < maxAttempts) {
+          currentPort++;
+          attempts++;
+          console.log(`Port ${currentPort-1} is in use, trying port ${currentPort}...`);
+          attemptToListen();
+        } else {
+          logError(`Failed to start server: ${err.message}`);
+          console.error(`[Kanzislam] Failed to start server after ${attempts} attempts. Last error: ${err.message}`);
+          process.exit(1);
+        }
+      });
+
+    function sigHandle(signal) {
+      logInfo(`${signal} signal received.`);
+      server.close((err) => {
+        if (err) {
+          console.error("[Kanzislam] Error closing server:", err);
+        } else {
+          console.log("[Kanzislam] Server closed.");
+          process.exit(0); // Explicitly exit the process after the server is closed
+        }
+      });
     }
-  });
+
+    process.on("SIGINT", sigHandle);
+    process.on("SIGTERM", sigHandle);
+  }
+
+  attemptToListen();
 }
 
-process.on("SIGINT", sigHandle);
-process.on("SIGTERM", sigHandle);
+// Start the server with the configured port
+startServer(config.port);

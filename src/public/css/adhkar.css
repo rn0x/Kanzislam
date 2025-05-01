@@ -167,12 +167,20 @@
     justify-content: center;
     flex-direction: column;
     transition: 0.3s ease-in-out;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .repetition:hover {
     transform: scale(1.02); 
     box-shadow: 0 0 10px #0000002e;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.repetition:active {
+    transform: scale(0.98);
+    background-color: rgba(0,0,0,0.05);
+    transition: transform 0.1s ease, background-color 0.1s ease;
 }
 
 .repetition p {
@@ -186,10 +194,55 @@
 .repetition i {
     font-size: 35px;
     color: var(--iconColor);
+    cursor: pointer;
+    padding: 5px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.repetition i:active {
+    transform: scale(1.2);
+    transition: transform 0.2s ease;
+}
+
+/* Style for disabled repetition icon */
+.repetition i.disabled {
+    opacity: 0.4;
+    cursor: default;
+    pointer-events: none;
+}
+
+.repetition i.disabled:active {
+    transform: none;
 }
 
 #titleAdhkar {
     font-size: 20px;
+}
+
+.repetitionIcon {
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    padding: 5px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 0.2s ease;
+}
+
+.repetitionIcon:active {
+    transform: scale(1.2);
+}
+
+/* Style for disabled reset button */
+.repetitionIcon.disabled {
+    opacity: 0.4;
+    cursor: default;
+    pointer-events: none;  /* This prevents hover effects */
+}
+
+.repetitionIcon.disabled:active {
+    transform: none;
 }
 
 @media (max-width: 700px) {
