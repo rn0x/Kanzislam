@@ -75,6 +75,10 @@ export const PageAdhkarList = (options) => {
         repetition_p.ariaLabel = item?.repetition;
         repetition.appendChild(repetition_i);
         repetition_i.className = "fa-solid fa-rotate-left repetitionIcon";
+        
+        // Initially check if the reset button should be disabled (if counter is at full value)
+        updateResetButtonState(repetition_i, repetition_p, item?.repetition);
+        
         li.appendChild(adhkar_text);
         adhkar_text.className = "adhkar_text"
         adhkar_text.appendChild(adhkar_text_h3);
@@ -98,32 +102,89 @@ export const PageAdhkarList = (options) => {
         linkAdhkar.title = "رابط الذكر";
         linkAdhkar.ariaLabel = "رابط الذكر";
 
-        repetition.addEventListener("click", () => {
-            if (parseInt(repetition_p.innerText) > 0) {
-                let value = parseInt(repetition_p.innerText) - 1;
-                repetition_p.innerText = value;
-                if (parseInt(repetition_p.innerText) === 0) {
-                    repetition.style.backgroundColor = "#fad1d1";
-                }
-                let GetAdhkarRepeat = localStorage.getItem("adhkarRepeat");;
-                if (!GetAdhkarRepeat || isNaN(GetAdhkarRepeat)) {
-                    GetAdhkarRepeat = 0;
-                }
-                localStorage.setItem("adhkarRepeat", parseInt(GetAdhkarRepeat) + 1);
+        repetition.addEventListener("click", function(event) {
+            // Prevent any default behavior
+            event.preventDefault();
+            
+            // Handle click on counter
+            decrementCounter(repetition, repetition_p, item?.repetition, repetition_i);
+        });
+
+        // Also add touchend event for mobile devices
+        repetition.addEventListener("touchend", function(event) {
+            // Prevent any default behavior and immediate propagation
+            event.preventDefault();
+            event.stopPropagation();
+            
+            // Handle touch on counter
+            decrementCounter(repetition, repetition_p, item?.repetition, repetition_i);
+        }, { passive: false });
+
+        repetition_i.addEventListener("click", (event) => {
+            // Only process if the button is not disabled
+            if (!repetition_i.classList.contains('disabled')) {
+                event.stopPropagation();
+                event.preventDefault();
+                resetCounter(repetition, repetition_p, item?.repetition, repetition_i);
             }
         });
 
-        repetition_i.addEventListener("click", (event) => {
-            event.stopPropagation();
-            repetition_p.innerText = item?.repetition;
-            repetition_p.title = item?.repetition;
-            repetition_p.ariaLabel = item?.repetition;
-            repetition.style.backgroundColor = "";
-        });
+        // Also add touchend event for the reset icon
+        repetition_i.addEventListener("touchend", (event) => {
+            // Only process if the button is not disabled
+            if (!repetition_i.classList.contains('disabled')) {
+                event.stopPropagation();
+                event.preventDefault();
+                resetCounter(repetition, repetition_p, item?.repetition, repetition_i);
+            }
+        }, { passive: false });
 
     }
 
     loading.style.display = "none";
+}
+
+// Helper function to decrement counter
+function decrementCounter(repetitionEl, counterEl, originalValue, resetIcon) {
+    if (parseInt(counterEl.innerText) > 0) {
+        let value = parseInt(counterEl.innerText) - 1;
+        counterEl.innerText = value;
+        if (parseInt(counterEl.innerText) === 0) {
+            repetitionEl.style.backgroundColor = "#fad1d1";
+        }
+        let GetAdhkarRepeat = localStorage.getItem("adhkarRepeat");
+        if (!GetAdhkarRepeat || isNaN(GetAdhkarRepeat)) {
+            GetAdhkarRepeat = 0;
+        }
+        localStorage.setItem("adhkarRepeat", parseInt(GetAdhkarRepeat) + 1);
+        
+        // Enable reset button as soon as counter is decremented
+        if (resetIcon) {
+            resetIcon.classList.remove('disabled');
+        }
+    }
+}
+
+// Helper function to reset counter
+function resetCounter(repetitionEl, counterEl, originalValue, resetIcon) {
+    counterEl.innerText = originalValue;
+    counterEl.title = originalValue;
+    counterEl.ariaLabel = originalValue;
+    repetitionEl.style.backgroundColor = "";
+    
+    // Disable reset button after reset since there's nothing to reset anymore
+    if (resetIcon) {
+        updateResetButtonState(resetIcon, counterEl, originalValue);
+    }
+}
+
+// Function to update the reset button state based on counter value
+function updateResetButtonState(resetIcon, counterEl, originalValue) {
+    if (parseInt(counterEl.innerText) === parseInt(originalValue)) {
+        resetIcon.classList.add('disabled');
+    } else {
+        resetIcon.classList.remove('disabled');
+    }
 }
 
 async function dataAdhkar() {

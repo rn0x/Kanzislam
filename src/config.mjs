@@ -2,12 +2,21 @@ import path from "node:path";
 export const root = path.resolve(process.cwd()); // project root directory (./)
 
 const port = process.env.PORT || 3000; // Use default port 3000 if environment variable is not set
-const domain = `http://127.0.0.1:${port}`; // remove process.env.PORT in production
+
+// Domain will be set dynamically when the actual port is determined
+let domain = null;
 
 export const config = {
   /* Server */
   port: port,
-  domain: domain,
+  
+  /* Domain getter/setter to update dynamically */
+  get domain() {
+    return domain || `http://127.0.0.1:${port}`;
+  },
+  set domain(value) {
+    domain = value;
+  },
 
   /* Config Website */
   website_name: process.env.WEBSITE_NAME || 'كنز الإسلام',
